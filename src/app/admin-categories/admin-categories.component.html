@@ -1,0 +1,60 @@
+<div class="panel panel-default">
+  <div class="panel-heading"> Gestion des Categories</div>
+  <div class="panel-body">
+    <div>
+      <button class="btn btn-success" (click)="onNewCategory()">
+        <span class="glyphicon glyphicon-plus">
+        </span>
+      </button>
+    </div>
+    <p></p>
+
+    <div *ngIf="mode=='new-category'" class="col-md-6">
+      <form #f="ngForm" (ngSubmit)="onSaveCat(f.value)">
+        <div class="form-group">
+          <label class="control-label">Name</label>
+          <input type="text" name="name" ngModel class="form-control">
+        </div>
+        <!-- Buton d'ajout d'une nouvelle category-->
+        <button class="btn btn-success" type="submit">Save</button>
+      </form>
+    </div>
+    <!-- cas d'une edition(modification/Update d'une)category deja existante en base-->
+    <div *ngIf="mode=='edit-category'" class="col-md-6">
+      <form #f="ngForm" (ngSubmit)="onUpdateCat(f.value)">
+        <div class="form-group">
+          <label class="control-label">Name</label>
+          <input type="text" name="name" ngModel class="form-control" [(ngModel)]="currentCategory.name">
+        </div>
+        <!-- Buton d'ajout d'une nouvelle category-->
+        <button class="btn btn-success" type="submit">Update</button>
+      </form>
+    </div>
+<!--  On affiche ce div(bloc/partie) la que si mode = liste-->
+    <div *ngIf="mode=='list'">
+      <table class="table" *ngIf="categories">
+        <tr>
+          <th>Name</th>
+        </tr>
+        <tr *ngFor="let c of categories._embedded.categories">
+          <td>{{c.name}}</td>
+          <!-- Button de supression d'une category-->
+          <td>
+            <button class="btn btn-danger" (click)="onDeleteCategory(c)">
+            <span class="glyphicon glyphicon-remove">
+              </span>
+            </button>
+          </td>
+          <!--Button d'edition -->
+          <td>
+            <button class="btn btn-danger" (click)="onEditCategory(c)">
+            <span class="glyphicon glyphicon-edit">
+              </span>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div>
