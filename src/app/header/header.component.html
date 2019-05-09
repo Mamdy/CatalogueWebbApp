@@ -1,12 +1,11 @@
-<!--
 <nav class="navbar navbar-inverse" *ngIf="isAuthenticated()">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Catalogue</a>
+      <!--<a class="navbar-brand" href="#">Catalogue</a>-->
     </div>
     <ul class="nav navbar-nav">
       <li class="active" *ngIf="isAuthenticated()">
-        <a class="nav-item navbar-link" routerLink="/" >Home</a>
+        <a class="nav-item navbar-link" routerLink="categories" >Home</a>
       </li>
       <li class="dropdown" *ngIf="isAuthenticated()">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
@@ -22,21 +21,21 @@
     <ul class="nav navbar-nav navbar-right">
       <li routerLinkActive="active">
         <a *ngIf="!isAuthenticated()" routerLink="/login">Login</a>
-        &lt;!&ndash;<a *ngIf="!isAuthenticated()" routerLink="/register">Register</a>&ndash;&gt;
+        <!--<a *ngIf="!isAuthenticated()" routerLink="/register">Register</a>-->
         <a *ngIf="isAuthenticated()" routerLink="/login" class="btn" (click)="logOut()">Logout</a>
       </li>
     </ul>
   </div>
 </nav>
-&lt;!&ndash; main app container &ndash;&gt;
 <div class="jumbotron">
   <div class="container">
     <div class="row">
       <div class="col-sm-6 offset-sm-3">
         <app-alert></app-alert>
         <div *ngIf="isAuthenticated()">
-          &lt;!&ndash;<p>Welcome {{currentUser.firstName}}</p>&ndash;&gt;
-          <app-categories></app-categories>
+          <!--<p>Welcome {{currentUser.firstName}}</p>-->
+
+         <app-categories></app-categories>
         </div>
 
         <router-outlet></router-outlet>
@@ -44,14 +43,3 @@
     </div>
   </div>
 </div>
-
-
-
--->
-<app-header></app-header>
-
-<!--<div class="container">
-  &lt;!&ndash;balise qui permet de recevoir les routes de l'application&ndash;&gt;
-  <router-outlet></router-outlet>
-</div>-->
-

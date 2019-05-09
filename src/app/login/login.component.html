@@ -2,19 +2,31 @@
 <div class="panel panel-default">
   <div class="panel-heading">Authentification</div>
   <div class="panel-body">
-    <form #f="ngForm" (ngSubmit)="onLogin(f.value)">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label class="control-label">Username</label>
-        <input type="text" name="username" ngModel class="form-control">
+        <input type="text" formControlName="username" class="form-control" [ngClass]="{'is-invalid': submitted && f.username.errors}" />
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
       </div>
+
       <div class="form-group">
         <label class="control-label">Password</label>
-        <input type="password" name="password" ngModel class="form-control">
+        <input type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
       </div>
-      <button type="submit" class="btn btn-default">Login</button>
+
+      <!--<button type="submit" class="btn btn-default">Login</button>-->
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">Login</button>
+        <!--<img *ngIf="loading" src="data:image/gif;base64," />-->
+        <a routerLink="/register" class="btn btn-link">Register</a>
+      </div>
     </form>
   </div>
   </div>
-
 
 </div>

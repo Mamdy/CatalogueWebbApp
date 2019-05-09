@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationServiceService} from './authentication-service.service';
+import {reject, resolve} from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,15 @@ postRessource(url, data){
     let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
     return this.http.patch(url,data,{headers:headers});
 
+  }
 
+  uploadFile(file: File){
+    return new Promise(
+      (resolve,reject)=>{
+        const almostUniqueFileNam= Date.now().toString();
+        const  upload = this.http.get(this.host+"")
 
+      }
+    )
   }
 }

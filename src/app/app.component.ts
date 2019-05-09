@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationServiceService} from './authentication-service.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {User} from './model/User';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +9,22 @@ import {AuthenticationServiceService} from './authentication-service.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+  connectedUser  = 'admin';
+  ngOnInit(): void {
+  }
 
-  title = 'CatalogueWebApp';
+ /* title = 'CatalogueWebApp';
+  currentUser: User;
 
-  constructor(private authService: AuthenticationServiceService){}
+  constructor(
+              private route:ActivatedRoute,
+              private router: Router,
+              private authService: AuthenticationServiceService
+  ){
+    this.authService.currentUser.subscribe(user=>{
+      this.currentUser = user
+    });
+  }
   ngOnInit(): void {
     this.authService.loadToken();
   }
@@ -25,10 +39,12 @@ export class AppComponent implements OnInit{
   }
   isAuthenticated(){
     return this.authService.isAuthenticated();
+
   }
 
   logOut(){
     this.authService.logOut();
-  }
+    this.router.navigate(['/login']);
+  }*/
 }
 
