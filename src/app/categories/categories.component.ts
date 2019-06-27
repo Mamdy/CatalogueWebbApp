@@ -9,7 +9,8 @@ import {Router} from '@angular/router';
 })
 export class CategoriesComponent implements OnInit {
 
-  constructor(private cataService: CatalogueServiceService, private router: Router) { }
+  constructor(private cataService: CatalogueServiceService,
+              private router: Router) { }
   categories;
   currentCategory;
 

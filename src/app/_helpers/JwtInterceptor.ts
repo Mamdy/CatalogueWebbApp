@@ -4,11 +4,11 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 //import { AuthenticationService } from '@/_services';
-import {AuthenticationServiceService} from '../authentication-service.service';
+import {AuthenticationService} from '../authentication.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthenticationServiceService) {}
+  constructor(private authenticationService: AuthenticationService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available

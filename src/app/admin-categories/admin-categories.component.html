@@ -7,8 +7,8 @@
         </span>
       </button>
     </div>
-    <p></p>
 
+  <!---Ajout d'une category-->
     <div *ngIf="mode=='new-category'" class="col-md-6">
       <form #f="ngForm" (ngSubmit)="onSaveCat(f.value)">
         <div class="form-group">

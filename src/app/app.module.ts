@@ -17,6 +17,7 @@ import {ErrorInterceptor} from './_helpers/ErrorInterceptor';
 import { AlertComponent } from './alert/alert.component';
 import {JwtInterceptor} from './_helpers/JwtInterceptor';
 import { HeaderComponent } from './header/header.component';
+import {DataTablesModule} from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { HeaderComponent } from './header/header.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule,
     //ReactiveForms
   ],
   providers: [

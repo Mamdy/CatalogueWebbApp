@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../model/User';
 import {Subscription} from 'rxjs';
-import {AuthenticationServiceService} from '../authentication-service.service';
+import {AuthenticationService} from '../authentication.service';
 import {UserService} from '../user.service';
 import {first} from 'rxjs/operators';
 
@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   users: User[] = [];
 
   constructor(
-              private authenticationService:AuthenticationServiceService,
+              private authenticationService:AuthenticationService,
               private userService: UserService
 
   ) {

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AuthenticationServiceService} from '../authentication-service.service';
+import {AuthenticationService} from '../authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from '../alert.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
               private formBuilder: FormBuilder,
               private activatedRoute: ActivatedRoute,
-              private authService: AuthenticationServiceService,
+              private authService: AuthenticationService,
               private  router: Router,
               private alertService: AlertService) {
     //redirect to home if already logged in

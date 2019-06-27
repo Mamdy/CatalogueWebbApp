@@ -1,9 +1,22 @@
-<ul class="list-group" *ngIf="categories">
-    <li [ngClass]="currentcategory && currentcategory._links.self==c._links.self?'active':''"
-         *ngFor="let c of categories._embedded.categories"
-        class="list-group-item"
-        style="cursor: pointer" (click)="onGetProducts(c)">
-      {{c.name}}
-    </li>
 
-</ul>
+<div class="container">
+  <div class="col-md-3">
+    <ul class="list-group" *ngIf="categories">
+      <p><strong>Categories</strong></p>
+      <li [ngClass]="currentCategory && currentCategory._links.self==c._links.self?'active':''"
+          *ngFor="let c of categories._embedded.categories"
+          class="list-group-item"
+          style="cursor: pointer" (click)="onGetProducts(c)">
+        {{c.name}}
+      </li>
+
+    </ul>
+
+  </div>
+  <div class="col-md-9">
+    <!--Afficahge de la liste des produits-->
+    <router-outlet></router-outlet>
+
+  </div>
+
+</div>

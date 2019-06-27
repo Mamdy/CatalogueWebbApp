@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {AuthenticationServiceService} from '../authentication-service.service';
+import {AuthenticationService} from '../authentication.service';
 import {UserService} from '../user.service';
 import {AlertService} from '../alert.service';
 import {first} from 'rxjs/operators';
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authenticationService: AuthenticationServiceService,
+    private authenticationService: AuthenticationService,
     private userService: UserService,
     private alertService: AlertService
 

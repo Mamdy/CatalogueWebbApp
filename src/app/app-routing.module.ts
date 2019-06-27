@@ -11,7 +11,7 @@ import {AuthGuardService} from './auth-guard/auth-guard.service';
 import {CategoriesComponent} from './categories/categories.component';
 
 const routes: Routes = [
-  {path:'' , component:HomeComponent, canActivate: [AuthGuardService]},
+  {path:' ' , component:HomeComponent, canActivate: [AuthGuardService]},
   {path:"login", component:LoginComponent},
   {path:"register", component:RegisterComponent},
   {path:"categories", component:CategoriesComponent},
@@ -20,10 +20,10 @@ const routes: Routes = [
   {path:"adminCategories", component:AdminCategoriesComponent},
   {path:"adminProducts", component:AdminProductsComponent},
   {path:"adminUsers", component:AdminUsersComponent},
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  //{path: '**', redirectTo: 'login', pathMatch: 'full'},
 
   //sinon redirige vers le home(l'acceuil)
- // {path: '**', redirectTo: 'login'}
+  {path: '**', redirectTo: 'home'}
 ];
 
 //export const routing = RouterModule.forRoot(routes);

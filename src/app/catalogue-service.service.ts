@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AuthenticationServiceService} from './authentication-service.service';
+import {AuthenticationService} from './authentication.service';
 import {reject, resolve} from 'q';
+import {AppResponse} from './model/AppResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import {reject, resolve} from 'q';
 export class CatalogueServiceService {
   public host: string = "http://localhost:8087";
 
-  constructor(private http: HttpClient, private authService:AuthenticationServiceService) { }
+  constructor(private http: HttpClient, private authService:AuthenticationService) { }
  public getAllCategories() {
     return this.http.get(this.host + "/categories");
   }
@@ -21,6 +22,17 @@ export class CatalogueServiceService {
   getRessources(url){
     return this.http.get(url);
   }
+
+//Methode qui permet de recuperer les données renvoyé par le serveur() ici la liste des produits
+  getServiceData(url){
+    return this.http.get(url).toPromise()
+      .then((res : any)=>{
+        //prototype permet de transformer la reponse JSon(res) du backend en instance de class(en l'occurance ici AppResponse)
+        res.__proto__ = AppResponse.prototype;
+        return res;
+      });
+  }
+
   deleteRessource(url){
     let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
     return this.http.delete(url,{headers:headers});

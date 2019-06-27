@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationServiceService} from './authentication-service.service';
+import {AuthenticationService} from './authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from './model/User';
 
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit{
   constructor(
               private route:ActivatedRoute,
               private router: Router,
-              private authService: AuthenticationServiceService
+              private authService: AuthenticationService
   ){
     this.authService.currentUser.subscribe(user=>{
       this.currentUser = user

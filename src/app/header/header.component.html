@@ -18,7 +18,7 @@
       </li>
     </ul>
 
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav pull-right">
       <li routerLinkActive="active">
         <a *ngIf="!isAuthenticated()" routerLink="/login">Login</a>
         <!--<a *ngIf="!isAuthenticated()" routerLink="/register">Register</a>-->
@@ -27,19 +27,13 @@
     </ul>
   </div>
 </nav>
-<div class="jumbotron">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6 offset-sm-3">
-        <app-alert></app-alert>
-        <div *ngIf="isAuthenticated()">
-          <!--<p>Welcome {{currentUser.firstName}}</p>-->
 
-         <app-categories></app-categories>
-        </div>
+<div *ngIf="isAuthenticated()">
+  <!--<p>Welcome {{currentUser.firstName}}</p>-->
+  <app-categories></app-categories>
 
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-  </div>
 </div>
+
+
+
+

@@ -5,11 +5,12 @@ import {parseHttpResponse} from 'selenium-webdriver/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from './model/User';
 import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationServiceService {
+export class AuthenticationService {
   //url du service(backend) qui gere l'authentification des users
   host2:String="http://localhost:8080";
   jwt:string;
@@ -18,7 +19,7 @@ export class AuthenticationServiceService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, private  router:Router) {
    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('curr')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -28,7 +29,7 @@ export class AuthenticationServiceService {
   }
 
 
-//enregistrer le token dans le localStorage
+//enregistrer le token dans le localStorage du navigateur
   saveToken(jwt: string) {
     localStorage.setItem("token",jwt);
     //puis on le met dans le context de l'application
@@ -36,12 +37,20 @@ export class AuthenticationServiceService {
     //a parir du jwt, on a besoins de recuperer le username et le mot de passe
     this.parseJWT();
   }
+
+
   private parseJWT() {
     let jwtHelper=new JwtHelperService();
     let jwtObject=jwtHelper.decodeToken(this.jwt);
     this.username=jwtObject.obj;
     this.roles=jwtObject.roles;
 
+  }
+
+
+  loadToken() {
+    this.jwt=localStorage.getItem('token');
+    this.parseJWT();
   }
 
   isAdmin(){
@@ -57,16 +66,15 @@ export class AuthenticationServiceService {
 
   }
 
-  loadToken() {
-    this.jwt=localStorage.getItem('token');
-    this.parseJWT();
-  }
 
 
 //fonction qui permet de se deconnecter de l'appli et reinitilaiser le localstorage (enlever le token)
   logOut() {
     localStorage.removeItem('token');
     this.initParamsCredantials();
+
+    //Naviguer vers le composant de login
+    this.router.navigate(['/login']);
   }
 
   initParamsCredantials(){
