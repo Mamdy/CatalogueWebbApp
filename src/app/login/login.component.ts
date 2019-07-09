@@ -88,7 +88,8 @@ export class LoginComponent implements OnInit {
         this.authService.saveToken(jwt);
           //une fois connecté, allez vers la route par defaut
           //this.router.navigate(['/']);
-          this.router.navigate(['categories']);
+          this.alertService.success('You are logged In successfully', true);
+          this.router.navigate(['/home']);
           //this.router.navigateByUrl('/');
           //console.log(this.authService.currentUserValue.username)
 

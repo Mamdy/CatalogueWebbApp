@@ -11,14 +11,29 @@ export class CatalogueServiceService {
   public host: string = "http://localhost:8087";
 
   constructor(private http: HttpClient, private authService:AuthenticationService) { }
- public getAllCategories() {
+ /*public getAllCategories() {
     return this.http.get(this.host + "/categories");
+  }*/
+
+  public getAllCategories() {
+    return this.http.get(this.host + "/categories").toPromise()
+      .then((result:any)=>{
+        result.__proto__ = AppResponse.prototype;
+        return result;
+      })
   }
   public  onGetProducts(cat){
     return null;
 
   }
 
+  public  getProducts(){
+    return this.http.get(this.host + "/products").toPromise()
+      .then((result:any)=>{
+        result.__proto__ = AppResponse.prototype;
+        return result;
+      });
+  }
   getRessources(url){
     return this.http.get(url);
   }
@@ -33,6 +48,7 @@ export class CatalogueServiceService {
       });
   }
 
+
   deleteRessource(url){
     let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
     return this.http.delete(url,{headers:headers});
@@ -40,9 +56,15 @@ export class CatalogueServiceService {
 
 postRessource(url, data){
     let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
-    return this.http.post(url,data,{headers:headers});
+    return this.http.post(url,data,{headers:headers,observe:'response'});
   }
 
+  createProduct(data){
+    debugger
+    //let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
+    return this.postRessource(this.host+"/createProduct",data);
+
+  }
   putRessource(url, data) {
     let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
     //return this.http.patch(url,data,{headers:headers});

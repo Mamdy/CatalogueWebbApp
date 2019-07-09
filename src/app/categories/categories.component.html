@@ -1,22 +1,24 @@
-
 <div class="container">
   <div class="col-md-3">
     <ul class="list-group" *ngIf="categories">
       <p><strong>Categories</strong></p>
       <li [ngClass]="currentCategory && currentCategory._links.self==c._links.self?'active':''"
-          *ngFor="let c of categories._embedded.categories"
+          *ngFor="let c of categories"
           class="list-group-item"
-          style="cursor: pointer" (click)="onGetProducts(c)">
+         (click)="onGetProducts(c)">
         {{c.name}}
       </li>
 
     </ul>
 
   </div>
-  <div class="col-md-9">
-    <!--Afficahge de la liste des produits-->
-    <router-outlet></router-outlet>
 
+  <div class="col-md-9">
+    <router-outlet></router-outlet>
   </div>
+    <!--Afficahge de la liste des produits-->
+    <!--<app-products></app-products>-->
+
+
 
 </div>

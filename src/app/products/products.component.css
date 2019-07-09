@@ -3,3 +3,8 @@
   width: 100px;
   height: 100px;
 }
+
+.bootomSpacer {
+  margin-top: 20em;
+  padding: .1em 0;
+}

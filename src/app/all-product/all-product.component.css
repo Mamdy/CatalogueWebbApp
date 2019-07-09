@@ -1,0 +1,15 @@
+.spacer {
+  margin-right: .3em;
+}
+/*button {
+  display: inline-block;
+}*/
+
+.custom-inline {
+  display: inline-block;
+}
+
+.dataTableImg {
+  width: 100px;
+  height: 100px;
+}

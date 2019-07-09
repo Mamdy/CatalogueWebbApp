@@ -1,16 +1,15 @@
   <div  class="row">
-    <div *ngIf="mode=='list'" class="col-xs-12">
+    <div *ngIf="mode=='showAllProducts'" class="col-xs-12">
 
-      <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions"
+      <table class="table table-striped table-bordered table-sm row-border hover bootomSpacer" datatable [dtOptions]="dtOptions"
              [dtTrigger] ="dtTrigger">
             <thead>
               <tr>
-                <th>Photo</th>
+                <th></th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Qty.Available</th>
                 <th>Price</th>
-                <th></th>
+                <th>Qty.Available</th>
                 <th></th>
               </tr>
             </thead>
@@ -20,14 +19,33 @@
                          id="image_samsung" alt="telephone_samsung" title="telephone_samsung" class="dataTableImg"></td>
                 <td>{{p.name}}</td>
                 <td>{{p.description}}</td>
-                <td>{{p.quantite}}</td>
                 <td>&euro; {{p.price|number: '0.3'}}</td>
-                <td>
+                <!--<td>
                   <button class="btn btn-primary" (click)="detailsProduct(p)"><span class="glyphicon glyphicon-eye-open"></span>
                   </button>
                 </td>
                 <td>
                   <button class="btn btn-success" (click)="addProductToCart(p)"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+                </td>-->
+                <td>
+                  <div *ngIf="p.quantite < 1">
+                    <h6><span style="color: red" >Article indisponible en Stock!!</span></h6>
+                  </div>
+                  <div *ngIf="p.quantite >=1">
+
+                    Qty.Available: {{p?.quantite}}
+                  </div>
+                </td>
+                <td >
+                  <div *ngIf="p.quantite < 1">
+                    <button class="btn btn-primary spacer" (click)="detailsProduct(p)"><span class="glyphicon glyphicon-eye-open"></span></button>&#160;
+                    <button class="btn btn-success disabled" (click)="addProductToCart(p)"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+                  </div>
+                  <div *ngIf="p.quantite >= 1">
+                    <button class="btn btn-primary spacer" (click)="detailsProduct(p)"><span class="glyphicon glyphicon-eye-open"></span></button>&#160;
+                    <button class="btn btn-success" (click)="addProductToCart(p)"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                  </div>
                 </td>
 
               </tr>
@@ -48,38 +66,21 @@
 
     </div>
 
-    <!--<div *ngIf="mode=='detail-Product'">
-      <div class="panel panel-default">
-
-          <div *ngIf="currentProduct" class="panel-heading">Details du Produit {{currentProduct.name}}</div>
-            <div class="panel-body">
-
-                <td><img src="../assets/images/{{currentProduct.photoUrl}}.jpg"
-                         id="image_samsung" alt="telephone_samsung" title="telephone_samsung" class="dataTableImg"></td>
-                {{currentProduct.name}}<br>
-                {{currentProduct.description}}<br>
-              &euro; {{currentProduct.price |number: '0.3'}}<br>
-                {{currentProduct.quantite}}<br>
-
-            </div>
-          </div>
-
-    </div>-->
-    <!--Affichage des details du produits-->
-    <div class="row" *ngIf="currentProduct">
+    <!--Affichage des details d'un produit p-->
+    <div *ngIf="currentProduct && mode ==='detail-Product-P' " >
 
       <!--Affichage de l'image du produit à gauche de l'ecran-->
       <div class="col-xs-12 col-sm-4">
 
         <div class="thumbnail">
           <img src="../assets/images/{{currentProduct.photoUrl}}.jpg"
-               id="image_samsung" alt="telephone_samsung" title="telephone_samsung" class="dataTableImg">
+               id="image_samsung" alt="telephone_samsung" title="telephone_samsung" class="dataTableImg img img-responsive">
 
         </div>
 
       </div>
 
-      <!--Affichage des details du produits-->
+      <!--Affichage du description du produit p-->
 
       <div class="col-xs-12 col-sm-8">
 
@@ -91,11 +92,21 @@
 
         <h4>Price: <strong>&euro;  {{currentProduct.price |number: '0.3'}}</strong></h4>
         <hr/>
+        <div class="container">
+          <div *ngIf="currentProduct.quantite < 1">
+            <h6>Qty. Available: <span style="color: red" >Article indisponible en Stock!!</span></h6>
+            <button class="btn btn-success disabled" (click)="addProductToCart(currentProduct)"><span class="glyphicon glyphicon-shopping-cart"></span>Ajouter Au Panier</button> &#160;
+            <button class="btn btn-primary" routerLink="/products"><span class="glyphicon glyphicon-backward"></span>Retour</button>
+          </div>
+        </div>
+        <div *ngIf="currentProduct.quantite >= 1">
+           <h6>Qty. Available: {{currentProduct.quantite}}</h6>
+          <button class="btn btn-success" (click)="addProductToCart(currentProduct)"><span class="glyphicon glyphicon-shopping-cart"></span>Ajouter Au Panier</button> &#160;
+          <button class="btn btn-primary" routerLink="/products"><span class="glyphicon glyphicon-backward"></span>Retour</button>
+        </div>
 
-        <h6>Qty. Available: {{currentProduct.quantite}}</h6>
-        <button class="btn btn-success" (click)="addProductToCart(currentProduct)"><span class="glyphicon glyphicon-shopping-cart"></span>Ajouter Au Panier</button>
 
-        <button class="btn btn-primary" (click)="getAllProducts()"><span class="glyphicon glyphicon-backward"></span>Retour</button>
+
 
       </div>
 
@@ -105,19 +116,6 @@
   </div>
 
 
-  <!---Breadcrumb-->
-  <!--
-  <div class="row">
-
-   <div class="col-xs-12">
-     <ol class="beadcrumb">
-
-
-     </ol>
-
-   </div>
-
- </div>-->
 
 
 

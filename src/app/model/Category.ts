@@ -1,6 +1,10 @@
 export class Category {
-  photo: string;
-  nameCategory: String;
+  id: String;
+  name: String;
+  description: String;
+  active: boolean;
+
+  urlPhoto: string;
   constructor(){
 
   }

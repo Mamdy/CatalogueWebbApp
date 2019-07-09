@@ -9,12 +9,15 @@ import {RegisterComponent} from './register/register.component';
 import {HomeComponent} from './home/home.component';
 import {AuthGuardService} from './auth-guard/auth-guard.service';
 import {CategoriesComponent} from './categories/categories.component';
+import {AllProductComponent} from './all-product/all-product.component';
 
 const routes: Routes = [
-  {path:' ' , component:HomeComponent, canActivate: [AuthGuardService]},
+  {path:"home" , component:HomeComponent},
   {path:"login", component:LoginComponent},
   {path:"register", component:RegisterComponent},
   {path:"categories", component:CategoriesComponent},
+  {path:"product", component:ProductsComponent},
+  {path:"products", component:AllProductComponent},
 
   {path:"products/:urlProds", component:ProductsComponent},
   {path:"adminCategories", component:AdminCategoriesComponent},
@@ -23,7 +26,7 @@ const routes: Routes = [
   //{path: '**', redirectTo: 'login', pathMatch: 'full'},
 
   //sinon redirige vers le home(l'acceuil)
-  {path: '**', redirectTo: 'home'}
+  {path: " ", redirectTo: "home", pathMatch:'full'}
 ];
 
 //export const routing = RouterModule.forRoot(routes);
@@ -32,3 +35,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+//tableau qui contient les routes configurer
+export const routingComponents = [CategoriesComponent,ProductsComponent,LoginComponent,AdminCategoriesComponent,AdminProductsComponent,AdminUsersComponent,RegisterComponent,HomeComponent,AllProductComponent]

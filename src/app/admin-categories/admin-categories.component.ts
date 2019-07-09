@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CatalogueServiceService} from '../catalogue-service.service';
+import {AppResponse} from '../model/AppResponse';
+import {Category} from '../model/Category';
 
 @Component({
   selector: 'app-admin-categories',
@@ -7,7 +9,7 @@ import {CatalogueServiceService} from '../catalogue-service.service';
   styleUrls: ['./admin-categories.component.css']
 })
 export class AdminCategoriesComponent implements OnInit {
-categories;
+categories:Category[]=[];
 //par defaut mode='list'
 mode='list';
 currentCategory;
@@ -22,8 +24,8 @@ currentCategory;
 
   onGetAllCategories(){
     this.catalogueService.getAllCategories()
-      .subscribe(data=>{
-        this.categories=data;
+      .then((result:AppResponse)=>{
+        this.categories=result.getData().categories;
 
       },error1 => {
         console.log(error1);
@@ -60,7 +62,7 @@ currentCategory;
         //si non
         console.log(error1)
       })
-    console.log(data);
+    //console.log(data);
   }
 
   onEditCategory(cat) {
