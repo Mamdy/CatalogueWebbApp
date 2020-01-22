@@ -9,10 +9,7 @@ import {first} from 'rxjs/operators';
 import {AlertService} from '../alert.service';
 import {Category} from '../model/Category';
 import {of} from 'rxjs/internal/observable/of';
-
 declare var $;
-
-
 
 @Component({
   selector: 'app-admin-products',
@@ -22,6 +19,8 @@ declare var $;
 export class AdminProductsComponent implements OnInit, OnDestroy {
   mode = 'list';
   currentProduct: Product;
+  categories: Category[]=[];
+  category: Category;
   @ViewChild('dataTable') table: ElementRef;
   dataTable: any;
   dataTableListeProducts$: Product[]=[];
@@ -31,15 +30,13 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   submitted :boolean= false;
   loading:boolean = false;
-  categories: Category[]=[];
-
 
   constructor(
-              private formBuilder: FormBuilder,
-              private catalogueService:CatalogueServiceService,
-              private route:ActivatedRoute,
-              private router: Router,
-              private alertService: AlertService) {
+       private formBuilder: FormBuilder,
+       private catalogueService:CatalogueServiceService,
+       private route:ActivatedRoute,
+       private router: Router,
+       private alertService: AlertService) {
     //ecouter les evenements qui se produisent sur le router sur la navigation
     this.router.events.subscribe(event=>{
       if(event instanceof NavigationEnd){
@@ -53,6 +50,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
     //initialiastion du champ(combo box) du fomulaire d'ajout de produits.(chargement de la liste des categories)
     of(this.getCategories());
+
   }
 
   ngOnInit() {
@@ -62,9 +60,12 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       marque: ['', Validators.required],
       description: ['', Validators.required],
       price: ['', Validators.required],
-      quantite: ['', Validators.required],
+      quantity: ['', Validators.required],
       category: ['']
-    })
+    });
+    console.log("testtetstetetete",this.categories[0].name);
+    this.registerForm.controls['category'].setValue(
+      this.categories[0].name, {onlySelf: true});
 
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -78,18 +79,46 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
   }
 
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.registerForm.controls;
+  }
+
+//enregistrement d'un produit
+  onSaveProduct() {
+    debugger
+    this.submitted = true;
+    //on s'arrête ici si le formulaire est invalide
+    if(this.registerForm.invalid){
+      return;
+    }
+
+    this.loading=true;
+    //debugger
+    this.catalogueService.createProduct(this.registerForm.value)
+      .pipe(first())
+      .subscribe(
+        data=> {
+          this.alertService.success('Registration Product successful', true);
+          //mettre à jour la liste des produits du category auquel le produit p appartient
+          this.category = this.registerForm.controls.category.value;
+          //si l'ajout du produit se passe bien, on rechargera la liste des produits
+          this.router.navigate(['/adminProducts']);
+        },error2 => {
+        this.alertService.error(error2);
+        this.loading = false;
+        });
+  }
+
+  //methode qui permet de recuperer la liste des category qu'on va metre dans champ(combo select) du formulaire des produits
   getCategories(){
     this.catalogueService.getAllCategories()
       .then((data:AppResponse)=>{
         //debugger
         this.categories = data.getData().categories;
-        //console.log("liste des categories==>" +this.categories);
-        //debugger
-        this.registerForm.controls.category.patchValue(this.categories[0].name);
-        //console.log("IDIDIDIDIDID===>"+this.categories[0].name);
       }, error1 => {
         console.log(error1);
-    })
+    });
 
     return this.categories;
   }
@@ -107,11 +136,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
-  }
-
-  // getter des champs du formulaire
-  get f() {
-    return this.registerForm.controls;
   }
 
   detailsProduct(p) {
@@ -135,63 +159,26 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
   }
 
-  onSaveProduct() {
-   this.submitted = true;
-    //debugger
-   //on s'arrête ici si le formulaire est invalide
-   if(this.registerForm.invalid){
-     return;
-   }
-   this.loading=true;
-
-    this.catalogueService.createProduct(this.registerForm.value)
-      .subscribe(data=>{
-        debugger
-        this.alertService.success('Registration Product successful', true);
-        //si l'ajout se produits se passe bienn, on rechargela liste des produits
-        this.router.navigate(['/adminProducts']);
-
-      },error1 => {
-        this.alertService.error(error1);
-        this.loading = false;
-      });
-    
-  }
-
-  /*onSaveProduct() {
-  this.submitted = true;
-  //on s'arrete ici si le formulaire est invalide, on ne fait rien
-    if(this.registerForm.invalid){
-      return;
-    }
-
-    this.loading = true;
+  onSaveProd(data) {
+    debugger
     let url = this.catalogueService.host+"/products";
-    this.catalogueService.postRessource(url,this.registerForm.value)
-      .pipe(first())
+    debugger
+    this.catalogueService.postRessource(url,data)
       .subscribe(data=>{
-        debugger
+        this.mode='list';
+        //si le post se passe bien, on recharge la page des données
         this.alertService.success('le Produit est enregistrer avec succes', true);
-        //mise à jours de la liste des categorie en affectant le nouveau produitsà la categorie c choise dans le combobx.
-
         this.getProducts(url);
+        //on navigue vers la liste des produits
         this.router.navigate(['/products']);
+
       },error1 => {
-        this.alertService.error(error1);
-        this.loading = false;
+        //si non
+        console.log(error1)
       })
-  this.updateCategorieList();
-
-  }*/
- /* updateCategorieList(){
-    this.categories = this.getCategories();
-    this.categories.forEach(category=>{
-      console.log(category);
-    },error=>{
-      console.log(error);
-    })
-
-  }*/
+    //console.log(data);
+  }
+ 
 }
 
 

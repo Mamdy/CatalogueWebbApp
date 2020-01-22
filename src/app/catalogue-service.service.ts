@@ -34,7 +34,8 @@ export class CatalogueServiceService {
         return result;
       });
   }
-  getRessources(url){
+
+  public getRessources(url){
     return this.http.get(url);
   }
 
