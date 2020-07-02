@@ -63,7 +63,14 @@ postRessource(url, data){
   createProduct(data){
     debugger
     //let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
-    return this.postRessource(this.host+"/createProduct",data);
+    return this.postRessource(this.host+"/saveProductInserverAndDataBaseWithFileUploadUtility",data);
+
+  }
+
+  saveProduct(data){
+    debugger
+    //let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
+    return this.postRessource(this.host+"/saveProduct",data);
 
   }
   putRessource(url, data) {
@@ -89,4 +96,6 @@ postRessource(url, data){
       }
     )
   }
+
+  
 }

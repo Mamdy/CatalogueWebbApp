@@ -8,6 +8,7 @@ import {CatalogueServiceService} from '../catalogue-service.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Category} from '../model/Category';
 import {AppResponse} from '../model/AppResponse';
+import { JwtResponse } from '../model/JwtResponse';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ import {AppResponse} from '../model/AppResponse';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  currentUser: User;
+  currentUser: JwtResponse;
   currentUserSubscription: Subscription;
   users: User[] = [];
   categories: Category[]=[];

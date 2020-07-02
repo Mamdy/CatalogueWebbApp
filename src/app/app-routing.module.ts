@@ -10,6 +10,7 @@ import {HomeComponent} from './home/home.component';
 import {AuthGuardService} from './auth-guard/auth-guard.service';
 import {CategoriesComponent} from './categories/categories.component';
 import {AllProductComponent} from './all-product/all-product.component';
+import { CartComponent } from './cart/cart/cart.component';
 
 const routes: Routes = [
   {path:"home" , component:HomeComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path:"products", component:AllProductComponent},
 
   {path:"products/:urlProds", component:ProductsComponent},
+  {path:"cart", component:CartComponent},
   {path:"adminCategories", component:AdminCategoriesComponent},
   {path:"adminProducts", component:AdminProductsComponent},
   {path:"adminUsers", component:AdminUsersComponent},

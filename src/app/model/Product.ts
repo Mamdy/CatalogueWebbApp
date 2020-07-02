@@ -7,7 +7,9 @@ export class Product {
   supplierId: number;
   purchases: number;
   description: String;
-  quantite: number;
+  quantity: number;
+  productStock: number;
+
   price: number;
   photoUrl: String;
   active: boolean;

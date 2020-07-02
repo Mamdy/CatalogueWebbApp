@@ -59,10 +59,10 @@
               <label class="control-label col-md-4" >Qty.Disponible</label>
               <div class="col-md-8">
                 <input type="number" formControlName="quantity"  class="form-control"
-                       [ngClass]=" {'is-invalid':submitted && f.quantite.errors}" placeholder="Qté.disponible" ngModel>
+                       [ngClass]=" {'is-invalid':submitted && f.quantity.errors}" placeholder="Qté.disponible" ngModel>
 
-                <div *ngIf="submitted && f.quantite.errors" class="invalid-feedback">
-                  <div *ngIf="f.quantite.errors.required">La champ quantite est obligatoire</div>
+                <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+                  <div *ngIf="f.quantity.errors.required">La champ quantite est obligatoire</div>
                 </div>
               </div>
             </div>

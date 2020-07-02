@@ -14,6 +14,8 @@ import { HeaderComponent } from './shared/header/header.component';
 import {DataTablesModule} from 'angular-datatables';
 import { FooterComponent } from './shared/footer/footer.component';
 import { AllProductComponent } from './all-product/all-product.component';
+import { CartComponent } from './cart/cart/cart.component';
+//import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { AllProductComponent } from './all-product/all-product.component';
     HeaderComponent,
     FooterComponent,
     AllProductComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import { AllProductComponent } from './all-product/all-product.component';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  
   ],
   bootstrap: [AppComponent]
 })

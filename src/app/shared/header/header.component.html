@@ -1,16 +1,16 @@
-<nav class="navbar navbar-inverse header" *ngIf="isAuthenticated()">
+<nav class="navbar navbar-inverse header">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" routerLink="/home">OnLine Shopping</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="dropdown" *ngIf="isAuthenticated()">
+      <li class="dropdown" *ngIf="isAuthenticated() && isAdmin()">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
           <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li *ngIf="isAdmin()"><a routerLink="/adminCategories">Gestion des Categories</a></li>
-          <li *ngIf="isAdmin()"><a routerLink="/adminProducts">Gestion des Produits</a></li>
-          <li *ngIf="isAdmin()"><a routerLink="/adminUsers">Gestion des Utilisateurs</a></li>
+          <li><a routerLink="/adminCategories">Gestion des Categories</a></li>
+          <li><a routerLink="/adminProducts">Gestion des Produits</a></li>
+          <li><a routerLink="/adminUsers">Gestion des Utilisateurs</a></li>
         </ul>
       </li>
 
@@ -21,11 +21,27 @@
       <li class="nav-item">
         <a class="nav-link" href="/about">Contact</a>
       </li>
+
+      <li class="navbar-nav ml-auto">
+        <a *ngIf="!currentUser || currentUser.role == Role.Customer" class="nav-item nav-link" routerLink="/cart">
+          <i class="fa fa-shopping-cart"></i>
+          Panier
+        </a>
+        
+      </li>
+
+      <li class="nav-item nav-link">
+        <a *ngIf="isAuthenticated" class="nav-link" routerLink="/profile">
+         {{name}}
+        </a>
+        
+      </li>
+
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
       <li routerLinkActive="active">
-        <a *ngIf="!isAuthenticated()" routerLink="/login">Login</a>-->
+        <a *ngIf="!isAuthenticated()" routerLink="/login">Login</a>
         <!--<a *ngIf="!isAuthenticated()" routerLink="/register">Register</a>-->
         <a *ngIf="isAuthenticated()" routerLink="/login" class="btn" (click)="logOut()">Logout</a>
       </li>

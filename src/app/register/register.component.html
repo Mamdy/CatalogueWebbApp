@@ -40,6 +40,15 @@
   </div>
 
   <div class="form-group">
+    <label>Addresse</label>
+    <input type="text" formControlName="addresse" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.addresse.errors }" />
+    <div *ngIf="submitted && f.addresse.errors" class="invalid-feedback">
+      <div *ngIf="f.addresse.errors.required">addresse is required</div>
+    
+    </div>
+  </div>
+
+  <div class="form-group">
     <button [disabled]="loading" class="btn btn-primary">Register</button>
     <!--<img *ngIf="loading" src="data:image/gif;"/>-->
     <a routerLink="/login" class="btn btn-link">Cancel</a>

@@ -1,53 +1,4 @@
-<!--
-<nav class="navbar navbar-inverse" *ngIf="isAuthenticated()">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Catalogue</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active" *ngIf="isAuthenticated()">
-        <a class="nav-item navbar-link" routerLink="/" >Home</a>
-      </li>
-      <li class="dropdown" *ngIf="isAuthenticated()">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
-          <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li *ngIf="isAdmin()"><a routerLink="/adminCategories">Gestion des Categories</a></li>
-          <li *ngIf="isAuthenticated()"><a routerLink="/adminProducts">Gestion des Produits</a></li>
-          <li *ngIf="isAdmin()"><a routerLink="/adminUsers">Gestion des Utilisateurs</a></li>
-        </ul>
-      </li>
-    </ul>
 
-    <ul class="nav navbar-nav navbar-right">
-      <li routerLinkActive="active">
-        <a *ngIf="!isAuthenticated()" routerLink="/login">Login</a>
-        &lt;!&ndash;<a *ngIf="!isAuthenticated()" routerLink="/register">Register</a>&ndash;&gt;
-        <a *ngIf="isAuthenticated()" routerLink="/login" class="btn" (click)="logOut()">Logout</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-&lt;!&ndash; main app container &ndash;&gt;
-<div class="jumbotron">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6 offset-sm-3">
-        <app-alert></app-alert>
-        <div *ngIf="isAuthenticated()">
-          &lt;!&ndash;<p>Welcome {{currentUser.firstName}}</p>&ndash;&gt;
-          <app-categories></app-categories>
-        </div>
-
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
--->
 
 <app-header></app-header>
 
@@ -56,13 +7,6 @@
 <app-categories></app-categories>
 <router-outlet></router-outlet>
 <!-- Footer -->
-<app-footer></app-footer>
-
-
-
-<!--<div class="container">
-  &lt;!&ndash;balise qui permet de recevoir les routes de l'application&ndash;&gt;
-  <router-outlet></router-outlet>
-</div>-->
+<!--<app-footer></app-footer>-->
 
 

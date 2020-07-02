@@ -63,9 +63,9 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       quantity: ['', Validators.required],
       category: ['']
     });
-    console.log("testtetstetetete",this.categories[0].name);
+    //console.log("testtetstetetete",this.categories[0].name);
     this.registerForm.controls['category'].setValue(
-      this.categories[0].name, {onlySelf: true});
+      this.categories[0], {onlySelf: true});
 
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -95,7 +95,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
     this.loading=true;
     //debugger
-    this.catalogueService.createProduct(this.registerForm.value)
+    this.catalogueService.saveProduct(this.registerForm.value)
       .pipe(first())
       .subscribe(
         data=> {
