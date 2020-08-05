@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CatalogueServiceService} from '../catalogue-service.service';
+import {CatalogueService} from '../services/catalogue.service';
 import {Router} from '@angular/router';
 import {AppResponse} from '../model/AppResponse';
 import {Category} from '../model/Category';
@@ -13,7 +13,7 @@ export class CategoriesComponent implements OnInit {
   mode:String = 'displayAllProduct';
   categories:Category[]=[];
 
-  constructor(private cataService: CatalogueServiceService,
+  constructor(private cataService: CatalogueService,
               private router: Router) { }
 
   currentCategory;

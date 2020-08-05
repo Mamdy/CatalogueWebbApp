@@ -11,6 +11,9 @@ import {AuthGuardService} from './auth-guard/auth-guard.service';
 import {CategoriesComponent} from './categories/categories.component';
 import {AllProductComponent} from './all-product/all-product.component';
 import { CartComponent } from './cart/cart/cart.component';
+import { OrderComponent } from './order/order.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { PaymentComponent } from './payment/payment.component';
 
 const routes: Routes = [
   {path:"home" , component:HomeComponent},
@@ -25,6 +28,10 @@ const routes: Routes = [
   {path:"adminCategories", component:AdminCategoriesComponent},
   {path:"adminProducts", component:AdminProductsComponent},
   {path:"adminUsers", component:AdminUsersComponent},
+  {path:"order", component:OrderComponent, canActivate: [AuthGuardService]},
+  {path:"order/:id", component:OrderDetailComponent, canActivate: [AuthGuardService]},
+  {path:"payment", component:PaymentComponent, canActivate: [AuthGuardService]},
+
   //{path: '**', redirectTo: 'login', pathMatch: 'full'},
 
   //sinon redirige vers le home(l'acceuil)

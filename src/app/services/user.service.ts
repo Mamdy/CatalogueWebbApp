@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Observable, BehaviorSubject, Subject, of } from 'rxjs';
-import { JwtResponse } from './model/JwtResponse';
+import { JwtResponse } from '../model/JwtResponse';
 //import {CookieService} from 'ngx-cookie-service';
 import { tap, catchError } from 'rxjs/operators';
-import { User } from './model/User';
+import { User } from '../model/User';
 import { prodCatApiUrl } from 'src/environments/environment';
 
 @Injectable({
@@ -63,8 +63,8 @@ export class UserService {
             localStorage.setItem('currentUSer', JSON.stringify(user));
           }*/
       
-          console.log((user.name));
-          this.nameTerms.next(user.name);
+          console.log((user.user.username));
+          this.nameTerms.next(user.user.username);
           this.currentUserSubject.next(user);
           return user;
 

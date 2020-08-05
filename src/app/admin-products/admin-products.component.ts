@@ -1,14 +1,14 @@
 import { Component, OnInit, ElementRef, OnDestroy, ViewChild, ViewChildDecorator } from '@angular/core';
-import {CatalogueServiceService} from '../catalogue-service.service';
 import {ActivatedRoute, NavigationEnd, Route, Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {AppResponse} from '../model/AppResponse';
 import {Product} from '../model/Product';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
-import {AlertService} from '../alert.service';
+import {AlertService} from '../services/alert.service';
 import {Category} from '../model/Category';
 import {of} from 'rxjs/internal/observable/of';
+import { CatalogueService } from '../services/catalogue.service';
 declare var $;
 
 @Component({
@@ -33,7 +33,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
   constructor(
        private formBuilder: FormBuilder,
-       private catalogueService:CatalogueServiceService,
+       private catalogueService:CatalogueService,
        private route:ActivatedRoute,
        private router: Router,
        private alertService: AlertService) {

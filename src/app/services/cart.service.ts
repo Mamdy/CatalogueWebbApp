@@ -1,19 +1,14 @@
 import { Injectable } from '@angular/core';
 import { userApiUrl, prodCatApiUrl } from 'src/environments/environment';
-//import {CookieService} from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { Item } from './model/Item';
-import { JwtResponse } from './model/JwtResponse';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserService } from './user.service';
-import { CatalogueServiceService } from './catalogue-service.service';
+import { Item } from '../model/Item';
+import { JwtResponse } from '../model/JwtResponse';
+import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
-import { ProductInOrder } from './model/ProductInOrder';
-import { Cart } from './model/Cart';
-import { tap, map, catchError, first } from 'rxjs/operators';
-import { User } from './model/User';
-import { Product } from './model/Product';
-import { Client } from './model/Client';
+import { ProductInOrder } from '../model/ProductInOrder';
+import { tap, catchError, first } from 'rxjs/operators';
+import { Client } from '../model/Client';
+import { CustomerService } from './customer.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +16,7 @@ import { Client } from './model/Client';
 export class CartService {
   public host: string = "http://localhost:8087";
   private prodCatcartUrl = `${prodCatApiUrl}/cart`;
-  private userApiUrl = `${userApiUrl}/cart`;
+  private prodCatCustomerUrl = `${prodCatApiUrl}/client`;
 
   localMap = {};
   products: ProductInOrder[];
@@ -37,9 +32,8 @@ export class CartService {
 
 
   constructor(private http: HttpClient,
-              private userService: UserService,
-              private catalogService: CatalogueServiceService,
-              private authSerice: AuthenticationService)
+              private authSerice: AuthenticationService,
+              private customerService: CustomerService)
              {
         this.itemsSubject = new BehaviorSubject<Item[]>(null);
         this.items = this.itemsSubject.asObservable();
@@ -134,14 +128,31 @@ addItem(productInOrder): Observable<boolean> {
             return of(true);
         } else {
             //creation du client en base d'abord
-           let client = new Client(this.currentUser.account,this.currentUser.name,this.currentUser.role)
+        
+           let client = new Client(this.currentUser.user.email, this.currentUser.user.firstName, this.currentUser.user.lastName,this.currentUser.user.email, this.currentUser.user.phone, this.currentUser.user.address, this.currentUser.user.role)
             console.log("Client=>", client);
+            
+
+            debugger
             //this.userService.clientRegister(client);
-             const url = `${this.prodCatcartUrl}/add`;
-             return this.http.post<boolean>(url, {
+             const url = `${this.prodCatcartUrl}`;
+             /*const customerUrl = `${this.prodCatCustomerUrl}`;
+             //creation du client lié à l'utilisateurs connecté
+             this.customerService.clientRegister(client)
+                .pipe(first())
+                .subscribe(data => {
+                    console.log(data);
+
+
+
+                });*/
+            // this.http.post<Client>(customerUrl, client);
+
+             return this.http.post<boolean>(url+'/add', {
                 'quantity': productInOrder.count,
                 'productCode': productInOrder.productCode ,
-                'connectedUsername': this.currentUser.role
+                'connectedUsername': this.currentUser.user.username,
+                'client': client
             });
 
             
@@ -149,9 +160,9 @@ addItem(productInOrder): Observable<boolean> {
  }
 
     update(productInOrder): Observable<ProductInOrder> {
-
+        debugger
       if (this.currentUser) {
-          const url = `${this.prodCatcartUrl}/${productInOrder.productCode}`;
+          const url = `${this.prodCatcartUrl}/${productInOrder.productId}`;
           return this.http.put<ProductInOrder>(url, productInOrder.count);
       }
     }
@@ -161,12 +172,14 @@ addItem(productInOrder): Observable<boolean> {
           delete this.localMap[productInOrder.productCode];
           return of(null);
       } else {
-          const url = `${this.prodCatcartUrl}/${productInOrder.productCode}`;
+          debugger
+          const url = `${this.prodCatcartUrl}/${productInOrder.productId}`;
           return this.http.delete(url).pipe( );
       }
     }
 
     checkout(): Observable<any> {
+        debugger
       const url = `${this.prodCatcartUrl}/checkout`;
       return this.http.post(url, null).pipe();
   }

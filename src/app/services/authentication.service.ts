@@ -3,10 +3,11 @@ import {HttpClient} from '@angular/common/http';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {parseHttpResponse} from 'selenium-webdriver/http';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {User} from './model/User';
+import {User} from '../model/User';
 import {map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import { JwtResponse } from './model/JwtResponse';
+import { JwtResponse } from '../model/JwtResponse';
+import { prodCatApiUrl } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import { JwtResponse } from './model/JwtResponse';
 export class AuthenticationService {
   //url du service(backend) qui gere l'authentification des users
   host2:String="http://localhost:8082";
+  private prodCatCustomerUrl = `${prodCatApiUrl}/client`;
   jwt:string;
   username:string;
   roles: Array<string>;
@@ -25,6 +27,7 @@ export class AuthenticationService {
   constructor(private http:HttpClient,
     private  router:Router) {
       const memo = localStorage.getItem("currentUser");
+      console.log("memo==>"+memo);
    this.currentUserSubject = new BehaviorSubject<JwtResponse>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
     localStorage.setItem("currentUser",memo);
@@ -42,10 +45,11 @@ export class AuthenticationService {
     return this.http.post<JwtResponse>(this.host2+"/api/login", formData).pipe(
       tap(user => {
        // const token = response.headers.get('Authorization');
+       debugger
         if(user && user.token){
           localStorage.setItem("currentUser", JSON.stringify(user));
             this.saveToken(user.token);
-            this.nameTerms.next(user.name);
+            this.nameTerms.next();
             this.currentUserSubject.next(user);
             return user;
           }
@@ -55,6 +59,12 @@ export class AuthenticationService {
     );
     
   }
+
+  clientRegister(data){
+    debugger
+    return this.http.post(this.prodCatCustomerUrl, data, {observe:'response'})
+  }
+  
 
 
 //enregistrer le token dans le localStorage du navigateur

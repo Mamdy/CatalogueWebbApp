@@ -1,14 +1,15 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import {AuthenticationService} from '../../authentication.service';
+import {AuthenticationService} from '../../services/authentication.service';
 import {Router} from '@angular/router';
-import {CatalogueServiceService} from '../../catalogue-service.service';
+
 import { Subscription } from 'rxjs';
 
 import { Role } from 'src/app/enum/Role';
 import { DOCUMENT } from '@angular/common';
-import { UserService } from 'src/app/user.service';
+import { UserService } from 'src/app/services/user.service';
 import { JwtResponse } from 'src/app/model/JwtResponse';
 import { User } from 'src/app/model/User';
+import { CatalogueService } from 'src/app/services/catalogue.service';
 
 @Component({
   selector: 'app-header',
@@ -27,7 +28,7 @@ export class HeaderComponent implements OnInit{
   constructor( private authService: AuthenticationService,
               private userService: UserService,
                 private router: Router,
-               private catalogueService: CatalogueServiceService,
+               private catalogueService: CatalogueService,
                @Inject(DOCUMENT) private _document: Document) { }
 
   ngOnInit():void {
@@ -35,12 +36,14 @@ export class HeaderComponent implements OnInit{
     this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
       
-      if(!user || user.role == Role.Customer){
+      if(!user || user.user.role == Role.Customer){
         this.root = " ";
       }else {
         this.root = "/home";
         
       }
+      this.name = this.currentUser.user.firstName;
+      console.log("AuthenticatedUserName is ==>", +this.name);
     
     })
    //this.authService.loadToken();
@@ -69,10 +72,22 @@ export class HeaderComponent implements OnInit{
     return this.authService.isCustomer();
   }
   isAuthenticated(){
+    //debugger
     let isAuthenticated = this.authService.isAuthenticated();
     console.log(isAuthenticated);
+    //this.setAuthenticatedUserName();
     return isAuthenticated;
 
+  }
+
+  setAuthenticatedUserName(){
+
+    if(this.isAuthenticated()){
+      debugger
+      this.name = this.currentUser.user.firstName;
+      console.log("AuthenticatedUserName is ==>", +this.name);
+
+    }
   }
 
 

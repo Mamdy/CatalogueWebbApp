@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {CatalogueServiceService} from '../catalogue-service.service';
 import {AppResponse} from '../model/AppResponse';
 import {Category} from '../model/Category';
+import { CatalogueService } from '../services/catalogue.service';
 
 @Component({
   selector: 'app-admin-categories',
@@ -15,7 +15,7 @@ mode='list';
 currentCategory;
 
 
-  constructor(private catalogueService: CatalogueServiceService) { }
+  constructor(private catalogueService: CatalogueService) { }
 
   ngOnInit() {
     this.onGetAllCategories();

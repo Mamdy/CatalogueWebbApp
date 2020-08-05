@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../model/User';
 import {Subscription} from 'rxjs';
-import {AuthenticationService} from '../authentication.service';
-import {UserService} from '../user.service';
+import {AuthenticationService} from '../services/authentication.service';
+import {UserService} from '../services/user.service';
 import {first} from 'rxjs/operators';
-import {CatalogueServiceService} from '../catalogue-service.service';
+import {CatalogueService} from '../services/catalogue.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Category} from '../model/Category';
 import {AppResponse} from '../model/AppResponse';
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
               private authenticationService:AuthenticationService,
               private userService: UserService,
-              private cataService: CatalogueServiceService,
+              private cataService: CatalogueService,
               private route:ActivatedRoute,
               private router: Router,
 

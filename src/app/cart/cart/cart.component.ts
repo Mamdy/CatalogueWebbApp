@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterContentChecked } from '@angular/core';
-import { CartService } from 'src/app/cart.service';
-import { UserService } from 'src/app/user.service';
-import { AuthenticationService } from 'src/app/authentication.service';
+import { CartService } from 'src/app/services/cart.service';
+import { UserService } from 'src/app/services/user.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
 import { User } from 'src/app/model/User';
@@ -110,7 +110,7 @@ remove(productInOrder: ProductInOrder) {
   debugger
   this.cartService.remove(productInOrder).subscribe(
       success => {
-         this.productInOrders = this.productInOrders.filter(e => e.productCode !== productInOrder.productCode);
+         this.productInOrders = this.productInOrders.filter(e => e.productId !== productInOrder.productId);
           console.log('Cart: ' + this.productInOrders);
       },
       _ => console.log('Remove Cart Failed'));
@@ -120,18 +120,20 @@ checkout() {
   if (!this.currentUser) {
     debugger
       this.router.navigate(['/login'], {queryParams: {returnUrl: this.router.url}});
-  } else if (this.currentUser.role !== Role.Customer) {
+  } else if (this.currentUser.user.role !== Role.Customer) {
+    debugger
       this.router.navigate(['/seller']);
   } else {
     debugger
-      this.cartService.checkout().subscribe(
+    this.router.navigate(['/payment']);
+      /*this.cartService.checkout().subscribe(
           _ => {
               this.productInOrders = [];
           },
           error1 => {
               console.log('Checkout Cart Failed');
           });
-      this.router.navigate([' ']);
+      this.router.navigate(['/order']);*/
   }
 
 }

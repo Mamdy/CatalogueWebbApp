@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AuthenticationService} from '../authentication.service';
+import {AuthenticationService} from '../services/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AlertService} from '../alert.service';
+import {AlertService} from '../services/alert.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/internal/operators/first';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { User } from '../model/User';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 import { Role } from '../enum/Role';
 
 @Component({
@@ -16,12 +16,16 @@ import { Role } from '../enum/Role';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm:FormGroup;
+  loginForm:any = {
+    email: '',
+    password: '',
+    remembered: false
+  };
   loading = false;
   isLogout: boolean;
   isInvalid: boolean;
   submitted = false;
-  returnUrl: string;
+  returnUrl = '/';
   @Input() connectedUser: any;
 
   public nameTerms = new Subject<string>();
@@ -43,13 +47,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      username:['', Validators.required],
+    /*this.loginForm = this.formBuilder.group({
+        email:['', Validators.required],
         password:['', Validators.required]
 
-    });
+    });*/
     // get return url from route parameters or default to '/'
+    let params = this.activatedRoute.snapshot.queryParamMap;
     this.returnUrl = this.activatedRoute.snapshot.queryParamMap['returnUrl'] || ' ';
+    this.isLogout = params.has('logout');
   }
 
   // methode qui permet de façon convenabale de recuperer facilement les champs(username, password) de notre formulaire
@@ -107,6 +113,8 @@ export class LoginComponent implements OnInit {
   }*/
  
   onSubmit(){
+
+    debugger
     this.submitted = true;
     // on s'arrête ici si le formulaire n'est pas valide
     if(this.loginForm.invalid){
@@ -114,10 +122,11 @@ export class LoginComponent implements OnInit {
     }
     this.loading = true;
 
-    this.authService.login(this.loginForm.value)
+    this.authService.login(this.loginForm)
       .subscribe(user=>{
+        debugger
         if(user){
-          if(user.role != Role.Customer){
+          if(user.user.role != Role.Customer){
             this.returnUrl = ' ';
           }
           //login successfull
@@ -139,6 +148,7 @@ export class LoginComponent implements OnInit {
           //une fois connecté, allez vers la route par defaut
           //this.router.navigate(['/']);*/
           this.alertService.success('You are logged In successfully', true);
+          debugger
           this.router.navigate(['/home']);
           //window.location.reload();
           //this.router.navigateByUrl('/');
@@ -148,10 +158,10 @@ export class LoginComponent implements OnInit {
           this.isLogout = false;
           this.isInvalid = true;
         }
-        
 
       },
         error =>{
+          debugger
         this.alertService.error(error);
         this.loading = false;
 

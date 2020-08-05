@@ -3,8 +3,8 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable } from 'rxjs';
 
 //import { AuthenticationService } from '@/_services';
-import {AuthenticationService} from '../authentication.service';
-import { UserService } from '../user.service';
+import {AuthenticationService} from '../services/authentication.service';
+import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {CatalogueServiceService} from '../catalogue-service.service';
+import {CatalogueService} from '../services/catalogue.service';
 import {AppResponse} from '../model/AppResponse';
 import {Product} from '../model/Product';
 import {Subject} from 'rxjs';
@@ -22,7 +22,7 @@ export class AllProductComponent implements OnInit {
 
 
 
-  constructor(private catalogueService:CatalogueServiceService){
+  constructor(private catalogueService:CatalogueService){
       //Chargement de la liste des produits;
         this.getAllProducts();
   }

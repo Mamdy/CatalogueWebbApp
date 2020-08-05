@@ -1,12 +1,11 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewChildDecorator} from '@angular/core';
 import { Location } from '@angular/common';
-import {CatalogueServiceService} from '../catalogue-service.service';
+import {CatalogueService} from '../services/catalogue.service';
 import {ActivatedRoute, NavigationEnd, Route, Router} from '@angular/router';
 import {Subject} from 'rxjs';
-import {any} from 'codelyzer/util/function';
 import {AppResponse} from '../model/AppResponse';
 import {Product} from '../model/Product';
-import { CartService } from '../cart.service';
+import { CartService } from '../services/cart.service';
 import { ProductInOrder } from '../model/ProductInOrder';
 //import {$} from 'protractor';
 declare var $;
@@ -35,7 +34,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   count: number;
 
 
-  constructor(private catalogueService:CatalogueServiceService,
+  constructor(private catalogueService:CatalogueService,
               private route:ActivatedRoute,
               private router: Router,
               private location: Location,

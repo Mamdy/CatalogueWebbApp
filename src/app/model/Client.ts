@@ -2,23 +2,32 @@ import {ProductInOrder} from "./ProductInOrder";
 
 
 export class Client {
-    email: String;
+    email: string;
+    firstName: string;
+    lastName: string;
 
-    name: String;
+    username: string;
 
-    username: String;
+    phone: string;
 
-    phone: String;
+    address: string;
+    role: string
 
-    address: String;
-
-    role: string;
-
-
-    constructor(email:String, name: String, username: String){
+    constructor(
+        email:string,
+        firstName: string,
+        lastName: string,
+        username: string,
+        phone: string,
+        address: string,
+        role: string){
         this.email = email;
-        this.name = name;
-        this.username = username
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.phone = phone;
+        this.address = address;
+        this.role = role;
 
     }
 }

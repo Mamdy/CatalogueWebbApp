@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {reject, resolve} from 'q';
-import {AppResponse} from './model/AppResponse';
+import { AppResponse } from '../model/AppResponse';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class CatalogueServiceService {
+export class CatalogueService {
   public host: string = "http://localhost:8087";
 
   constructor(private http: HttpClient, private authService:AuthenticationService) { }

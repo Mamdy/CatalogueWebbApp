@@ -15,6 +15,9 @@ import {DataTablesModule} from 'angular-datatables';
 import { FooterComponent } from './shared/footer/footer.component';
 import { AllProductComponent } from './all-product/all-product.component';
 import { CartComponent } from './cart/cart/cart.component';
+import { OrderComponent } from './order/order.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { PaymentComponent } from './payment/payment.component';
 //import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
@@ -26,6 +29,9 @@ import { CartComponent } from './cart/cart/cart.component';
     FooterComponent,
     AllProductComponent,
     CartComponent,
+    OrderComponent,
+    OrderDetailComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,
