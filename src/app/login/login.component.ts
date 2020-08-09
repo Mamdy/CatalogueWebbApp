@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit {
  
   onSubmit(){
 
-    debugger
+   // debugger
     this.submitted = true;
     // on s'arrête ici si le formulaire n'est pas valide
     if(this.loginForm.invalid){
@@ -124,7 +124,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.loginForm)
       .subscribe(user=>{
-        debugger
+        //debugger
         if(user){
           if(user.user.role != Role.Customer){
             this.returnUrl = ' ';
@@ -148,8 +148,7 @@ export class LoginComponent implements OnInit {
           //une fois connecté, allez vers la route par defaut
           //this.router.navigate(['/']);*/
           this.alertService.success('You are logged In successfully', true);
-          debugger
-          this.router.navigate(['/home']);
+          this.router.navigate(['']);
           //window.location.reload();
           //this.router.navigateByUrl('/');
           //console.log(this.authService.currentUserValue.username)

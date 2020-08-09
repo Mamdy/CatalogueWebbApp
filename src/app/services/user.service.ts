@@ -29,7 +29,7 @@ export class UserService {
     this.currentUserSubject = new BehaviorSubject<JwtResponse>(JSON.parse(memo));
     this.currentUser = this.currentUserSubject.asObservable();
    // cookieService.set('currentUser', memo);
-   localStorage.setItem('currentUSer', memo);
+   //localStorage.setItem('currentUSer', memo);
    }
 
    get currentUserValue(){
@@ -57,7 +57,7 @@ export class UserService {
       tap( user => {
         if(user && user.token) {
           debugger
-          localStorage.setItem('currentUSer', JSON.stringify(user));
+         // localStorage.setItem('currentUSer', JSON.stringify(user));
          // this.cookieService.set('currentUser', JSON.stringify(user));
           /*if(formData.remembered){
             localStorage.setItem('currentUSer', JSON.stringify(user));

@@ -13,7 +13,7 @@ import { CustomerService } from './customer.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CartService {
+export class CartService {      
   public host: string = "http://localhost:8087";
   private prodCatcartUrl = `${prodCatApiUrl}/cart`;
   private prodCatCustomerUrl = `${prodCatApiUrl}/client`;

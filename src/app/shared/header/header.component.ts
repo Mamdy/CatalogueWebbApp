@@ -42,8 +42,9 @@ export class HeaderComponent implements OnInit{
         this.root = "/home";
         
       }
+     /*debugger
       this.name = this.currentUser.user.firstName;
-      console.log("AuthenticatedUserName is ==>", +this.name);
+      console.log("AuthenticatedUserName is ==>", +this.name);*/
     
     })
    //this.authService.loadToken();
@@ -53,15 +54,15 @@ export class HeaderComponent implements OnInit{
     //this.refreshPage();
   }
 
-  refreshPage() {
+  /*refreshPage() {
     this._document.defaultView.location.reload();
-  }
+  }*/
 
 
   ngOnDestroy(): void {
     
     this.currentUserSubscription.unsubscribe();
-    // this.name$.unsubscribe();
+    this.name$.unsubscribe();
 }
 
   isAdmin(){
@@ -72,12 +73,9 @@ export class HeaderComponent implements OnInit{
     return this.authService.isCustomer();
   }
   isAuthenticated(){
+    //this.name = this.currentUser.user.firstName;
     //debugger
-    let isAuthenticated = this.authService.isAuthenticated();
-    console.log(isAuthenticated);
-    //this.setAuthenticatedUserName();
-    return isAuthenticated;
-
+    return this.authService.isAuthenticated();
   }
 
   setAuthenticatedUserName(){

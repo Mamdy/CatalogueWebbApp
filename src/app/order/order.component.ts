@@ -19,6 +19,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   OrderStatus = OrderStatus;
   currentUser: JwtResponse;
   Role = Role;
+  paid: boolean;
 
   constructor(private httpClient: HttpClient,
               private orderService: OrderService,
@@ -74,6 +75,16 @@ export class OrderComponent implements OnInit, OnDestroy {
     })
   }
 
+  /*pay(order: Order) {
+    this.paid = true;
+    this.orderService.payOrder(order.orderId).subscribe(res => {
+      if (res) {
+        console.log(res);
+    }
+
+    });
+    // saveOrder(this.orders).subscribe();
+}*/
 
   ngOnDestroy(): void {
     this.querySub.unsubscribe();

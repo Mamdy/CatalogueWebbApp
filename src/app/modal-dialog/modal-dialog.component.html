@@ -1,0 +1,19 @@
+<div class="modal-header">
+        <h5 class="modal-title">Confirmer votre payment</h5>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+</div>
+<div class="modal-body">
+        <h5>information de paiement</h5>
+        <p><b>ID:</b>{{id}}</p>
+        <p><b>Montant:</b>{{amount}}</p>
+        <p><b>Description:</b>{{description}}</p>
+        <p><b>price:</b>{{price /100}} €</p>
+</div>
+<div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-success" (click)="confirmPayement(id)">confirmer</button>
+        <button type="button" class="btn btn-danger" (click)="cancel(id)">annuler</button>
+</div>
+
+    

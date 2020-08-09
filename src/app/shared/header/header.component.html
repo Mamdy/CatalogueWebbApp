@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse header">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/home">OnLine Shopping</a>
+      <a class="navbar-brand" routerLink="/home"><b>OnLine Shopping</b></a>
     </div>
     <ul class="nav navbar-nav">
       <li class="dropdown" *ngIf="isAuthenticated() && isAdmin()">
@@ -22,7 +22,7 @@
         <a class="nav-link" href="/about">Contact</a>
       </li>
 
-      <li class="navbar-nav ml-auto">
+      <li class="nav-item">
         <a *ngIf="!currentUser || currentUser.user.role == Role.Customer" class="nav-item nav-link" routerLink="/cart">
           <i class="fa fa-shopping-cart"></i>
           Panier
@@ -30,15 +30,15 @@
         
       </li>
 
-      <li class="nav-item nav-link">
+      <li class="nav-item">
         <a *ngIf="isAuthenticated()" class="nav-link" routerLink="/profile">
          {{name}}
         </a>
         
       </li>
 
-      <li class="nav-item nav-link">
-        <a *ngIf="!currentUser || currentUser.user.role == Role.Customer" class="nav-link" routerLink="/order">
+      <li class="nav-item">
+        <a *ngIf="isAuthenticated() && currentUser.user.role == Role.Customer" class="nav-link" routerLink="/order">
           <i class="fas fa-list-ul"></i>
          Mes Commandes
         </a>
@@ -57,11 +57,10 @@
   </div>
 </nav>
 
-<!--<div *ngIf="isAuthenticated()">-->
-  <!--<p>Welcome {{currentUser.firstName}}</p>-->
+<div *ngIf="isAuthenticated()">
+  <p>WELCOME <b>{{currentUser.user.firstName}}</b></p>
   <!--<app-categories></app-categories>-->
-
-<!--</div>-->
+</div>
 
 
 <!---TEMPLATE MODEL-->

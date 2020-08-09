@@ -27,10 +27,10 @@ export class AuthenticationService {
   constructor(private http:HttpClient,
     private  router:Router) {
       const memo = localStorage.getItem("currentUser");
-      console.log("memo==>"+memo);
+     // console.log("memo==>"+memo);
    this.currentUserSubject = new BehaviorSubject<JwtResponse>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
-    localStorage.setItem("currentUser",memo);
+    //localStorage.setItem("currentUser",memo);
 
   }
 
@@ -45,7 +45,7 @@ export class AuthenticationService {
     return this.http.post<JwtResponse>(this.host2+"/api/login", formData).pipe(
       tap(user => {
        // const token = response.headers.get('Authorization');
-       debugger
+       //debugger
         if(user && user.token){
           localStorage.setItem("currentUser", JSON.stringify(user));
             this.saveToken(user.token);

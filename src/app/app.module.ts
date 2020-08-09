@@ -19,6 +19,12 @@ import { OrderComponent } from './order/order.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { PaymentComponent } from './payment/payment.component';
 //import { CookieService } from 'ngx-cookie-service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ 
+import { ToastrModule } from 'ngx-toastr';
+import {NgxStripeModule} from 'ngx-stripe';
+import {NgbModalModule, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +38,8 @@ import { PaymentComponent } from './payment/payment.component';
     OrderComponent,
     OrderDetailComponent,
     PaymentComponent,
+    ModalDialogComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -40,11 +48,19 @@ import { PaymentComponent } from './payment/payment.component';
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
+    NgxStripeModule.forRoot('pk_test_pkI9xiGC3yjOh7R7vy0YD7KK'),
+    NgbModalModule
+    
     //ReactiveForms
   ],
+
+  entryComponents: [ModalDialogComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+   NgbActiveModal,
   
   ],
   bootstrap: [AppComponent]
