@@ -125,15 +125,17 @@ checkout() {
       this.router.navigate(['/seller']);
   } else {
     debugger
-    this.router.navigate(['/payment']);
-      /*this.cartService.checkout().subscribe(
+    
+      this.cartService.checkout().subscribe(
           _ => {
               this.productInOrders = [];
           },
           error1 => {
               console.log('Checkout Cart Failed');
           });
-      this.router.navigate(['/order']);*/
+      this.router.navigate(['/order']);
+
+      //this.router.navigate(['/payment']);
   }
 
 }

@@ -1,0 +1,39 @@
+.rightpane{
+    width: available;
+    height: available;
+    margin-top: -10px;
+    margin-left: 90%;
+    border-collapse: collapse;
+}
+
+.middle {
+    width: 80%;
+  }
+
+.style {
+    background-color:rgb(20, 211, 195);
+    font-size: medium;
+    font-weight: bold;
+    color: whitesmoke;
+    text-align: center;
+}
+
+
+/* Create three unequal columns that floats next to each other */
+.column {
+    float: left;
+    padding: 10px;
+    /*height: 300px; Should be removed. Only for demonstration */
+  }
+
+  .right {
+    width: 5%;
+    
+  }
+
+  /* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }

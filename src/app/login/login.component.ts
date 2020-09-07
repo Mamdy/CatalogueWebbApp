@@ -41,9 +41,9 @@ export class LoginComponent implements OnInit {
               private  router: Router,
               private alertService: AlertService) {
     //redirect to home if already logged in
-    if(this.authService.isAuthenticated()){
-      this.router.navigate(['']);
-    }
+    // if(this.authService.isAuthenticated()){
+    //   this.router.navigate(['']);
+    // }
   }
 
   ngOnInit() {
@@ -54,7 +54,8 @@ export class LoginComponent implements OnInit {
     });*/
     // get return url from route parameters or default to '/'
     let params = this.activatedRoute.snapshot.queryParamMap;
-    this.returnUrl = this.activatedRoute.snapshot.queryParamMap['returnUrl'] || ' ';
+    //this.returnUrl = this.activatedRoute.snapshot.queryParamMap['returnUrl'] || ' ';
+    this.returnUrl = params.get('returnUrl');
     this.isLogout = params.has('logout');
   }
 
@@ -124,14 +125,17 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.loginForm)
       .subscribe(user=>{
-        //debugger
+        debugger
         if(user){
           if(user.user.role != Role.Customer){
-            this.returnUrl = ' ';
+            this.returnUrl = '/seller';
           }
+          debugger
+          this.router.navigateByUrl(this.returnUrl);
           //login successfull
 
           /*let jwt=response.headers.get('Authorization');
+          http://localhost:4200/login?returnUrl=%2Fcart
 
         //this.router.navigate([this.returnUrl]);
         this.authService.saveToken(jwt);
@@ -148,7 +152,7 @@ export class LoginComponent implements OnInit {
           //une fois connecté, allez vers la route par defaut
           //this.router.navigate(['/']);*/
           this.alertService.success('You are logged In successfully', true);
-          this.router.navigate(['']);
+          //this.router.navigate(['']);
           //window.location.reload();
           //this.router.navigateByUrl('/');
           //console.log(this.authService.currentUserValue.username)

@@ -59,7 +59,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   cancel(order: Order) {
-    this.orderService.cancel(order.orderId).subscribe(res => {
+    this.orderService.cancel(order.id).subscribe(res => {
         if (res) {
             order.orderStatus = res.orderStatus;
         }
@@ -68,7 +68,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   finish(order: Order) {
     debugger
-    this.orderService.finish(order.orderId).subscribe(res => {
+    this.orderService.finish(order.id).subscribe(res => {
         if (res) {
             order.orderStatus = res.orderStatus;
         }
@@ -87,7 +87,12 @@ export class OrderComponent implements OnInit, OnDestroy {
 }*/
 
   ngOnDestroy(): void {
-    this.querySub.unsubscribe();
+    if(this.querySub){
+      this.querySub.unsubscribe();
+      this.querySub = null;
+
+    }
+    
   }
 
 

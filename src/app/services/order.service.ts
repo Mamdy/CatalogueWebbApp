@@ -16,8 +16,6 @@ export class OrderService {
  
   private orderUrl = `${prodCatApiUrl}/order`;
 
-  
-
   constructor(private http: HttpClient,
               public activeModal: NgbActiveModal,
               private paymentService: PaymentService,
@@ -77,4 +75,5 @@ show(id): Observable<Order> {
       catchError(_ => of(null))
   );
 }
+
 }

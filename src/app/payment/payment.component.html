@@ -1,3 +1,62 @@
+<div class="row">
+  <div class="col-md-8">
+
+    <div class="panel panel-primary">
+      <div class="panel-heading"><h4>Choisissez votre moyen de paiement</h4></div>
+      <div class="panel-body">
+          <div class="border-box">
+            <input type="radio">&nbsp;
+            <span><img src="../assets/images/all-cards.svg"></span>
+          </div> <br>
+          <div class="border-box">
+            <input type="radio" id="{{radio1.id}}" [(ngModel)]="radio1.checked" value ="{{radio1.value}}" (click)="homeAddresSelected()">&nbsp;<span> <strong><h4>Paiement en 3X carte bancaire:</h4></strong></span>
+          </div> <br>
+
+          <div class="border-box">
+            <input type="radio" id="{{radio1.id}}" [(ngModel)]="radio1.checked" value ="{{radio1.value}}" (click)="homeAddresSelected()">&nbsp;<span> <strong><h4>PayPal</h4> </strong></span>
+          </div> <br>
+
+          <div class="border-box">
+            <input type="radio" id="{{radio1.id}}" [(ngModel)]="radio1.checked" value ="{{radio1.value}}" (click)="homeAddresSelected()">&nbsp;<span> <strong><h4>Orange Money</h4></strong></span>
+          </div> <br>
+
+          <div class="border-box">
+            <input type="radio" id="{{radio1.id}}" [(ngModel)]="radio1.checked" value ="{{radio1.value}}" (click)="homeAddresSelected()">&nbsp;<span> <strong><h4>Espèces</h4> </strong></span>
+          </div>
+         <!---Ajout d'une nouvelle addresse-->
+        <div *ngIf="mode=='new-shipping-address'" class="col-md-5">
+          <form #f="ngForm" (ngSubmit)="onSaveNewAddress(f.value)">
+               <div class="form-group">
+              <input type="text" name="nom" placeholder="Nom" ngModel class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="text" name="nom" placeholder="Prénom" ngModel class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="text" name="nom" placeholder="Numéro et Nom de la voie" ngModel class="form-control">
+            </div>
+  
+            <div class="form-group">
+              <input type="text" name="code postal" placeholder="Code Postale" ngModel class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="text" name="telephone" placeholder="numero telephone" ngModel class="form-control">
+            </div>
+          </form>
+        </div><br>
+        
+        <button class="btn btn-success" routerLink = "/payment">Continuer</button>
+     
+      </div>
+    </div>
+
+  </div>
+
+  <app-new-address [order$]="order$"></app-new-address>
+
+</div>
+
+
 <form novalidate (ngSubmit)="buy()" [formGroup]="stripeForm" #f="ngForm">
   <input class="form-control" type="text" formControlName="name" placeholder="nom titulaire carte">
   <div id="card-element" class="field"></div>

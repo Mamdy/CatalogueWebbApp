@@ -1,0 +1,58 @@
+<div class="row">
+  <!--Adresse de Livraison-->
+  <div class="col-md-8">
+
+    <div class="panel panel-primary">
+      <div class="panel-heading"><h4>Adresse de Livraison</h4></div>
+      <div class="panel-body">
+          <input type="radio" id="{{radio1.id}}" [(ngModel)]="radio1.checked" value ="{{radio1.value}}" (click)="homeAddresSelected()">&nbsp;<span> <strong>{{radio1.label}} </strong></span>
+          <div class="border-box">
+            <h5>Livré dès le 25 /05/2021</h5><br>
+            <h5>à l'adresse suivante:</h5>
+            <h5>{{fullName}}</h5>
+            <h5>{{this.currentUser.user.address}}</h5><br>
+            <h5>FRANCE</h5>
+            <!--date-->
+            <!--<label for="start">Start date:</label>
+            <input type="date" id="start" name="trip-start"
+             value="2018-07-22"
+             min="2020-01-01" max="2021-12-31"><br><br><br>-->
+  
+          </div> <br><br><br>
+         
+  
+        <input type="radio" id="{{radio2.id}}" [(ngModel)]="radio2.checked" value ="{{radio2.value}}" (click)="onNewShippingAddress()" >&nbsp;<span><strong>à une autre adresse </strong></span><br>
+  
+             <!---Ajout d'une nouvelle addresse-->
+        <div *ngIf="mode=='new-shipping-address'" class="col-md-5">
+          <form #f="ngForm" (ngSubmit)="onSaveNewAddress(f.value)">
+               <div class="form-group">
+              <input type="text" name="nom" placeholder="Nom" ngModel class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="text" name="nom" placeholder="Prénom" ngModel class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="text" name="nom" placeholder="Numéro et Nom de la voie" ngModel class="form-control">
+            </div>
+  
+            <div class="form-group">
+              <input type="text" name="code postal" placeholder="Code Postale" ngModel class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="text" name="telephone" placeholder="numero telephone" ngModel class="form-control">
+            </div>
+          </form>
+        </div><br>
+        
+        <button class="btn btn-success" routerLink = "/payment">Continuer</button>
+     
+      </div>
+    </div>
+
+  </div>
+
+  <app-new-address [order$]="order$"></app-new-address>
+
+</div>
+

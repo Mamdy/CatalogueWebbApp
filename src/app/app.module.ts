@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {MatDialogModule, MatFormFieldModule, MatButtonModule, MatInputModule, MatRippleModule, MatSnackBarModule} from "@angular/material";
 
 import { AppRoutingModule,routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +26,19 @@ import { ToastrModule } from 'ngx-toastr';
 import {NgxStripeModule} from 'ngx-stripe';
 import {NgbModalModule, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
+import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
+import { NewAddressComponent } from './new-address/new-address.component';
+import { OrderRecapComponent } from './order-recap/order-recap.component';
+
+@NgModule({
+
+  exports: [
+    MatSnackBarModule,
+    MatDialogModule,
+  ],
+
+})
+export class MaterialModule {}
 
 @NgModule({
   declarations: [
@@ -39,8 +53,13 @@ import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
     OrderDetailComponent,
     PaymentComponent,
     ModalDialogComponent,
+    ShippingAddressComponent,
+    NewAddressComponent,
+    OrderRecapComponent
     
   ],
+
+ 
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -51,12 +70,14 @@ import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
     NgxStripeModule.forRoot('pk_test_pkI9xiGC3yjOh7R7vy0YD7KK'),
-    NgbModalModule
+    NgbModalModule,
+    MatDialogModule,
+    MaterialModule,
     
     //ReactiveForms
   ],
 
-  entryComponents: [ModalDialogComponent],
+  entryComponents: [ModalDialogComponent,NewAddressComponent,ShippingAddressComponent,OrderRecapComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -66,3 +87,4 @@ import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

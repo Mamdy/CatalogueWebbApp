@@ -14,6 +14,7 @@ import { CartComponent } from './cart/cart/cart.component';
 import { OrderComponent } from './order/order.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { PaymentComponent } from './payment/payment.component';
+import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
 
 const routes: Routes = [
   {path:"home" , component:HomeComponent},
@@ -22,6 +23,9 @@ const routes: Routes = [
   {path:"categories", component:CategoriesComponent},
   {path:"product", component:ProductsComponent},
   {path:"products", component:AllProductComponent},
+  {path:"order/:id/shipping-address", component:ShippingAddressComponent},
+  
+
 
   {path:"products/:urlProds", component:ProductsComponent},
   {path:"cart", component:CartComponent},
