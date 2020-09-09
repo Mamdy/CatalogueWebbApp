@@ -4,7 +4,7 @@ export class Order {
     buyerName: string;
     buyerPhone: string;
     buyerAddress: string;
-    orderAmount: string;
+    orderAmount: number;
     orderStatus: string;
     createTime: string;
     updateTime: string;

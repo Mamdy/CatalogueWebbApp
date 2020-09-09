@@ -60,7 +60,6 @@ export class ModalDialogComponent implements OnInit {
   }
 
   confirmPayement(id: string): void {
-    debugger
     this.paymentService.paymentConfirm(id).subscribe(
       data => {
 

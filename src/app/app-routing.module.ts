@@ -34,7 +34,7 @@ const routes: Routes = [
   {path:"adminUsers", component:AdminUsersComponent},
   {path:"order", component:OrderComponent, canActivate: [AuthGuardService]},
   {path:"order/:id", component:OrderDetailComponent, canActivate: [AuthGuardService]},
-  {path:"payment", component:PaymentComponent, canActivate: [AuthGuardService]},
+  {path:"order/:id/shipping-address/payment", component:PaymentComponent, canActivate: [AuthGuardService]},
 
   //{path: '**', redirectTo: 'login', pathMatch: 'full'},
 

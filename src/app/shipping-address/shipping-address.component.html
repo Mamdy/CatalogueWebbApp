@@ -30,10 +30,10 @@
               <input type="text" name="nom" placeholder="Nom" ngModel class="form-control">
             </div>
             <div class="form-group">
-              <input type="text" name="nom" placeholder="Prénom" ngModel class="form-control">
+              <input type="text" name="prenom" placeholder="Prénom" ngModel class="form-control">
             </div>
             <div class="form-group">
-              <input type="text" name="nom" placeholder="Numéro et Nom de la voie" ngModel class="form-control">
+              <input type="text" name="numero" placeholder="Numéro et Nom de la voie" ngModel class="form-control">
             </div>
   
             <div class="form-group">
@@ -45,14 +45,15 @@
           </form>
         </div><br>
         
-        <button class="btn btn-success" routerLink = "/payment">Continuer</button>
+        <button class="btn btn-success" routerLink = "/order/{{(order$ | async)?.id}}/shipping-address/payment">Continuer</button>
      
       </div>
     </div>
 
   </div>
 
-  <app-new-address [order$]="order$"></app-new-address>
+    <!--Recap commande Compoent-->
+    <app-order-recap [order$]="order$"></app-order-recap>
 
 </div>
 

@@ -1,0 +1,8 @@
+.border-box{
+    width: 500px;
+    height: 45px;
+    border: 2px solid rgb(244, 244, 248);
+    box-sizing: border-box;
+    background-color: white
+
+}
