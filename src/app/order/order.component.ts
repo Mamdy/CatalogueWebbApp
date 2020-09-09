@@ -32,14 +32,12 @@ export class OrderComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    debugger
     this.currentUser = this.authService.currentUserValue;
     this.querySub = this.route.queryParams.subscribe(() => {
       this.update();
     });
   }
   update() {
-    debugger
     let nextPage = 1;
     let size = 10;
 
@@ -48,9 +46,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       size = +this.route.snapshot.queryParamMap.get('size');
     }*/
 
-    debugger
     this.orderService.getPage(nextPage, size).subscribe(page => this.page = page, _ => {
-      debugger
       console.log("list des pages commandes==>"+this.page );
       console.log("Get Order Failed")
     });
@@ -67,7 +63,6 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   finish(order: Order) {
-    debugger
     this.orderService.finish(order.id).subscribe(res => {
         if (res) {
             order.orderStatus = res.orderStatus;
@@ -92,7 +87,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       this.querySub = null;
 
     }
-    
+
   }
 
 

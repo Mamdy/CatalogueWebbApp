@@ -35,22 +35,22 @@ export class HeaderComponent implements OnInit{
     this.name$ = this.authService. name$.subscribe(aName => this.name = aName);
     this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
-      
+
       if(!user || user.user.role == Role.Customer){
         this.root = " ";
       }else {
         this.root = "/home";
-        
+
       }
      /*debugger
       this.name = this.currentUser.user.firstName;
       console.log("AuthenticatedUserName is ==>", +this.name);*/
-    
+
     })
    //this.authService.loadToken();
-  
 
-    
+
+
     //this.refreshPage();
   }
 
@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit{
 
 
   ngOnDestroy(): void {
-    
+
     this.currentUserSubscription.unsubscribe();
     this.name$.unsubscribe();
 }
@@ -91,8 +91,9 @@ export class HeaderComponent implements OnInit{
 
   logOut(){
     this.authService.logOut();
+    localStorage.clear();
     this.router.navigate(['/login']);
-  
+
   }
 
   getSelectedProduct() {

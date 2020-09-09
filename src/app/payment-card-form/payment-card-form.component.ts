@@ -1,28 +1,24 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Order } from '../model/Order';
-import { Observable } from 'rxjs';
-import { Elements, Element as StripeElement, ElementsOptions, StripeService, } from 'ngx-stripe';
-import { PaymentService } from '../services/payment.service';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
+import { StripeService,Element as StripeElement, Elements, ElementsOptions } from 'ngx-stripe';
+import { PaymentService } from '../services/payment.service';
 import { PaymentIntentDto } from '../model/PaymentIntentDto';
+import { Order } from '../model/Order';
+import { OrderService } from '../services/order.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 
 @Component({
-  selector: 'app-new-address',
-  templateUrl: './new-address.component.html',
-  styleUrls: ['./new-address.component.css']
+  selector: 'app-payment-card-form',
+  templateUrl: './payment-card-form.component.html',
+  styleUrls: ['./payment-card-form.component.css']
 })
-export class NewAddressComponent implements OnInit {
+export class PaymentCardFormComponent implements OnInit {
   form: FormGroup;
-  description:string;
-  message: string = "are you sure ?";
-  confirmationButton = "Yes";
-  cancelButton = "Cancel";
-  @Input() order$: Observable<Order>
-  @Input() order: Order;
 
+  order: Order;
   error: any;
 
   elements: Elements;
@@ -32,30 +28,29 @@ export class NewAddressComponent implements OnInit {
   };
 
   constructor(private stripeService: StripeService,
-    private paymentService: PaymentService,private route: ActivatedRoute,private toastrService: ToastrService){}
-    // private fb: FormBuilder,
-    // private dialogRef: MatDialogRef<NewAddressComponent>,
-    // @Inject(MAT_DIALOG_DATA) data: any) {
-    //   if(data){
-    //     this.message = data.message || this.message;
-
-    //   }
-
-    // this.description = data.description;
+              private orderService: OrderService,
+              private paymentService: PaymentService,
+              private route: ActivatedRoute,
+              private toastrService: ToastrService,
+              public modalService: NgbModal){}
 
     public stripeForm = new FormGroup({
       name: new FormControl('', Validators.required),
 
     });
-
-
-
   ngOnInit() {
-    /*this.form = this.fb.group({
-      description: [this.description, []],
-      });*/
+    this.orderService.show(this.route.snapshot.paramMap.get('id')).subscribe(data=> {
+      if(data){
+        this.order = data;
+      }else{
+        console.log("No Order for that id");
+      }
+    },error => {
+      console.log(error);
 
-      this.stripeService.elements(this.elementsOptions)
+    });
+
+    this.stripeService.elements(this.elementsOptions)
     .subscribe(elements => {
       this.elements = elements;
       // Only mount the element the first time
@@ -77,9 +72,8 @@ export class NewAddressComponent implements OnInit {
         this.card.mount('#card-element');
       }
     });
-
-
   }
+
 
   buy() {
     debugger
@@ -95,8 +89,14 @@ export class NewAddressComponent implements OnInit {
             description: 'test carte reel'
           };
           this.paymentService.pay(paymentIntentDto).subscribe(
+
             data => {
               if(data){
+                this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
+                result['id'],{positionClass: 'toast-top-center', timeOut: 3000});
+
+                this.openDialogModal(data[`id`], data['amount'], data[`description`], data[`amount`]);
+
                 this.paymentService.paymentConfirm(data['id']).subscribe(
 
                   result=>{
@@ -106,7 +106,7 @@ export class NewAddressComponent implements OnInit {
 
 
               }
-             // this.openDialogModal(data[`id`], data['amount'], data[`description`], data[`amount`]);
+
               //this.router.navigate([' ']);
             }
           );
@@ -117,14 +117,12 @@ export class NewAddressComponent implements OnInit {
       });
   }
 
-  save() {
-    //this.dialogRef.close(this.form.value);
-}
-
-close() {
-  //this.dialogRef.close();
-}
-
-
+  openDialogModal(id: string, amount: number, description: string, price: number){
+    const modalRef = this.modalService.open(ModalDialogComponent);
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.amount = amount;
+    modalRef.componentInstance.description= description;
+    modalRef.componentInstance.price = price;
+      }
 
 }

@@ -50,7 +50,6 @@ export class AllProductComponent implements OnInit {
 
     this.catalogueService.getProducts()
       .then((result:AppResponse)=>{
-        debugger
         this.dataTableListeProducts$ = result.getData().products;
         this.totalElementsServerResponse = result.getpage().totalElements;
         //console.log("datatable_Content===>",this.dataTableListeProducts$);
@@ -66,10 +65,10 @@ export class AllProductComponent implements OnInit {
 
 
   detailsProduct(p: Product) {
-    
+
   }
 
   addProductToCart(p: Product) {
-    
+
   }
 }

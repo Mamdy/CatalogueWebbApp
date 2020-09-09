@@ -1,4 +1,4 @@
-<div class="row">
+<div class="container">
   <!--Adresse de Livraison-->
   <div class="col-md-8">
 
@@ -17,12 +17,12 @@
             <input type="date" id="start" name="trip-start"
              value="2018-07-22"
              min="2020-01-01" max="2021-12-31"><br><br><br>-->
-  
+
           </div> <br><br><br>
-         
-  
+
+
         <input type="radio" id="{{radio2.id}}" [(ngModel)]="radio2.checked" value ="{{radio2.value}}" (click)="onNewShippingAddress()" >&nbsp;<span><strong>à une autre adresse </strong></span><br>
-  
+
              <!---Ajout d'une nouvelle addresse-->
         <div *ngIf="mode=='new-shipping-address'" class="col-md-5">
           <form #f="ngForm" (ngSubmit)="onSaveNewAddress(f.value)">
@@ -35,7 +35,7 @@
             <div class="form-group">
               <input type="text" name="numero" placeholder="Numéro et Nom de la voie" ngModel class="form-control">
             </div>
-  
+
             <div class="form-group">
               <input type="text" name="code postal" placeholder="Code Postale" ngModel class="form-control">
             </div>
@@ -44,9 +44,9 @@
             </div>
           </form>
         </div><br>
-        
+
         <button class="btn btn-success" routerLink = "/order/{{(order$ | async)?.id}}/shipping-address/payment">Continuer</button>
-     
+
       </div>
     </div>
 

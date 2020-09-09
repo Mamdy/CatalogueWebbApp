@@ -33,7 +33,7 @@
     "datatables.net-dt": "^1.10.21",
     "jquery": "^3.5.1",
     "ngx-stripe": "^7.4.5",
-    "ngx-toastr": "^10.0.4",
+    "ngx-toastr": "^10.2.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.13.0",
     "zone.js": "~0.8.26"

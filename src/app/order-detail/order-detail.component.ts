@@ -21,11 +21,9 @@ export class OrderDetailComponent implements OnInit {
               order$: Observable<Order>
 
   ngOnInit() {
-    debugger
     this.order$ = this.orderService.show(this.route.snapshot.paramMap.get('id'));
-    
+
     this.orderService.show(this.route.snapshot.paramMap.get('id')).subscribe(data=> {
-      debugger
       if(data){
         this.order = data;
       }else{
@@ -33,9 +31,9 @@ export class OrderDetailComponent implements OnInit {
       }
     },error => {
       console.log(error);
-      
+
     });
-    
+
     console.log(this.order$);
   }
 

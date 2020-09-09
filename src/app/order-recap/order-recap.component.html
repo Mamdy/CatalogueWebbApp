@@ -1,16 +1,17 @@
  <!--Recap Commande-->
-  <div class="right">
+ <div class="row">
+  <div class="col-md-12">
     <div class="panel panel-default">
-        <div class="panel-heading style">Récapitulatif</div>
-        <div class="panel-body">
-            <h5>prix:{{(order$ | async)?.orderAmount | currency}} </h5><br>
-            <h5>Quantite:{{(order$ | async)?.products.length}}</h5><br>
-            <hr>
-            <h5>Total: {{(order$ | async)?.orderAmount | currency}}</h5><br>
-            
-            <div class="form-group">
-                <button type="submit" routerLink="/order/{{(order$ | async)?.id}}/shipping-address"  class="btn btn-primary">Choisir ma livraison</button>            
-            </div>
-        </div>
-    </div>
+      <div class="panel-heading style">Récapitulatif</div>
+      <div class="panel-body">
+          <h5>prix:{{(order$ | async)?.orderAmount | currency}} </h5><br>
+          <h5>Quantite:{{(order$ | async)?.products.length}}</h5><br>
+          <hr>
+          <h5>Total: {{(order$ | async)?.orderAmount | currency}}</h5><br>
+      </div>
+  </div>
+
 </div>
+
+ </div>
+

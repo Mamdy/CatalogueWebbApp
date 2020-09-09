@@ -53,18 +53,18 @@ export class AuthenticationService {
             this.currentUserSubject.next(user);
             return user;
           }
-        
+
       }),
 
     );
-    
+
   }
 
   clientRegister(data){
     debugger
     return this.http.post(this.prodCatCustomerUrl, data, {observe:'response'})
   }
-  
+
 
 
 //enregistrer le token dans le localStorage du navigateur
@@ -89,7 +89,7 @@ export class AuthenticationService {
     let jwtHelper=new JwtHelperService();
     let jwtObject=jwtHelper.decodeToken(this.jwt);
     return jwtObject.sub;
-  
+
 
   }*/
 
@@ -116,6 +116,7 @@ export class AuthenticationService {
 
 //fonction qui permet de se deconnecter de l'appli et reinitilaiser le localstorage (enlever le token)
   logOut() {
+    debugger
     this.currentUserSubject.next(null)
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
@@ -123,7 +124,7 @@ export class AuthenticationService {
     this.initParamsCredantials();
 
     //Naviguer vers le composant de login
-    this.router.navigate(['/login']);
+    //this.router.navigate(['/login']);
   }
 
   initParamsCredantials(){
@@ -132,7 +133,7 @@ export class AuthenticationService {
     this.roles=undefined;
   }
 
- 
+
 
 
 

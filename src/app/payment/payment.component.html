@@ -1,4 +1,4 @@
-<div class="row">
+<div class="container">
 
   <div class="col-md-8">
 
@@ -10,9 +10,9 @@
             <span><img src="../assets/images/all-cards.svg"></span> &nbsp;
             <span> Par Carte Bancaire </span>
           </div> <br>
-          <div>
+          <div *ngIf="paimentMode=='carteBancaire'">
                 <!---Formulaire de paiment-->
-              <form novalidate (ngSubmit)="buy()" [formGroup]="stripeForm" #f="ngForm">
+               <!--<form novalidate (ngSubmit)="buy()" [formGroup]="stripeForm" #f="ngForm">
                 <input class="form-control" type="text" formControlName="name" placeholder="nom titulaire carte">
                 <div id="card-element" class="field"></div>
                 <div *ngIf="error" class="alert alert-danger">
@@ -21,12 +21,19 @@
                 <button type="submit" class="btn btn-outline-success" [disabled]="!f.valid">
                   Buy
                 </button>
-              </form>
+              </form>-->
+              <app-payment-card-form></app-payment-card-form>
+              <!--<app-new-address></app-new-address>-->
           </div>
-          <div class="border-box">
+          <div class="paypal-border-box">
             <input type="radio" id="{{paymentModes.paypal.id}}" [(ngModel)]="paymentModes.paypal.checked" value ="{{paymentModes.paypal.value}}" (click)="isPaypalOptionSelected()">&nbsp;
             <span><img src="../assets/images/paypal-logo.svg"></span>&nbsp;
-            <span>Par Paypal</span> &nbsp;
+            <span>Par Paypal</span><br><br>
+            <p>&nbsp;En choisissant ce mode de paiement, vous allez être redirigé vers le serveur sécurisé de Paypal et accéder à votre compte Paypal. Votre commande sera enregistrée lorsque vous aurez validé votre paiement sur le site Paypal.</p><br><br>
+
+            <button type="submit" class="btn btn-outline-success">
+              Effectuer votre paiement avec PayPal
+            </button>
           </div> <br>
           <div class="border-box">
             <input type="radio" id="{{paymentModes.orangeMoney.id}}" [(ngModel)]="paymentModes.orangeMoney.checked" value ="{{paymentModes.orangeMoney.value}}" (click)="isOrangeMoneyOptionSelected()">
@@ -37,19 +44,11 @@
             <input type="radio" id="{{paymentModes.cash.id}}" [(ngModel)]="paymentModes.cash.checked" value ="{{paymentModes.cash.value}}" (click)="isCashMoneyOptionSelected()">&nbsp;
             <span><strong>Espèces</strong></span> &nbsp;
           </div> <br>
-                   
-        
-        
-          <div *ngIf="paiementMode=='carteBancaire'">
-       
 
-          </div>
-       
-         
-        
-        
+
+
         <button class="btn btn-success" routerLink = "/payment">Continuer</button>
-     
+
       </div>
     </div>
 
@@ -60,7 +59,7 @@
 </div>
 
 
- 
+
   <!--<div *ngIf= "paiementMode == 'card'"></div>-->
 
 

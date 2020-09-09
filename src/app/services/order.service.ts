@@ -13,7 +13,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   providedIn: 'root'
 })
 export class OrderService {
- 
+
   private orderUrl = `${prodCatApiUrl}/order`;
 
   constructor(private http: HttpClient,
@@ -22,9 +22,8 @@ export class OrderService {
               private toastService: ToastrService) { }
 
   getPage(page = 1, size = 10): Observable<any> {
-    debugger
     return this.http.get(`${this.orderUrl}?page=${page}&size=${size}`).pipe();
-    
+
   }
   cancel(id): Observable<Order> {
     return this.http.patch<Order>(`${this.orderUrl}/cancel/${id}`, null).pipe(
@@ -40,7 +39,7 @@ export class OrderService {
 
 payOrder(orderId: string): void{
   this.paymentService.paymentConfirm(orderId).subscribe(data=> {
-    this.toastService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' + 
+    this.toastService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
     data['orderId'],{positionClass: 'toast-top-center', timeOut: 3000});
     this.activeModal.close()
 
@@ -55,7 +54,7 @@ payOrder(orderId: string): void{
 
 cancelOrderPayment(orderId: string): void{
   this.paymentService.paymentCancel(orderId).subscribe(data=> {
-    this.toastService.success('paiement annulé', 'le paiement de la commande avec l identifiant' + 
+    this.toastService.success('paiement annulé', 'le paiement de la commande avec l identifiant' +
     data['orderId'],{positionClass: 'toast-top-center', timeOut: 3000});
     this.activeModal.close()
 
@@ -70,7 +69,6 @@ cancelOrderPayment(orderId: string): void{
 
 
 show(id): Observable<Order> {
-  debugger
   return this.http.get<Order>(`${this.orderUrl}/${id}`).pipe(
       catchError(_ => of(null))
   );

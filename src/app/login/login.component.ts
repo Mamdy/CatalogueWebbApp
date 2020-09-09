@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   public nameTerms = new Subject<string>();
   public name$ = this.nameTerms.asObservable();
   private currentUserSubject: BehaviorSubject<User>;
-  
+
 
   constructor(
               private formBuilder: FormBuilder,
@@ -88,15 +88,15 @@ export class LoginComponent implements OnInit {
             this.returnUrl = ' ';
           }
           this.router.navigateByUrl(this.returnUrl);
-          
+
         }else{
           this.isLogout = false;
           this.isInvalid = true;
           this.router.navigate(['/login']);
-          
+
 
         }
-        
+
         /*let jwt=response.headers.get('Authorization');
         this.authService.saveToken(jwt);
         //une fois connecté, allez vers la route par defaut
@@ -109,10 +109,10 @@ export class LoginComponent implements OnInit {
         this.loading=false;
 
       }
-      
+
       );
   }*/
- 
+
   onSubmit(){
 
    // debugger
@@ -125,12 +125,10 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.loginForm)
       .subscribe(user=>{
-        debugger
         if(user){
-          if(user.user.role != Role.Customer){
-            this.returnUrl = '/seller';
+          if(user.user.role != Role.Customer && user.user.role == Role.Manager){
+            this.returnUrl = '/home';
           }
-          debugger
           this.router.navigateByUrl(this.returnUrl);
           //login successfull
 
@@ -139,16 +137,16 @@ export class LoginComponent implements OnInit {
 
         //this.router.navigate([this.returnUrl]);
         this.authService.saveToken(jwt);
-      
+
         debugger
         const username=this.authService.getConnectedUserName();
-      
+
         //this.currentUserSubject.next(null);
         this.nameTerms.next(username);
 
 
         console.log("l'utilisateur ",username+" connecté" )
-      
+
           //une fois connecté, allez vers la route par defaut
           //this.router.navigate(['/']);*/
           this.alertService.success('You are logged In successfully', true);
@@ -156,7 +154,7 @@ export class LoginComponent implements OnInit {
           //window.location.reload();
           //this.router.navigateByUrl('/');
           //console.log(this.authService.currentUserValue.username)
-          
+
         }else{
           this.isLogout = false;
           this.isInvalid = true;

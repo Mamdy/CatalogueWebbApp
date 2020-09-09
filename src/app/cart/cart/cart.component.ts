@@ -17,12 +17,12 @@ import { Cart } from 'src/app/model/Cart';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
-  
+
 
   constructor(private cartService: CartService,
               private userService: UserService,
               private authService: AuthenticationService,
-              private router: Router) { 
+              private router: Router) {
 
                 this.userSubscription = this.authService.currentUser.subscribe(user=>this.currentUser = user)
   }
@@ -47,17 +47,17 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
     }
     console.log(productInOrder.count);
   }
-              
-              
+
+
   ngOnInit() {
    this.cartService.getCart().subscribe(prods => {
-  
+
       this.productInOrders = prods;
     });
     //debugger
     //this.productInOrders = this.cartService.getProductsInOrderFromCart();
     console.log("product in cart=>",this.productInOrders);
-    
+
 
     /*this.cartService.getCartItems(username)
       .subscribe(res=> {
@@ -74,7 +74,7 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
       if(prod){throw new Error();}
     },
     _ => console.log('Update Item Failed'));
-    
+
   }
 
   ngOnDestroy() {
@@ -118,14 +118,10 @@ remove(productInOrder: ProductInOrder) {
 
 checkout() {
   if (!this.currentUser) {
-    debugger
       this.router.navigate(['/login'], {queryParams: {returnUrl: this.router.url}});
-  } else if (this.currentUser.user.role !== Role.Customer) {
-    debugger
-      this.router.navigate(['/seller']);
+  } else if (this.currentUser.user.role !== Role.Customer && this.currentUser.user.role !== Role.Manager) {
+      this.router.navigate(['/home']);
   } else {
-    debugger
-    
       this.cartService.checkout().subscribe(
           _ => {
               this.productInOrders = [];

@@ -13,7 +13,7 @@ import { CustomerService } from './customer.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CartService {      
+export class CartService {
   public host: string = "http://localhost:8087";
   private prodCatcartUrl = `${prodCatApiUrl}/cart`;
   private prodCatCustomerUrl = `${prodCatApiUrl}/client`;
@@ -61,11 +61,11 @@ export class CartService {
     return this.http.get<any>(this.prodCatcartUrl, { headers: myheader });
   }*/
 
-  
+
   getCart(): Observable<ProductInOrder[]> {
         const localCart = this.getLocalCart();
         if (this.currentUser) {
-    
+
             if (localCart.length > 0) {
                 return this.http.post<ProductInOrder[]>(this.prodCatcartUrl, localCart).pipe(
                     tap(products => {
@@ -74,15 +74,15 @@ export class CartService {
                         }
                         this.clearLocalCart();
                     }),
-                    
+
                     //map(cart => cart.products),
                     catchError(_ => of([]))
                 );
             } else {
                 const url = `${this.prodCatcartUrl}`;
-        
+
                 return this.http.get<ProductInOrder[]>(url).pipe(
-                
+
                     tap(products => {
                         if(products){
                             console.log(products);
@@ -91,8 +91,8 @@ export class CartService {
                         this.clearLocalCart();
                     }),
                     //map(cart => cart.products),
-                    
-                    
+
+
                     catchError(_ => of([]))
                 );
             }
@@ -118,7 +118,7 @@ addItem(productInOrder): Observable<boolean> {
             }
             if (!this.localMap[productInOrder.productCode]) {
                 this.localMap[productInOrder.productCode] = productInOrder;
-            
+
             } else {
                 console.log("deuxieme Produit=>", productInOrder.productCode)
                 console.log("contenu localMap[productInOrder.productId]=>", this.localMap[productInOrder.productCode]);
@@ -128,12 +128,10 @@ addItem(productInOrder): Observable<boolean> {
             return of(true);
         } else {
             //creation du client en base d'abord
-        
+
            let client = new Client(this.currentUser.user.email, this.currentUser.user.firstName, this.currentUser.user.lastName,this.currentUser.user.email, this.currentUser.user.phone, this.currentUser.user.address, this.currentUser.user.role)
             console.log("Client=>", client);
-            
 
-            debugger
             //this.userService.clientRegister(client);
              const url = `${this.prodCatcartUrl}`;
              /*const customerUrl = `${this.prodCatCustomerUrl}`;
@@ -155,7 +153,7 @@ addItem(productInOrder): Observable<boolean> {
                 'client': client
             });
 
-            
+
         }
  }
 

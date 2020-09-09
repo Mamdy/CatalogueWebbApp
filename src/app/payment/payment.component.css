@@ -1,8 +1,26 @@
 .border-box{
-    width: 500px;
+    width: 450px;
     height: 45px;
     border: 2px solid rgb(244, 244, 248);
     box-sizing: border-box;
     background-color: white
+
+}
+
+.paypal-border-box{
+  width: 450px;
+  height: 200px;
+  border: 2px solid rgb(244, 244, 248);
+  box-sizing: border-box;
+  background-color: white
+
+}
+
+.bankcard-border-box{
+  width: 500px;
+  height: 200px;
+  border: 2px solid rgb(244, 244, 248);
+  box-sizing: border-box;
+  background-color: white
 
 }

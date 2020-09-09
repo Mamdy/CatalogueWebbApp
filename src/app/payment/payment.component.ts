@@ -29,7 +29,7 @@ export class PaymentComponent implements OnInit {
 
   paid: boolean;
   order: Order;
-  paimentMode='carteBancaire';
+  paimentMode:any;
   order$: Observable<Order>
   orderAmount: number;
 
@@ -69,11 +69,11 @@ export class PaymentComponent implements OnInit {
 
     };
 
-  
- 
 
 
-  constructor(private orderService: OrderService, 
+
+
+  constructor(private orderService: OrderService,
     public modalService: NgbModal,
       private stripeService: StripeService,
       private paymentService: PaymentService,
@@ -109,7 +109,7 @@ export class PaymentComponent implements OnInit {
         this.card.mount('#card-element');
       }
     });
-  
+
     this.order$ = this.orderService.show(this.route.snapshot.paramMap.get('id'));
     this.orderService.show(this.route.snapshot.paramMap.get('id')).subscribe(data=> {
       if(data){
@@ -119,20 +119,19 @@ export class PaymentComponent implements OnInit {
       }
     },error => {
       console.log(error);
-      
+
     });
 
-  
+
 
     console.log("id of ===>",this.paymentModes.bankCard.id);
     console.log("id value ===>",this.paymentModes.bankCard.value);
     console.log("isChecked ===>",this.paymentModes.bankCard.checked);
     console.log("OrderAmount=====>",this.order.orderAmount);
-    
+
   }
 
   buy() {
-    debugger
     const name = this.stripeForm.get('name').value;
     this.stripeService
       .createToken(this.card, { name })
@@ -150,7 +149,7 @@ export class PaymentComponent implements OnInit {
                 this.paymentService.paymentConfirm(data['id']).subscribe(
 
                   result=>{
-                    this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' + 
+                    this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
                     result['id'],{positionClass: 'toast-top-center', timeOut: 3000});
                   });
 
@@ -182,7 +181,6 @@ export class PaymentComponent implements OnInit {
 }
 
 isBankCardOptionSelected(){
-  debugger
   this.paymentModes.bankCard.checked = true;
   this.paymentModes.paypal.checked=false ;
   this.paymentModes.orangeMoney.checked=false ;

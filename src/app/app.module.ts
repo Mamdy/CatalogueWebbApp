@@ -21,7 +21,7 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { PaymentComponent } from './payment/payment.component';
 //import { CookieService } from 'ngx-cookie-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
- 
+
 import { ToastrModule } from 'ngx-toastr';
 import {NgxStripeModule} from 'ngx-stripe';
 import {NgbModalModule, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
@@ -29,6 +29,7 @@ import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
 import { NewAddressComponent } from './new-address/new-address.component';
 import { OrderRecapComponent } from './order-recap/order-recap.component';
+import { PaymentCardFormComponent } from './payment-card-form/payment-card-form.component';
 
 @NgModule({
 
@@ -36,6 +37,7 @@ import { OrderRecapComponent } from './order-recap/order-recap.component';
     MatSnackBarModule,
     MatDialogModule,
   ],
+
 
 })
 export class MaterialModule {}
@@ -55,11 +57,12 @@ export class MaterialModule {}
     ModalDialogComponent,
     ShippingAddressComponent,
     NewAddressComponent,
-    OrderRecapComponent
-    
+    OrderRecapComponent,
+    PaymentCardFormComponent
+
   ],
 
- 
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -73,16 +76,16 @@ export class MaterialModule {}
     NgbModalModule,
     MatDialogModule,
     MaterialModule,
-    
+
     //ReactiveForms
   ],
 
-  entryComponents: [ModalDialogComponent,NewAddressComponent,ShippingAddressComponent,OrderRecapComponent],
+  entryComponents: [ModalDialogComponent,NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,PaymentCardFormComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
    NgbActiveModal,
-  
+
   ],
   bootstrap: [AppComponent]
 })

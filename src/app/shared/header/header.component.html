@@ -27,32 +27,37 @@
           <i class="fa fa-shopping-cart"></i>
           Panier
         </a>
-        
+
       </li>
 
-      <li class="nav-item">
-        <a *ngIf="isAuthenticated()" class="nav-link" routerLink="/profile">
-         {{name}}
-        </a>
-        
-      </li>
 
       <li class="nav-item">
         <a *ngIf="isAuthenticated() && currentUser.user.role == Role.Customer" class="nav-link" routerLink="/order">
           <i class="fas fa-list-ul"></i>
          Mes Commandes
         </a>
-        
+
       </li>
 
     </ul>
+
+    <li class="nav-item">
+      <a *ngIf="isAuthenticated()" class="nav-link" routerLink="/profile">
+        {{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}
+      </a>
+    </li>
+
+
 
     <ul class="nav navbar-nav navbar-right">
       <li routerLinkActive="active">
         <a *ngIf="!isAuthenticated()" routerLink="/login">Login</a>
         <!--<a *ngIf="!isAuthenticated()" routerLink="/register">Register</a>-->
-        <a *ngIf="isAuthenticated()" routerLink="/login" class="btn" (click)="logOut()">Logout</a>
-      </li>
+        <a *ngIf="isAuthenticated()" routerLink="/login" class="btn btn-default btn-sm" (click)="logOut()">
+          <span class="glyphicon glyphicon-user"></span>
+          Logout
+        </a>
+    </li>
     </ul>
   </div>
 </nav>
