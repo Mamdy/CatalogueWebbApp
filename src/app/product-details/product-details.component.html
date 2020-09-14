@@ -1,0 +1,51 @@
+ <h1 align="center" class="display-4 mb-5">{{currentProduct.name}}</h1>
+  <div class="row text-center justify-content-center">
+    <div class="col-lg-6 ">
+      <div class="card mb-4 ">
+        <img height="60%" class="card-img-top" src="../assets/images/{{currentProduct.photoUrl}}.jpg">
+        <div class="card-body">
+          <h4 class="card-title "><strong>{{currentProduct?.name}}</strong></h4>
+          <form name="form" #form='ngForm' (ngSubmit)="currentProduct?.active == true && addCurrentProductToCart()">
+            <div class="text-left">
+              <input hidden name="id" [value]=currentProduct?.id>
+              <p class="card-test"><strong>Description: </strong>{{currentProduct?.description}}</p>
+              <p class="card-text">
+                <strong>Price: </strong>
+                <label id="price">{{currentProduct?.price | currency}}</label>
+              </p>
+              <p class="card-text"><strong>Stock: </strong>{{currentProduct?.productStock}}</p>
+
+              <label class="card-text">
+                <strong>Quantity: </strong>
+                <input [(ngModel)]=count
+                      (change)="validateCount()"
+                      type="number"
+                      name="count"
+                      required
+                      min="1"
+                      [max]=currentProduct?.productStock
+                >
+              </label>
+
+
+              <p class="card-text"><strong>Subtotal: </strong>
+                <label id="subtotal">{{count * currentProduct?.price | currency}}</label>
+              </p>
+            </div>
+            <button type="submit" [disabled]="!form.form.valid" *ngIf="currentProduct?.active == true; else offBlock"
+                    class="btn btn-primary btn-lg"
+            >
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            Ajouter au Panier
+            </button>
+            <ng-template #offBlock><a class="btn btn-secondary btn-lg disabled">Unavailable</a></ng-template>
+          </form>
+
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-primary float-left" routerLink="/home"><span class="glyphicon glyphicon-backward">&nbsp;<strong>Retour</strong></span></button>&#160;
+      </div>&nbsp;
+    </div>
+   
+  </div>

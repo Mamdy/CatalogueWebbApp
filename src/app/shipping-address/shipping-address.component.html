@@ -26,8 +26,8 @@
              <!---Ajout d'une nouvelle addresse-->
         <div *ngIf="mode=='new-shipping-address'" class="col-md-5">
           <form #f="ngForm" (ngSubmit)="onSaveNewAddress(f.value)">
-               <div class="form-group">
-              <input type="text" name="nom" placeholder="Nom" ngModel class="form-control">
+            <div class="form-group">
+                <input type="text" name="nom" placeholder="Nom" ngModel class="form-control">
             </div>
             <div class="form-group">
               <input type="text" name="prenom" placeholder="Prénom" ngModel class="form-control">

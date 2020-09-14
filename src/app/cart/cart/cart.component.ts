@@ -33,7 +33,6 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
   userSubscription: Subscription;
   private updateTerms = new Subject<ProductInOrder>();
   sub: Subscription;
-  //username = this.authService.getConnectedUserName();
 
   cartlist: Cart[];
   connectedUserCart: Cart;
@@ -58,11 +57,6 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
     //this.productInOrders = this.cartService.getProductsInOrderFromCart();
     console.log("product in cart=>",this.productInOrders);
 
-
-    /*this.cartService.getCartItems(username)
-      .subscribe(res=> {
-        this.cartlist = res.oblist;
-      })*/
 
     this.sub = this.updateTerms.pipe(
 
@@ -107,7 +101,6 @@ onChange(productInOrder) {
 }
 
 remove(productInOrder: ProductInOrder) {
-  debugger
   this.cartService.remove(productInOrder).subscribe(
       success => {
          this.productInOrders = this.productInOrders.filter(e => e.productId !== productInOrder.productId);

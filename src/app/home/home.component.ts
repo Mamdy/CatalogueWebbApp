@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, Input} from '@angular/core';
 import {User} from '../model/User';
 import {Subscription} from 'rxjs';
 import {AuthenticationService} from '../services/authentication.service';
@@ -9,6 +9,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Category} from '../model/Category';
 import {AppResponse} from '../model/AppResponse';
 import { JwtResponse } from '../model/JwtResponse';
+import { Product } from '../model/Product';
 
 @Component({
   selector: 'app-home',
@@ -20,15 +21,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentUserSubscription: Subscription;
   users: User[] = [];
   categories: Category[]=[];
+  listProducts: Product[]=[];
   currentCategory: boolean;
   selectedProducts: any;
   uploadPhoto: boolean;
   userClickHomeTab=false;
+  currentProduct: Product;
+  mode='list-Products';
 
+  @Input()page: any;
   constructor(
               private authenticationService:AuthenticationService,
               private userService: UserService,
-              private cataService: CatalogueService,
+              private catalogueService: CatalogueService,
               private route:ActivatedRoute,
               private router: Router,
 
@@ -49,12 +54,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
 
     })
+    //on recuperer la liste de tous les produits à vendre
+    this.getAllProducts();
 
   }
 
   ngOnDestroy(): void {
    // this.currentUserSubscription.unsubscribe();
-    this.cataService.getAllCategories()
+    this.catalogueService.getAllCategories()
       .then((data:AppResponse)=>{
         this.categories = data.getData().categories;
       }, error1 => {
@@ -74,18 +81,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl("/products/"+btoa(url));
 
   }
-/*
-  getProducts(){
-    debugger
-    this.cataService.getProducts()
-      .subscribe(resp=>{
-        this.selectedProducts = resp;
+  getAllProducts():Product[] {
+    this.mode = 'list-Products';
+
+    this.catalogueService.getProducts()
+      .then((result:AppResponse)=>{
+        this.listProducts = result.getData().products;
       },error1 => {
-        console.log(error1);
+        console.log(error1)
       })
 
+    return this.listProducts;
+
   }
-*/
   onUploadPhoto(p) {
 
   }
@@ -97,5 +105,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   clickHome(){
     //this.router.navigateByUrl("/home");
     return  this.userClickHomeTab = true;
+  }
+
+  detailsProduct(p):Product{
+    debugger
+    this.mode='detail-product';
+    this.currentProduct = p;
+    let url = p._links.self.href;
+      this.catalogueService.getRessources(url)
+        .subscribe((res:Product)=>{
+          this.currentProduct = res;
+          //this.router.navigateByUrl('/products/'+ btoa(url));
+        }),error=>{
+
+        console.log(error);
+      }
+
+      return this.currentProduct;
+    
   }
 }

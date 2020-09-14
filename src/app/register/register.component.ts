@@ -5,6 +5,7 @@ import {AuthenticationService} from '../services/authentication.service';
 import {UserService} from '../services/user.service';
 import {AlertService} from '../services/alert.service';
 import {first} from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,8 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private userService: UserService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private tostService: ToastrService
 
   ) {
     //redirect to home if already logged in
@@ -56,11 +58,10 @@ export class RegisterComponent implements OnInit {
       return;
     }
     this.loading=true;
-    debugger
     this.userService.register(this.registerForm.value)
       .pipe(first())
       .subscribe(data=>{
-        this.alertService.success('Registration successful', true);
+        this.tostService.success('Votre compte vient d etre avec Success','Merci',{positionClass: 'toast-top-center', timeOut: 3000} )
         this.router.navigate(['/login']);
       },error=>{
         this.alertService.error(error);

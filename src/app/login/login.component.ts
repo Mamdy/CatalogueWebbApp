@@ -9,6 +9,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { User } from '../model/User';
 import { UserService } from '../services/user.service';
 import { Role } from '../enum/Role';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,8 @@ export class LoginComponent implements OnInit {
               private authService: AuthenticationService,
               private userService: UserService,
               private  router: Router,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private toastrService: ToastrService,) {
     //redirect to home if already logged in
     // if(this.authService.isAuthenticated()){
     //   this.router.navigate(['']);
@@ -64,55 +66,6 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-//metghode(evenement) qui se déclenche lors de la soumission du formulaire(onLogin(data)) quand clic sur le button Login
-  /*onSubmit(){
-    this.submitted = true;
-    // on s'arrête ici si le formulaire n'est pas valide
-    if(this.loginForm.invalid){
-      return;
-    }
-
-    this.loading = true;
-    this.userService.login(this.loginForm.value)
-      .subscribe(
-        user=>{
-          debugger
-        //login successful et si le token se trouve dans la reponse on le sauve
-        if(user){
-          debugger
-          const jwt = user.token;
-          this.authService.saveToken(jwt);
-
-          debugger
-          if(user.role != Role.Customer){
-            this.returnUrl = ' ';
-          }
-          this.router.navigateByUrl(this.returnUrl);
-
-        }else{
-          this.isLogout = false;
-          this.isInvalid = true;
-          this.router.navigate(['/login']);
-
-
-        }
-
-        /*let jwt=response.headers.get('Authorization');
-        this.authService.saveToken(jwt);
-        //une fois connecté, allez vers la route par defaut
-        this.router.navigate(['']);
-       //this.router.navigate(['/']);
-        //this.route.navigateByUrl("/");
-        //console.log(this.authService.currentUserValue.username)*/
-     /* }, error=>{
-        this.alertService.error(error);
-        this.loading=false;
-
-      }
-
-      );
-  }*/
-
   onSubmit(){
 
    // debugger
@@ -126,10 +79,13 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm)
       .subscribe(user=>{
         if(user){
-          if(user.user.role != Role.Customer && user.user.role == Role.Manager){
+         /* if(user.user.role != Role.Customer && user.user.role == Role.Manager){
             this.returnUrl = '/home';
-          }
-          this.router.navigateByUrl(this.returnUrl);
+          }*/
+          this.router.navigateByUrl('/home');
+          this.toastrService.success('Vous êtes connecté avec Success sur notre Site', 'Bienvenue '+user.user.firstName,{positionClass: 'toast-top-center', timeOut: 3000});
+          
+        
           //login successfull
 
           /*let jwt=response.headers.get('Authorization');

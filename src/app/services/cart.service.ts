@@ -54,14 +54,6 @@ export class CartService {
       }
 
 
-  // View Cart Items for the logged User
-
- /* getCartItems(username: string): Observable<any> {
-    const myheader = new HttpHeaders().set('AUTH_TOKEN', username);
-    return this.http.get<any>(this.prodCatcartUrl, { headers: myheader });
-  }*/
-
-
   getCart(): Observable<ProductInOrder[]> {
         const localCart = this.getLocalCart();
         if (this.currentUser) {
@@ -127,24 +119,12 @@ addItem(productInOrder): Observable<boolean> {
             localStorage.setItem('cart', JSON.stringify(this.localMap));
             return of(true);
         } else {
-            //creation du client en base d'abord
-
+            
            let client = new Client(this.currentUser.user.email, this.currentUser.user.firstName, this.currentUser.user.lastName,this.currentUser.user.email, this.currentUser.user.phone, this.currentUser.user.address, this.currentUser.user.role)
             console.log("Client=>", client);
 
-            //this.userService.clientRegister(client);
              const url = `${this.prodCatcartUrl}`;
-             /*const customerUrl = `${this.prodCatCustomerUrl}`;
-             //creation du client lié à l'utilisateurs connecté
-             this.customerService.clientRegister(client)
-                .pipe(first())
-                .subscribe(data => {
-                    console.log(data);
-
-
-
-                });*/
-            // this.http.post<Client>(customerUrl, client);
+           
 
              return this.http.post<boolean>(url+'/add', {
                 'quantity': productInOrder.count,

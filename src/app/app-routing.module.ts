@@ -15,6 +15,8 @@ import { OrderComponent } from './order/order.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { CriteriaSearchViewComponent } from './criteria-search-view/criteria-search-view.component';
 
 const routes: Routes = [
   {path:"home" , component:HomeComponent},
@@ -24,6 +26,10 @@ const routes: Routes = [
   {path:"product", component:ProductsComponent},
   {path:"products", component:AllProductComponent},
   {path:"order/:id/shipping-address", component:ShippingAddressComponent},
+  {path:"searchCriteriaView", component:CriteriaSearchViewComponent},
+  
+  
+  {path:"product-details", component:ProductDetailsComponent},
   
 
 

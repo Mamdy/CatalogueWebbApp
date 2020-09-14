@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {reject, resolve} from 'q';
 import { AppResponse } from '../model/AppResponse';
+import { prodCatApiUrl } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -10,6 +12,7 @@ import { AppResponse } from '../model/AppResponse';
 })
 export class CatalogueService {
   public host: string = "http://localhost:8087";
+  private searchUrl = `${prodCatApiUrl}/searchKeyWord`;
 
   constructor(private http: HttpClient, private authService:AuthenticationService) { }
  /*public getAllCategories() {
@@ -36,6 +39,12 @@ export class CatalogueService {
       });
   }
 
+  getProductsByKeword(keyword,page=1,size = 10):Observable<any>{
+    //debugger
+    
+    return this.http.get(`${this.searchUrl}?keyword=${keyword}&size=${size}&page=${page}`).pipe();
+     
+  }
   public getRessources(url){
     return this.http.get(url);
   }

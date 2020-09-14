@@ -1,114 +1,72 @@
-<nav class="navbar navbar-inverse header">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/home"><b>OnLine Shopping</b></a>
+<div class="div">
+  <nav class="navbar navbar-inverse header topnav">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand active" routerLink="/home"><strong>OnLine Shopping</strong></a>
+      </div>
+      
+        <div class="search-container">
+          <form  [formGroup]="searchForm" (ngSubmit)="searchProductByCriteria()" #f="ngForm">
+              <div class="form-group">
+                <input type="text" formControlName="criteria" placeholder="Search...">
+                <button type="submit">
+                  <i class="fa fa-search"
+                    style="font-size: 18px;"></i>
+                </button>
+            
+  
+              </div>
+               
+          </form>
+        </div>
+      <ul class="nav navbar-nav">
+        <li class="dropdown" *ngIf="isAuthenticated() && isAdmin()">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
+            <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a routerLink="/adminCategories">Gestion des Categories</a></li>
+            <li><a routerLink="/adminProducts">Gestion des Produits</a></li>
+            <li><a routerLink="/adminUsers">Gestion des Utilisateurs</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a *ngIf="!currentUser || currentUser.user.role == Role.Customer" class="nav-item nav-link" routerLink="/cart">
+            <i class="fa fa-shopping-cart"></i>
+            Panier
+          </a>
+  
+        </li>
+  
+        <li class="nav-item">
+          <a *ngIf="isAuthenticated() && currentUser.user.role == Role.Customer" class="nav-link" routerLink="/order">
+            <i class="fas fa-list-ul"></i>
+           Mes Commandes
+          </a>
+  
+        </li>
+  
+      </ul>
+  
+      <ul class="nav navbar-nav navbar-right">
+        <li routerLinkActive="active">
+          <a *ngIf="!isAuthenticated()" routerLink="/login">Login</a>
+          <a *ngIf="isAuthenticated()" routerLink="/login" class="btn btn-default btn-sm" (click)="logOut()">
+            <span class="glyphicon glyphicon-user">&nbsp;Logout</span><br>
+            <span>{{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
+            
+          </a>
+          
+      </ul>
     </div>
-    <ul class="nav navbar-nav">
-      <li class="dropdown" *ngIf="isAuthenticated() && isAdmin()">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
-          <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a routerLink="/adminCategories">Gestion des Categories</a></li>
-          <li><a routerLink="/adminProducts">Gestion des Produits</a></li>
-          <li><a routerLink="/adminUsers">Gestion des Utilisateurs</a></li>
-        </ul>
-      </li>
+  </nav>
+</div>
 
-      <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="/about">Contact</a>
-      </li>
-
-      <li class="nav-item">
-        <a *ngIf="!currentUser || currentUser.user.role == Role.Customer" class="nav-item nav-link" routerLink="/cart">
-          <i class="fa fa-shopping-cart"></i>
-          Panier
-        </a>
-
-      </li>
-
-
-      <li class="nav-item">
-        <a *ngIf="isAuthenticated() && currentUser.user.role == Role.Customer" class="nav-link" routerLink="/order">
-          <i class="fas fa-list-ul"></i>
-         Mes Commandes
-        </a>
-
-      </li>
-
-    </ul>
-
-    <li class="nav-item">
-      <a *ngIf="isAuthenticated()" class="nav-link" routerLink="/profile">
-        {{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}
-      </a>
-    </li>
-
-
-
-    <ul class="nav navbar-nav navbar-right">
-      <li routerLinkActive="active">
-        <a *ngIf="!isAuthenticated()" routerLink="/login">Login</a>
-        <!--<a *ngIf="!isAuthenticated()" routerLink="/register">Register</a>-->
-        <a *ngIf="isAuthenticated()" routerLink="/login" class="btn btn-default btn-sm" (click)="logOut()">
-          <span class="glyphicon glyphicon-user"></span>
-          Logout
-        </a>
-    </li>
-    </ul>
-  </div>
-</nav>
-
-<div *ngIf="isAuthenticated()">
-  <p>WELCOME <b>{{currentUser.user.firstName}}</b></p>
-  <!--<app-categories></app-categories>-->
+<div *ngIf="criteriaSearch">
+  <app-criteria-search-view [page]="page"></app-criteria-search-view>
 </div>
 
 
-<!---TEMPLATE MODEL-->
-<!-- Navigation -->
-<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="#">Onlineshopping</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/home">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
-        </li>
-        <li class="active nav-item">
-          <a class="nav-link" href="#">Administration</a>
-        </li>
-
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
-            <span class="caret"></span></a>
-            <ul>
-              <li><a routerLink="/adminCategories">Gestion des Categeries</a></li>
-              <li><a routerLink="/adminProducts">Gestion des Produits</a></li>
-              <li><a routerLink="/adminUsers">Gestion des Utilisateurs</a></li>
-            </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/contact">Contact</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>-->
-<!--<div class="container">
-  <router-outlet></router-outlet>
-</div>-->
 
 
 

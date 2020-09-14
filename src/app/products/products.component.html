@@ -20,8 +20,7 @@
          <!--<a routerLink="/product/{{productInfo.productId}}" *ngIf="productInfo.active == true; else offBlock"
              class="btn btn-primary btn-lg"
           >Details!</a>-->
-          <button class="btn btn-primary spacer" (click)="detailsProduct(productInfo)"><span class="glyphicon glyphicon-eye-open"> Voir details</span></button>&#160;
-          <!--<button class="btn btn-success disabled" (click)="addProductToCart(productInfo)"><span class="glyphicon glyphicon-shopping-cart"></span></button>-->
+          <button class="btn btn-primary spacer" (click)="detailsProduct(productInfo)"><span class="glyphicon glyphicon-eye-open">&nbsp;<strong>Voir les Details</strong></span></button>&#160;
           <ng-template #offBlock><a class="btn btn-secondary btn-lg disabled">Unavailable</a></ng-template>
         </div>
       </div>
@@ -33,98 +32,7 @@
 
  <!--Affichage des details d'un produit p-->
  <div *ngIf="currentProduct && mode ==='detail-Product-P' " >
-    <!--Affichage de l'image du produit à gauche de l'ecran-->
-   <!-- <div class="col-xs-12 col-sm-4">
-
-      <div class="thumbnail">
-        <img src="../assets/images/{{currentProduct.photoUrl}}.jpg"
-            id="image_samsung" alt="telephone_samsung" title="telephone_samsung" class="dataTableImg img img-responsive">
-      </div>
-
-    </div>
--->
-  
-    <!--Affichage du description du produit p-->
-
-    <!-- <div class="col-xs-12 col-sm-8">
-
-      <h3>{{currentProduct.name}}</h3>
-      <hr/>
-
-      <p>{{currentProduct.description}}</p>
-      <hr/>
-
-      <h4>Price: <strong>&euro;  {{currentProduct.price |number: '0.3'}}</strong></h4>
-      <hr/>
-      <div class="div">
-        <button class="btn btn-success" (click)="addProductToCart(currentProduct)"><span class="glyphicon glyphicon-shopping-cart"></span>Ajouter Au Panier</button> &#160;
-        <button class="btn btn-primary" routerLink="/products"><span class="glyphicon glyphicon-backward"></span>Retour</button>
-      </div>
-      <div class="container">
-        <div *ngIf="currentProduct.quantite < 1">
-          <h6>Qty. Available: <span style="color: red" >Article indisponible en Stock!!</span></h6>
-          <button class="btn btn-success disabled" (click)="addProductToCart(currentProduct)"><span class="glyphicon glyphicon-shopping-cart"></span>Ajouter Au Panier</button> &#160;
-          <button class="btn btn-primary" routerLink="/products"><span class="glyphicon glyphicon-backward"></span>Retour</button>
-        </div>
-      </div>
-      <div *ngIf="currentProduct.quantite >= 1">
-        <h6>Qty. Available: {{currentProduct.quantite}}</h6>
-        <button class="btn btn-success" (click)="addProductToCart(currentProduct)"><span class="glyphicon glyphicon-shopping-cart"></span>Ajouter Au Panier</button> &#160;
-        <button class="btn btn-primary" routerLink="/products"><span class="glyphicon glyphicon-backward"></span>Retour</button>
-      </div>
-
-
-
-
-    </div>-->
-   
-
-<h1 align="center" class="display-4 mb-5">{{currentProduct.name}}</h1>
-<div class="row text-center justify-content-center">
-  <div class="col-lg-6 ">
-    <div class="card mb-4 ">
-      <img height="60%" class="card-img-top" src="../assets/images/{{currentProduct.photoUrl}}.jpg">
-      <div class="card-body">
-        <h4 class="card-title "><strong>{{currentProduct?.name}}</strong></h4>
-        <form name="form" #form='ngForm' (ngSubmit)="currentProduct?.active == true && addCurrentProductToCart()">
-          <div class="text-left">
-            <input hidden name="id" [value]=currentProduct?.id>
-            <p class="card-test"><strong>Description: </strong>{{currentProduct?.description}}</p>
-            <p class="card-text">
-              <strong>Price: </strong>
-              <label id="price">{{currentProduct?.price | currency}}</label>
-            </p>
-            <p class="card-text"><strong>Stock: </strong>{{currentProduct?.productStock}}</p>
-
-            <label class="card-text">
-              <strong>Quantity: </strong>
-              <input [(ngModel)]=count
-                     (change)="validateCount()"
-                     type="number"
-                     name="count"
-                     required
-                     min="1"
-                     [max]=currentProduct?.productStock
-              >
-            </label>
-
-
-            <p class="card-text"><strong>Subtotal: </strong>
-              <label id="subtotal">{{count * currentProduct?.price | currency}}</label>
-            </p>
-          </div>
-          <button type="submit" [disabled]="!form.form.valid" *ngIf="currentProduct?.active == true; else offBlock"
-                  class="btn btn-primary btn-lg"
-          >Ajouter au Panier
-          </button>
-          <ng-template #offBlock><a class="btn btn-secondary btn-lg disabled">Unavailable</a></ng-template>
-        </form>
-
-      </div>
-    </div>
-  </div>
-</div>
-
+  <app-product-details [currentProduct]="currentProduct"></app-product-details>
 </div>
 
 

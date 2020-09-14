@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StripeService,Element as StripeElement, Elements, ElementsOptions } from 'ngx-stripe';
 import { PaymentService } from '../services/payment.service';
 import { PaymentIntentDto } from '../model/PaymentIntentDto';
@@ -31,6 +31,7 @@ export class PaymentCardFormComponent implements OnInit {
               private orderService: OrderService,
               private paymentService: PaymentService,
               private route: ActivatedRoute,
+              private router: Router,
               private toastrService: ToastrService,
               public modalService: NgbModal){}
 
@@ -94,8 +95,11 @@ export class PaymentCardFormComponent implements OnInit {
               if(data){
                 this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
                 result['id'],{positionClass: 'toast-top-center', timeOut: 3000});
+                
 
                 this.openDialogModal(data[`id`], data['amount'], data[`description`], data[`amount`]);
+
+                
 
                 this.paymentService.paymentConfirm(data['id']).subscribe(
 
@@ -103,6 +107,7 @@ export class PaymentCardFormComponent implements OnInit {
                     this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
                     result['id'],{positionClass: 'toast-top-center', timeOut: 3000});
                   });
+                  this.router.navigateByUrl('/products');
 
 
               }

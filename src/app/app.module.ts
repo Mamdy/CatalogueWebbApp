@@ -24,12 +24,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
 import {NgxStripeModule} from 'ngx-stripe';
-import {NgbModalModule, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModalModule, NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
 import { NewAddressComponent } from './new-address/new-address.component';
 import { OrderRecapComponent } from './order-recap/order-recap.component';
 import { PaymentCardFormComponent } from './payment-card-form/payment-card-form.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { CriteriaSearchViewComponent } from './criteria-search-view/criteria-search-view.component';
 
 @NgModule({
 
@@ -38,7 +40,7 @@ import { PaymentCardFormComponent } from './payment-card-form/payment-card-form.
     MatDialogModule,
   ],
 
-
+  
 })
 export class MaterialModule {}
 
@@ -58,12 +60,14 @@ export class MaterialModule {}
     ShippingAddressComponent,
     NewAddressComponent,
     OrderRecapComponent,
-    PaymentCardFormComponent
+    PaymentCardFormComponent,
+    ProductDetailsComponent,
+    CriteriaSearchViewComponent
 
   ],
 
-
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -76,11 +80,12 @@ export class MaterialModule {}
     NgbModalModule,
     MatDialogModule,
     MaterialModule,
+       
 
     //ReactiveForms
   ],
 
-  entryComponents: [ModalDialogComponent,NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,PaymentCardFormComponent],
+  entryComponents: [ModalDialogComponent,NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,PaymentCardFormComponent,ProductDetailsComponent,CriteriaSearchViewComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
