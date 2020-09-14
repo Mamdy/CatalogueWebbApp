@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit{
     Role = Role;
 
     products:Product[]=[]
-    
+
 
     isSubmited = false;
     loading: boolean;
@@ -48,10 +48,6 @@ export class HeaderComponent implements OnInit{
                });
 
   ngOnInit(){
-    // this.searchForm = this.formBuilder.group({
-    //   criteria: [''],
-
-    // });
 
     this.name$ = this.authService. name$.subscribe(aName => this.name = aName);
     this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
@@ -64,10 +60,10 @@ export class HeaderComponent implements OnInit{
 
       }
       this.searchProductByCriteria();
- 
+
 
     })
-   
+
 
 this.criteriaSearch = false;
 
@@ -126,13 +122,11 @@ get f() {
     this.loading = true;
 
     this.catalogueService.getProductsByKeword(criteria, nextPage, size).subscribe(page => this.page = page, _ =>{
-      
-      //debugger
-        console.log("list des pages produits==>"+this.page); 
-       
-        
+        console.log("list des pages produits==>"+this.page);
 
-    
+
+
+
     });
     //debugger
     //this.router.navigate(['/searchCriteriaView']);
@@ -143,7 +137,7 @@ get f() {
     this.router.navigate(['/home']);
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(){
 
     this.currentUserSubscription.unsubscribe();
     this.name$.unsubscribe();

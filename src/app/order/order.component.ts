@@ -50,8 +50,6 @@ export class OrderComponent implements OnInit, OnDestroy {
       console.log("list des pages commandes==>"+this.page );
       console.log("Get Order Failed")
     });
-
-    throw new Error("Method not implemented.");
   }
 
   cancel(order: Order) {

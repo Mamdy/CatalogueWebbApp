@@ -146,16 +146,17 @@ export class PaymentComponent implements OnInit {
           this.paymentService.pay(paymentIntentDto).subscribe(
             data => {
               if(data){
-                this.paymentService.paymentConfirm(data['id']).subscribe(
+                this.openDialogModal(data[`id`], data['amount'], data[`description`], data[`amount`]);
+                /*this.paymentService.paymentConfirm(data['id']).subscribe(
 
                   result=>{
                     this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
                     result['id'],{positionClass: 'toast-top-center', timeOut: 3000});
-                  });
+                  });*/
 
 
               }
-              this.openDialogModal(data[`id`], data['amount'], data[`description`], data[`amount`]);
+
               //this.router.navigate([' ']);
             }
           );

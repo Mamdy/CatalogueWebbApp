@@ -46,8 +46,7 @@
             <!--/.Controls-->
           </div>
           <div class="row">
-  
-                <div *ngFor="let p of listProducts" class="col-lg-4 col-md-6 mb-4">
+              <div *ngFor="let p of listProducts" class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
                       <a href="#"><img class="card-img-top" src="../assets/images/{{p.photoUrl}}.jpg" alt="{{p.photoUrl}}.jpg"></a>
                       <div class="card-body">
@@ -58,15 +57,15 @@
                         <h5>${{p.price}}</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
                       </div>
-  
+
                      <!--<button class="btn btn-primary spacer" (click)="detailsProduct(productInfo)"><span class="glyphicon glyphicon-eye-open">&nbsp;<strong>Voir les Details</strong></span></button>&#160;-->
                       <div class="card-footer">
                         <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                       </div>
                     </div>
-  
+
                 </div>
-                
+
           </div>
         </div>
 
@@ -82,4 +81,3 @@
 
 
 
-  

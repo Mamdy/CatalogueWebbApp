@@ -26,6 +26,12 @@ export class PaymentCardFormComponent implements OnInit {
   elementsOptions: ElementsOptions = {
     locale: 'fr'
   };
+  description: string;
+
+  attemptePayingOrder:boolean;
+  paidSuccess:boolean;
+
+  paymentData: PaymentIntentDto;
 
   constructor(private stripeService: StripeService,
               private orderService: OrderService,
@@ -78,6 +84,7 @@ export class PaymentCardFormComponent implements OnInit {
 
   buy() {
     debugger
+    this.attemptePayingOrder = true;
     const name = this.stripeForm.get('name').value;
     this.stripeService
       .createToken(this.card, { name })
@@ -89,25 +96,28 @@ export class PaymentCardFormComponent implements OnInit {
             currency: 'eur',
             description: 'test carte reel'
           };
+          debugger
+          this.description = paymentIntentDto.description;
+          this.paymentData = paymentIntentDto;
           this.paymentService.pay(paymentIntentDto).subscribe(
 
             data => {
               if(data){
-                this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
-                result['id'],{positionClass: 'toast-top-center', timeOut: 3000});
-                
+                /*this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
+                result['id'],{positionClass: 'toast-top-center', timeOut: 3000});*/
+
 
                 this.openDialogModal(data[`id`], data['amount'], data[`description`], data[`amount`]);
 
-                
 
-                this.paymentService.paymentConfirm(data['id']).subscribe(
+
+               /* this.paymentService.paymentConfirm(data['id']).subscribe(
 
                   result=>{
                     this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
                     result['id'],{positionClass: 'toast-top-center', timeOut: 3000});
-                  });
-                  this.router.navigateByUrl('/products');
+                  });*/
+                 // this.router.navigateByUrl('/products');
 
 
               }

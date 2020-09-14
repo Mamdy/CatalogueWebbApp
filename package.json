@@ -24,6 +24,7 @@
     "@angular/router": "^7.2.16",
     "@auth0/angular-jwt": "^2.1.2",
     "@ng-bootstrap/ng-bootstrap": "^4.2.2",
+    "@ngtools/webpack": "7.3.9",
     "@types/datatables.net": "^1.10.19",
     "@types/jquery": "^3.3.38",
     "angular-datatables": "^7.0.0",
