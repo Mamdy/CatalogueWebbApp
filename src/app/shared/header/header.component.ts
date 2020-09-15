@@ -13,6 +13,7 @@ import { CatalogueService } from 'src/app/services/catalogue.service';
 import { Product } from 'src/app/model/Product';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AppResponse } from 'src/app/model/AppResponse';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -34,18 +35,36 @@ export class HeaderComponent implements OnInit{
     isSubmited = false;
     loading: boolean;
 
-    criteriaSearch:boolean;
+    criteriaSearch:string;
+    public state = '';
 
 
   constructor( private authService: AuthenticationService,
               private userService: UserService,
               private formBuilder: FormBuilder,
                 private router: Router,
+                private route: ActivatedRoute,
                private catalogueService: CatalogueService,
                @Inject(DOCUMENT) private _document: Document) { }
+
+
                public searchForm = new FormGroup({
                 criteria: new FormControl(''),
                });
+
+
+
+              public searchProductByCriteria(event: Event){
+                event.preventDefault();
+                if(this.searchForm.get('criteria').value === undefined){
+                  return;
+                }else{
+                  const criteria = this.searchForm.get('criteria').value;
+                  this.router.navigate(['searchCriteriaView'], { state: { criteria: criteria } });
+                }
+
+
+              }
 
   ngOnInit(){
 
@@ -59,13 +78,13 @@ export class HeaderComponent implements OnInit{
         this.root = "/home";
 
       }
-      this.searchProductByCriteria();
+      //this.searchProductByCriteria();
 
 
     })
 
+    this.state = window.history.state.criteria;
 
-this.criteriaSearch = false;
 
     //this.refreshPage();
   }
@@ -112,26 +131,7 @@ get f() {
 
   }
 
-  searchProductByCriteria(){
-    this.criteriaSearch = true;
-    const criteria = this.searchForm.get('criteria').value;
-    let nextPage = 1;
-    let size = 10;
 
-    this.isSubmited = true;
-    this.loading = true;
-
-    this.catalogueService.getProductsByKeword(criteria, nextPage, size).subscribe(page => this.page = page, _ =>{
-        console.log("list des pages produits==>"+this.page);
-
-
-
-
-    });
-    //debugger
-    //this.router.navigate(['/searchCriteriaView']);
-
-  }
 
   redirectToHomePage() {
     this.router.navigate(['/home']);

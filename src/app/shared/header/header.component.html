@@ -8,7 +8,7 @@
       </div>
 
       <div class="search-container">
-          <form  [formGroup]="searchForm" (ngSubmit)="searchProductByCriteria()" #f="ngForm">
+          <form  [formGroup]="searchForm" (ngSubmit)="searchProductByCriteria($event)" #f="ngForm">
               <div class="form-group">
                 <input type="text" formControlName="criteria" placeholder="Search...">
                 <button type="submit">
@@ -70,9 +70,9 @@
       </ul>
     </div>
   </nav>
-  <div *ngIf="criteriaSearch">
+  <!-- <div *ngIf="criteriaSearch">
     <app-criteria-search-view [page]="page"></app-criteria-search-view>
-  </div>
+  </div> -->
 </div>
 
 
