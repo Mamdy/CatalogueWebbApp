@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "heroku-postbuild": "ng build --prod",
+    "heroku-postbuild": "ng build --prod && npm install -g http-server-spa",
     "start": "http-server-spa dist/catalogue-web-app index.html $PORT",
     "build": "ng build",
     "test": "ng test",
@@ -12,7 +12,7 @@
   },
   "engines": {
     "node": "12.14.1",
-    "npm": "7.0.5"
+    "npm": "7.0.7"
   },
   "private": true,
   "dependencies": {
