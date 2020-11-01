@@ -32,6 +32,8 @@ export class PaymentComponent implements OnInit {
   paimentMode:any;
   order$: Observable<Order>
   orderAmount: number;
+  isLoadingCardForm:boolean;
+  isCardFormLoaded : boolean;
 
   elementsOptions: ElementsOptions = {
     locale: 'fr'
@@ -79,7 +81,8 @@ export class PaymentComponent implements OnInit {
       private paymentService: PaymentService,
       private toastrService: ToastrService,
       private router: Router,
-      private route: ActivatedRoute) { }
+      private route: ActivatedRoute,
+      ) { }
 
       public stripeForm = new FormGroup({
         name: new FormControl('', Validators.required),
@@ -87,84 +90,9 @@ export class PaymentComponent implements OnInit {
       });
 
   ngOnInit() {
-    this.stripeService.elements(this.elementsOptions)
-    .subscribe(elements => {
-      this.elements = elements;
-      // Only mount the element the first time
-      if (!this.card) {
-        this.card = this.elements.create('card', {
-          style: {
-            base: {
-              iconColor: '#666EE8',
-              color: '#31325F',
-              fontWeight: 300,
-              fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-              fontSize: '18px',
-              '::placeholder': {
-                color: '#CFD7E0'
-              }
-            }
-          }
-        });
-        this.card.mount('#card-element');
-      }
-    });
-
     this.order$ = this.orderService.show(this.route.snapshot.paramMap.get('id'));
-    this.orderService.show(this.route.snapshot.paramMap.get('id')).subscribe(data=> {
-      if(data){
-        this.order = data;
-      }else{
-        console.log("No data");
-      }
-    },error => {
-      console.log(error);
-
-    });
-
-
-
-    console.log("id of ===>",this.paymentModes.bankCard.id);
-    console.log("id value ===>",this.paymentModes.bankCard.value);
-    console.log("isChecked ===>",this.paymentModes.bankCard.checked);
-    console.log("OrderAmount=====>",this.order.orderAmount);
-
   }
 
-  buy() {
-    const name = this.stripeForm.get('name').value;
-    this.stripeService
-      .createToken(this.card, { name })
-      .subscribe(result => {
-        if (result.token) {
-          const paymentIntentDto: PaymentIntentDto = {
-            token: result.token.id,
-            amount: this.order.orderAmount,
-            currency: 'eur',
-            description: 'test carte reel'
-          };
-          this.paymentService.pay(paymentIntentDto).subscribe(
-            data => {
-              if(data){
-                this.paymentService.paymentConfirm(data['id']).subscribe(
-
-                  result=>{
-                    this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
-                    result['id'],{positionClass: 'toast-top-center', timeOut: 3000});
-                  });
-
-
-              }
-              this.openDialogModal(data[`id`], data['amount'], data[`description`], data[`amount`]);
-              //this.router.navigate([' ']);
-            }
-          );
-          this.error = undefined;
-        } else if (result.error) {
-          this.error = result.error.message;
-        }
-      });
-  }
 
   openDialogModal(id: string, amount: number, description: string, price: number){
     const modalRef = this.modalService.open(ModalDialogComponent);
@@ -181,11 +109,29 @@ export class PaymentComponent implements OnInit {
 }
 
 isBankCardOptionSelected(){
+  
   this.paymentModes.bankCard.checked = true;
   this.paymentModes.paypal.checked=false ;
   this.paymentModes.orangeMoney.checked=false ;
   this.paymentModes.cash.checked=false ;
   this.paimentMode = 'carteBancaire';
+  this.hideLoaderIndicator();
+  
+  
+ 
+}
+
+
+isLodingCF(){
+  return this.isLoadingCardForm = true;
+}
+isLodedCF(){
+  return this.isCardFormLoaded = true;
+}
+
+hideLoaderIndicator(){
+
+//document.getElementById('loading').style.display= 'none'; 
 
 }
 

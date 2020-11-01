@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit{
     currentUser: JwtResponse;
     root = '/';
     Role = Role;
+    searchCriteria: string;
 
     products:Product[]=[]
     
@@ -35,6 +36,7 @@ export class HeaderComponent implements OnInit{
     loading: boolean;
 
     criteriaSearch:boolean;
+    public state = '';
 
 
   constructor( private authService: AuthenticationService,
@@ -42,6 +44,7 @@ export class HeaderComponent implements OnInit{
               private formBuilder: FormBuilder,
                 private router: Router,
                private catalogueService: CatalogueService,
+               
                @Inject(DOCUMENT) private _document: Document) { }
                public searchForm = new FormGroup({
                 criteria: new FormControl(''),
@@ -63,16 +66,31 @@ export class HeaderComponent implements OnInit{
         this.root = "/home";
 
       }
-      this.searchProductByCriteria();
+      //this.searchProductByCriteria();
+      this.state = window.history.state.criteria;
  
 
     })
-   
 
-this.criteriaSearch = false;
 
     //this.refreshPage();
   }
+
+  public searchProductByCriteria(event: Event){
+    event.preventDefault();
+    
+    
+    if(this.searchForm.get('criteria').value === undefined){
+     return;
+    }else {
+    const criteria = this.searchForm.get('criteria').value;
+    this.searchCriteria = criteria;
+    }
+  
+    this.router.navigate(['/searchCriteriaView'], {state: {criteria: this.searchCriteria}});
+
+  }
+
 
 
 get f() {
@@ -116,29 +134,7 @@ get f() {
 
   }
 
-  searchProductByCriteria(){
-    this.criteriaSearch = true;
-    const criteria = this.searchForm.get('criteria').value;
-    let nextPage = 1;
-    let size = 10;
-
-    this.isSubmited = true;
-    this.loading = true;
-
-    this.catalogueService.getProductsByKeword(criteria, nextPage, size).subscribe(page => this.page = page, _ =>{
-      
-      //debugger
-        console.log("list des pages produits==>"+this.page); 
-       
-        
-
-    
-    });
-    //debugger
-    //this.router.navigate(['/searchCriteriaView']);
-
-  }
-
+  
   redirectToHomePage() {
     this.router.navigate(['/home']);
   }

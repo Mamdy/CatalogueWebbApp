@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { apiUrl } from 'src/environments/environment.prod';
+
 import { HttpClient } from '@angular/common/http';
 import { Order } from '../model/Order';
 import { catchError } from 'rxjs/operators';
@@ -21,7 +21,7 @@ export class OrderService {
               private paymentService: PaymentService,
               private toastService: ToastrService) { }
 
-  getPage(page = 1, size = 10): Observable<any> {
+  getPage(page = 1, size = 3): Observable<any> {
     return this.http.get(`${this.orderUrl}?page=${page}&size=${size}`).pipe();
 
   }

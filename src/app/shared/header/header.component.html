@@ -1,70 +1,77 @@
-<div class="div">
-  <nav class="navbar navbar-inverse header topnav">
+  <div class="container">
     <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand active" routerLink="/home"><strong>OnLine Shopping</strong></a>
-      </div>
-      
-        <div class="search-container">
-          <form  [formGroup]="searchForm" (ngSubmit)="searchProductByCriteria()" #f="ngForm">
-              <div class="form-group">
-                <input type="text" formControlName="criteria" placeholder="Search...">
-                <button type="submit">
-                  <i class="fa fa-search"
-                    style="font-size: 18px;"></i>
-                </button>
-            
-  
-              </div>
-               
-          </form>
-        </div>
-      <ul class="nav navbar-nav">
-        <li class="dropdown" *ngIf="isAuthenticated() && isAdmin()">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
-            <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a routerLink="/adminCategories">Gestion des Categories</a></li>
-            <li><a routerLink="/adminProducts">Gestion des Produits</a></li>
-            <li><a routerLink="/adminUsers">Gestion des Utilisateurs</a></li>
-          </ul>
-        </li>
-        
-        <li class="nav-item">
-          <a *ngIf="!currentUser || currentUser.user.role == Role.Customer" class="nav-item nav-link" routerLink="/cart">
-            <i class="fa fa-shopping-cart"></i>
-            Panier
-          </a>
-  
-        </li>
-  
-        <li class="nav-item">
-          <a *ngIf="isAuthenticated() && currentUser.user.role == Role.Customer" class="nav-link" routerLink="/order">
-            <i class="fas fa-list-ul"></i>
-           Mes Commandes
-          </a>
-  
-        </li>
-  
-      </ul>
-  
-      <ul class="nav navbar-nav navbar-right">
-        <li routerLinkActive="active">
-          <a *ngIf="!isAuthenticated()" routerLink="/login">Login</a>
-          <a *ngIf="isAuthenticated()" routerLink="/login" class="btn btn-default btn-sm" (click)="logOut()">
-            <span class="glyphicon glyphicon-user">&nbsp;Logout</span><br>
-            <span>{{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
-            
-          </a>
+      <nav class="navbar navbar-inverse header topnav">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand active" routerLink="/home"><strong>OnLine Shopping</strong></a>
+          </div>
           
-      </ul>
+            <div class="search-container">
+              <form  [formGroup]="searchForm" (ngSubmit)="searchProductByCriteria($event)" #f="ngForm">
+                  <div class="form-group">
+                    <input type="text" formControlName="criteria" placeholder="Search...">
+                    <button type="submit">
+                      <i class="fa fa-search"
+                        style="font-size: 18px;"></i>
+                    </button>
+                
+      
+                  </div>
+                   
+              </form>
+            </div>
+          <ul class="nav navbar-nav">
+            <li class="dropdown" *ngIf="isAuthenticated() && isAdmin()">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a routerLink="/adminCategories">Gestion des Categories</a></li>
+                <li><a routerLink="/adminProducts">Gestion des Produits</a></li>
+                <li><a routerLink="/adminUsers">Gestion des Utilisateurs</a></li>
+              </ul>
+            </li>
+            
+            <li class="nav-item">
+              <a *ngIf="!currentUser || currentUser.user.role == Role.Customer" class="nav-item nav-link" routerLink="/cart">
+                <i class="fa fa-shopping-cart"></i>
+                Panier
+              </a>
+      
+            </li>
+      
+            <li class="nav-item">
+              <a *ngIf="isAuthenticated() && currentUser.user.role == Role.Customer" class="nav-link" routerLink="/order">
+                <i class="fas fa-list-ul"></i>
+               Mes Commandes
+              </a>
+      
+            </li>
+      
+          </ul>
+      
+          <ul class="nav navbar-nav navbar-right">
+            <li routerLinkActive="active">
+              <a *ngIf="!isAuthenticated()" routerLink="/login">Login</a>
+              <a *ngIf="isAuthenticated()" routerLink="/login" class="btn btn-default btn-sm" (click)="logOut()">
+                <span class="glyphicon glyphicon-user">&nbsp;Logout</span><br>
+                <span>{{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
+                
+              </a>
+              
+          </ul>
+        </div>
+      </nav>
     </div>
-  </nav>
+      
+    
 </div>
 
-<div *ngIf="criteriaSearch">
-  <app-criteria-search-view [page]="page"></app-criteria-search-view>
-</div>
+
+
+<!-- <div *ngIf="criteriaSearch">
+  <app-criteria-search-view
+  [searchCriteria]="searchCriteria"></app-criteria-search-view>
+</div> -->
 
 
 

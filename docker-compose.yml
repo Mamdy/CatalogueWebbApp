@@ -1,0 +1,23 @@
+# version: '3.5' #specify docker-compose version
+
+# #Define the services/containers to be run
+# services:
+#     angular-service:
+#         container_name: angular-container3
+#         build: ./ #specifie le repertoir du fichier Dokerfile(ici c'est dans repertoir courant)
+#         volumes: #Volume/espace de persistance
+#         - './:/usr/src/app'
+
+#         ports:
+#           - "4202:4200" #specify the port forwarding
+#         command: >
+#           sh -c "npm start"
+#     docker-nginx:
+#         container_name: docker-nginx
+#         build: ./
+#         ports: 
+#           - "81:81"
+#         command: ["tail","-f", "/dev/null"]
+#         #command: ["nginx","-g", "daemon off;"]
+#         links: 
+#             - angular-service

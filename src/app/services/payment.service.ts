@@ -19,6 +19,7 @@ export class PaymentService {
   constructor(private http: HttpClient) { }
  
   pay(paymentIntentDto: PaymentIntentDto): Observable<string> {
+    debugger
     return this.http.post<string>(`${this.paymentUrl}/paymentintent`, paymentIntentDto, paymentHeader );
     
   }

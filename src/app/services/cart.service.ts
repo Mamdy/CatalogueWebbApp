@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { userApiUrl, prodCatApiUrl } from 'src/environments/environment';
+import {prodCatApiUrl } from 'src/environments/environment';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Item } from '../model/Item';
 import { JwtResponse } from '../model/JwtResponse';
@@ -19,7 +19,7 @@ export class CartService {
   private prodCatCustomerUrl = `${prodCatApiUrl}/client`;
 
   localMap = {};
-  products: ProductInOrder[];
+  listProductsInOrder: ProductInOrder[];
 
   private itemsSubject: BehaviorSubject<Item[]>;
   private totalSubject: BehaviorSubject<number>;
@@ -55,14 +55,21 @@ export class CartService {
 
 
   getCart(): Observable<ProductInOrder[]> {
-        const localCart = this.getLocalCart();
+      debugger
+        const localCartProductsInOrder = this.getLocalCart();
         if (this.currentUser) {
-
-            if (localCart.length > 0) {
-                return this.http.post<ProductInOrder[]>(this.prodCatcartUrl, localCart).pipe(
+            let client = new Client(this.currentUser.user.email, this.currentUser.user.firstName, this.currentUser.user.lastName,this.currentUser.user.email, this.currentUser.user.phone, this.currentUser.user.address, this.currentUser.user.role);
+            if (localCartProductsInOrder.length > 0) {
+             
+                return this.http.post<ProductInOrder[]>(this.prodCatcartUrl,{
+                'client':client,
+                'localCartProductsInOrder':localCartProductsInOrder
+                }
+                ).pipe(
                     tap(products => {
+                        debugger
                         if(products){
-                            this.products = products;
+                            this.listProductsInOrder = products;
                         }
                         this.clearLocalCart();
                     }),
@@ -78,9 +85,9 @@ export class CartService {
                     tap(products => {
                         if(products){
                             console.log(products);
-                            this.products = products;
+                            this.listProductsInOrder = products;
                         }
-                        this.clearLocalCart();
+                        
                     }),
                     //map(cart => cart.products),
 
@@ -89,7 +96,7 @@ export class CartService {
                 );
             }
         } else {
-            return of(localCart);
+            return of(localCartProductsInOrder);
         }
     }
 
@@ -100,7 +107,7 @@ export class CartService {
   }
 
   getProductsInOrderFromCart(): ProductInOrder[] {
-    return this.products;
+    return this.listProductsInOrder;
 }
 
 addItem(productInOrder): Observable<boolean> {

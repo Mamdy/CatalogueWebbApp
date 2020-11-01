@@ -7,15 +7,17 @@ import {User} from '../model/User';
 import {map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import { JwtResponse } from '../model/JwtResponse';
-import { prodCatApiUrl } from 'src/environments/environment';
+import { prodCatApiUrl } from 'src/environments/environment.prod';
+import { userApiUrl } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   //url du service(backend) qui gere l'authentification des users
-  host2:String="http://localhost:8082";
+  host2:String="http://localhost:8282";
   private prodCatCustomerUrl = `${prodCatApiUrl}/client`;
+  private userApiUrl = `${userApiUrl}`;
   jwt:string;
   username:string;
   roles: Array<string>;
@@ -24,30 +26,28 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<JwtResponse>;
   public currentUser: Observable<JwtResponse>
 
+
   constructor(private http:HttpClient,
     private  router:Router) {
       const memo = localStorage.getItem("currentUser");
-     // console.log("memo==>"+memo);
+     
    this.currentUserSubject = new BehaviorSubject<JwtResponse>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
-    //localStorage.setItem("currentUser",memo);
+  
 
   }
 
   get currentUserValue(){
-
-    /*let authenticatedUser = <User> <unknown> this.isAuthenticated();
-    return authenticatedUser;*/
     return this.currentUserSubject.value;
   }
   //return this.http.post(this.host2+"/login", data, {observe:'response'})
   login(formData): Observable<JwtResponse>{
-    return this.http.post<JwtResponse>(this.host2+"/api/login", formData).pipe(
+    return this.http.post<JwtResponse>(this.userApiUrl+"/login", formData).pipe(
       tap(user => {
        // const token = response.headers.get('Authorization');
        //debugger
         if(user && user.token){
-          localStorage.setItem("currentUser", JSON.stringify(user));
+          //localStorage.setItem("currentUser", JSON.stringify(user));
             this.saveToken(user.token);
             this.nameTerms.next();
             this.currentUserSubject.next(user);
@@ -85,14 +85,6 @@ export class AuthenticationService {
 
   }
 
-  /*getConnectedUserName(){
-    let jwtHelper=new JwtHelperService();
-    let jwtObject=jwtHelper.decodeToken(this.jwt);
-    return jwtObject.sub;
-
-
-  }*/
-
 
   loadToken() {
     this.jwt=localStorage.getItem('token');
@@ -120,7 +112,6 @@ export class AuthenticationService {
     this.currentUserSubject.next(null)
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('cart');
     this.initParamsCredantials();
 
     //Naviguer vers le composant de login

@@ -4,7 +4,9 @@ import {AuthenticationService} from './authentication.service';
 import {reject, resolve} from 'q';
 import { AppResponse } from '../model/AppResponse';
 import { prodCatApiUrl } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { Product } from '../model/Product';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -13,6 +15,7 @@ import { Observable } from 'rxjs';
 export class CatalogueService {
   public host: string = "http://localhost:8087";
   private searchUrl = `${prodCatApiUrl}/searchKeyWord`;
+  private productUrl = `${prodCatApiUrl}/products`;
 
   constructor(private http: HttpClient, private authService:AuthenticationService) { }
  /*public getAllCategories() {
@@ -47,6 +50,13 @@ export class CatalogueService {
   }
   public getRessources(url){
     return this.http.get(url);
+  }
+
+  showProductDetail(id): Observable<Product> {
+    debugger
+    return this.http.get<Product>(`${this.productUrl}/${id}`).pipe(
+        catchError(_ => of(null))
+    );
   }
 
 //Methode qui permet de recuperer les données renvoyé par le serveur() ici la liste des produits

@@ -6,6 +6,7 @@ import { JwtResponse } from '../model/JwtResponse';
 import { tap, catchError } from 'rxjs/operators';
 import { User } from '../model/User';
 import { prodCatApiUrl } from 'src/environments/environment';
+import { userApiUrl } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ import { prodCatApiUrl } from 'src/environments/environment';
 export class UserService {
 
   //url du service(backend) qui gere l'authentification des users
-  apiUrl:String="http://localhost:8082/api";
+  apiUrl:String=`${userApiUrl}`;
   private prodCatcartUrl = `${prodCatApiUrl}`;
   jwt:string;
   username:string;

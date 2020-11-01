@@ -1,34 +1,23 @@
   <!--Recap Commande-->
-  <div class="right">
+  <div class="container">
     <div class="panel panel-default">
-        <div class="panel-heading style">Information concernant la carte Bancaire</div>
-        <div class="panel-body">
+      <div class="panel-heading style">Information concernant la carte Bancaire</div>
+      <div class="panel-body">
+          <form novalidate (ngSubmit)="buy()" [formGroup]="stripeForm" #f="ngForm">
+            <input class="form-control" type="text" formControlName="name" placeholder="nom titulaire carte">
+             <div id="card-element" class="field"></div>
+            <div *ngIf="error" class="alert alert-danger">
+                {{error}}
+            </div>
+          
+            <button type="submit" class="btn btn-outline-success" [disabled]="!f.valid">
+              Valider mon paiement et ma commande 
+            </button>
+          </form>
+      </div>
+  </div>
 
-            <form novalidate (ngSubmit)="buy()" [formGroup]="stripeForm" #f="ngForm">
-              <div class="form-group">
-                <label>Nom du propriétaire*</label>
-                <input class="form-control" type="text" formControlName="name">
-
-                <div id="card-element">
-                </div>
-                <div *ngIf="error" class="alert alert-danger">
-                    {{error}}
-                </div>
-
-              </div> <br>
-
-              <div class="form-group">
-
-                <button type="submit" class="btn btn-outline-success" [disabled]="!f.valid">
-                  Valider mon paiement et ma commande
-                </button>
+  </div>
+    
 
 
-              </div>
-
-            </form>
-            <script src="https://js.stripe.com/v3/"></script>
-
-        </div>
-    </div>
-</div>

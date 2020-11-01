@@ -5,6 +5,7 @@ import { CartService } from '../services/cart.service';
 import { ProductInOrder } from '../model/ProductInOrder';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Location, DOCUMENT } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -17,10 +18,12 @@ export class ProductDetailsComponent implements OnInit {
   count: number;
   showProductByCategoryComponet: boolean;
   backNavigationUrl: string;
-
+  product: Observable<Product>;
 
   constructor(private cartService: CartService,
                private router: Router,
+               private route: ActivatedRoute,
+
                private activatedRoute: ActivatedRoute,
                private catalogService: CatalogueService
               ) { 
@@ -28,8 +31,22 @@ export class ProductDetailsComponent implements OnInit {
     
   }
 
+  
+
   ngOnInit() {
+    debugger
     this.count = 1;
+    const productId = this.route.snapshot.paramMap.get('id');
+    if(productId){
+      this.product = this.catalogService.showProductDetail(productId);
+      this.product.subscribe(product=>{
+        this.currentProduct = product;
+      })
+    }else{
+      this.currentProduct = this.currentProduct;
+    }
+    
+   
   
   }
 

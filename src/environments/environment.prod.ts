@@ -1,5 +1,7 @@
 export const environment = {
-  production: false
+  production: true
 };
 
-export const apiUrl = '//localhost:8087';
+export const prodCatApiUrl = '//https://catalogue-service-api.herokuapp.com/';
+export const userApiUrl = 'https://securite-user-auth.herokuapp.com/api';
+

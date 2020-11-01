@@ -44,13 +44,13 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
     }else if(productInOrder.count<1){
       productInOrder.count =1
     }
-    console.log(productInOrder.count);
   }
 
 
   ngOnInit() {
+    debugger
    this.cartService.getCart().subscribe(prods => {
-
+debugger
       this.productInOrders = prods;
     });
     //debugger
@@ -71,12 +71,6 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
 
   }
 
-  ngOnDestroy() {
-    if (!this.currentUser) {
-        this.cartService.storeLocalCart();
-    }
-    this.userSubscription.unsubscribe();
-  }
 
   ngAfterContentChecked() {
     this.total = this.productInOrders.reduce(
@@ -110,11 +104,13 @@ remove(productInOrder: ProductInOrder) {
 }
 
 checkout() {
+  debugger
   if (!this.currentUser) {
       this.router.navigate(['/login'], {queryParams: {returnUrl: this.router.url}});
   } else if (this.currentUser.user.role !== Role.Customer && this.currentUser.user.role !== Role.Manager) {
       this.router.navigate(['/home']);
   } else {
+    debugger
       this.cartService.checkout().subscribe(
           _ => {
               this.productInOrders = [];
@@ -123,10 +119,16 @@ checkout() {
               console.log('Checkout Cart Failed');
           });
       this.router.navigate(['/order']);
-
-      //this.router.navigate(['/payment']);
   }
 
+}
+
+
+ngOnDestroy() {
+  if (!this.currentUser) {
+      this.cartService.storeLocalCart();
+  }
+  this.userSubscription.unsubscribe();
 }
 
 }

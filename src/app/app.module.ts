@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {MatDialogModule, MatFormFieldModule, MatButtonModule, MatInputModule, MatRippleModule, MatSnackBarModule} from "@angular/material";
 
 import { AppRoutingModule,routingComponents } from './app-routing.module';
@@ -33,12 +33,16 @@ import { PaymentCardFormComponent } from './payment-card-form/payment-card-form.
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CriteriaSearchViewComponent } from './criteria-search-view/criteria-search-view.component';
 
+
 @NgModule({
 
   exports: [
     MatSnackBarModule,
     MatDialogModule,
+    
   ],
+
+
 
   
 })
@@ -56,14 +60,15 @@ export class MaterialModule {}
     OrderComponent,
     OrderDetailComponent,
     PaymentComponent,
-    ModalDialogComponent,
     ShippingAddressComponent,
     NewAddressComponent,
     OrderRecapComponent,
     PaymentCardFormComponent,
-    ProductDetailsComponent,
-    CriteriaSearchViewComponent
+    ModalDialogComponent,
 
+    ProductDetailsComponent,
+    CriteriaSearchViewComponent,
+    
   ],
 
   imports: [
@@ -80,12 +85,10 @@ export class MaterialModule {}
     NgbModalModule,
     MatDialogModule,
     MaterialModule,
-       
-
     //ReactiveForms
   ],
 
-  entryComponents: [ModalDialogComponent,NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,PaymentCardFormComponent,ProductDetailsComponent,CriteriaSearchViewComponent],
+  entryComponents: [NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,ProductDetailsComponent,CriteriaSearchViewComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

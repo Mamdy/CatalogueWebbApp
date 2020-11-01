@@ -38,8 +38,9 @@ export class OrderComponent implements OnInit, OnDestroy {
     });
   }
   update() {
+    debugger
     let nextPage = 1;
-    let size = 10;
+    let size = 3;
 
     /*if(this.route.snapshot.queryParams.get('page')) {
       nextPage = +this.route.snapshot.queryParamMap.get('page');

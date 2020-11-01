@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StripeService,Element as StripeElement, Elements, ElementsOptions } from 'ngx-stripe';
+import { StripeService,Element as StripeElement, Elements, ElementsOptions, StripeCardComponent, ElementOptions } from 'ngx-stripe';
 import { PaymentService } from '../services/payment.service';
 import { PaymentIntentDto } from '../model/PaymentIntentDto';
 import { Order } from '../model/Order';
 import { OrderService } from '../services/order.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-payment-card-form',
@@ -23,9 +24,29 @@ export class PaymentCardFormComponent implements OnInit {
 
   elements: Elements;
   card: StripeElement;
+  @ViewChild(StripeCardComponent) card2: StripeCardComponent;
+  @Input() price;
+  @Input() product;
+  @Input() description;
+
+  cardOptions:  ElementOptions = {
+    style: {
+      base: {
+        iconColor: '#111',
+        color: '#111',
+        fontSize:"16px",
+        '::placeholder': {
+          color: '#111'
+        }
+      }
+  }
+}
+
   elementsOptions: ElementsOptions = {
     locale: 'fr'
   };
+
+  paymentData: PaymentIntentDto;
 
   constructor(private stripeService: StripeService,
               private orderService: OrderService,
@@ -51,9 +72,12 @@ export class PaymentCardFormComponent implements OnInit {
 
     });
 
-    this.stripeService.elements(this.elementsOptions)
+    debugger
+
+   this.stripeService.elements(this.elementsOptions)
     .subscribe(elements => {
       this.elements = elements;
+      debugger
       // Only mount the element the first time
       if (!this.card) {
         this.card = this.elements.create('card', {
@@ -73,61 +97,53 @@ export class PaymentCardFormComponent implements OnInit {
         this.card.mount('#card-element');
       }
     });
+    
   }
 
 
   buy() {
-    debugger
     const name = this.stripeForm.get('name').value;
     this.stripeService
       .createToken(this.card, { name })
       .subscribe(result => {
         if (result.token) {
+          const headers = new HttpHeaders()
+          .set('Content-Type','application/json');
+          //declaration d'un objet de paiement
           const paymentIntentDto: PaymentIntentDto = {
             token: result.token.id,
             amount: this.order.orderAmount,
             currency: 'eur',
             description: 'test carte reel'
-          };
-          this.paymentService.pay(paymentIntentDto).subscribe(
+          }
 
+
+          this.paymentData = paymentIntentDto;
+          this.paymentService.pay(paymentIntentDto).subscribe(
             data => {
               if(data){
-                this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
-                result['id'],{positionClass: 'toast-top-center', timeOut: 3000});
-                
-
-                this.openDialogModal(data[`id`], data['amount'], data[`description`], data[`amount`]);
-
-                
-
                 this.paymentService.paymentConfirm(data['id']).subscribe(
 
                   result=>{
-                    this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
-                    result['id'],{positionClass: 'toast-top-center', timeOut: 3000});
+                    if(result){
+                    debugger
+                    this.toastrService.success('Payment accepté', 'le paiement de la commande Numéro' +
+                    result['id'] + 'a reussi',{positionClass: 'toast-top-center', timeOut: 3000});
+                      
+                    }
+              
+                    
                   });
-                  this.router.navigateByUrl('/products');
-
-
               }
-
-              //this.router.navigate([' ']);
             }
           );
-          this.error = undefined;
-        } else if (result.error) {
+
+          } else if (result.error) {
           this.error = result.error.message;
         }
       });
-  }
+      //this.router.navigate(['/home']);
 
-  openDialogModal(id: string, amount: number, description: string, price: number){
-    const modalRef = this.modalService.open(ModalDialogComponent);
-    modalRef.componentInstance.id = id;
-    modalRef.componentInstance.amount = amount;
-    modalRef.componentInstance.description= description;
-    modalRef.componentInstance.price = price;
-      }
+  }
 
 }

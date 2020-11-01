@@ -9,8 +9,8 @@ label {
 }
 
 .border-box{
-    width: 350px;
-    height: 120px;
+    width: 355px;
+    height: 130px;
     border: 1px solid rgb(188, 188, 194);
     box-sizing: border-box;
     background-color: rgb(249, 249, 253);
