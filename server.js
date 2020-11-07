@@ -6,11 +6,12 @@ const app = express();
 
 
 // Serve only the static files form the dist directory
-app.use(express.static('./dist/catalogue-web-app/src/'));
+app.use(express.static(__dirname + '/dist/catalogue-web-app'));
 
 app.get('/*',(req, res) =>{
-	//res.sendFile(path.join(__dirname+'/dist/catalogue-web-app/index.html')
-	res.sendFile('index.html', { root: 'dist/catalogue-web-app/src/' }
+	res.sendFile(path.join(__dirname+
+		'/dist/catalogue-web-app/index.html')
+	//res.sendFile('index.html', { root: 'dist/catalogue-web-app/' }
 	
 	);
 });
