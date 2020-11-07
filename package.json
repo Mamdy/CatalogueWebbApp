@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "heroku-postbuild": "ng build --prod && npm install -g http-server-spa",
-    "start": "http-server-spa dist/CatalogueWebbApp index.html $PORT",
+    "start:prod": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,12 +11,12 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/cli": "^10.2.0",
-    "@angular/compiler-cli": "^10.2.0",
     "@angular/animations": "^10.2.0",
     "@angular/cdk": "^7.3.7",
+    "@angular/cli": "^10.2.0",
     "@angular/common": "^10.2.0",
     "@angular/compiler": "^10.2.0",
+    "@angular/compiler-cli": "^10.2.0",
     "@angular/core": "^10.2.0",
     "@angular/forms": "^10.2.0",
     "@angular/localize": "^10.2.0",
@@ -34,13 +33,14 @@
     "core-js": "^2.6.11",
     "datatables.net": "^1.10.21",
     "datatables.net-dt": "^1.10.21",
+    "express": "^4.17.1",
     "jquery": "^3.5.1",
     "ngx-stripe": "^7.4.5",
     "ngx-toastr": "^10.2.0",
     "rxjs": "~6.6.3",
     "tslib": "^1.13.0",
-    "zone.js": "~0.10.3",
-    "typescript": "~4.0.3"
+    "typescript": "~4.0.3",
+    "zone.js": "~0.10.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1002.0",
