@@ -16,7 +16,6 @@ mode:string
   constructor(private cataService: CatalogueService) { }
 
   ngOnInit() {
-    debugger
     this.state = window.history.state.criteria;
     this.mode = 'list-Products';
     this.getProductByCriteria();
@@ -31,7 +30,6 @@ mode:string
   }
 
   detailsProduct(p){
-    debugger
     this.mode = 'detail-Product';
     this.currentProduct = p;
 

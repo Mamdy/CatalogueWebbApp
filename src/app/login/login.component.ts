@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-   // debugger
     this.submitted = true;
     // on s'arrête ici si le formulaire n'est pas valide
     if(this.loginForm.invalid){
@@ -75,8 +74,7 @@ export class LoginComponent implements OnInit {
           if(user.user.role != Role.Customer && user.user.role !=Role.Manager){
               this.returnUrl = '/home';
             }
-    
-            debugger
+  
             this.router.navigateByUrl(this.returnUrl);
             this.toastrService.success('Vous êtes connecté avec Success sur notre Site', 'Bienvenue '+user.user.firstName,{positionClass: 'toast-top-center', timeOut: 3000});
          /* http://localhost:4200/login?returnUrl=%2Fcart*/

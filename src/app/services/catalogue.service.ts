@@ -43,7 +43,6 @@ export class CatalogueService {
   }
 
   getProductsByKeword(keyword,page=1,size = 10):Observable<any>{
-    //debugger
     
     return this.http.get(`${this.searchUrl}?keyword=${keyword}&size=${size}&page=${page}`).pipe();
      
@@ -53,7 +52,6 @@ export class CatalogueService {
   }
 
   showProductDetail(id): Observable<Product> {
-    debugger
     return this.http.get<Product>(`${this.productUrl}/${id}`).pipe(
         catchError(_ => of(null))
     );
@@ -81,14 +79,12 @@ postRessource(url, data){
   }
 
   createProduct(data){
-    debugger
     //let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
     return this.postRessource(this.host+"/saveProductInserverAndDataBaseWithFileUploadUtility",data);
 
   }
 
   saveProduct(data){
-    debugger
     //let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
     return this.postRessource(this.host+"/saveProduct",data);
 

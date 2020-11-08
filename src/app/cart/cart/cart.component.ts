@@ -48,12 +48,9 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
 
 
   ngOnInit() {
-    debugger
    this.cartService.getCart().subscribe(prods => {
-debugger
       this.productInOrders = prods;
     });
-    //debugger
     //this.productInOrders = this.cartService.getProductsInOrderFromCart();
     console.log("product in cart=>",this.productInOrders);
 
@@ -104,13 +101,11 @@ remove(productInOrder: ProductInOrder) {
 }
 
 checkout() {
-  debugger
   if (!this.currentUser) {
       this.router.navigate(['/login'], {queryParams: {returnUrl: this.router.url}});
   } else if (this.currentUser.user.role !== Role.Customer && this.currentUser.user.role !== Role.Manager) {
       this.router.navigate(['/home']);
   } else {
-    debugger
       this.cartService.checkout().subscribe(
           _ => {
               this.productInOrders = [];

@@ -72,12 +72,9 @@ export class PaymentCardFormComponent implements OnInit {
 
     });
 
-    debugger
-
    this.stripeService.elements(this.elementsOptions)
     .subscribe(elements => {
       this.elements = elements;
-      debugger
       // Only mount the element the first time
       if (!this.card) {
         this.card = this.elements.create('card', {
@@ -126,7 +123,6 @@ export class PaymentCardFormComponent implements OnInit {
 
                   result=>{
                     if(result){
-                    debugger
                     this.toastrService.success('Payment accepté', 'le paiement de la commande Numéro' +
                     result['id'] + 'a reussi',{positionClass: 'toast-top-center', timeOut: 3000});
                       

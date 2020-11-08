@@ -38,7 +38,6 @@ export class OrderComponent implements OnInit, OnDestroy {
     });
   }
   update() {
-    debugger
     let nextPage = 1;
     let size = 3;
 

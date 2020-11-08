@@ -42,7 +42,6 @@ export class UserService {
   }
 
   register(data){
-    debugger
     return this.http.post(this.apiUrl+"/register", data, {observe:'response'})
   }
   clientRegister(data){
@@ -51,13 +50,10 @@ export class UserService {
 
 
   login(formData): Observable<JwtResponse>{
-    debugger
     const url = this.apiUrl+"/login";
-    debugger
     return this.http.post<JwtResponse>(url, formData).pipe(
       tap( user => {
         if(user && user.token) {
-          debugger
          // localStorage.setItem('currentUSer', JSON.stringify(user));
          // this.cookieService.set('currentUser', JSON.stringify(user));
           /*if(formData.remembered){

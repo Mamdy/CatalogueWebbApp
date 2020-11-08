@@ -3,5 +3,5 @@ export const environment = {
 };
 
 export const prodCatApiUrl = 'https://catalogue-service-api.herokuapp.com/';
-export const userApiUrl = 'https://securite-user-auth.herokuapp.com/api';
+export const userApiUrl =   'https://securite-user-auth.herokuapp.com/api';
 

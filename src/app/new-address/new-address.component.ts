@@ -82,7 +82,6 @@ export class NewAddressComponent implements OnInit {
   }
 
   buy() {
-    debugger
     const name = this.stripeForm.get('name').value;
     this.stripeService
       .createToken(this.card, { name })

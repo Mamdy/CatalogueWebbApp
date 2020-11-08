@@ -55,7 +55,6 @@ export class CartService {
 
 
   getCart(): Observable<ProductInOrder[]> {
-      debugger
         const localCartProductsInOrder = this.getLocalCart();
         if (this.currentUser) {
             let client = new Client(this.currentUser.user.email, this.currentUser.user.firstName, this.currentUser.user.lastName,this.currentUser.user.email, this.currentUser.user.phone, this.currentUser.user.address, this.currentUser.user.role);
@@ -67,7 +66,6 @@ export class CartService {
                 }
                 ).pipe(
                     tap(products => {
-                        debugger
                         if(products){
                             this.listProductsInOrder = products;
                         }
@@ -145,7 +143,6 @@ addItem(productInOrder): Observable<boolean> {
  }
 
     update(productInOrder): Observable<ProductInOrder> {
-        debugger
       if (this.currentUser) {
           const url = `${this.prodCatcartUrl}/${productInOrder.productId}`;
           return this.http.put<ProductInOrder>(url, productInOrder.count);
@@ -157,14 +154,13 @@ addItem(productInOrder): Observable<boolean> {
           delete this.localMap[productInOrder.productCode];
           return of(null);
       } else {
-          debugger
           const url = `${this.prodCatcartUrl}/${productInOrder.productId}`;
           return this.http.delete(url).pipe( );
       }
     }
 
     checkout(): Observable<any> {
-        debugger
+
       const url = `${this.prodCatcartUrl}/checkout`;
       return this.http.post(url, null).pipe();
   }

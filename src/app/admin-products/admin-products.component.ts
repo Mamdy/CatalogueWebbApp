@@ -86,7 +86,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
 //enregistrement d'un produit
   onSaveProduct() {
-    debugger
     this.submitted = true;
     //on s'arrête ici si le formulaire est invalide
     if(this.registerForm.invalid){
@@ -94,7 +93,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     }
 
     this.loading=true;
-    //debugger
     this.catalogueService.saveProduct(this.registerForm.value)
       .pipe(first())
       .subscribe(
@@ -114,7 +112,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   getCategories(){
     this.catalogueService.getAllCategories()
       .then((data:AppResponse)=>{
-        //debugger
         this.categories = data.getData().categories;
       }, error1 => {
         console.log(error1);
@@ -160,9 +157,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   }
 
   onSaveProd(data) {
-    debugger
     let url = this.catalogueService.host+"/products";
-    debugger
     this.catalogueService.postRessource(url,data)
       .subscribe(data=>{
         this.mode='list';

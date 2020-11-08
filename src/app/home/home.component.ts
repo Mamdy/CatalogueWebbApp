@@ -108,7 +108,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   detailsProduct(p):Product{
-    debugger
     this.mode='detail-product';
     this.currentProduct = p;
     let url = p._links.self.href;

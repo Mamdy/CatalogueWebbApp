@@ -79,10 +79,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.catalogueService.getProducts()
       .then((result:AppResponse)=>{
         console.log('liste des produits------>',result.getData().products);
-        debugger
         this.dataTableListeProducts$ = result.getData().products;
         this.products = result.getData().products;
-        debugger
         console.log("datatable_Content===>",this.dataTableListeProducts$);
         this.dtTrigger.next();
       },error1 => {
@@ -99,7 +97,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
         this.dtTrigger.next();
       }, error1 => {
-        debugger
         console.log(error1);
       })
   }

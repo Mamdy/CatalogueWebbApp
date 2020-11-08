@@ -45,7 +45,6 @@ export class AuthenticationService {
     return this.http.post<JwtResponse>(this.userApiUrl+"/login", formData).pipe(
       tap(user => {
        // const token = response.headers.get('Authorization');
-       //debugger
         if(user && user.token){
           //localStorage.setItem("currentUser", JSON.stringify(user));
             this.saveToken(user.token);
@@ -61,7 +60,6 @@ export class AuthenticationService {
   }
 
   clientRegister(data){
-    debugger
     return this.http.post(this.prodCatCustomerUrl, data, {observe:'response'})
   }
 
@@ -108,7 +106,6 @@ export class AuthenticationService {
 
 //fonction qui permet de se deconnecter de l'appli et reinitilaiser le localstorage (enlever le token)
   logOut() {
-    debugger
     this.currentUserSubject.next(null)
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');

@@ -34,7 +34,7 @@ export class ProductDetailsComponent implements OnInit {
   
 
   ngOnInit() {
-    debugger
+    
     this.count = 1;
     const productId = this.route.snapshot.paramMap.get('id');
     if(productId){

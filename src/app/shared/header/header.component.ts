@@ -113,7 +113,6 @@ get f() {
   setAuthenticatedUserName(){
 
     if(this.isAuthenticated()){
-      debugger
       this.name = this.currentUser.user.firstName;
       console.log("AuthenticatedUserName is ==>", +this.name);
 

@@ -80,7 +80,6 @@ export class ShippingAddressComponent implements OnInit {
     }
 
   ngOnInit() {
-   debugger
     this.currentUser = this.authService.currentUserValue;
     this.fullName = this.currentUser.user.firstName.concat(" ").concat(this.currentUser.user.lastName);
     this.order$ = this.orderService.show(this.route.snapshot.paramMap.get('id'));
@@ -89,7 +88,6 @@ export class ShippingAddressComponent implements OnInit {
 
   
   homeAddresSelected() {
-    debugger
     this.mode = 'à domicile';
     this.radio1.checked = true;
     this.radio2.checked=false ;
