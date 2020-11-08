@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { prodCatApiUrl } from 'src/environments/environment';
 import {AppResponse} from '../model/AppResponse';
 import {Category} from '../model/Category';
 import { CatalogueService } from '../services/catalogue.service';
@@ -9,6 +10,7 @@ import { CatalogueService } from '../services/catalogue.service';
   styleUrls: ['./admin-categories.component.css']
 })
 export class AdminCategoriesComponent implements OnInit {
+  prodCatApiUrl = `${prodCatApiUrl}`;
 categories:Category[]=[];
 //par defaut mode='list'
 mode='list';
@@ -51,7 +53,7 @@ currentCategory;
   }
 
   onSaveCat(data) {
-    let url = this.catalogueService.host+"/categories";
+    let url = this.prodCatApiUrl+"/categories";
     this.catalogueService.postRessource(url,data)
       .subscribe(data=>{
         this.mode='list';

@@ -9,6 +9,7 @@ import {AlertService} from '../services/alert.service';
 import {Category} from '../model/Category';
 import {of} from 'rxjs/internal/observable/of';
 import { CatalogueService } from '../services/catalogue.service';
+import { prodCatApiUrl } from 'src/environments/environment';
 declare var $;
 
 @Component({
@@ -17,6 +18,7 @@ declare var $;
   styleUrls: ['./admin-products.component.css']
 })
 export class AdminProductsComponent implements OnInit, OnDestroy {
+  prodCatApiUrl = `${prodCatApiUrl}`;
   mode = 'list';
   currentProduct: Product;
   categories: Category[]=[];
@@ -157,7 +159,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   }
 
   onSaveProd(data) {
-    let url = this.catalogueService.host+"/products";
+    let url = this.prodCatApiUrl +"/products";
     this.catalogueService.postRessource(url,data)
       .subscribe(data=>{
         this.mode='list';

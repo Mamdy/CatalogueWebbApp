@@ -13,17 +13,16 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CatalogueService {
-  public host: string = "http://localhost:8087";
   private searchUrl = `${prodCatApiUrl}/searchKeyWord`;
-  private productUrl = `${prodCatApiUrl}/products`;
+  private prodCatApiUrl = `${prodCatApiUrl}`;
 
   constructor(private http: HttpClient, private authService:AuthenticationService) { }
  /*public getAllCategories() {
-    return this.http.get(this.host + "/categories");
+    return this.http.get(this.prodCatApiUrl + "/categories");
   }*/
 
   public getAllCategories() {
-    return this.http.get(this.host + "/categories").toPromise()
+    return this.http.get(this.prodCatApiUrl + "/categories").toPromise()
       .then((result:any)=>{
         result.__proto__ = AppResponse.prototype;
         return result;
@@ -35,7 +34,7 @@ export class CatalogueService {
   }
 
   public  getProducts(){
-    return this.http.get(this.host + "/products").toPromise()
+    return this.http.get(this.prodCatApiUrl + "/products").toPromise()
       .then((result:any)=>{
         result.__proto__ = AppResponse.prototype;
         return result;
@@ -52,7 +51,7 @@ export class CatalogueService {
   }
 
   showProductDetail(id): Observable<Product> {
-    return this.http.get<Product>(`${this.productUrl}/${id}`).pipe(
+    return this.http.get<Product>(this.prodCatApiUrl + "/products/"+id).pipe(
         catchError(_ => of(null))
     );
   }
@@ -80,13 +79,13 @@ postRessource(url, data){
 
   createProduct(data){
     //let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
-    return this.postRessource(this.host+"/saveProductInserverAndDataBaseWithFileUploadUtility",data);
+    return this.postRessource(this.prodCatApiUrl+"/saveProductInserverAndDataBaseWithFileUploadUtility",data);
 
   }
 
   saveProduct(data){
     //let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
-    return this.postRessource(this.host+"/saveProduct",data);
+    return this.postRessource(this.prodCatApiUrl+"/saveProduct",data);
 
   }
   putRessource(url, data) {
@@ -107,7 +106,7 @@ postRessource(url, data){
     return new Promise(
       (resolve,reject)=>{
         const almostUniqueFileNam= Date.now().toString();
-        const  upload = this.http.get(this.host+"")
+        const  upload = this.http.get(this.prodCatApiUrl+"")
 
       }
     )
