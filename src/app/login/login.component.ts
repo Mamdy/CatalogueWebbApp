@@ -10,6 +10,7 @@ import { User } from '../model/User';
 import { UserService } from '../services/user.service';
 import { Role } from '../enum/Role';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl = '/';
   @Input() connectedUser: any;
+  productInOrders = [];
 
   public nameTerms = new Subject<string>();
   public name$ = this.nameTerms.asObservable();
@@ -41,7 +43,8 @@ export class LoginComponent implements OnInit {
               private userService: UserService,
               private  router: Router,
               private alertService: AlertService,
-              private toastrService: ToastrService,) {
+              private toastrService: ToastrService,
+              private cartService: CartService) {
     //redirect to home if already logged in
     // if(this.authService.isAuthenticated()){
     //   this.router.navigate(['']);
@@ -70,11 +73,25 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authService.login(this.loginForm)
       .subscribe(user=>{
+        debugger
         if(user){
           if(user.user.role != Role.Customer && user.user.role !=Role.Manager){
               this.returnUrl = '/home';
             }
-  
+            //si conecter just apres 1er checkout du pannier, refaire le checkout une 2èm fois pour enregistrer la commande dans sa table
+            // if(this.returnUrl === "/cart"){
+            //   this.cartService.checkout().subscribe(
+            //     _ => {
+            //       debugger
+            //         this.productInOrders = [];
+            //     },
+            //     error1 => {
+            //         console.log('Checkout Cart Failed');
+            //     });
+            // //this.router.navigate(['/order']);
+
+            // }
+           
             this.router.navigateByUrl(this.returnUrl);
             this.toastrService.success('Vous êtes connecté avec Success sur notre Site', 'Bienvenue '+user.user.firstName,{positionClass: 'toast-top-center', timeOut: 3000});
          /* http://localhost:4200/login?returnUrl=%2Fcart*/

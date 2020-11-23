@@ -42,7 +42,7 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
     if(productInOrder.count > max){
       productInOrder.count = max;
     }else if(productInOrder.count<1){
-      productInOrder.count =1
+      productInOrder.count = 1
     }
   }
 
@@ -66,6 +66,13 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
     },
     _ => console.log('Update Item Failed'));
 
+  }
+
+  ngOnDestroy() {
+    if (!this.currentUser) {
+        this.cartService.storeLocalCart();
+    }
+    this.userSubscription.unsubscribe();
   }
 
 
@@ -101,13 +108,16 @@ remove(productInOrder: ProductInOrder) {
 }
 
 checkout() {
+  debugger
   if (!this.currentUser) {
       this.router.navigate(['/login'], {queryParams: {returnUrl: this.router.url}});
   } else if (this.currentUser.user.role !== Role.Customer && this.currentUser.user.role !== Role.Manager) {
       this.router.navigate(['/home']);
   } else {
+    debugger
       this.cartService.checkout().subscribe(
           _ => {
+            debugger
               this.productInOrders = [];
           },
           error1 => {
@@ -119,11 +129,6 @@ checkout() {
 }
 
 
-ngOnDestroy() {
-  if (!this.currentUser) {
-      this.cartService.storeLocalCart();
-  }
-  this.userSubscription.unsubscribe();
-}
+
 
 }

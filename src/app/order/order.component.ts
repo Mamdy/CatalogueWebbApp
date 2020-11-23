@@ -38,6 +38,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     });
   }
   update() {
+    debugger
     let nextPage = 1;
     let size = 3;
 
@@ -47,6 +48,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     }*/
 
     this.orderService.getPage(nextPage, size).subscribe(page => this.page = page, _ => {
+      debugger
       console.log("list des pages commandes==>"+this.page );
       console.log("Get Order Failed")
     });

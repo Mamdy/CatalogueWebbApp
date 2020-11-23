@@ -10,11 +10,13 @@ import {Category} from '../model/Category';
 import {AppResponse} from '../model/AppResponse';
 import { JwtResponse } from '../model/JwtResponse';
 import { Product } from '../model/Product';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  providers: [NgbCarouselConfig]
 })
 export class HomeComponent implements OnInit, OnDestroy {
   currentUser: JwtResponse;
@@ -29,6 +31,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentProduct: Product;
   mode='list-Products';
 
+  // Array of images
+  slides = [
+      'https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg',
+      'https://mdbootstrap.com/img/Photos/Slides/img%20(129).jpg',
+      'https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg',
+      'https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg', 
+      'https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg'
+    ];
+
+
   @Input()page: any;
   constructor(
               private authenticationService:AuthenticationService,
@@ -36,13 +48,15 @@ export class HomeComponent implements OnInit, OnDestroy {
               private catalogueService: CatalogueService,
               private route:ActivatedRoute,
               private router: Router,
-
-
+              config: NgbCarouselConfig
 
   ) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user=>{
       this.currentUser = user;
     });
+    config.interval = 2000;
+    config.keyboard = true;
+    config.pauseOnHover = true;
   }
 
   ngOnInit() {

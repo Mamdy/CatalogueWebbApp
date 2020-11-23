@@ -32,6 +32,7 @@ import { OrderRecapComponent } from './order-recap/order-recap.component';
 import { PaymentCardFormComponent } from './payment-card-form/payment-card-form.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CriteriaSearchViewComponent } from './criteria-search-view/criteria-search-view.component';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 
 
 @NgModule({
@@ -85,6 +86,7 @@ export class MaterialModule {}
     NgbModalModule,
     MatDialogModule,
     MaterialModule,
+    MatCarouselModule.forRoot(),
     //ReactiveForms
   ],
 

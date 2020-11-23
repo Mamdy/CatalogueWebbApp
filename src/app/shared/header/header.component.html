@@ -1,9 +1,11 @@
   <div class="container">
     <div class="container-fluid">
-      <nav class="navbar navbar-inverse header topnav">
+      <nav class="navbar navbar-inverse header navbar-dark bg-dark topnav">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand active" routerLink="/home"><strong>OnLine Shopping</strong></a>
+            <a class="navbar-brand" routerLink="/home">
+              <img src="../../../assets/images/brand2.jpg" alt="224-E-SHOP" width="90" height="90" class="d-inline-block align-top">
+              <strong>E-shop224</strong></a>
           </div>
           
             <div class="search-container">
@@ -14,8 +16,6 @@
                       <i class="fa fa-search"
                         style="font-size: 18px;"></i>
                     </button>
-                
-      
                   </div>
                    
               </form>
@@ -23,7 +23,8 @@
           <ul class="nav navbar-nav">
             <li class="dropdown" *ngIf="isAuthenticated() && isAdmin()">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
-                <span class="caret"></span></a>
+                <span class="caret"></span>
+              </a>
               <ul class="dropdown-menu">
                 <li><a routerLink="/adminCategories">Gestion des Categories</a></li>
                 <li><a routerLink="/adminProducts">Gestion des Produits</a></li>
@@ -51,13 +52,13 @@
       
           <ul class="nav navbar-nav navbar-right">
             <li routerLinkActive="active">
-              <a *ngIf="!isAuthenticated()" routerLink="/login">Login</a>
+              <a *ngIf="!isAuthenticated()" routerLink="/login"><span class="glyphicon glyphicon-user"></span><br>Se connecter</a>
               <a *ngIf="isAuthenticated()" routerLink="/login" class="btn btn-default btn-sm" (click)="logOut()">
-                <span class="glyphicon glyphicon-user">&nbsp;Logout</span><br>
+                <span class="glyphicon glyphicon-user">&nbsp;Se deconnecter</span><br>
                 <span>{{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
                 
               </a>
-              
+            </li>
           </ul>
         </div>
       </nav>

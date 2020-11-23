@@ -1,10 +1,10 @@
 <div class="container">
   <div class="col-md-3">
     <ul class="list-group" *ngIf="categories">
-      <p><strong>Categories</strong></p>
+      <p><span style="text-transform: uppercase;"><strong>Categories</strong></span></p>
       <li [ngClass]="currentCategory && currentCategory._links.self==c._links.self?'active':''"
           *ngFor="let c of categories"
-          class="list-group-item"
+          class="list-group-item cursor"
          (click)="onGetProducts(c)">
         {{c.name}}
       </li>

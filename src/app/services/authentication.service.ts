@@ -7,8 +7,8 @@ import {User} from '../model/User';
 import {map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import { JwtResponse } from '../model/JwtResponse';
-import { prodCatApiUrl } from 'src/environments/environment.prod';
-import { userApiUrl } from 'src/environments/environment.prod';
+import { prodCatApiUrl } from 'src/environments/environment';
+import { userApiUrl } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

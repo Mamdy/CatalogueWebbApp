@@ -125,6 +125,8 @@ export class PaymentCardFormComponent implements OnInit {
                     if(result){
                     this.toastrService.success('Payment accepté', 'le paiement de la commande Numéro' +
                     result['id'] + 'a reussi',{positionClass: 'toast-top-center', timeOut: 3000});
+                    this.router.navigateByUrl('/home');
+
                       
                     }
               

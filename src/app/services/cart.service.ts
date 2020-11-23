@@ -6,7 +6,7 @@ import { JwtResponse } from '../model/JwtResponse';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
 import { ProductInOrder } from '../model/ProductInOrder';
-import { tap, catchError, first } from 'rxjs/operators';
+import { tap, catchError, first, map } from 'rxjs/operators';
 import { Client } from '../model/Client';
 import { CustomerService } from './customer.service';
 
@@ -28,7 +28,7 @@ export class CartService {
 
   private currentUser: JwtResponse;
   cookieService: any;
-    connectedUsername: String;
+  connectedUsername: String;
 
 
   constructor(private http: HttpClient,
@@ -40,10 +40,9 @@ export class CartService {
         this.totalSubject = new BehaviorSubject<number>(null);
         this.total = this.totalSubject.asObservable();
         this.authSerice.currentUser.subscribe(user => this.currentUser = user);
+  }
 
-      }
-
-      private getLocalCart(): ProductInOrder[] {
+   private getLocalCart(): ProductInOrder[] {
         if (localStorage.getItem('cart')) {
             this.localMap = JSON.parse(localStorage.getItem('cart'));
             return Object.values(this.localMap);
@@ -51,8 +50,7 @@ export class CartService {
             this.localMap = {};
             return [];
         }
-      }
-
+    }
 
   getCart(): Observable<ProductInOrder[]> {
         const localCartProductsInOrder = this.getLocalCart();
@@ -64,32 +62,15 @@ export class CartService {
                 'client':client,
                 'localCartProductsInOrder':localCartProductsInOrder
                 }
-                ).pipe(
-                    tap(products => {
-                        if(products){
-                            this.listProductsInOrder = products;
-                        }
-                        this.clearLocalCart();
-                    }),
-
-                    //map(cart => cart.products),
-                    catchError(_ => of([]))
-                );
+                ).pipe(map(products => products),
+                catchError(_ => of([]))
+              )
+              this.clearLocalCart(); 
             } else {
                 const url = `${this.prodCatcartUrl}`;
 
                 return this.http.get<ProductInOrder[]>(url).pipe(
-
-                    tap(products => {
-                        if(products){
-                            console.log(products);
-                            this.listProductsInOrder = products;
-                        }
-                        
-                    }),
-                    //map(cart => cart.products),
-
-
+                    map(products => products),
                     catchError(_ => of([]))
                 );
             }
@@ -104,11 +85,9 @@ export class CartService {
     this.localMap = {};
   }
 
-  getProductsInOrderFromCart(): ProductInOrder[] {
-    return this.listProductsInOrder;
-}
 
 addItem(productInOrder): Observable<boolean> {
+    debugger
         if (!this.currentUser) {
             if (localStorage.getItem('cart')) {
                 this.localMap = JSON.parse(localStorage.getItem('cart'));
@@ -128,7 +107,7 @@ addItem(productInOrder): Observable<boolean> {
            let client = new Client(this.currentUser.user.email, this.currentUser.user.firstName, this.currentUser.user.lastName,this.currentUser.user.email, this.currentUser.user.phone, this.currentUser.user.address, this.currentUser.user.role)
             console.log("Client=>", client);
 
-             const url = `${this.prodCatcartUrl}`;
+             const url = this.prodCatcartUrl;
            
 
              return this.http.post<boolean>(url+'/add', {
@@ -143,6 +122,7 @@ addItem(productInOrder): Observable<boolean> {
  }
 
     update(productInOrder): Observable<ProductInOrder> {
+        debugger
       if (this.currentUser) {
           const url = `${this.prodCatcartUrl}/${productInOrder.productId}`;
           return this.http.put<ProductInOrder>(url, productInOrder.count);
@@ -160,7 +140,6 @@ addItem(productInOrder): Observable<boolean> {
     }
 
     checkout(): Observable<any> {
-
       const url = `${this.prodCatcartUrl}/checkout`;
       return this.http.post(url, null).pipe();
   }

@@ -86,8 +86,11 @@ export class HeaderComponent implements OnInit{
     const criteria = this.searchForm.get('criteria').value;
     this.searchCriteria = criteria;
     }
-  
+
+    //effacer l'input de recherche 
+    //this.searchForm.get('criteria').setValue('');
     this.router.navigate(['/searchCriteriaView'], {state: {criteria: this.searchCriteria}});
+
 
   }
 

@@ -6,7 +6,7 @@ import { JwtResponse } from '../model/JwtResponse';
 import { tap, catchError } from 'rxjs/operators';
 import { User } from '../model/User';
 import { prodCatApiUrl } from 'src/environments/environment';
-import { userApiUrl } from 'src/environments/environment.prod';
+import { userApiUrl } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

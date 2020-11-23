@@ -51,7 +51,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addCurrentProductToCart(){
-  
+  debugger
     this.cartService.addItem(new ProductInOrder(this.currentProduct,this.count))
                     .subscribe(res => {
                       
