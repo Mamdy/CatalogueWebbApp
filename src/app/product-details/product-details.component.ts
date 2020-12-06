@@ -34,7 +34,6 @@ export class ProductDetailsComponent implements OnInit {
   
 
   ngOnInit() {
-    
     this.count = 1;
     const productId = this.route.snapshot.paramMap.get('id');
     if(productId){
@@ -51,7 +50,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addCurrentProductToCart(){
-  debugger
+    debugger
     this.cartService.addItem(new ProductInOrder(this.currentProduct,this.count))
                     .subscribe(res => {
                       

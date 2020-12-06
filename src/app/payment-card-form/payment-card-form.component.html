@@ -1,17 +1,35 @@
   <!--Recap Commande-->
   <div class="container">
     <div class="panel panel-default">
-      <div class="panel-heading style">Information concernant la carte Bancaire</div>
+      <div class="panel-heading style">Information de la carte Bancaire</div>
       <div class="panel-body">
           <form novalidate (ngSubmit)="buy()" [formGroup]="stripeForm" #f="ngForm">
             <input class="form-control" type="text" formControlName="name" placeholder="nom titulaire carte">
-             <div id="card-element" class="field"></div>
+             <!-- <div id="card-element" class="field"></div> -->
+             <ngx-stripe-card
+             [options]="cardOptions"
+             [elementsOptions]="elementsOptions"
+           ></ngx-stripe-card>
             <div *ngIf="error" class="alert alert-danger">
                 {{error}}
             </div>
-          
-            <button type="submit" class="btn btn-outline-success" [disabled]="!f.valid">
-              Valider ma Commande de {{order.orderAmount}} &euro;
+            <br><br>
+            <button type="submit" class="btn" [disabled]="!f.valid">
+              Valider ma Commande de: <span>{{order?.orderAmount | number: '0.2'}}&euro;</span>
+              <div *ngIf="isSubmitted && isLoading" >
+                <div class="d-flex justify-content-center"> 
+                  <div class="spinner-grow text-success" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow text-danger" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow text-warning" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div> 
+                           
+              </div>
             </button>
           </form>
       </div>

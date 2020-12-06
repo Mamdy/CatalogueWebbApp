@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StripeService,Element as StripeElement, Elements, ElementsOptions, StripeCardComponent, ElementOptions } from 'ngx-stripe';
+import { StripeService,StripeCardComponent} from 'ngx-stripe';
 import { PaymentService } from '../services/payment.service';
 import { PaymentIntentDto } from '../model/PaymentIntentDto';
 import { Order } from '../model/Order';
@@ -10,6 +10,7 @@ import { OrderService } from '../services/order.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { HttpHeaders } from '@angular/common/http';
+import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-payment-card-form',
@@ -22,27 +23,31 @@ export class PaymentCardFormComponent implements OnInit {
   order: Order;
   error: any;
 
-  elements: Elements;
-  card: StripeElement;
-  @ViewChild(StripeCardComponent) card2: StripeCardComponent;
+  isSubmitted:boolean;
+  isLoading;
+
+  @ViewChild(StripeCardComponent) card: StripeCardComponent;
   @Input() price;
   @Input() product;
   @Input() description;
+  
 
-  cardOptions:  ElementOptions = {
+  cardOptions:  StripeCardElementOptions = {
     style: {
       base: {
-        iconColor: '#111',
-        color: '#111',
-        fontSize:"16px",
+        iconColor: '#666EE8',
+        color: '#31325F',
+        fontWeight: '300',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSize:"18px",
         '::placeholder': {
-          color: '#111'
+          color: '#CFD7E0'
         }
       }
   }
 }
 
-  elementsOptions: ElementsOptions = {
+  elementsOptions: StripeElementsOptions = {
     locale: 'fr'
   };
 
@@ -72,37 +77,45 @@ export class PaymentCardFormComponent implements OnInit {
 
     });
 
-   this.stripeService.elements(this.elementsOptions)
-    .subscribe(elements => {
-      this.elements = elements;
-      // Only mount the element the first time
-      if (!this.card) {
-        this.card = this.elements.create('card', {
-          style: {
-            base: {
-              iconColor: '#666EE8',
-              color: '#31325F',
-              fontWeight: 300,
-              fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-              fontSize: '18px',
-              '::placeholder': {
-                color: '#CFD7E0'
-              }
-            }
-          }
-        });
-        this.card.mount('#card-element');
-      }
-    });
-    
+  //   debugger
+
+  //  this.stripeService.elements(this.elementsOptions)
+  //   .subscribe(elements => {
+  //     this.elements = elements;
+  //     // Only mount the element the first time
+  //     debugger
+  //     if (!this.card) {
+  //       this.card = this.elements.create('card', {
+  //         style: {
+  //           base: {
+  //             iconColor: '#666EE8',
+  //             color: '#31325F',
+  //             fontWeight: 300,
+  //             fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+  //             fontSize: '18px',
+  //             '::placeholder': {
+  //               color: '#CFD7E0'
+  //             }
+  //           }
+  //         }
+  //       });
+  //      // this.card.mount('#card-element');
+  //     }
+  //   });
+  //   this.isLoading = false;
+  //   this.isSubmitted = false;
   }
 
 
   buy() {
+    debugger
+    //this.isLoading = true;
+    this.isSubmitted = true;
     const name = this.stripeForm.get('name').value;
     this.stripeService
-      .createToken(this.card, { name })
-      .subscribe(result => {
+      .createToken(this.card.element, { name })
+      .subscribe((result) => {
+        debugger
         if (result.token) {
           const headers = new HttpHeaders()
           .set('Content-Type','application/json');
@@ -119,13 +132,20 @@ export class PaymentCardFormComponent implements OnInit {
           this.paymentService.pay(paymentIntentDto).subscribe(
             data => {
               if(data){
-                this.paymentService.paymentConfirm(data['id']).subscribe(
+                const orderId = this.order.id
+                this.paymentService.paymentConfirm(data['id'],orderId).subscribe(
 
                   result=>{
                     if(result){
-                    this.toastrService.success('Payment accepté', 'le paiement de la commande Numéro' +
-                    result['id'] + 'a reussi',{positionClass: 'toast-top-center', timeOut: 3000});
-                    this.router.navigateByUrl('/home');
+                      this.isSubmitted = false;
+                      this.isLoading = false;
+
+                    this.toastrService.success('Payment accepté:', '\n le paiement de la commande Numéro' +
+                    this.order.numOrder + ' a été validé',{positionClass: 'toast-top-center', timeOut: 3000});
+
+                    //on rafraichi le formulaire de paiment dans le but desactiver le button submit
+                    this.stripeForm.get('name').setValue('');
+                    this.router.navigateByUrl('/payment');
 
                       
                     }

@@ -8,3 +8,14 @@
   margin-top: 20em;
   padding: .1em 0;
 }
+
+.btn {
+  background-color: rgb(245, 127, 119);
+  margin-top: 2.2em;
+  padding: 30px, 50.5px;
+  /*border-radius: 10px;*/
+  cursor: pointer;
+  font-size: medium;
+  font-weight: lighter;
+  color:white
+}

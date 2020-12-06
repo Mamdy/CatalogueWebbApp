@@ -1,13 +1,14 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Order } from '../model/Order';
 import { Observable } from 'rxjs';
-import { Elements, Element as StripeElement, ElementsOptions, StripeService, } from 'ngx-stripe';
+import { StripeCardComponent, StripeService, } from 'ngx-stripe';
 import { PaymentService } from '../services/payment.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PaymentIntentDto } from '../model/PaymentIntentDto';
+import { StripeElementsOptions } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-new-address',
@@ -24,10 +25,8 @@ export class NewAddressComponent implements OnInit {
   @Input() order: Order;
 
   error: any;
-
-  elements: Elements;
-  card: StripeElement;
-  elementsOptions: ElementsOptions = {
+  @ViewChild(StripeCardComponent) card: StripeCardComponent;
+  elementsOptions: StripeElementsOptions = {
     locale: 'fr'
   };
 
@@ -55,28 +54,28 @@ export class NewAddressComponent implements OnInit {
       description: [this.description, []],
       });*/
 
-      this.stripeService.elements(this.elementsOptions)
-    .subscribe(elements => {
-      this.elements = elements;
-      // Only mount the element the first time
-      if (!this.card) {
-        this.card = this.elements.create('card', {
-          style: {
-            base: {
-              iconColor: '#666EE8',
-              color: '#31325F',
-              fontWeight: 300,
-              fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-              fontSize: '18px',
-              '::placeholder': {
-                color: '#CFD7E0'
-              }
-            }
-          }
-        });
-        this.card.mount('#card-element');
-      }
-    });
+    //   this.stripeService.elements(this.elementsOptions)
+    // .subscribe(elements => {
+    //   this.elements = elements;
+    //   // Only mount the element the first time
+    //   if (!this.card) {
+    //     this.card = this.elements.create('card', {
+    //       style: {
+    //         base: {
+    //           iconColor: '#666EE8',
+    //           color: '#31325F',
+    //           fontWeight: 300,
+    //           fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+    //           fontSize: '18px',
+    //           '::placeholder': {
+    //             color: '#CFD7E0'
+    //           }
+    //         }
+    //       }
+    //     });
+    //     this.card.mount('#card-element');
+    //   }
+    // });
 
 
   }
@@ -84,7 +83,7 @@ export class NewAddressComponent implements OnInit {
   buy() {
     const name = this.stripeForm.get('name').value;
     this.stripeService
-      .createToken(this.card, { name })
+      .createToken(this.card.element, { name })
       .subscribe(result => {
         if (result.token) {
           const paymentIntentDto: PaymentIntentDto = {
@@ -96,7 +95,7 @@ export class NewAddressComponent implements OnInit {
           this.paymentService.pay(paymentIntentDto).subscribe(
             data => {
               if(data){
-                this.paymentService.paymentConfirm(data['id']).subscribe(
+                this.paymentService.paymentConfirm(data['id'], this.order.id).subscribe(
 
                   result=>{
                     this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +

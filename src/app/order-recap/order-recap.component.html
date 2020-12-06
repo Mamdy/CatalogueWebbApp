@@ -1,13 +1,15 @@
  <!--Recap Commande-->
  <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-11">
     <div class="panel panel-default">
       <div class="panel-heading style">Récapitulatif</div>
       <div class="panel-body">
-          <h5>prix:{{(order$ | async)?.orderAmount | currency}} </h5><br>
-          <h5>Quantite:{{(order$ | async)?.products.length}}</h5><br>
-          <hr>
-          <h5>Total: {{(order$ | async)?.orderAmount | currency}}</h5><br>
+        <h5>Prix:<span style="color: red;">{{(order$ | async)?.orderAmount| number: '0.2'}}&euro;</span> </h5><br>
+        <h5>Quantite:{{(order$ | async)?.products.length}}</h5><br><br>
+        <hr>
+        <br>
+        <br>
+        <h5><strong>Total: </strong> <span style="color: red;">{{(order$ | async)?.orderAmount| number: '0.2'}}&euro;</span></h5><br>
       </div>
   </div>
 

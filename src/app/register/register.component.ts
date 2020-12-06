@@ -61,11 +61,12 @@ export class RegisterComponent implements OnInit {
     this.userService.register(this.registerForm.value)
       .pipe(first())
       .subscribe(data=>{
-        this.tostService.success('Votre compte vient d etre avec Success','Merci',{positionClass: 'toast-top-center', timeOut: 3000} )
+        this.tostService.success('','Votre compte vient d\'être crée avec Success',{positionClass: 'toast-top-center', timeOut: 3000} )
         this.router.navigate(['/login']);
       },error=>{
-        this.alertService.error(error);
+        this.tostService.error(error,'', {positionClass: 'toast-top-center', timeOut:4000})
         this.loading=false;
+        location.reload();
       });
 
   }

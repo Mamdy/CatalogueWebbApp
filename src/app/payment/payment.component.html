@@ -1,64 +1,23 @@
 <div class="container">
 
-  <div class="col-md-8">
+  <div class="col-md-9">
 
     <div class="panel panel-primary">
-      <div class="panel-heading"><h4>Choisissez votre moyen de paiement</h4></div>
+      <div class="panel-heading style"><h4>Choisissez votre moyen de paiement</h4></div>
       <div class="panel-body">
           <div class="border-box">
             <input type="radio" id="{{paymentModes.bankCard.id}}" [(ngModel)]="paymentModes.bankCard.checked" value ="{{paymentModes.bankCard.value}}" (click)="isBankCardOptionSelected()">&nbsp;
             <span><img src="../assets/images/all-cards.svg"></span> &nbsp;
-            <span> Par Carte Bancaire </span>
+            <span><strong>Par CB</strong> </span>
           </div> <br>
           <div *ngIf="paimentMode=='carteBancaire'">
-                <!---Formulaire de paiment-->
-               <!--<form novalidate (ngSubmit)="buy()" [formGroup]="stripeForm" #f="ngForm">
-                <input class="form-control" type="text" formControlName="name" placeholder="nom titulaire carte">
-                <div id="card-element" class="field"></div>
-                <div *ngIf="error" class="alert alert-danger">
-                    {{error}}
-                </div>
-                <button type="submit" class="btn btn-outline-success" [disabled]="!f.valid">
-                  Buy
-                </button>
-              </form>-->
-              
-              <!-- <div >
-                <div class="d-flex justify-content-center"> 
-                  <div class="spinner-border" role="status"> 
-                      <span class="sr-only" id="loading"></span> 
-                  </div> 
-                  <div class="spinner-grow text-primary" role="status">
-                    <span class="sr-only" >Loading...</span>
-                  </div>
-                  <div class="spinner-grow text-secondary" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                  <div class="spinner-grow text-success" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                  <div class="spinner-grow text-danger" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                  <div class="spinner-grow text-warning" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                  <div class="spinner-grow text-info" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                  <div class="spinner-grow text-light" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                </div> 
-                           
-              </div> -->
               <app-payment-card-form></app-payment-card-form>
               
           </div>
           <div class="paypal-border-box">
             <input type="radio" id="{{paymentModes.paypal.id}}" [(ngModel)]="paymentModes.paypal.checked" value ="{{paymentModes.paypal.value}}" (click)="isPaypalOptionSelected()">&nbsp;
             <span><img src="../assets/images/paypal-logo.svg"></span>&nbsp;
-            <span>Par Paypal</span><br><br>
+            <span><strong></strong> Paypal</span><br><br>
             <p>&nbsp;En choisissant ce mode de paiement, vous allez être redirigé vers le serveur sécurisé de Paypal et accéder à votre compte Paypal. Votre commande sera enregistrée lorsque vous aurez validé votre paiement sur le site Paypal.</p><br><br>
 
             <button type="submit" class="btn btn-outline-success">
@@ -68,18 +27,15 @@
           <div class="border-box">
             <input type="radio" id="{{paymentModes.orangeMoney.id}}" [(ngModel)]="paymentModes.orangeMoney.checked" value ="{{paymentModes.orangeMoney.value}}" (click)="isOrangeMoneyOptionSelected()">
             <span><img src="../assets/images/orange-money-logo.svg"></span>&nbsp;
-            <span>Par Orange Money</span> &nbsp;
+            <span><strong>Par Orange Money</strong></span> &nbsp;
           </div> <br>
           <div class="border-box">
             <input type="radio" id="{{paymentModes.cash.id}}" [(ngModel)]="paymentModes.cash.checked" value ="{{paymentModes.cash.value}}" (click)="isCashMoneyOptionSelected()">&nbsp;
-            <span><strong>Espèces</strong></span> &nbsp;
+            <span><strong>Par Espèces</strong></span> &nbsp;
           </div> <br>
 
-
-
-        <button class="btn btn-success" routerLink = "/payment">Continuer</button>
-
-      </div>
+      </div><br><br>
+      <br><a routerLink="/home" class="btn-link float-left"> <span style="color: rgb(0, 174, 255);">< CONTINUER MES ACHATS</span></a>
     </div>
 
   </div>

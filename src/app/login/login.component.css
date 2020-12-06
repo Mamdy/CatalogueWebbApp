@@ -1,5 +1,5 @@
 .style {
-    background-color:  rgb(87, 187, 245);
+    background-color:  rgb(84, 178, 233);
     font-size: large;
     font-weight: bold;
     color: white;
@@ -10,7 +10,7 @@
     padding: 10px 80px;
     border-radius: 25px;
     font-size: large;
-    margin-left: 80px;
+    margin-left: 90px;
     background-color: rgb(62, 184, 214);
     color: white;
     cursor: pointer;
@@ -18,7 +18,7 @@
 }
 
 .btn:hover {
-    background-color: rgb(223, 206, 206);
+    background-color: rgb(31, 133, 218);
     color: rgb(238, 227, 227);
 }
 .reg {

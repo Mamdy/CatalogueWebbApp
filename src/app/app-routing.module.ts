@@ -47,7 +47,7 @@ const routes: Routes = [
   //{path: '**', redirectTo: 'login', pathMatch: 'full'},
 
   //sinon redirige vers le home(l'acceuil)
-  {path: " ", redirectTo: "home", pathMatch:'full'}
+  {path: "", redirectTo: "home", pathMatch:'full'}
 ];
 
 //export const routing = RouterModule.forRoot(routes);

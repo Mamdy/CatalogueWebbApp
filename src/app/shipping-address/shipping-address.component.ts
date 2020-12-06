@@ -83,7 +83,6 @@ export class ShippingAddressComponent implements OnInit {
     this.currentUser = this.authService.currentUserValue;
     this.fullName = this.currentUser.user.firstName.concat(" ").concat(this.currentUser.user.lastName);
     this.order$ = this.orderService.show(this.route.snapshot.paramMap.get('id'));
-    console.log(this.order$);
   }
 
   

@@ -27,21 +27,21 @@ export class ModalDialogComponent{
 
   
   confirmPayement(id: string): void {
-    this.paymentService.paymentConfirm(id).subscribe(
-      data => {
+    // this.paymentService.paymentConfirm(id,orderId).subscribe(
+    //   data => {
 
-        this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
-    data['orderId'],{positionClass: 'toast-top-center', timeOut: 3000});
-    this.activeModal.close();
+    //     this.toastrService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
+    // data['orderId'],{positionClass: 'toast-top-center', timeOut: 3000});
+    // this.activeModal.close();
 
-    this.router.navigateByUrl('/home');
+    // this.router.navigateByUrl('/home');
     
-          },
-      err => {
-        console.log(err);
+    //       },
+    //   err => {
+    //     console.log(err);
        
-      }
-    );
+    //   }
+    // );
   }
 
   cancelPayment(id: string): void {

@@ -3,7 +3,6 @@ import { Order } from '../model/Order';
 import { OrderService } from '../services/order.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
-import { Elements, Element as StripeElement, ElementsOptions, StripeService} from 'ngx-stripe';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PaymentService } from '../services/payment.service';
 import { PaymentIntentDto } from '../model/PaymentIntentDto';
@@ -24,9 +23,6 @@ export class PaymentComponent implements OnInit {
 
   error: any;
 
-  elements: Elements;
-  card: StripeElement;
-
   paid: boolean;
   order: Order;
   paimentMode:any;
@@ -35,9 +31,6 @@ export class PaymentComponent implements OnInit {
   isLoadingCardForm:boolean;
   isCardFormLoaded : boolean;
 
-  elementsOptions: ElementsOptions = {
-    locale: 'fr'
-  };
 
   paymentModes = {
     bankCard: {
@@ -77,7 +70,6 @@ export class PaymentComponent implements OnInit {
 
   constructor(private orderService: OrderService,
     public modalService: NgbModal,
-      private stripeService: StripeService,
       private paymentService: PaymentService,
       private toastrService: ToastrService,
       private router: Router,

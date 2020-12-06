@@ -1,0 +1,127 @@
+.spacer {
+    margin-top: 3.5em;
+}
+
+.clearfix:before, .clearfix:after {
+    content: " ";
+    display: table; }
+  
+  .clearfix:after {
+    clear: both; }
+
+.wrapper {
+    width: 1100px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+
+* {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box; 
+}
+
+.footer {
+    padding: 1.8em 0;
+}
+
+.footer .footer__column{
+    float: left;
+    width: 25%;
+    padding-bottom: 2em;
+}
+
+.footer .footer__column h3 {
+    color: #9399a2;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.footer .footer__column ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer .footer__column ul li a {
+    color: #5e37ca;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 1em;
+}
+
+.footer .footer__column ul li a.WordPress_link {
+    color: #52accc;
+}
+.footer .footer__column ul li a.facebook_link {
+    color: #3b5998;
+}
+
+.footer .footer__column ul li a.google_plus_link {
+    color: #cb3a2f;
+}
+
+.footer .footer__column ul li a.twitter_link {
+    color: #1da1f2;
+}
+
+.footer .footer__column ul li a.linkedin_link{
+    color: #1da1f2;
+}
+.footer .footer__column ul li a:hover {
+    color: #42268f;
+}
+
+.footer .footer__column article h1 {
+font-size: 2.2em;
+}
+
+
+.footer .footer__column article h1 a {
+  text-decoration: none;
+  color: #808080;
+}
+
+.footer .footer__column article p {
+color: #9399a2;
+font-size: 1.3em;
+line-height: 1.4em;
+}
+
+.footer .footer__column .read_more {
+    color: #5e37ca;
+    text-decoration: none;
+    text-transform: lowercase;
+}
+
+.footer .footer__column .read_more:hover {
+  color: #42268f;
+}
+
+.footer .footer__secondary {
+    border-top: 1px solid #e9ebec;
+    padding: 1.2em 0;
+}
+
+.footer .footer__secondary ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer .footer__secondary ul li {
+    float: left;
+    margin-right: 1.4em;
+    font-size: 1.3em;
+}
+
+.footer .footer__secondary ul li a {
+    text-decoration: none;
+    color: #5e37ca;
+}
+
+.footer .footer__secondary ul li a:hover {
+    color: #42268f;
+
+}
+

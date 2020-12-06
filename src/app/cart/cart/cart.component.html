@@ -1,28 +1,28 @@
-<h1 align="center" class="display-4 mb-5">Mon Panier</h1>
+<h1 align="center" class="display-4 mb-5 title"><strong>MON PANIER</strong></h1>
 <!--Tableau de Detail du panier-->
 <table class="table table-striped text-center">
     <thead>
     <tr>
         <th scope="col">Photo</th>
-        <th scope="col">Name</th>
-        <th scope="col">Price</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Subtotal</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prix</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Sous-Total</th>
         <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let productInOrder of productInOrders">
         <th class="align-middle" scope="row">
-            <a routerLink="/product/{{productInOrder.productId}}"><img height="70" width="70"
+            <a routerLink="/product/{{productInOrder?.productId}}"><img height="70" width="70"
             
                                                                        src="../assets/images/{{productInOrder.productIcon}}.jpg"
                                                                        alt="{{productInOrder.productName}}"></a>
         </th>
         <td class="align-middle"><a
           
-                routerLink="/product">{{productInOrder.productName}}</a></td>
-        <td class="align-middle">{{productInOrder.productPrice | currency}}</td>
+                routerLink="/product">{{productInOrder?.productName}}</a></td>
+        <td class="align-middle">{{productInOrder?.productPrice | number :'0.2'}}&euro;</td>
 
         <td class="align-middle">
             <a (click)="minusOne(productInOrder)"><i class="fa fa-minus"></i></a>
@@ -38,9 +38,9 @@
             <a (click)="addOne(productInOrder)"> <i class="fa fa-plus"></i></a>
         </td>
 
-        <td class="align-middle">{{productInOrder.productPrice * productInOrder.count|currency}}</td>
+        <td class="align-middle">{{productInOrder?.productPrice * productInOrder?.count|number :'0.2'}}&euro;</td>
         <td class="align-middle">
-            <a (click)="remove(productInOrder)" routerLink="./"><strong>Remove</strong></a>
+            <a (click)="remove(productInOrder)" routerLink="./"><strong>Supprimer</strong></a>
         </td>
     </tr>
 
@@ -48,11 +48,14 @@
 </table>
 
 <div *ngIf="productInOrders?.length > 0; else empty">
-    <h5 style="display: inline;">Total: {{total | currency}}</h5>
-    <button (click)="checkout()" class="btn btn-warning float-right">Checkout</button>
+    
+    <h5 style="display: inline;"><strong>TOTAL: <span style="color: red;">{{total | number : '0.2'}}&euro;</span></strong> </h5>
+    <button (click)="checkout()" class="btn btn-warning float-right">VALIDER MON PANIER</button><br>
+    <br><a routerLink="/home" class="btn-link float-left"> <span style="color: rgb(0, 174, 255);">< CONTINUER MES ACHATS</span></a>
 </div>
+
 <ng-template #empty>
-    <h4 class="text-muted text-center">Cart is empty. Go to get something! :)</h4>
+    <h4 class="text-muted text-center">Le panier est vide. rajoutez-y des produits! :)</h4>
 </ng-template>
 
 

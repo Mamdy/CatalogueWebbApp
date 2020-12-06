@@ -4,7 +4,7 @@
       <div class="card mb-4"  >
         <img height="50%" class="card-img-top" src="../assets/images/{{productInfo.photoUrl}}.jpg" alt="{{productInfo.name}}">
         <div class="card-body">
-          <h4 class="card-title "><span style="color: rgb(0, 162, 255);">{{productInfo.name}}<Strong></Strong></span></h4>
+          <h4 class="card-title" align="text-center"><span style="color: rgb(0, 162, 255);">{{productInfo.name}}<Strong></Strong></span></h4>
           <div class="text-left">
             <p class="card-test"><strong>Description: </strong>{{productInfo.description}}</p>
             <p class="card-text"><strong>Prix: </strong>
@@ -22,7 +22,7 @@
          <!--<a routerLink="/product/{{productInfo.productId}}" *ngIf="productInfo.active == true; else offBlock"
              class="btn btn-primary btn-lg"
           >Details!</a>-->
-          <button class="btn btn-success spacer" (click)="detailsProduct(productInfo)"><span class="glyphicon glyphicon-eye-open">&nbsp;<strong>Voir les Details</strong></span></button>&#160;
+          <button class="btn spacer" (click)="detailsProduct(productInfo)"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;<strong>Voir Details</strong></button>&#160;
           <!--<ng-template #offBlock><a class="btn btn-secondary btn-lg disabled">Unavailable</a></ng-template>-->
         </div>
       </div>

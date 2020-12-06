@@ -1,43 +1,40 @@
-<h1 align="center" class="display-4 mb-5">Orders</h1>
+<h1 align="center" class="display-4 mb-5">MES COMMANDES </h1>
 
 <table class="table table-striped text-center">
     <thead>
     <tr>
-        <th scope="col">Order #</th>
-        <th scope="col">Customer Name</th>
-        <th scope="col">Customer Email</th>
-        <th scope="col">Customer phone</th>
-        <th scope="col">Shipping Address</th>
+        <th scope="col">N°cmd #</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Email</th>
+        <th scope="col">Téléphone</th>
+        <th scope="col">Adresse Livraisson</th>
         <th scope="col">Total</th>
-        <th scope="col">Order Date</th>
-        <th scope="col">Status</th>
+        <th scope="col">Date Commande</th>
+        <th scope="col">Status Commande</th>
         <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
 
     <tr *ngFor="let order of page?.content">
-        <th class="align-middle" scope="row">
-            {{order.orderStatus}}
-        </th>
-        <td class="align-middle">{{order.buyerName}}</td>
-        <td class="align-middle">{{order.buyerEmail}}</td>
-        <td class="align-middle">{{order.buyerPhone}}</td>
-        <td class="align-middle">{{order.buyerAddress}}</td>
-        <td class="align-middle">{{order.orderAmount | currency}}</td>
-        <td class="align-middle">{{order.createTime | date}}</td>
-        <td class="align-middle">{{OrderStatus[order.orderStatus]}}</td>
+        <td class="align-middle">{{order?.numOrder}}</td>
+        <td class="align-middle">{{order?.buyerName}}</td>
+        <td class="align-middle">{{order?.buyerEmail}}</td>
+        <td class="align-middle">{{order?.buyerPhone}}</td>
+        <td class="align-middle">{{order?.buyerAddress}}</td>
+        <td class="align-middle"><span style="color: red;">{{order?.orderAmount | number: '0.2'}}&euro;</span></td>
+        <td class="align-middle">{{order?.createTime | date}}</td>
+        <td class="align-middle">{{OrderStatus[order?.orderStatus]}}</td>
         <td class="align-middle">
             <a *ngIf="!(currentUser.role == Role.Customer && currentUser.name == order.buyerEmail)"
                style="display:
             block" href="" routerLink="/order/{{order.id}}">
-                Show</a>
-            <a *ngIf="order.orderStatus == 0" style="display: block" (click)="cancel(order)" routerLink="./">Cancel</a>
+                Voir</a>
+            <a *ngIf="order.orderStatus == 0" style="display: block" (click)="cancel(order)" routerLink="./">Annuler </a>
             <a *ngIf="currentUser.role != Role.Customer && order.orderStatus == 0"
                style="display: block"
-               (click)="finish(order)"
-               routerLink="./">
-                Finish</a>
+               routerLink="/order/{{order?.id}}/shipping-address">
+                Finaliser</a>
         </td>
     </tr>
     </tbody>

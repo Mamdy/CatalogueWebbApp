@@ -38,7 +38,7 @@ export class OrderService {
 }
 
 payOrder(orderId: string): void{
-  this.paymentService.paymentConfirm(orderId).subscribe(data=> {
+  this.paymentService.paymentConfirm(orderId,orderId).subscribe(data=> {
     this.toastService.success('Payment accepte', 'le paiement de la commande avec lidentifiant' +
     data['orderId'],{positionClass: 'toast-top-center', timeOut: 3000});
     this.activeModal.close()

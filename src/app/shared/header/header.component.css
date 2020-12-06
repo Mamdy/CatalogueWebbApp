@@ -1,12 +1,17 @@
 
 .header {
   margin-top: -7em;
-  padding: .3em 0;
+  padding: .1em 0;
 }
 
+.brand{
+  margin-top: -0.5em;
+  margin-left: 1%;
+  padding: 7px;
+}
 .topnav {
   overflow: hidden;
-  background-color:#3b3a3a;
+  background-color:#080808;
 }
 
 /* Style the links inside the navigation bar */
@@ -15,29 +20,32 @@
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  /*padding: 14px 16px;*/
   text-decoration: none;
-  font-size: 17px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: "proxima-nova",Helvetica,Arial,'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: rgb(221, 221, 221);
-  color: white;
+  background-color: rgba(24, 164, 189, 0.979);
+  /*color: rgb(255, 255, 255);*/
+  border-radius: 20px;
 }
 
 /* Style the "active" element to highlight the current page */
 .topnav a.active {
   background-color: #2196F3;
   color: white;
-  border-radius: 5px;
+  /*border-radius: 25px;*/
 }
 
 .topnav .search-container button{
   /*float: left;*/
   padding:0.1em;
   /*position: relative;*/
-  margin-top: -0.9px;
+  margin-top: 1.5em;
   margin-left: -47px;
   /*padding-left: -50px;*/
   background:transparent;
@@ -55,15 +63,15 @@
 }
 /* Style the search box inside the navigation bar */
 .topnav input[type=text] {
-  width:450px; 
+  width:400px; 
   height:38px;
   border-radius:5px;
-  float: center;
+  float: left;
   padding: 6px;
   border: none;
   margin-top: 8px;
-  margin-right: 16px;
-  margin-left: 25px;
+  margin-right: 20px;
+  margin-left: 5px;
   
   font-size: 17px;
 }
@@ -78,9 +86,9 @@
     float: none;
     display: block;
     text-align: left;
-    width: 100%;
+    width: 15%;
     margin: 0;
-    padding: 14px;
+    padding: 5px;
   }
   .topnav input[type=text] {
     border: 1px solid #ccc;  

@@ -40,15 +40,9 @@ export class LoginComponent implements OnInit {
               private formBuilder: FormBuilder,
               private activatedRoute: ActivatedRoute,
               private authService: AuthenticationService,
-              private userService: UserService,
               private  router: Router,
-              private alertService: AlertService,
-              private toastrService: ToastrService,
+              private toastService: ToastrService,
               private cartService: CartService) {
-    //redirect to home if already logged in
-    // if(this.authService.isAuthenticated()){
-    //   this.router.navigate(['']);
-    // }
   }
 
   ngOnInit() {
@@ -78,28 +72,18 @@ export class LoginComponent implements OnInit {
           if(user.user.role != Role.Customer && user.user.role !=Role.Manager){
               this.returnUrl = '/home';
             }
-            //si conecter just apres 1er checkout du pannier, refaire le checkout une 2èm fois pour enregistrer la commande dans sa table
-            // if(this.returnUrl === "/cart"){
-            //   this.cartService.checkout().subscribe(
-            //     _ => {
-            //       debugger
-            //         this.productInOrders = [];
-            //     },
-            //     error1 => {
-            //         console.log('Checkout Cart Failed');
-            //     });
-            // //this.router.navigate(['/order']);
-
-            // }
-           
-            this.router.navigateByUrl(this.returnUrl);
-            this.toastrService.success('Vous êtes connecté avec Success sur notre Site', 'Bienvenue '+user.user.firstName,{positionClass: 'toast-top-center', timeOut: 3000});
-         /* http://localhost:4200/login?returnUrl=%2Fcart*/
+       
+            this.toastService.success('Vous êtes connecté avec Success sur notre Site', 'Connexion reussie '+user.user.firstName,{positionClass: 'toast-top-center', timeOut: 3000});
+            this.router.navigateByUrl('/home');
+            //this.router.navigateByUrl(this.returnUrl);(à faire dans les bonne condition)
          
         }else{
           this.isLogout = false;
           this.isInvalid = true;
         }
+      },error => {
+        this.toastService.error('utilisateur ou mot de passe incorrect','identifiants Incorrects', {positionClass: 'toast-top-center', timeOut:4000})
+        location.reload();
       }
 
       );

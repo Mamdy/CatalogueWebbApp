@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // Array of images
   slides = [
+      '../../assets/images/banner1.jpg',
+      '../../assets/images/banner2.jpg',
+      '../../assets/images/banner3.jpg',
+      '../../assets/images/banner4.jpg',
       'https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg',
       'https://mdbootstrap.com/img/Photos/Slides/img%20(129).jpg',
       'https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg',

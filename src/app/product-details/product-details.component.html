@@ -16,7 +16,7 @@
           <form name="form" #form='ngForm' (ngSubmit)="currentProduct?.active == true && addCurrentProductToCart()">
             <div class="text-left">
               <input hidden name="id" [value]=currentProduct?.id>
-              <p class="card-test"><strong>Description: </strong>{{currentProduct?.description}}</p>
+              <p class="card-test"><strong><span style="font-family: proxima-nova;">{{currentProduct?.description}}</span> </strong></p>
               <p class="card-text">
                 <strong>Prix: </strong>
                 <label id="price"><span style="color: red;">{{currentProduct?.price | number: '0.2'}}&euro;</span></label>
@@ -42,11 +42,11 @@
                 <label id="subtotal"><span style="color: red;">{{currentProduct?.price | number: '0.2'}}&euro;</span></label>
               </p>
             </div>
-            <button type="submit" [disabled]="!form.form.valid" *ngIf="currentProduct?.active == true; else offBlock"
-                    class="btn btn-success btn-lg"
+            <button type="submit" [disabled]="!form.form.valid" *ngIf="currentProduct?.active && currentProduct.productStock >=1 == true; else offBlock"
+                    class="btn btn-warning btn-lg"
             >
             <span class="glyphicon glyphicon-shopping-cart"></span>
-            Ajouter au Panier
+            AJOUTER AU PANIER
             </button>
             <ng-template #offBlock><a class="btn btn-secondary btn-lg disabled">Unavailable</a></ng-template>
           </form>
@@ -54,7 +54,7 @@
         </div>
       </div>
       <div>
-        <button class="btn btn-success float-left" routerLink="/home"><span class="glyphicon glyphicon-backward">&nbsp;<strong>Retour</strong></span></button>&#160;
+        <button class="btn btn-warning float-left" routerLink="/home"><span class="glyphicon glyphicon-backward">&nbsp;<strong>Retour</strong></span></button>&#160;
       </div>&nbsp;
     </div>
    

@@ -1,0 +1,15 @@
+.btn {
+    margin-top: 1.5em;
+    padding: 25px, 22.5px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: large;
+    font-weight: lighter;
+    color:white
+}
+
+.btn:hover {
+    padding: 10px, 20px;
+    border-radius: 20px;
+
+}

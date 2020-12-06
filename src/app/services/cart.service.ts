@@ -9,6 +9,8 @@ import { ProductInOrder } from '../model/ProductInOrder';
 import { tap, catchError, first, map } from 'rxjs/operators';
 import { Client } from '../model/Client';
 import { CustomerService } from './customer.service';
+import { Cart } from '../model/Cart';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +35,8 @@ export class CartService {
 
   constructor(private http: HttpClient,
               private authSerice: AuthenticationService,
-              private customerService: CustomerService)
+              private customerService: CustomerService,
+              private router: Router)
              {
         this.itemsSubject = new BehaviorSubject<Item[]>(null);
         this.items = this.itemsSubject.asObservable();
@@ -57,16 +60,19 @@ export class CartService {
         if (this.currentUser) {
             let client = new Client(this.currentUser.user.email, this.currentUser.user.firstName, this.currentUser.user.lastName,this.currentUser.user.email, this.currentUser.user.phone, this.currentUser.user.address, this.currentUser.user.role);
             if (localCartProductsInOrder.length > 0) {
-             
-                return this.http.post<ProductInOrder[]>(this.prodCatcartUrl,{
-                'client':client,
-                'localCartProductsInOrder':localCartProductsInOrder
-                }
-                ).pipe(map(products => products),
-                catchError(_ => of([]))
-              )
-              this.clearLocalCart(); 
+                this.clearLocalCart();
+                return this.http.post<Cart>(this.prodCatcartUrl,{
+                    'client':client,
+                    'localCartProductsInOrder':localCartProductsInOrder}).pipe(
+                        map(cart => cart.products),
+                        catchError(_ => of([])
+                    
+                        )
+                    
+                    )  
+            
             } else {
+                debugger
                 const url = `${this.prodCatcartUrl}`;
 
                 return this.http.get<ProductInOrder[]>(url).pipe(
@@ -77,6 +83,7 @@ export class CartService {
         } else {
             return of(localCartProductsInOrder);
         }
+               
     }
 
   clearLocalCart() {
@@ -122,7 +129,6 @@ addItem(productInOrder): Observable<boolean> {
  }
 
     update(productInOrder): Observable<ProductInOrder> {
-        debugger
       if (this.currentUser) {
           const url = `${this.prodCatcartUrl}/${productInOrder.productId}`;
           return this.http.put<ProductInOrder>(url, productInOrder.count);
@@ -134,7 +140,7 @@ addItem(productInOrder): Observable<boolean> {
           delete this.localMap[productInOrder.productCode];
           return of(null);
       } else {
-          const url = `${this.prodCatcartUrl}/${productInOrder.productId}`;
+          const url = `${this.prodCatcartUrl}/${productInOrder.productCode}`;
           return this.http.delete(url).pipe( );
       }
     }

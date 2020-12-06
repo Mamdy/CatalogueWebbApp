@@ -52,7 +52,7 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
       this.productInOrders = prods;
     });
     //this.productInOrders = this.cartService.getProductsInOrderFromCart();
-    console.log("product in cart=>",this.productInOrders);
+    console.log("product in Local cart=>",this.productInOrders);
 
 
     this.sub = this.updateTerms.pipe(
@@ -72,7 +72,11 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
     if (!this.currentUser) {
         this.cartService.storeLocalCart();
     }
-    this.userSubscription.unsubscribe();
+    if(this.userSubscription && this.sub){
+      this.userSubscription.unsubscribe();
+      //this.sub.unsubscribe();
+    }
+    
   }
 
 
@@ -108,16 +112,13 @@ remove(productInOrder: ProductInOrder) {
 }
 
 checkout() {
-  debugger
   if (!this.currentUser) {
       this.router.navigate(['/login'], {queryParams: {returnUrl: this.router.url}});
   } else if (this.currentUser.user.role !== Role.Customer && this.currentUser.user.role !== Role.Manager) {
       this.router.navigate(['/home']);
   } else {
-    debugger
       this.cartService.checkout().subscribe(
           _ => {
-            debugger
               this.productInOrders = [];
           },
           error1 => {
@@ -125,7 +126,6 @@ checkout() {
           });
       this.router.navigate(['/order']);
   }
-
 }
 
 

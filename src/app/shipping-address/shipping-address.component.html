@@ -1,9 +1,9 @@
 <div class="container">
   <!--Adresse de Livraison-->
-  <div class="col-md-8">
+  <div class="col-md-9">
 
     <div class="panel panel-primary">
-      <div class="panel-heading"><h4>Adresse de Livraison</h4></div>
+      <div class="panel-heading style"><h4>Adresse de Livraison</h4></div>
       <div class="panel-body">
           <input type="radio" id="{{radio1.id}}" [(ngModel)]="radio1.checked" value ="{{radio1.value}}" (click)="homeAddresSelected()">&nbsp;<span> <strong>{{radio1.label}} </strong></span>
           <div class="border-box">
@@ -41,7 +41,7 @@
           </form>
         </div><br>
 
-        <button class="btn btn-success" routerLink = "/order/{{(order$ | async)?.id}}/shipping-address/payment">Continuer</button>
+        <button class="btn btn-success" routerLink = "/order/{{(order$ | async)?.id}}/shipping-address/payment"><strong>Continuer ></strong> </button>
 
       </div>
     </div>
