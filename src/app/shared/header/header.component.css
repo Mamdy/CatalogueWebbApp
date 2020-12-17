@@ -6,11 +6,11 @@
 
 .brand{
   margin-top: -0.5em;
-  margin-left: 1%;
+  margin-left: 12%;
   padding: 7px;
 }
 .topnav {
-  overflow: hidden;
+  /*overflow: hidden;*/
   background-color:#080808;
 }
 
@@ -22,7 +22,7 @@
   text-align: center;
   /*padding: 14px 16px;*/
   text-decoration: none;
-  font-size: 15px;
+  font-size: 11px;
   font-weight: bold;
   font-family: "proxima-nova",Helvetica,Arial,'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -41,6 +41,9 @@
   /*border-radius: 25px;*/
 }
 
+.search-container {
+  margin-left: 15%;
+}
 .topnav .search-container button{
   /*float: left;*/
   padding:0.1em;
@@ -63,9 +66,9 @@
 }
 /* Style the search box inside the navigation bar */
 .topnav input[type=text] {
-  width:400px; 
+  width:500px; 
   height:38px;
-  border-radius:5px;
+  border-radius:15px;
   float: left;
   padding: 6px;
   border: none;
@@ -93,5 +96,6 @@
   .topnav input[type=text] {
     border: 1px solid #ccc;  
   }
+
 }
 

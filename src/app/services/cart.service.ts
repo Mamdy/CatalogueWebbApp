@@ -72,7 +72,6 @@ export class CartService {
                     )  
             
             } else {
-                debugger
                 const url = `${this.prodCatcartUrl}`;
 
                 return this.http.get<ProductInOrder[]>(url).pipe(
@@ -94,7 +93,6 @@ export class CartService {
 
 
 addItem(productInOrder): Observable<boolean> {
-    debugger
         if (!this.currentUser) {
             if (localStorage.getItem('cart')) {
                 this.localMap = JSON.parse(localStorage.getItem('cart'));
@@ -155,5 +153,11 @@ addItem(productInOrder): Observable<boolean> {
     localStorage.setItem('cart', JSON.stringify(this.localMap));
 }
 
+getProductsInOrderFromUserDbCart():ProductInOrder[]{
+ this.getCart().subscribe(pio => {
+     this.listProductsInOrder = pio;
+ });
+ return this.listProductsInOrder;
+}
 
 }

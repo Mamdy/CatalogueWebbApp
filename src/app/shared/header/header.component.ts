@@ -6,20 +6,18 @@ import { Subscription } from 'rxjs';
 
 import { Role } from 'src/app/enum/Role';
 import { DOCUMENT } from '@angular/common';
-import { UserService } from 'src/app/services/user.service';
 import { JwtResponse } from 'src/app/model/JwtResponse';
-import { User } from 'src/app/model/User';
 import { CatalogueService } from 'src/app/services/catalogue.service';
 import { Product } from 'src/app/model/Product';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AppResponse } from 'src/app/model/AppResponse';
+import { FormGroup, FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit,OnDestroy{
   page: any;
   currentUserSubscription: Subscription;
     name$;
@@ -37,25 +35,18 @@ export class HeaderComponent implements OnInit{
 
     criteriaSearch:boolean;
     public state = '';
+    public searchForm = new FormGroup({
+      criteria: new FormControl(''),
+     });
 
 
   constructor( private authService: AuthenticationService,
-              private userService: UserService,
-              private formBuilder: FormBuilder,
-                private router: Router,
-               private catalogueService: CatalogueService,
-               
-               @Inject(DOCUMENT) private _document: Document) { }
-               public searchForm = new FormGroup({
-                criteria: new FormControl(''),
-               });
+               private router: Router
+            ) { }
+
+    
 
   ngOnInit(){
-    // this.searchForm = this.formBuilder.group({
-    //   criteria: [''],
-
-    // });
-
     this.name$ = this.authService. name$.subscribe(aName => this.name = aName);
     this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
@@ -66,14 +57,9 @@ export class HeaderComponent implements OnInit{
         this.root = "/home";
 
       }
-      //this.searchProductByCriteria();
       this.state = window.history.state.criteria;
- 
-
     })
 
-
-    //this.refreshPage();
   }
 
   public searchProductByCriteria(event: Event){
@@ -86,11 +72,9 @@ export class HeaderComponent implements OnInit{
     const criteria = this.searchForm.get('criteria').value;
     this.searchCriteria = criteria;
     }
-
     //effacer l'input de recherche 
     //this.searchForm.get('criteria').setValue('');
     this.router.navigate(['/searchCriteriaView'], {state: {criteria: this.searchCriteria}});
-
 
   }
 
@@ -125,16 +109,11 @@ get f() {
 
   logOut(){
     this.authService.logOut();
-    localStorage.clear();
+    //localStorage.clear();
     this.router.navigate(['/login']);
 
   }
 
-
-  getSelectedProduct() {
-    this.catalogueService.getProducts();
-
-  }
 
   
   redirectToHomePage() {
@@ -142,11 +121,10 @@ get f() {
   }
 
   ngOnDestroy(): void {
-
     this.currentUserSubscription.unsubscribe();
-    this.name$.unsubscribe();
-    this.name$ = null;
-    this.currentUserSubscription = null;
+    // this.name$.unsubscribe();
+    // this.name$ = null;
+    // this.currentUserSubscription = null;
 }
 
 }

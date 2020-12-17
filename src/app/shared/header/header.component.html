@@ -1,73 +1,72 @@
-    <div class="container-fluid">
-      <nav class="navbar navbar-inverse header navbar-dark bg-dark topnav">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" routerLink="/home">
-              <img src="../../../assets/images/brand2.jpg" alt="224-E-SHOP" width="80" height="80" class="d-inline-block align-top brand">
-              <strong>E-224MArketPlace</strong></a>
-          </div>
+  <div class="container">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark topnav fixed-top">
+      <div class="brand">
+        <a class="navbar-brand" routerLink="/home">
+          <img src="../../../assets/images/brand2.jpg" alt="224-E-SHOP" width="80" height="80" class="d-inline-block align-top brand">
+          <strong>E-224MArketPlace</strong>
+        </a>  
+      </div>
           
-            <div class="search-container">
-              <form  [formGroup]="searchForm" (ngSubmit)="searchProductByCriteria($event)" #f="ngForm">
-                  <div class="form-group">
-                    <input type="text" formControlName="criteria" placeholder="rechercher un produit...">
-                    <button type="submit">
-                      <i class="fa fa-search"
-                        style="font-size: 18px;"></i>
-                    </button>
-                  </div>
-                   
-              </form>
+      <div class="search-container">
+        <form  [formGroup]="searchForm" (ngSubmit)="searchProductByCriteria($event)" #f="ngForm">
+            <div class="form-group">
+              <input type="text" formControlName="criteria" placeholder="Rechercher un produit...">
+              <button type="submit" class="btn btn-warm">
+                <i class="fa fa-search"
+                  style="font-size: 18px; color: rgb(92, 91, 91);"></i>
+              </button>
             </div>
-          <ul class="nav navbar-nav">
-            <li class="dropdown" *ngIf="isAuthenticated() && isAdmin()">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
-                <!--<span class="caret"></span>-->
-              </a>
-              <ul class="dropdown-menu">
-                <li><a routerLink="/adminCategories">Gestion des Categories</a></li>
-                <li><a routerLink="/adminProducts">Gestion des Produits</a></li>
-                <li><a routerLink="/adminUsers">Gestion des Utilisateurs</a></li>
-              </ul>
-            </li>
-            
-            <li class="nav-item">
-              <a *ngIf="!currentUser || currentUser.user.role == Role.Customer" class="nav-item nav-link" routerLink="/cart">
-                <i class="fa fa-shopping-cart"></i>
-                PANIER
-              </a>
-      
-            </li>
-      
-            <li class="nav-item">
-              <a *ngIf="isAuthenticated() && currentUser.user.role == Role.Customer" class="nav-link" routerLink="/order">
-                <i class="fas fa-list-ul"></i>
-               MES COMMANDES
-              </a>
-      
-            </li>
-      
-          </ul>
-      
-          <ul class="nav navbar-nav navbar-right">
-            <li routerLinkActive="active">
-              <a *ngIf="!isAuthenticated()" routerLink="/login"><span class="glyphicon glyphicon-user"></span><br>ME CONNECTER</a>
-              <a *ngIf="isAuthenticated()" routerLink="/login" class="btn btn-default btn-sm" (click)="logOut()">
-                <span class="glyphicon glyphicon-user"></span>ME DECONNECTER <br>
-                <span>{{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
+             
+        </form>
+      </div>
+      <ul class="navbar-nav mr-auto">
+        <li  *ngIf="isAuthenticated() && isAdmin()">
+          <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
+              <ul class="navbar-nav mr-auto">
+                <li  class="nav-item dropdown" ngbDropdown>
+                  <span style="color: white;" class="nav-link dropdown-toggle" ngbDropdownToggle>Admin</span>
+                  <div class="dropdown-menu" aria-labelledby="id01" ngbDropdownMenu>
+                    <a class="" routerLink="/adminCategories">
+                      <span style="color: rgb(255, 123, 0)">Gestion des Categories</span></a>
+                    <a routerLink="/adminProducts"> <span style="color: rgb(255, 123, 0)">Gestion des Produits</span></a>
+                    <a routerLink="/adminUsers"> <span style="color: rgb(255, 123, 0)">Gestion des Utilisateur</span></a>
+                  </div>
                 
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-      
+                </li>
+                
+              </ul>
+          </div>
+        
+        </li>
+        
+        <li class="nav-item">
+          <a *ngIf="!currentUser || currentUser.user.role == Role.Customer" class="nav-item nav-link" routerLink="/cart">
+            <i class="fa fa-shopping-cart"></i>
+            PANIER
+          </a>
 
+        </li>
 
+        <li class="nav-item">
+          <a *ngIf="isAuthenticated() && currentUser.user.role == Role.Customer" class="nav-link" routerLink="/order">
+            <i class="fas fa-list-ul"></i>
+          MES COMMANDES
+          </a>
 
+        </li>
 
+      </ul>
 
+      <ul class="nav navbar-nav navbar-right">
+        <li routerLinkActive="active">
+          <a *ngIf="!isAuthenticated()" routerLink="/login"><span class="glyphicon glyphicon-user"></span><br>ME CONNECTER</a>
+          <a *ngIf="isAuthenticated()" routerLink="/login" class="btn btn-default btn-sm" (click)="logOut()">
+            <span class="glyphicon glyphicon-user"></span>ME DECONNECTER <br>
+            <span>{{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
 
-
+  </div>
 

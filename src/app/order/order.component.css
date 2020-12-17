@@ -1,0 +1,11 @@
+.border-box{
+    width: 650px;
+    height: 43px;
+    border: 1px solid rgb(246, 249, 250);
+    box-sizing: border-box;
+    background-color: rgb(20, 189, 245);
+    color: white;
+    display: block;
+    margin-left:15% ;
+
+}

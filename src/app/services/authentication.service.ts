@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import { JwtResponse } from '../model/JwtResponse';
 import { prodCatApiUrl } from 'src/environments/environment';
 import { userApiUrl } from 'src/environments/environment';
+import { Client } from '../model/Client';
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +30,10 @@ export class AuthenticationService {
 
   constructor(private http:HttpClient,
     private  router:Router) {
-      const memo = localStorage.getItem("currentUser");
-     
+    const memo = localStorage.getItem("currentUser");
    this.currentUserSubject = new BehaviorSubject<JwtResponse>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+    localStorage.setItem('currentUser', memo)
   
 
   }
@@ -46,25 +47,28 @@ export class AuthenticationService {
       tap(user => {
        // const token = response.headers.get('Authorization');
         if(user && user.token){
-          //localStorage.setItem("currentUser", JSON.stringify(user));
-            this.saveToken(user.token);
-            this.nameTerms.next();
-            this.currentUserSubject.next(user);
-            return user;
-          }
-
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          this.saveToken(user.token);
+          this.nameTerms.next();
+          this.currentUserSubject.next(user);
+          return user;
+        }
       }),
 
     );
 
   }
 
-  clientRegister(data){
-    return this.http.post(this.prodCatCustomerUrl, data, {observe:'response'})
+  loadToken() {
+    this.jwt=localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if(this.jwt !=null && user){
+      this.nameTerms.next();
+      this.currentUserSubject.next(user);
+      this.parseJWT();
+    }
+ 
   }
-
-
-
 //enregistrer le token dans le localStorage du navigateur
   saveToken(jwt: string) {
     localStorage.setItem("token",jwt);
@@ -78,16 +82,13 @@ export class AuthenticationService {
   private parseJWT() {
     let jwtHelper=new JwtHelperService();
     let jwtObject=jwtHelper.decodeToken(this.jwt);
-    this.username=jwtObject.obj;
+    this.username=jwtObject.sub;
     this.roles=jwtObject.roles;
 
   }
 
 
-  loadToken() {
-    this.jwt=localStorage.getItem('token');
-    this.parseJWT();
-  }
+ 
 
   isAdmin(){
     return this.roles.indexOf('ADMIN')>=0;
@@ -120,9 +121,9 @@ export class AuthenticationService {
     this.username=undefined;
     this.roles=undefined;
   }
-
-
-
+  clientRegister(data){
+    return this.http.post(this.prodCatCustomerUrl, data, {observe:'response'})
+  }
 
 
 

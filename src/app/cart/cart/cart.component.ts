@@ -51,8 +51,8 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
    this.cartService.getCart().subscribe(prods => {
       this.productInOrders = prods;
     });
-    //this.productInOrders = this.cartService.getProductsInOrderFromCart();
-    console.log("product in Local cart=>",this.productInOrders);
+    this.productInOrders = this.cartService.getProductsInOrderFromUserDbCart();
+    
 
 
     this.sub = this.updateTerms.pipe(
@@ -65,7 +65,6 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
       if(prod){throw new Error();}
     },
     _ => console.log('Update Item Failed'));
-
   }
 
   ngOnDestroy() {

@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from './services/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from './model/User';
+import { Subscription } from 'rxjs';
+import { JwtResponse } from './model/JwtResponse';
+import { Role } from './enum/Role';
 
 @Component({
   selector: 'app-root',
@@ -9,42 +12,14 @@ import {User} from './model/User';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  connectedUser  = 'admin';
-  ngOnInit(): void {
-  }
-
- /* title = 'CatalogueWebApp';
-  currentUser: User;
-
   constructor(
-              private route:ActivatedRoute,
-              private router: Router,
               private authService: AuthenticationService
   ){
-    this.authService.currentUser.subscribe(user=>{
-      this.currentUser = user
-    });
-  }
-  ngOnInit(): void {
-    this.authService.loadToken();
   }
 
-
-  isAdmin(){
-    return this.authService.isAdmin();
-
-  }
-  isUser(){
-    return this.authService.iseUser();
-  }
-  isAuthenticated(){
-    return this.authService.isAuthenticated();
-
+  ngOnInit() {
+   this.authService.loadToken();
   }
 
-  logOut(){
-    this.authService.logOut();
-    this.router.navigate(['/login']);
-  }*/
 }
 

@@ -67,15 +67,13 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authService.login(this.loginForm)
       .subscribe(user=>{
-        debugger
         if(user){
           if(user.user.role != Role.Customer && user.user.role !=Role.Manager){
               this.returnUrl = '/home';
             }
-       
             this.toastService.success('Vous êtes connecté avec Success sur notre Site', 'Connexion reussie '+user.user.firstName,{positionClass: 'toast-top-center', timeOut: 3000});
-            this.router.navigateByUrl('/home');
-            //this.router.navigateByUrl(this.returnUrl);(à faire dans les bonne condition)
+            //this.router.navigateByUrl('/home');
+            this.router.navigateByUrl(this.returnUrl);
          
         }else{
           this.isLogout = false;

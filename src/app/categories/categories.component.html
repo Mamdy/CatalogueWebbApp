@@ -1,24 +1,25 @@
-<div class="container">
-  <div class="col-md-2">
-    <ul class="list-group" *ngIf="categories">
-      <p><span style="text-transform: uppercase; color: rgb(0, 204, 255);"><strong>Categories</strong></span></p>
-      <li [ngClass]="currentCategory && currentCategory._links.self==c._links.self?'active':''"
-          *ngFor="let c of categories"
-          class="list-group-item cursor"
-         (click)="onGetProducts(c)">
-        {{c.name}}
-      </li>
-
-    </ul>
-
+<hr>
+  <div class="container spacer">
+    <div class="border-box">
+      <hr>
+      <ul class="inline" *ngIf="categories">
+        <li [ngClass]="currentCategory && currentCategory._links.self==c._links.self?'active':''"
+            *ngFor="let c of categories"
+            class="list-group"
+           (click)="onGetProducts(c)">
+           <!-- <span class="cursor"></span> -->
+          <a>{{c.name}}</a>
+        </li>
+      </ul>
+    </div>
+    <hr>
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
   </div>
-
-  <div class="col-md-9">
-    <router-outlet></router-outlet>
   </div>
-    <!--Afficahge de la liste des produits-->
-    <!--<app-products></app-products>-->
+  
+
+ 
+ 
 
 
-
-</div>
