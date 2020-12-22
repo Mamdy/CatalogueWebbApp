@@ -1,6 +1,7 @@
 <div class="container">
     <div class="col-md-12">
-                <h1 align="center" class="display-4 mb-5">Details de la commande </h1>
+                <h1 align="center" class="display-4 mb-5">Details de la commande </h1><br><br><br>
+                <hr>
                 <table class="table table-striped text-center">
                     <thead>
                         <tr>
@@ -25,14 +26,14 @@
                             <td class="align-middle">{{item.productDescription}}</td>
                             <td class="align-middle"><span style="color: red;">{{item?.productPrice| number: '0.2'}}&euro;</span></td>
                             <td class="align-middle">{{item.count}}</td>
-                            <td class="align-middle">{{(item.productPrice * item.count | currency)}}</td>
+                            <td class="align-middle">{{(item.productPrice * item.count | number: '0.2')}}&euro;</td>
                         </tr>
                     </tbody>
                 </table>
                 <h5 style="display: inline" class="float-right"><strong>Total: </strong> <span style="color: red;">{{(order$ | async)?.orderAmount| number: '0.2'}}&euro;</span></h5><br><br><br>
 
                 <div class="form-group">
-                  <button type="submit" routerLink="/order"  class="btn btn-primary"><strong> < Retour!</strong></button>
+                  <button type="submit" routerLink="/order"  class="btn btn-primary"><strong> < Retour</strong></button>
               </div>
     </div>
  </div>

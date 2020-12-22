@@ -24,7 +24,7 @@
           <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
               <ul class="navbar-nav mr-auto">
                 <li  class="nav-item dropdown" ngbDropdown>
-                  <span style="color: white;" class="nav-link dropdown-toggle" ngbDropdownToggle>Admin</span>
+                  <span style="color: white; font-size: large;" class="nav-link dropdown-toggle" ngbDropdownToggle>Admin</span>
                   <div class="dropdown-menu" aria-labelledby="id01" ngbDropdownMenu>
                     <a class="" routerLink="/adminCategories">
                       <span style="color: rgb(255, 123, 0)">Gestion des Categories</span></a>
@@ -59,9 +59,9 @@
 
       <ul class="nav navbar-nav navbar-right">
         <li routerLinkActive="active">
-          <a *ngIf="!isAuthenticated()" routerLink="/login"><span class="glyphicon glyphicon-user"></span><br>ME CONNECTER</a>
+          <a *ngIf="!isAuthenticated()" routerLink="/login"><span class="glyphicon glyphicon-user"></span><br>se connecter</a>
           <a *ngIf="isAuthenticated()" routerLink="/login" class="btn btn-default btn-sm" (click)="logOut()">
-            <span class="glyphicon glyphicon-user"></span>ME DECONNECTER <br>
+            <span class="glyphicon glyphicon-user"></span>se deconnecter <br>
             <span>{{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
           </a>
         </li>

@@ -1,19 +1,21 @@
 .style {
-    background-color:  rgb(84, 178, 233);
+    background-color:rgb(62, 108, 134);
     font-size: large;
     font-weight: bold;
     color: white;
+    text-transform: uppercase;
     text-align: center;
 }
 
 .btn{
-    padding: 10px 80px;
+    padding: 10px 100px;
     border-radius: 25px;
     font-size: large;
-    margin-left: 90px;
-    background-color: rgb(62, 184, 214);
+    margin-left: 240px;
+    background-color: rgb(69, 173, 199);
     color: white;
     cursor: pointer;
+    text-transform: uppercase;
     
 }
 

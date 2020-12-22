@@ -1,3 +1,13 @@
+.spacer {
+  margin-bottom: 2em;
+}
+.btn {
+  width: 100px;
+  border-radius: 10.5px;
+  font-size: 14px;
+  
+}
+
 .rightpane{
     width: available;
     height: available;

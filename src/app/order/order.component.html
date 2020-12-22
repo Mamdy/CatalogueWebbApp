@@ -28,10 +28,10 @@
         <td class="align-middle">{{order?.createTime | date : 'short'}}</td>
         <td class="align-middle">{{OrderStatus[order?.orderStatus]}}</td>
         <td class="align-middle">
-            <a *ngIf="!(currentUser.role == Role.Customer && currentUser.name == order.buyerEmail)"
-               style="display:
-            block" href="" routerLink="/order/{{order.id}}">
-                Voir</a>
+          <a *ngIf="!(currentUser.role == Role.Customer && currentUser.name == order.buyerEmail)"
+          style="display:
+       block" href="" routerLink="/order/{{order.id}}">
+           Voir <span class="glyphicon glyphicon-eye-open" style="color: green;padding: 1.5em;"></span></a>
             <a *ngIf="order.orderStatus == 0" style="display: block" (click)="cancel(order)" routerLink="./">Annuler </a>
             <a *ngIf="currentUser.role != Role.Customer && order.orderStatus == 0"
                style="display: block"

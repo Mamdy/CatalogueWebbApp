@@ -19,6 +19,7 @@ export class ProductDetailsComponent implements OnInit {
   showProductByCategoryComponet: boolean;
   backNavigationUrl: string;
   product: Observable<Product>;
+  photoUrls: String[];
 
   constructor(private cartService: CartService,
                private router: Router,
@@ -44,6 +45,14 @@ export class ProductDetailsComponent implements OnInit {
     }else{
       this.currentProduct = this.currentProduct;
     }
+       
+    this.photoUrls = [
+      '../../assets/images/banner1.jpg',
+      '../../assets/images/banner2.jpg',
+      '../../assets/images/banner3.jpg',
+      '../../assets/images/banner4.jpg',
+      '../../assets/images/Ordinateur1.jpg'
+    ]
     
    
   

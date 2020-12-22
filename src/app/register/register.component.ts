@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  fieldTextType: boolean;
 
 
   constructor(
@@ -44,6 +45,7 @@ export class RegisterComponent implements OnInit {
       phone: ['', Validators.required],
       address: ['', Validators.required],
     });
+    this.fieldTextType = false;
   }
 
   // convenience getter for easy access to form fields
@@ -66,8 +68,12 @@ export class RegisterComponent implements OnInit {
       },error=>{
         this.tostService.error(error,'', {positionClass: 'toast-top-center', timeOut:4000})
         this.loading=false;
-        location.reload();
+        //location.reload();
       });
 
+  }
+
+  toggleFieldTextType(){
+    this.fieldTextType = !this.fieldTextType;
   }
 }

@@ -3,10 +3,10 @@
     <div class="panel-heading style">Identifiez-Vous</div>
     <div class="panel-body">
       <div class="alert alert-danger" *ngIf="isInvalid">
-        Invalid username and password.
+        Votre username ou mot de passe est invalid.
       </div>
       <div class="alert alert-info" *ngIf="isLogout">
-        You have been logged out.
+        Vous avez été deconnecté.
       </div>
       <form #form='ngForm' (ngSubmit)="onSubmit()">
         <div class="form-group">
@@ -16,13 +16,13 @@
            id="email"
            name="email"
            style="height:50px;"
-           placeholder="Enter email"
+           placeholder="Entrez votre email"
           required autofocus [(ngModel)]="loginForm.email" #email="ngModel" autocomplete="email" >
           <!--<div *ngIf="submitted && f.username.errors" class="invalid-feedback">
             <div *ngIf="f.username.errors.required">Username is required</div>
           </div>-->
           <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
-            Email is required
+            L'adresse email est obligatoire
           </div>
 
         </div>
@@ -35,12 +35,12 @@
             name="password"
             autocomplete="password"
             style="height:50px;"
-          placeholder="Password" required [(ngModel)]="loginForm.password" #password='ngModel'>
+          placeholder="Entrez votre mot de passe" required [(ngModel)]="loginForm.password" #password='ngModel'>
           <!--<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
             <div *ngIf="f.password.errors.required">Password is required</div>
           </div>-->
           <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
-            Password is required
+            Le mot de passe est obligatoire
           </div>
         </div>
 
@@ -48,13 +48,13 @@
           <div>
               <input type="checkbox" id="remember_me" name="remember-me" [(ngModel)]="loginForm.remembered">
               <label for="remember_me" class="inline">Remember me</label>
-              <a class="float-right " routerLink="#"><strong>Mot de passe oublié ?</strong> </a>
+              <a class="float-right " routerLink="#"><span style="font-size: 18px;">Mot de passe oublié ?</span></a>
           </div>
         </div>
   
         <!--<button type="submit" class="btn btn-default">Login</button>-->
         <div class="form-group">
-          <button [disabled]="loading" class="btn"><strong>JE ME CONNECTE</strong>
+          <button [disabled]="loading" class="btn"><strong>je me connecte</strong>
             
               <div *ngIf="submitted && loading" >
                 <div class="d-flex justify-content-center"> 
@@ -87,7 +87,7 @@
               </div>
           </button><br>
           <!--<img *ngIf="loading" src="data:image/gif;base64," />-->
-          <a routerLink="/register" class="btn-link">Créer mon compte</a>
+          <a routerLink="/register" class="btn-link"><span style="font-size: 18px;">Créer mon compte</span></a>
         </div>
       </form>
     </div>
