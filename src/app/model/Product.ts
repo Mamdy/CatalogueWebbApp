@@ -11,7 +11,7 @@ export class Product {
   productStock: number;
 
   price: number;
-  photoUrl: String;
+  photoUrl: String[];
   active: boolean;
   views: number;
 

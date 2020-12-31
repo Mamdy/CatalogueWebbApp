@@ -18,14 +18,10 @@ import { CartService } from '../services/cart.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm:any = {
-    email: '',
-    password: '',
-    remembered: false
-  };
+  loginForm:FormGroup;
   loading = false;
   isLogout: boolean;
-  isInvalid: boolean;
+  isFormValid: boolean;
   submitted = false;
   returnUrl = '/';
   @Input() connectedUser: any;
@@ -46,10 +42,16 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      remembered: false
+    });
         let params = this.activatedRoute.snapshot.queryParamMap;
     //this.returnUrl = this.activatedRoute.snapshot.queryParamMap['returnUrl'] || ' ';
     this.isLogout = params.has('logout');
     this.returnUrl = params.get('returnUrl');
+    this.isFormValid=false
     
   }
 
@@ -59,14 +61,18 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+    debugger
     this.submitted = true;
     // on s'arrête ici si le formulaire n'est pas valide
     if(this.loginForm.invalid){
+      this.isFormValid = false;
       return;
     }
+    this.isFormValid = true;
     this.loading = true;
-    this.authService.login(this.loginForm)
+    this.authService.login(this.loginForm.value)
       .subscribe(user=>{
+        debugger
         if(user){
           if(user.user.role != Role.Customer && user.user.role !=Role.Manager){
               this.returnUrl = '/home';
@@ -77,7 +83,7 @@ export class LoginComponent implements OnInit {
          
         }else{
           this.isLogout = false;
-          this.isInvalid = true;
+          this.isFormValid = true;
         }
       },error => {
         this.toastService.error('utilisateur ou mot de passe incorrect','identifiants Incorrects', {positionClass: 'toast-top-center', timeOut:4000})

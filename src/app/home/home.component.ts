@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       '../../assets/images/banner2.jpg',
       '../../assets/images/banner3.jpg',
       '../../assets/images/banner4.jpg',
+      '../../assets/images/voiture.jpg',
       'https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg',
       'https://mdbootstrap.com/img/Photos/Slides/img%20(129).jpg',
       'https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg',
@@ -61,6 +62,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     config.interval = 2000;
     config.keyboard = true;
     config.pauseOnHover = true;
+    config.showNavigationIndicators = false;
+    config.showNavigationArrows = true;
   }
 
   ngOnInit() {

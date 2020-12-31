@@ -6,6 +6,7 @@ import { ProductInOrder } from '../model/ProductInOrder';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Location, DOCUMENT } from '@angular/common';
 import { Observable } from 'rxjs';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product-details',
@@ -13,7 +14,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
- 
   @Input() currentProduct: Product;
   count: number;
   showProductByCategoryComponet: boolean;
@@ -26,13 +26,14 @@ export class ProductDetailsComponent implements OnInit {
                private route: ActivatedRoute,
 
                private activatedRoute: ActivatedRoute,
-               private catalogService: CatalogueService
+               private catalogService: CatalogueService,
+               carouselConfig: NgbCarouselConfig
               ) { 
-
-    
+                carouselConfig.interval = 0;
+                carouselConfig.keyboard= true;
+                carouselConfig.showNavigationArrows = true
+                carouselConfig.showNavigationIndicators = false;
   }
-
-  
 
   ngOnInit() {
     this.count = 1;
@@ -45,16 +46,6 @@ export class ProductDetailsComponent implements OnInit {
     }else{
       this.currentProduct = this.currentProduct;
     }
-       
-    this.photoUrls = [
-      '../../assets/images/banner1.jpg',
-      '../../assets/images/banner2.jpg',
-      '../../assets/images/banner3.jpg',
-      '../../assets/images/banner4.jpg',
-      '../../assets/images/Ordinateur1.jpg'
-    ]
-    
-   
   
   }
 

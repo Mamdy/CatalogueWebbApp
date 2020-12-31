@@ -12,6 +12,7 @@ import { Role } from './enum/Role';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+  mode='home'
   constructor(
               private authService: AuthenticationService
   ){

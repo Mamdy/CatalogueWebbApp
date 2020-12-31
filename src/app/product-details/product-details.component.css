@@ -1,15 +1,29 @@
 .btn {
     margin-top: 1.5em;
-    padding: 25px, 22.5px;
-    border-radius: 15px;
+    padding: 55px, 62.5px;
+    height: 55px;
+    width: 260px;
+    /*border-radius: 25px;*/
     cursor: pointer;
-    font-size: large;
+    font-size: 16px;
+    font-family: 'proxima-nova';
     font-weight: lighter;
-    color:white
+    color:white;
+    background-color: rgb(2, 48, 59);
+
 }
 
 .btn:hover {
-    padding: 10px, 20px;
-    border-radius: 20px;
+    padding: 10px, 30px;
+    /*border-radius: 20px;*/
+}
 
+.style {
+    background-color: black;
+    margin-left: 1%;
+}
+
+.spacer {
+    margin-top: 3.4em;
+    margin-bottom: 5em;
 }

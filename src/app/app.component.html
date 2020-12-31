@@ -1,19 +1,25 @@
 
+<div class="container">
   <section class="header">
-      <div class="wrapper">
-        <app-header></app-header>
-      </div>
-    
-</section>
-<section>
-    <div>
-      <app-categories></app-categories>
+    <div class="wrapper" *ngIf="mode=='home'">
+      <app-header></app-header>
     </div>
-</section>
-<section class="footer1">
-    <!-- Footer -->
-<app-footer></app-footer>
-</section>
+  
+  </section>
+  <section>
+   <div *ngIf="mode=='home'">
+    <app-categories></app-categories>
+    </div>
+  </section>
+  <section class="footer1">
+    <div *ngIf="mode=='home'">
+      <app-footer></app-footer>
+    </div>
+    
+  </section>
+
+</div>
+
 <router-outlet></router-outlet>
 
 

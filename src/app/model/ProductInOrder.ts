@@ -19,7 +19,7 @@ export class ProductInOrder {
         this.productPrice = productInfo.price;
         this.productStock = productInfo.productStock;
         this.productDescription = productInfo.description;;
-        this.productIcon = productInfo.photoUrl;
+        this.productIcon = productInfo.photoUrl[0];
         //this.categoryType = productInfo.category;
         this.count = quantity;
     }

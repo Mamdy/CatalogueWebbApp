@@ -33,6 +33,7 @@ import { PaymentCardFormComponent } from './payment-card-form/payment-card-form.
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CriteriaSearchViewComponent } from './criteria-search-view/criteria-search-view.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 
 @NgModule({
@@ -87,6 +88,7 @@ export class MaterialModule {}
     MatDialogModule,
     MaterialModule,
     MatCarouselModule.forRoot(),
+    NgxImageZoomModule
     //ReactiveForms
   ],
 

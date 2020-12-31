@@ -1,4 +1,4 @@
-<div class="col-md-10">
+<div class="col-md-9 dimension">
   <div class="panel panel-default">
     <div class="panel-heading style">Identifiez-Vous</div>
     <div class="panel-body">
@@ -8,49 +8,107 @@
       <div class="alert alert-info" *ngIf="isLogout">
         Vous avez été deconnecté.
       </div>
-      <form #form='ngForm' (ngSubmit)="onSubmit()">
+      <form [formGroup]='loginForm' (ngSubmit)="onSubmit()"> 
+        <label>E-mail</label>
         <div class="form-group">
-          <label>Email</label>
-          <input type="text"
+          <!-- <input type="text"
            class="form-control form-control-lg"
            id="email"
            name="email"
            style="height:50px;"
            placeholder="Entrez votre email"
           required autofocus [(ngModel)]="loginForm.email" #email="ngModel" autocomplete="email" >
-          <!--<div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
-          </div>-->
           <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
             L'adresse email est obligatoire
+          </div> -->
+
+           <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+              </span>
+            </div>
+            <input type="email"
+              formControlName="email"
+              class="form-control form-control-lg"
+              id="email"
+              name="email"
+              placeholder="example@mail.com"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+              style="height:50px;"
+            >
+          </div>
+          <div  *ngIf="f.email.invalid && (f.email.dirty ||f.email.touched)" >
+              <div *ngIf="f.email.errors.required" class="alert alert-danger" >
+                  l'adresse mail est obligatoire.
+              </div>
+              <div *ngIf="f.email.errors.email" class="alert alert-danger">
+                  l'adresse mail est invalide.
+              </div>
+              
           </div>
 
         </div>
   
-        <div class="form-group">
+      <div class="form-group">
           <label>Mot de passe</label>
-          <input type="password"
+          <!-- <input type="password"
             class="form-control form-control-lg"
             id="password"
             name="password"
             autocomplete="password"
             style="height:50px;"
           placeholder="Entrez votre mot de passe" required [(ngModel)]="loginForm.password" #password='ngModel'>
-          <!--<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-          </div>-->
           <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
             Le mot de passe est obligatoire
+          </div> -->
+        
+          <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </div>
+              <input 
+              [type]="fieldTextType ? 'text': 'password'"
+              class="form-control"
+              formControlName="password"
+              
+              [ngClass]="{ 
+                'is-invalid': submitted && f.password.errors
+              }"
+              placeholder="Entrez votre mot de passe"
+              style="height:50px;"
+             />
+    
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i 
+                    class="fa"
+                    [ngClass]="{
+                    'fa-eye-slash':!fieldTextType,
+                    'fa-eye':fieldTextType
+                    }"
+                  (click)="toggleFieldTextType()"
+                  ></i>
+                </span>
+              </div>
+              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Le mot de passe est obligatoire</div>
+              </div>
           </div>
-        </div>
+      </div>
 
-        <div class="form-group">
-          <div>
-              <input type="checkbox" id="remember_me" name="remember-me" [(ngModel)]="loginForm.remembered">
-              <label for="remember_me" class="inline">Remember me</label>
+      <div class="form-group">
+            <div>
+              <input size="50px" type="checkbox" id="remember_me" name="remember-me">&nbsp;
+              <span  class="spacer" style="display: inline-block; font-size: 16px;">se souvenir de moi</span>
+            </div>
+         
+              <!-- <label for="remember_me" class=" spacer">Se souvenir de moi</label> -->
               <a class="float-right " routerLink="#"><span style="font-size: 18px;">Mot de passe oublié ?</span></a>
-          </div>
-        </div>
+        
+      </div>
   
         <!--<button type="submit" class="btn btn-default">Login</button>-->
         <div class="form-group">

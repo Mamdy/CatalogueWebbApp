@@ -1,4 +1,4 @@
-  <div class="container">
+ <div class="container">
     <div class="row">
           <div  *ngIf="mode=='list-Products'">
         <div class="col-md-13">
@@ -10,49 +10,34 @@
                 <div>
                   <img [src]="slides[0]" width="100%" height="100%" alt="Random first slide">
                 </div>
-                <!-- <div class="carousel-caption">
-                  <p> Angular 10 Carousel Example </p>
-                </div> -->
               </ng-template>
               <ng-template ngbSlide>
                 <div>
                   <img [src]="slides[1]" width="100%" height="100%" alt="Random second slide">
                 </div>
-                <!-- <div class="carousel-caption">
-                  <p> Check out Techiediaries</p>
-                </div> -->
-              </ng-template>
-              <ng-template ngbSlide>
-                <div >
-                  <img [src]="slides[2]" width="100%" height="100%" alt="Random third slide">
-                </div>
-                <!-- <div class="carousel-caption">
-                  <p>for full tutorial...</p>
-                </div> -->
               </ng-template>
               <ng-template ngbSlide>
                 <div >
                   <img [src]="slides[3]" width="100%" height="100%" alt="Random fourth lide">
                 </div>
-                <!-- <div class="carousel-caption">
-                  <p>for full tutorial...</p>
-                </div> -->
               </ng-template>
               <ng-template ngbSlide>
                 <div >
                   <img [src]="slides[4]" width="100%" height="100%" alt="Random fifth slide">
                 </div>
-                <!-- <div class="carousel-caption">
-                  <p>for full tutorial...</p>
-                </div> -->
+              
               </ng-template>
               <ng-template ngbSlide>
                 <div >
                   <img [src]="slides[5]" width="100%" height="100%"  alt="Random sixth slide">
                 </div>
-                <!-- <div class="carousel-caption">
-                  <p>for full tutorial...</p>
-                </div> -->
+            
+              </ng-template>
+              <ng-template ngbSlide>
+                <div >
+                  <img [src]="slides[6]" width="100%" height="100%"  alt="Random sixth slide">
+                </div>
+            
               </ng-template>
             </ngb-carousel>
 
@@ -63,19 +48,29 @@
   
                 <div *ngFor="let p of listProducts" class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                      <a href="#"><img class="card-img-top" src="../assets/images/{{p.photoUrl}}.jpg" alt="{{p.photoUrl}}.jpg"></a>
+                      <a href="#"><img class="card-img-top" src="../assets/images/{{p.photoUrl[0]}}.jpg" (click)="detailsProduct(p)"  alt="{{p.photoUrl}}.jpg"></a>
                       <div class="card-body">
-                        <h4 class="card-title">
+                        <h4 class="card-title" align="center">
                           <!--<a routerLink="/product-details">{{p.name}}</a>-->
-                          <a style="color: rgb(0, 162, 255); cursor: pointer"  (click)="detailsProduct(p)">{{p.name}}</a>
+                          <a style="color: rgb(0, 162, 255); cursor: pointer;font-size: 18px;"  (click)="detailsProduct(p)">{{p.name}}</a>
                         </h4>
-                        <strong><span style="color: red;">Prix: {{p.price | number: '0.2'}}&euro;</span></strong>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                      </div>
+                        <span style="color: rgb(253, 60, 60); font-size: 22px;">{{p.price | number: '0.2'}}&euro;</span>
+                        <p class="card-text"><span style="font-size: 14px;"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</span></p>
+                      </div><br>
+                      <div *ngIf="p.productStock < 1">
+                        <h6><span style="color: red" >Article indisponible en Stock!!</span></h6>
+                    </div>
+                    <div class="text-left" *ngIf="p.productStock >=1">
+                      <p class="card-text"><strong><span style="color: rgb(78, 247, 78);font-size: 14px;">En stock: </span> &nbsp;</strong>
+                        <span style="font-size: 14px;;"><strong>{{p?.productStock}}</strong></span>
+                      
+                      </p>
+                    </div>
+
   
                      <!--<button class="btn btn-primary spacer" (click)="detailsProduct(productInfo)"><span class="glyphicon glyphicon-eye-open">&nbsp;<strong>Voir les Details</strong></span></button>&#160;-->
                       <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        <!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
                       </div>
                     </div>
   

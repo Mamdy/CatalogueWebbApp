@@ -43,6 +43,7 @@ export class AuthenticationService {
   }
   //return this.http.post(this.host2+"/login", data, {observe:'response'})
   login(formData): Observable<JwtResponse>{
+    debugger
     return this.http.post<JwtResponse>(this.userApiUrl+"/login", formData).pipe(
       tap(user => {
        // const token = response.headers.get('Authorization');
@@ -87,8 +88,10 @@ export class AuthenticationService {
 
   }
 
-
- 
+getCurrentUser():any {
+  let currenUser = localStorage.getItem('currentUser');
+  return currenUser;
+}
 
   isAdmin(){
     return this.roles.indexOf('ADMIN')>=0;

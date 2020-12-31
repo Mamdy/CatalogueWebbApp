@@ -1,11 +1,11 @@
-<div class="container">
+<div class="container spacer">
   <div class="row">
     <div class="col-12 col-md-8 offset-md-2">
       <h1><span style="color: #ee3434; font-weight: bold; font-size: 48px; text-align: center;">Création de compte</span></h1><br><br>
       <div class="card">
         <div class="card-body">
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <label><b>Email</b></label>
+            <label><b>E-mail</b></label>
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -83,12 +83,13 @@
                     ></i>
                   </span>
                </div>
-              </div>
-          
-              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+               <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                 <div *ngIf="f.password.errors.required">Le mot de passe est obligatoire</div>
                 <div *ngIf="f.password.errors.minlength">Le mot de passe doit avoir 6 caractères minimum</div>
               </div>
+              </div>
+          
+            
             </div>
             <div class="form-group">
               <label for="password">Confirmer votre mot de passe</label>
@@ -102,18 +103,6 @@
                   [ngClass]="{ 'is-invalid': submitted && f.confirmedPassword.errors }"
                   style="height:50px;"
                 />
-                <div class="input-group-append">
-                  <span class="input-group-text">
-                    <i 
-                    class="fa"
-                    [ngClass]="{
-                    'fa-eye-slash':!fieldTextType,
-                    'fa-eye':fieldTextType
-                    }"
-                  (click)="toggleFieldTextType()"
-                  ></i>
-                  </span>
-               </div>
                 <div *ngIf="submitted && f.confirmedPassword.errors" class="invalid-feedback">
                   <div *ngIf="f.confirmedPassword.errors.required">La confirmation de votre mot de passe est obligatoire</div>
                   <div *ngIf="f.confirmedPassword.errors.minlength">Le mot de passe confirmé doit avoir 6 caractères minimum</div>
@@ -146,14 +135,14 @@
               
               />
               <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
-                <div *ngIf="f.addresse.errors.required">l'adresse est obligatoire</div>
+                <div *ngIf="f.address.errors.required">l'adresse est obligatoire</div>
               
               </div>
             </div>
             <div class="form-group">
               <button [disabled]="loading" class="btn">Créer mon compte</button>
-              <!--<img *ngIf="loading" src="data:image/gif;"/>-->
-              <a routerLink="/login" class="btn btn-link">Annuler</a>
+              <span style="font-size: 14px;">Vous possédez déjà un compte ? <a routerLink="/login" class="">Identifiez-vous</a></span>
+              
             </div>
           </form>
 

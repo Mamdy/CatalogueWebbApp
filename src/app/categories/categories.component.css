@@ -32,15 +32,17 @@
     text-align: center;
     /*padding: 14px 16px;*/
     text-decoration: rgb(201, 235, 247);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: lighter;
     font-family: "proxima-nova",Helvetica,Arial,'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
 }
 
 .border-box a:hover {
-    /*background-color: rgba(24, 164, 189, 0.979);*/
+    background-color: rgba(24, 164, 189, 0.979);
+    width: 110px;
   /*color: rgb(255, 255, 255);*/
    border-radius: 20px;
-   color: red;
+   color: white;
+
 }

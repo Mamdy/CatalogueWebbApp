@@ -1,3 +1,18 @@
+.spacer {
+    position: relative;
+    margin-top:3.8em;
+    display: inline-block;
+    top: 4.5px;
+    margin-left: auto;
+}
+
+.dimension {
+    position: relative;
+    margin-top:4.3em;
+    margin-left: 14%;
+    top: 4.5px;
+}
+
 .style {
     background-color:rgb(62, 108, 134);
     font-size: large;
@@ -10,9 +25,9 @@
 .btn{
     padding: 10px 100px;
     border-radius: 25px;
-    font-size: large;
+    font-size: small;
     margin-left: 240px;
-    background-color: rgb(69, 173, 199);
+    background-color: rgb(5, 80, 99);
     color: white;
     cursor: pointer;
     text-transform: uppercase;
@@ -20,7 +35,7 @@
 }
 
 .btn:hover {
-    background-color: rgb(31, 133, 218);
+    background-color: rgba(24, 164, 189, 0.979);
     color: rgb(238, 227, 227);
 }
 .reg {
