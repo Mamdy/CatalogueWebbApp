@@ -3,7 +3,7 @@ import {User} from '../model/User';
 import {Subscription} from 'rxjs';
 import {AuthenticationService} from '../services/authentication.service';
 import {UserService} from '../services/user.service';
-import {first} from 'rxjs/operators';
+import {first, timeout} from 'rxjs/operators';
 import {CatalogueService} from '../services/catalogue.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Category} from '../model/Category';
@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   userClickHomeTab=false;
   currentProduct: Product;
   mode='list-Products';
+  isLoading:boolean;
 
   // Array of images
   slides = [
@@ -64,6 +65,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     config.pauseOnHover = true;
     config.showNavigationIndicators = false;
     config.showNavigationArrows = true;
+    this.isLoading = true;
   }
 
   ngOnInit() {
@@ -77,7 +79,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
     //on recuperer la liste de tous les produits à vendre
     this.getAllProducts();
-
+ 
+  
   }
 
   ngOnDestroy(): void {
@@ -103,18 +106,28 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
   getAllProducts():Product[] {
+    this.isLoading = true;
     this.mode = 'list-Products';
 
     this.catalogueService.getProducts()
       .then((result:AppResponse)=>{
         this.listProducts = result.getData().products;
+
+        if(this.listProducts){
+           //ici on gere le spinner(indicateur de chargement des données) de la base
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 3000);
+        }
+     
       },error1 => {
         console.log(error1)
-      })
-
+      });
     return this.listProducts;
 
   }
+ 
+
   onUploadPhoto(p) {
 
   }

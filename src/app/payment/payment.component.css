@@ -1,8 +1,10 @@
 .style {
-  background-color:rgb(84, 178, 233);
-  font-size: large;
+  background-color: rgb(5, 80, 99);
+  font-size: 20px;
+  font-family: 'proxima-nova';
   font-weight: bold;
   color: white;
+  text-align: center;
 }
 
 .border-box{

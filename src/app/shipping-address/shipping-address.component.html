@@ -3,8 +3,9 @@
   <div class="col-md-9">
 
     <div class="panel panel-primary">
-      <div class="panel-heading style"><h4>Adresse de Livraison</h4></div>
+      <div class="panel-heading style">Adresse de Livraison</div>
       <div class="panel-body">
+          <h4>Indiquez une adresse de livraison</h4>
           <input type="radio" id="{{radio1.id}}" [(ngModel)]="radio1.checked" value ="{{radio1.value}}" (click)="homeAddresSelected()">&nbsp;<span> <strong>{{radio1.label}} </strong></span>
           <div class="border-box">
             <h5>Livré dès le 25 /05/2021</h5><br>
@@ -12,36 +13,130 @@
             <h5>{{fullName}}</h5>
             <h5>{{this.currentUser.user.address}}</h5><br>
             <h5>FRANCE</h5>
-      
-
-          </div> <br><br><br>
+                </div> <br><br><br>
 
 
         <input type="radio" id="{{radio2.id}}" [(ngModel)]="radio2.checked" value ="{{radio2.value}}" (click)="onNewShippingAddress()" >&nbsp;<span><strong>à une autre adresse </strong></span><br>
 
              <!---Ajout d'une nouvelle addresse-->
         <div *ngIf="mode=='new-shipping-address'" class="col-md-5">
-          <form #f="ngForm" (ngSubmit)="onSaveNewAddress(f.value)">
-            <div class="form-group">
-                <input type="text" name="nom" placeholder="Nom" ngModel class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="text" name="prenom" placeholder="Prénom" ngModel class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="text" name="numero" placeholder="Numéro et Nom de la voie" ngModel class="form-control">
-            </div>
+        
+            <div class="card mb-16">
+              
+              <div class="card-body">
+                  <h4 class="card-title ">
+                  <strong>
+                  <span style="color: red; text-align: center;">Veuillez entrer une nouvelle adresse</span>
+                  </strong>
+                  </h4>
+                  <form [formGroup]="newAdressForm" (ngSubmit)="onSaveNewAddress()">
+                    <div class="form-group">
+                        <input 
+                            type="text"
+                            height="50px"
+                            formControlName="nom"
+                            placeholder="Nom"
+                            ngModel
+                            class="form-control"
+                        />
+                        <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+                          <div *ngIf="f.nom.errors.required">Le nom est obligatoire</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <input 
+                          type="text"
+                          height="50px"
+                          formControlName="prenom"
+                          placeholder="Prénom"
+                          ngModel
+                          class="form-control"
+                      />
+                      <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
+                        <div *ngIf="f.prenom.errors.required">Le prénom est obligatoire</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input 
+                          type="text"
+                          height="50px"
+                          formControlName="numero"
+                          placeholder="Numéro et Nom de la voie"
+                          ngModel
+                          class="form-control"
+                      />
+                      <div *ngIf="submitted && f.numero.errors" class="invalid-feedback">
+                        <div *ngIf="f.numero.errors.required">Le numéro de la voie est obligatoire</div>
+                      </div>
+                    </div>
+        
+                    <div class="form-group">
+                      <input 
+                          type="text"
+                          height="50px"
+                          formControlName="codepostal"
+                          placeholder="Code Postale"
+                          ngModel
+                          class="form-control"
+                      />
+                      <div *ngIf="submitted && f.codepostal.errors" class="invalid-feedback">
+                        <div *ngIf="f.codepostal.errors.required">Le code postale est obligatoire</div>
+                      </div>
 
-            <div class="form-group">
-              <input type="text" name="code postal" placeholder="Code Postale" ngModel class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <input 
+                          type="text"
+                          height="50px"
+                          formControlName="ville"
+                          placeholder="Ville"
+                          ngModel
+                          class="form-control"
+                      />
+                      <div *ngIf="submitted && f.codepostal.errors" class="invalid-feedback">
+                        <div *ngIf="f.codepostal.errors.required">La Ville est obligatoire</div>
+                      </div>
+
+                    </div>
+                    <div class="form-group">
+                      <input 
+                          type="text"
+                          height="50px"
+                          formControlName="pays"
+                          placeholder="Pays/Region"
+                          ngModel
+                          class="form-control"
+                      />
+                      <div *ngIf="submitted && f.codepostal.errors" class="invalid-feedback">
+                        <div *ngIf="f.codepostal.errors.required">Le pays ou la région est obligatoire</div>
+                      </div>
+
+                    </div>
+                    <div class="form-group">
+                      <input 
+                          type="text"
+                          height="50px"
+                          formControlName="telephone"
+                          placeholder="numéro téléphone"
+                          ngModel
+                          class="form-control"
+                      />
+                      <div *ngIf="submitted && f.telephone.errors" class="invalid-feedback">
+                        <div *ngIf="f.telephone.errors.required">Le téléphone est obligatoire</div>
+                      </div>
+
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-success">Valider</button>
+                    </div>
+                  </form>
+              </div>
             </div>
-            <div class="form-group">
-              <input type="text" name="telephone" placeholder="numero telephone" ngModel class="form-control">
-            </div>
-          </form>
+          
+         
         </div><br>
 
-        <button class="btn btn-success" routerLink = "/order/{{(order$ | async)?.id}}/shipping-address/payment"><strong>Continuer ></strong> </button>
+        <button class="btn btn-success" routerLink = "/order/{{(order$ | async)?.id}}/shipping-address/payment"><strong>Continuer -></strong> </button>
 
       </div>
     </div>

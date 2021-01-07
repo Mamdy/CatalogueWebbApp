@@ -49,9 +49,9 @@
 
 <div *ngIf="productInOrders?.length > 0; else empty">
     
-    <h5 style="display: inline;"><strong>TOTAL: <span style="color: red;">{{total | number : '0.2'}}&euro;</span></strong> </h5>
+    <h5 style="display: inline;"><strong>TOTAL: <span style="color: red; font-size: 16px;">{{total | number : '0.2'}}&euro;</span></strong> </h5>
     <button (click)="checkout()" class="btn btn float-right">VALIDER MON PANIER</button><br>
-    <br><a routerLink="/home" class="btn-link float-left"> <span style="color: rgb(0, 174, 255);">< CONTINUER MES ACHATS</span></a>
+    <br><a routerLink="/home" class="btn-link float-left"> <span style="color: rgb(0, 174, 255); font-size: 14px;">< CONTINUER MES ACHATS</span></a>
 </div>
 
 <ng-template #empty>

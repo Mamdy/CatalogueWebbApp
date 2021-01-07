@@ -32,9 +32,11 @@
 }
 
 .footer .footer__column h3 {
-    color: #9399a2;
+    color: #595c61;
     text-transform: uppercase;
-    font-size: 1.4em;
+    font-size: 1.7em;
+    font-family: 'proxima-nova';
+    font-weight: bold;
 }
 
 .footer .footer__column ul {
@@ -49,6 +51,7 @@
     display: inline-block;
     margin-bottom: 1em;
     font-size: 1.3em;
+    font-family: 'proxima-nova';
 }
 
 .footer .footer__column ul li a.WordPress_link {
@@ -74,7 +77,8 @@
 }
 
 .footer .footer__column article h1 {
-font-size: 2.2em;
+    font-size: 2.2em;
+    font-family: 'proxima-nova';
 }
 
 
@@ -87,6 +91,7 @@ font-size: 2.2em;
 color: #9399a2;
 font-size: 1.3em;
 line-height: 1.4em;
+font-family: 'proxima-nova';
 }
 
 .footer .footer__column .read_more {
@@ -114,6 +119,7 @@ line-height: 1.4em;
     float: left;
     margin-right: 1.4em;
     font-size: 1.7em;
+    font-family: 'proxima-nova';
 }
 
 .footer .footer__secondary ul li a {

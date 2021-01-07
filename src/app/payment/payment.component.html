@@ -3,12 +3,13 @@
   <div class="col-md-9">
 
     <div class="panel panel-primary">
-      <div class="panel-heading style"><h4>Choisissez votre moyen de paiement</h4></div>
+      <div class="panel-heading style">Choix du mode paiement</div>
+      <h4>Choisissez un moyen de paiement</h4>
       <div class="panel-body">
           <div class="border-box">
             <input type="radio" id="{{paymentModes.bankCard.id}}" [(ngModel)]="paymentModes.bankCard.checked" value ="{{paymentModes.bankCard.value}}" (click)="isBankCardOptionSelected()">&nbsp;
             <span><img src="../assets/images/all-cards.svg"></span> &nbsp;
-            <span><strong>Par CB</strong> </span>
+            <span>Par CB</span>
           </div> <br>
           <div *ngIf="paimentMode=='carteBancaire'">
               <app-payment-card-form></app-payment-card-form>

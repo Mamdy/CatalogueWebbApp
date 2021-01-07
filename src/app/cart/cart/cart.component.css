@@ -1,5 +1,6 @@
 .btn {
-    background-color: rgb(2, 48, 59);
+    /*background-color: rgb(2, 48, 59);*/
+    background-color: red;
     padding: 6px 21.5px;
     height: 55px;
     width: 260px;

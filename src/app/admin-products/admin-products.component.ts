@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, OnDestroy, ViewChild, ViewChildDecorator } from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Route, Router} from '@angular/router';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {AppResponse} from '../model/AppResponse';
 import {Product} from '../model/Product';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -10,6 +10,9 @@ import {Category} from '../model/Category';
 import {of} from 'rxjs/internal/observable/of';
 import { CatalogueService } from '../services/catalogue.service';
 import { prodCatApiUrl } from 'src/environments/environment';
+import { Toast, ToastrService } from 'ngx-toastr';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Photo } from '../model/Photo';
 declare var $;
 
 @Component({
@@ -33,12 +36,31 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   submitted :boolean= false;
   loading:boolean = false;
 
+  //On files
+  selectedFile: File;
+  retrievedImage: any;
+  base64Data: any;
+  retrieveResonse: any;
+  message: string;
+  imageName: any;
+
+//Multiple files select
+  selectedFiles: FileList;
+  progressInfos = [];
+  fileInfos: Observable<any>;
+  fileNames = [];
+  photos: Photo[];
+  retrievedImages = [];
+  savedProduct: Product;
+
+
   constructor(
        private formBuilder: FormBuilder,
        private catalogueService:CatalogueService,
        private route:ActivatedRoute,
        private router: Router,
-       private alertService: AlertService) {
+       private alertService: AlertService,
+       private toastService:ToastrService) {
     //ecouter les evenements qui se produisent sur le router sur la navigation
     this.router.events.subscribe(event=>{
       if(event instanceof NavigationEnd){
@@ -63,6 +85,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       description: ['', Validators.required],
       price: ['', Validators.required],
       quantity: ['', Validators.required],
+      photo:[''],
       category: ['']
     });
     //console.log("testtetstetetete",this.categories[0].name);
@@ -79,35 +102,201 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     //this.dataTable = $(this.table.nativeElement);
     //this.dataTable.DataTable(this.dtOptions);
 
+    //this.fileInfos = this.catalogueService.getFiles();
   }
 
   // convenience getter for easy access to form fields
   get f() {
     return this.registerForm.controls;
   }
+  
+//first Methode Marche
+  onFileChanged(event){
+    //Select File
+    this.selectedFile = event.target.files[0];
 
+  }
+
+//seconde test
+  selectFiles(event): void {
+    debugger
+    this.progressInfos = [];
+  
+    const files = event.target.files;
+    let isImage = true;
+  
+    for (let i = 0; i < files.length; i++) {
+      if (files.item(i).type.match('image.*')) {
+        continue;
+      } else {
+        isImage = false;
+        alert('invalid format!');
+        break;
+      }
+    }
+    if (isImage) {
+      this.selectedFiles = event.target.files;
+    } else {
+      this.selectedFiles = undefined;
+      event.srcElement.percentage = null;
+    }
+  }
+
+
+    //Gets called when the user clicks on submit to upload the image
+    onUpload() {
+      debugger
+      console.log(this.selectedFile);
+      
+      //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
+      const uploadImageData = new FormData();
+      uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+      this.imageName = this.selectedFile.name;
+    
+      //Make a call to the Spring Boot Application to save the image
+      this.catalogueService.uploadFile(uploadImageData)
+        .subscribe((response) => {
+          debugger
+          if(response.status === 200){
+            this.message = 'Image a été chargé avec success';
+            this.toastService.success(this.message);
+            this.alertService.success(this.message,true
+              );
+          }else {
+            this.message = 'Image non chargé avec success';
+          }
+        });
+      
+  
+  
+    }
+
+    upload(idx, file): void {
+      this.progressInfos[idx] = { value: 0, fileName: file.name };
+      
+      this.catalogueService.uploadFiles(file).subscribe(
+        event => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progressInfos[idx].percentage = Math.round(100 * event.loaded / event.total);
+          } else if (event instanceof HttpResponse) {
+            //this.fileInfos = this.catalogueService.getFiles();
+          }
+        },
+        err => {
+          this.progressInfos[idx].percentage = 0;
+          this.message = 'Ne peux pas charger le fichier:' + file.name;
+        });
+    }
+
+    //methode 2 test
+    uploadFiles(){
+      this.message = '';
+      for (let i = 0; i < this.selectedFiles.length; i++) {
+        this.upload(i, this.selectedFiles[i]);
+      }
+      
+
+    }
+
+    //ma methide 1 marche
+    onUploadFiles() {
+
+      //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
+      const uploadImageData = new FormData();
+      uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+      uploadImageData.append('formData', this.registerForm.value,null);
+      this.imageName = this.selectedFile.name;
+    
+      //Make a call to the Spring Boot Application to save the image
+      this.catalogueService.uploadFile(uploadImageData)
+        .subscribe((response) => {
+          debugger
+          if(response.status === 200){
+            this.message = 'Image a été chargé avec success';
+            this.toastService.success(this.message);
+            this.alertService.success(this.message,true
+              );
+          }else {
+            this.message = 'Image non chargé avec success';
+          }
+        });
+      
+  
+  
+    }
+
+  getImage(){
+  //Make a call to Sprinf Boot to get the Image Bytes.
+    debugger
+    this.catalogueService.getImageFromBackend(this.imageName)
+      .subscribe((res)=>{
+        debugger
+        this.retrieveResonse = res;
+        this.base64Data = this.retrieveResonse.img;
+        this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+
+      })
+
+
+  }
+    
 //enregistrement d'un produit
   onSaveProduct() {
+    debugger
     this.submitted = true;
     //on s'arrête ici si le formulaire est invalide
     if(this.registerForm.invalid){
       return;
     }
 
+    //appel de la methode qui permet d'uploader tous les fichiers images
+    this.uploadFiles();
     this.loading=true;
-    this.catalogueService.saveProduct(this.registerForm.value)
+
+    for(let i=0; i<this.progressInfos.length; i++){
+      //on recupere les noms des images deja uploader dans le serveur
+      this.fileNames.push(this.progressInfos[i].fileName);
+
+    }
+    const formData = {
+      registerFormData:this.registerForm.value,
+      filesNames: this.fileNames
+
+    }
+   
+
+    //this.catalogueService.saveProduct(this.registerForm.value)
+    this.catalogueService.saveProduct(formData)
       .pipe(first())
       .subscribe(
         data=> {
-          this.alertService.success('Registration Product successful', true);
+          debugger
+          this.savedProduct = data.body;
+          this.toastService.success('', 'Votre produit a été enregistré avec success');
+          this.message = 'Votre produit a été enregistré avec succes';
           //mettre à jour la liste des produits du category auquel le produit p appartient
-          this.category = this.registerForm.controls.category.value;
+         // this.category = this.registerForm.controls.category.value;
           //si l'ajout du produit se passe bien, on rechargera la liste des produits
+          this.catalogueService.getProductImages(this.savedProduct.id)
+            .then((res)=>{
+              debugger
+              this.photos = res;
+              this.getRealPhoto(this.photos);
+            })
+       
           this.router.navigate(['/adminProducts']);
         },error2 => {
-        this.alertService.error(error2);
+          this.toastService.error('Erreur d"enregistrement', error2);
         this.loading = false;
         });
+  }
+  getRealPhoto(photos: Photo[]) {
+    debugger
+    for(let i=0; i<photos.length; i++){
+      this.retrievedImages.push('data:image/jpeg;base64,'+this.photos[i].img)
+
+    }
+    return this.retrievedImages;
   }
 
   //methode qui permet de recuperer la liste des category qu'on va metre dans champ(combo select) du formulaire des produits

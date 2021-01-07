@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {MatDialogModule, MatFormFieldModule, MatButtonModule, MatInputModule, MatRippleModule, MatSnackBarModule} from "@angular/material";
+
 
 import { AppRoutingModule,routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,17 +34,16 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { CriteriaSearchViewComponent } from './criteria-search-view/criteria-search-view.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { UploadPhotoComponent } from './upload-photo/upload-photo.component';
 
 
 @NgModule({
 
   exports: [
-    MatSnackBarModule,
-    MatDialogModule,
+    // MatSnackBarModule,
+    // MatDialogModule,
     
   ],
-
-
 
   
 })
@@ -64,6 +63,7 @@ export class MaterialModule {}
     PaymentComponent,
     ShippingAddressComponent,
     NewAddressComponent,
+    UploadPhotoComponent,
     OrderRecapComponent,
     PaymentCardFormComponent,
     ModalDialogComponent,
@@ -85,10 +85,14 @@ export class MaterialModule {}
     ToastrModule.forRoot(),
     NgxStripeModule.forRoot('pk_test_pkI9xiGC3yjOh7R7vy0YD7KK'),
     NgbModalModule,
-    MatDialogModule,
     MaterialModule,
     MatCarouselModule.forRoot(),
-    NgxImageZoomModule
+    NgxImageZoomModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    // MatFormFieldModule,
+    // MatInputModule
     //ReactiveForms
   ],
 

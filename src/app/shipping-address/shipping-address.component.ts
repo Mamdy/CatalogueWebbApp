@@ -1,17 +1,16 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { JwtResponse } from '../model/JwtResponse';
 import { AuthenticationService } from '../services/authentication.service';
-import { MatDialog, MatDialogConfig, MatSnackBar, MatDialogRef } from '@angular/material';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { NewAddressComponent } from '../new-address/new-address.component';
 import { DOCUMENT } from '@angular/common';
-import { Observable, of } from 'rxjs';
+import { async, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { Order } from '../model/Order';
 import { OrderService } from '../services/order.service';
 import { ActivatedRoute } from '@angular/router';
-
-const defaultDialogConfig = new MatDialogConfig();
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CatalogueService } from '../services/catalogue.service';
 
 @Component({
   selector: 'app-shipping-address',
@@ -21,6 +20,7 @@ const defaultDialogConfig = new MatDialogConfig();
 export class ShippingAddressComponent implements OnInit {
   order$: Observable<Order>
   mode='à domicile';
+  newAdressForm: FormGroup;
   actionsAlignment: string;
   config = {
     disableClose: false,
@@ -31,7 +31,6 @@ export class ShippingAddressComponent implements OnInit {
     height: '',
     minWidth: '',
     minHeight: '',
-    maxWidth: defaultDialogConfig.maxWidth,
     maxHeight: '',
     position: {
       top: '',
@@ -62,29 +61,45 @@ export class ShippingAddressComponent implements OnInit {
     label: 'à une autre addresse',
     checked: true
   };
+  submitted: boolean;
+  loading: boolean;
 
  
   constructor(private authService: AuthenticationService,
-    public dialog: MatDialog, private snackBar: MatSnackBar, @Inject(DOCUMENT) doc: any,
+    @Inject(DOCUMENT) doc: any,
     private orderService: OrderService,
-    private route: ActivatedRoute) { 
-      dialog.afterOpen.subscribe(() => {
-        if (!doc.body.classList.contains('no-scroll')) {
-          doc.body.classList.add('no-scroll');
-        }
-      });
-      dialog.afterAllClosed.subscribe(() => {
-        doc.body.classList.remove('no-scroll');
-      });
+    private route: ActivatedRoute,
+    private formBuilder:FormBuilder,
+    private catalogueService:CatalogueService
+    ) { 
+      
 
     }
+
+    id:any;
 
   ngOnInit() {
     this.currentUser = this.authService.currentUserValue;
     this.fullName = this.currentUser.user.firstName.concat(" ").concat(this.currentUser.user.lastName);
     this.order$ = this.orderService.show(this.route.snapshot.paramMap.get('id'));
+    
+    
+
+    this.newAdressForm = this.formBuilder.group({
+      nom: ['', Validators.required],
+      prenom: ['', Validators.required],
+      numero: ['', Validators.required],
+      codepostal: ['', [Validators.required, Validators.minLength(4)]],
+      ville: ['', Validators.required],
+      pays: ['', Validators.required],
+      telephone: ['', Validators.required],
+      
+    });
   }
 
+  get f(){
+    return this.newAdressForm.controls;
+  }
   
   homeAddresSelected() {
     this.mode = 'à domicile';
@@ -99,8 +114,24 @@ export class ShippingAddressComponent implements OnInit {
   }
 
 
-  onSaveNewAddress(formData){
+  onSaveNewAddress(){
+  
     this.mode = 'new-shipping-address';
+    this.submitted = true;
+    console.log("test=>, submit", this.submitted);
+    // on s'arrête ici si le formulaire n'est pas valide
+    if(this.newAdressForm.invalid){
+      return;
+    }
+
+    this.loading = true;
+    const formValue = this.newAdressForm.value;
+    this.order$.subscribe(res =>{
+      console.log("resultat=>",res);
+      this.orderService.modify(res.id, formValue)
+    } );
+   
+  
     console.log('enregistrement dune nouvelle addresse pour la livraison');
 
   }
@@ -109,16 +140,16 @@ export class ShippingAddressComponent implements OnInit {
     this.radio2.checked = true;
     this.radio1.checked = false;
     this.mode = 'new-shipping-address';
+   // this.openDialog();
+
 
 
   }
 
   openDialog() {
-
-    let dialogRef = this.dialog.open(ModalDialogComponent, this.config);
-    dialogRef.componentInstance.actionsAlignment = this.actionsAlignment;
-
-    
+debugger
+    //this.dialog.open(ModalDialogComponent, this.config);
+      
 
   /*  const snack = this.snackBar.open('Snack bar open before dialog');
 

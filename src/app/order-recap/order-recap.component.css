@@ -1,6 +1,20 @@
 .style {
-    background-color:rgb(84, 178, 233);
-    font-size: large;
+    background-color: rgb(5, 80, 99);
+    font-size: 20px;
+    font-family: 'proxima-nova';
     font-weight: bold;
     color: white;
+    text-align: center;
+}
+
+.btn{
+    background-color: red;
+    padding: 6px 15.5px;
+    height: 55px;
+    width: 210px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'proxima-nova';
+    font-weight: lighter;
+    color:white;
 }

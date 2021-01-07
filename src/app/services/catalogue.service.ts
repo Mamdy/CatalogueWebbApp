@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
 import {reject, resolve} from 'q';
 import { AppResponse } from '../model/AppResponse';
@@ -7,6 +7,7 @@ import { prodCatApiUrl } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 import { Product } from '../model/Product';
 import { catchError } from 'rxjs/operators';
+import { Photo } from '../model/Photo';
 
 
 @Injectable({
@@ -22,6 +23,7 @@ export class CatalogueService {
   }*/
 
   public getAllCategories() {
+    debugger
     return this.http.get(this.prodCatApiUrl + "/categories").toPromise()
       .then((result:any)=>{
         result.__proto__ = AppResponse.prototype;
@@ -83,16 +85,47 @@ postRessource(url, data){
 
   }
 
-  saveProduct(data){
+  saveProduct(data):Observable<any>{
+    debugger
+  //   return this.http.post<boolean>(url+'/add', {
+  //     'quantity': productInOrder.count,
+  //     'productCode': productInOrder.productCode ,
+  //     'connectedUsername': this.currentUser.user.username,
+  //     'client': client
+  // });
     //let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
     return this.postRessource(this.prodCatApiUrl+"/saveProduct",data);
 
   }
+      //Gets called when the user clicks on retieve image button to get the image from back end
+  getImageFromBackend(imageName) {
+      //Make a call to Sprinf Boot to get the Image Bytes.
+      debugger
+      return this.http.get(this.prodCatApiUrl+"/image/"+imageName);
+            
+  }
+
+
+  getFiles(){
+    return this.http.get( this.prodCatApiUrl+"/photos").toPromise()
+      .then((res:any)=>{
+        res.__proto__ = Photo;
+        return res;
+      })
+  }
+
+  getProductImages(id){
+    return this.http.get( this.prodCatApiUrl+"/photos/"+id).toPromise()
+      .then((res:any)=>{
+        res.__proto__ = Photo;
+        return res;
+      })
+  }
+
   putRessource(url, data) {
     let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
     //return this.http.patch(url,data,{headers:headers});
-   return this.http.put(url,data,{headers:headers});
-
+   return this.http.put(this.prodCatApiUrl+url,data,{headers:headers});
 
   }
 
@@ -102,14 +135,24 @@ postRessource(url, data){
 
   }
 
-  uploadFile(file: File){
-    return new Promise(
-      (resolve,reject)=>{
-        const almostUniqueFileNam= Date.now().toString();
-        const  upload = this.http.get(this.prodCatApiUrl+"")
+  uploadFile(data){
+    debugger
+    return  this.postRessource(
+      this.prodCatApiUrl+"/upload/saveProductInserverAndDataBaseWithFileUploadUtility",data);
+    
+  }
 
-      }
-    )
+  uploadFiles(file):Observable<HttpEvent<any>>{
+    const formData: FormData = new FormData();
+
+    formData.append('imageFile', file);
+
+    const req = new HttpRequest('POST', this.prodCatApiUrl+"/upload/saveProductInserverAndDataBaseWithFileUploadUtility", formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
   }
 
   

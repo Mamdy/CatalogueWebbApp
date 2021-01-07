@@ -5,6 +5,7 @@ export class Order {
     buyerName: string;
     buyerPhone: string;
     buyerAddress: string;
+    shippingAddress:string;
     orderAmount: number;
     orderStatus: string;
     createTime: string;

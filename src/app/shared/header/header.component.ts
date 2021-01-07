@@ -89,6 +89,9 @@ get f() {
     return this.authService.isAdmin();
 
   }
+  isSeller(){
+    return this.authService.isSeller();
+  }
   isCustomer(){
     return this.authService.isCustomer();
   }

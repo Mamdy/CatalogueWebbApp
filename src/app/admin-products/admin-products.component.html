@@ -3,7 +3,7 @@
     <div class="col-md-offset-2 col-md-8">
       <div class="panel panel-primary">
 
-        <div class="panel-heading"><h4>Product Management</h4></div>
+        <div class="panel-heading style">Product Management</div>
         <div class="panel-body">
 
           <!-- Ajout du formulaire ici-->
@@ -12,7 +12,12 @@
             <div class="form-group">
               <label class="control-label col-md-4" >Name</label>
               <div class="col-md-8">
-                <input type="text" formControlName="name" class="form-control" [ngClass]=" {'is-invalid':submitted && f.name.errors}" placeholder="Nom du Produit" ngModel>
+                <input type="text" formControlName="name" 
+                  class="form-control"
+                  [ngClass]=" {'is-invalid':submitted && f.name.errors}"
+                  placeholder="Nom du Produit"
+                  style="height: 50px;"
+                  ngModel>
                 <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                   <div *ngIf="f.name.errors.required">Le Nom du produit est obligatoire</div>
                 </div>
@@ -23,7 +28,10 @@
               <label class="control-label col-md-4" >Marque</label>
               <div class="col-md-8">
                 <input type="text" formControlName="marque"
-                       class="form-control" [ngClass]=" {'is-invalid':submitted && f.marque.errors}" placeholder="Marque du produit" ngModel>
+                       class="form-control" [ngClass]=" {'is-invalid':submitted && f.marque.errors}"
+                       placeholder="Marque du produit"
+                       style="height: 50px;"
+                       ngModel>
                 <div *ngIf="submitted && f.marque.errors" class="invalid-feedback">
                   <div *ngIf="f.marque.errors.required">La marque du produit est obligatoire</div>
                 </div>
@@ -48,7 +56,11 @@
               <label class="control-label col-md-4" >Prix Unitaire</label>
               <div class="col-md-8">
                 <input type="number" formControlName="price"  class="form-control"
-                       [ngClass]=" {'is-invalid':submitted && f.price.errors}" placeholder="Prix Unitaire" ngModel>
+                       [ngClass]=" {'is-invalid':submitted && f.price.errors}"
+                       placeholder="Prix"
+                       style="width: 90px; height: 30px;"
+                       maxlength="5"
+                       ngModel>
 
                 <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
                   <div *ngIf="f.price.errors.required">La champ prix est obligatoire</div>
@@ -56,17 +68,92 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-4" >Qty.Disponible</label>
+              <label class="control-label col-md-4" >stock</label>
               <div class="col-md-8">
-                <input type="number" formControlName="quantity"  class="form-control"
-                       [ngClass]=" {'is-invalid':submitted && f.quantity.errors}" placeholder="Qté.disponible" ngModel>
+                <input type="number"
+                  formControlName="quantity" 
+                  class="form-control"
+                  [ngClass]=" {'is-invalid':submitted && f.quantity.errors}"
+                  placeholder="Qté"
+                  style="width: 60px; height: 30px;"
+                  maxlength="3"
+                  ngModel
+
+                >
 
                 <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
                   <div *ngIf="f.quantity.errors.required">La champ quantite est obligatoire</div>
                 </div>
               </div>
             </div>
+            <div class="form-group">
+              <span style="color: red; font-family: 'proxima-nova';">Selectionnez les 4 photos du produits</span><br>
+              <div class="col-md-6">
+                <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+                  <span>{{ progressInfo.fileName }}</span>
+                  <div class="progress">
+                    <div
+                      class="progress-bar progress-bar-info progress-bar-striped"
+                      role="progressbar"
+                      attr.aria-valuenow="{{ progressInfo.percentage }}"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      [ngStyle]="{ width: progressInfo.percentage + '%' }"
+                    >
+                      {{ progressInfo.percentage }}%
+                    </div>
+                  </div>
+                </div>
+                <label class="btn-deux">
+                  <input type="file"
+                  accept="image/*" multiple
+                  (change)="selectFiles($event)"
+                  formControlName="photo" 
 
+                  class="form-control"
+                  [ngClass]=" {'is-invalid':submitted && f.quantity.errors}"
+                  ngModel
+
+                >
+                
+          
+                </label>
+                <div>
+                  <button
+                    class="btn-deux"
+                    [disabled]="!selectedFiles"
+                    (click)="uploadFiles()"
+                  >
+                    Upload
+                  </button>
+                  <div class="alert alert-light" role="alert">{{ message }}</div>
+                </div>
+                <div class="card">
+                  <div class="card-header">List of Images</div>
+                  <ul
+                    class="list-group list-group-flush"
+                    *ngFor="let retrievedImage of retrievedImages"
+                  >
+                    <li class="list-group-item">
+                      
+                      <img [src]="retrievedImage" alt="photo">
+                    </li>
+                  </ul>
+                </div>
+                        
+
+                <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+                  <div *ngIf="f.quantity.errors.required">La champ quantite est obligatoire</div>
+                </div>
+              </div>
+    
+              <!-- <span 
+                style="font-size: 12px; font-family: 'proxima-nova';
+                 color: red;">Selectionnez les 4 photos du produit
+              </span><br>
+              <app-upload-photo></app-upload-photo> -->
+            </div>
+            <br>
             <div class="form-group">
               <label class="control-label col-md-4" >Category </label>
               <div class="col-md-8">
@@ -87,7 +174,8 @@
               <div class="col-md-offset-4 col-md-8">
 
                 <div >
-                  <button [disabled]="loading" class="btn btn-primary">Save</button>
+                  <button [disabled]="loading" class="btn btn">Enregistrer</button>
+                  <button [disabled]="loading" class="btn-deux">Annuler</button>
                 </div>
                 <!--Champ Cachés HIDDEN-fields for product-->
                 <!--<input type="hidden" name="id" value="{{currentProduct.id}}"/> {{currentProduct.id}}-->
@@ -105,8 +193,28 @@
 
 </div>
   </div>
+  <div class="row">
+    <div class="col-md-6">
+        <input type="text"
+          class="form-control"
+          id="name"
+          placeholder="image name"
+          [(ngModel)]="imageName"
+            name="name" />
+    </div>
+    <div class="col-md-6">
+        <input type="button" (click)="getImage()" value="Get Image">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+        <div *ngIf=retrievedImage>
+            <img [src]="retrievedImage">
+        </div>
+    </div>
 </div>
-
+</div>
+<!-- <app-upload-photo></app-upload-photo> -->
 <!--<app-categories></app-categories>-->
 <!--<app-products></app-products>--->
 

@@ -1,7 +1,9 @@
-<div class="container">
+<div class="container spacer">
     <div class="col-md-12">
-                <h1 align="center" class="display-4 mb-5">Details de la commande </h1><br><br><br>
-                <hr>
+                <div class="border-box">
+                    <h3 align="center" class="display-4 mb-4">Details de la commande </h3>
+                </div>
+                <!-- <h1 align="center" class="display-4 mb-5">Details de la commande </h1> -->
                 <table class="table table-striped text-center">
                     <thead>
                         <tr>
@@ -17,23 +19,24 @@
                     <tbody>
                         <tr *ngFor="let item of (order$ | async)?.products">
                             <th class="align-middle" scope="row">
-                                <a routerLink="/products"><img width="50px" height="50px" src="../assets/images/{{item.productIcon}}.jpg"
+                                <a routerLink="/products"><img width="60px" height="60px" src="../assets/images/{{item.productIcon}}.jpg"
 
                                         alt="{{item.productName}}"></a>
                             </th>
-                            <td class="align-middle"><a routerLink="/products">{{item.productName}}</a>
+                            <td class="align-middle"><span style="font-size: 16px;"><a routerLink="/products">{{item.productName}}</a></span>
                             </td>
-                            <td class="align-middle">{{item.productDescription}}</td>
-                            <td class="align-middle"><span style="color: red;">{{item?.productPrice| number: '0.2'}}&euro;</span></td>
-                            <td class="align-middle">{{item.count}}</td>
-                            <td class="align-middle">{{(item.productPrice * item.count | number: '0.2')}}&euro;</td>
+                            <td class="align-middle"><span style="font-size:14px">{{item.productDescription}}</span></td>
+                            <td class="align-middle"><span style="color: red; font-size: 16px;">{{item?.productPrice| number: '0.2'}}&euro;</span></td>
+                            <td class="align-middle"><span style="font-size: 14px;">{{item.count}}</span></td>
+                            <td class="align-middle"><span style="font-size: 14px;">{{(item.productPrice * item.count | number: '0.2')}}&euro;</span></td>
                         </tr>
                     </tbody>
                 </table>
                 <h5 style="display: inline" class="float-right"><strong>Total: </strong> <span style="color: red;">{{(order$ | async)?.orderAmount| number: '0.2'}}&euro;</span></h5><br><br><br>
 
                 <div class="form-group">
-                  <button type="submit" routerLink="/order"  class="btn btn-primary"><strong> < Retour</strong></button>
+                    <br><a routerLink="/order" class="btn-link float-left"> <span style="color: rgb(0, 174, 255); font-size: 14px;">< RETOUR</span></a>
+                  
               </div>
     </div>
  </div>

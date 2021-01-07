@@ -26,9 +26,18 @@ export class OrderService {
 
   }
   cancel(id): Observable<Order> {
+    debugger
     return this.http.patch<Order>(`${this.orderUrl}/cancel/${id}`, null).pipe(
         catchError(_ => of(null))
     );
+  }
+
+  modify(id,formdata): Observable<Order> {
+    debugger
+    return this.http.patch<Order>(`${this.orderUrl}/cancel/${id}`,null).pipe(
+      catchError(_ => of(null))
+  );  
+ 
   }
 
   finish(id): Observable<Order> {

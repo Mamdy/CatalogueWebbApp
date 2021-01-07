@@ -97,12 +97,16 @@ getCurrentUser():any {
     return this.roles.indexOf('ADMIN')>=0;
 
   }
+  isSeller(){
+   // return this.roles.indexOf('SELLER')>=0;
+
+  }
   isCustomer(){
     return this.roles.indexOf('CUSTOMER')>=0;
 
   }
   isAuthenticated(){
-    return this.roles && (this.isAdmin() || this.isCustomer());
+    return this.roles && (this.isAdmin() || this.isCustomer() || this.isSeller());
 
   }
 

@@ -1,5 +1,6 @@
 
 <div class="container">
+       
   <section class="header">
     <div class="wrapper" *ngIf="mode=='home'">
       <app-header></app-header>
@@ -8,6 +9,9 @@
   </section>
   <section>
    <div *ngIf="mode=='home'">
+    <!-- <div >
+      <img src="../../assets/images/pre-loader2.gif" alt="Random first slide">
+    </div> -->
     <app-categories></app-categories>
     </div>
   </section>

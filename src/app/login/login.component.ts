@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   public nameTerms = new Subject<string>();
   public name$ = this.nameTerms.asObservable();
   private currentUserSubject: BehaviorSubject<User>;
+  fieldTextType: boolean;
 
 
   constructor(
@@ -61,7 +62,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-    debugger
     this.submitted = true;
     // on s'arrête ici si le formulaire n'est pas valide
     if(this.loginForm.invalid){
@@ -93,5 +93,7 @@ export class LoginComponent implements OnInit {
       );
     }
 
-  
+    toggleFieldTextType(){
+      this.fieldTextType = !this.fieldTextType;
+    }
 }

@@ -14,24 +14,25 @@
 }
 
 .style {
-    background-color:rgb(62, 108, 134);
+    background-color: rgb(5, 80, 99);
     font-size: large;
     font-weight: bold;
     color: white;
     text-transform: uppercase;
     text-align: center;
+    font-family: 'proxima-nova';
 }
 
 .btn{
     padding: 10px 100px;
     border-radius: 25px;
     font-size: small;
-    margin-left: 240px;
-    background-color: rgb(5, 80, 99);
+    font-family: 'proxima-nova';
+    margin-left: 215px;
+    background-color: red;
     color: white;
     cursor: pointer;
-    text-transform: uppercase;
-    
+   
 }
 
 .btn:hover {

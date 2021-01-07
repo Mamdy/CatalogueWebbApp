@@ -4,20 +4,21 @@
 
 
 .style {
-    background-color:rgb(62, 108, 134);
+    background-color:transparent;
     font-size: large;
     font-weight: bold;
     color: white;
 }
 
 .btn{
-    padding: 10px 20px;
+    padding: 10px 15px;
     border-radius: 25px;
     font-size: large;
-    margin-left: 40px;
-    background-color: rgb(62, 184, 214);
+    margin-left: 25%;
+    background-color:red;
     color: white;
     cursor: pointer;
+    font-family: 'proxima-nova';
     
 }
 

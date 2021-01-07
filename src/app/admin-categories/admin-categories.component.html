@@ -1,6 +1,6 @@
 <div class="container">
   <div class="panel panel-primary">
-    <div class="panel-heading"> <h4>Gestion des Categories</h4></div>
+    <div class="panel-heading style">Gestion des Catégories</div>
     <div class="panel-body">
       <div>
         <button class="btn btn-success" (click)="onNewCategory()">
@@ -39,7 +39,7 @@
             <th>Name</th>
           </tr>
           <tr *ngFor="let c of categories">
-            <td>{{c.name}}</td>
+            <td><span style="font-family: 'proxima-nova'; font-size: 14px;">{{c.name}}</span></td>
             <!-- Button de supression d'une category-->
             <td>
               <button class="btn btn-danger" (click)="onDeleteCategory(c)">
@@ -61,6 +61,5 @@
     </div>
   </div>
 </div>
-
 
 

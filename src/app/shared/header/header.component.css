@@ -1,3 +1,6 @@
+.dropdown-menu {
+  min-width: 190px;
+}
 
 .header {
   margin-top: -7em;
@@ -12,6 +15,7 @@
 .topnav {
   /*overflow: hidden;*/
   background-color:#080808;
+  /*background-color: rgb(5, 80, 99);*/
 }
 
 /* Style the links inside the navigation bar */
@@ -21,10 +25,9 @@
   color: white;
   text-align: center;
   /*padding: 14px 16px;*/
-  font-size: 13px;
-  text-transform: uppercase;
-  font-weight: small;
-  font-family: "proxima-nova",Helvetica,Arial,'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "proxima-nova";
 }
 
 /* Change the color of links on hover */

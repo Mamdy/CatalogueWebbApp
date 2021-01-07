@@ -1,8 +1,10 @@
 <div class="border-box">
-  <h3 align="center" class="display-4 mb-4">Mes commandes </h3>
+  <h3 align="center" class="display-4 mb-4">
+      <span style="font-family: 'proxima-nova';">Mes commandes </span>
+    </h3>
 </div>
 
-<table class="table table-striped text-center">
+<table class="table table-striped text-center data">
     <thead>
     <tr>
         <th scope="col">N°cmd #</th>
@@ -31,7 +33,7 @@
           <a *ngIf="!(currentUser.role == Role.Customer && currentUser.name == order.buyerEmail)"
           style="display:
        block" href="" routerLink="/order/{{order.id}}">
-           Voir <span class="glyphicon glyphicon-eye-open" style="color: green;padding: 1.5em;"></span></a>
+           Voir <span class="glyphicon glyphicon-eye-open" style="color: rgb(0, 112, 112);width: 25px;"></span></a>
             <a *ngIf="order.orderStatus == 0" style="display: block" (click)="cancel(order)" routerLink="./">Annuler </a>
             <a *ngIf="currentUser.role != Role.Customer && order.orderStatus == 0"
                style="display: block"
@@ -41,25 +43,3 @@
     </tr>
     </tbody>
 </table>
-
-
-<!-- <div class="modal-header">
-    <h5 class="modal-title">Modal title</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <h5>infor de paiement</h5>
-    <p><b>ID:</b>{{id}}</p>
-    <p><b>Montant:</b>{{montant}}</p>
-    <p><b>Description:</b>{{description}}</p>
-    <p><b>prix:</b>{{prix /100}} $</p>
-  </div>
-  <div class="modal-footer d-flex justify-content-between">
-    <button type="button" class="btn btn-success" (click)="confirmer(id)">confirmer</button>
-    <button type="button" class="btn btn-danger" (click)="confirmer(id)">annuler</button>
-  </div> -->
-
-
-<!-- <app-pagination [currentPage]="page"></app-pagination> -->

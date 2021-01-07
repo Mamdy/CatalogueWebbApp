@@ -46,7 +46,7 @@
                 <span style="color: rgb(0, 162, 255); text-align: center;">{{currentProduct?.name}}</span>
                 </strong>
                 </h4>
-                <form name="form" #form='ngForm' (ngSubmit)="currentProduct?.active == true && addCurrentProductToCart()">
+                <!-- <form name="form" #form='ngForm' (ngSubmit)="currentProduct?.active == true && addCurrentProductToCart()">
                 <div class="text-left">
                 <input hidden name="id" [value]=currentProduct?.id>
                 <p class="card-text"><strong><span style="font-family: proxima-nova;">{{currentProduct?.description}}</span> </strong></p>
@@ -72,7 +72,7 @@
                 <label id="subtotal"><span style="color: red;">{{currentProduct?.price | number: '0.2'}}&euro;</span></label>
                 </p>
             </div>
-            </form>
+            </form> -->
             </div>
           </div>
       </div>
@@ -122,6 +122,7 @@
               <span class="glyphicon glyphicon-shopping-cart"></span>
               AJOUTER AU PANIER
               </button>
+              <img src="../assets/images/cards.png">
               <ng-template #offBlock><a class="btn btn-secondary btn-lg disabled">Unavailable</a></ng-template>
               </form>
           </div>

@@ -108,14 +108,12 @@ export class PaymentCardFormComponent implements OnInit {
 
 
   buy() {
-    debugger
-    //this.isLoading = true;
+    this.isLoading = true;
     this.isSubmitted = true;
     const name = this.stripeForm.get('name').value;
     this.stripeService
       .createToken(this.card.element, { name })
       .subscribe((result) => {
-        debugger
         if (result.token) {
           const headers = new HttpHeaders()
           .set('Content-Type','application/json');

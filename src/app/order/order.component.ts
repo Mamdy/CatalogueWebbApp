@@ -47,12 +47,8 @@ export class OrderComponent implements OnInit, OnDestroy {
     }*/
 
     this.orderService.getPage(nextPage, size).subscribe(page => this.page = page, _ => {
-      debugger
-      console.log("list des pages commandes==>"+this.page );
-      console.log("Get Order Failed")
-    });
 
-    throw new Error("Method not implemented.");
+    });
   }
 
   cancel(order: Order) {

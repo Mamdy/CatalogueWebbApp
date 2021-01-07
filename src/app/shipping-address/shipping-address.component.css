@@ -9,18 +9,22 @@ label {
 }
 
 .border-box{
-    width: 555px;
+    width: 400px;
     height: 130px;
     border: 1px solid rgb(188, 188, 194);
     box-sizing: border-box;
-    background-color: rgb(249, 249, 253);
+   /* background-color: rgb(249, 249, 253);*/
+   max-width: 400px;
+   background-color: lightgrey;
+
 
 }
 
 .style {
-    background-color:rgb(84, 178, 233);
-    font-size: medium;
+    background-color: rgb(5, 80, 99);
+    font-size: 20px;
+    font-family: 'proxima-nova';
     font-weight: bold;
-    color: whitesmoke;
+    color: white;
     text-align: center;
 }

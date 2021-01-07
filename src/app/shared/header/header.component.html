@@ -3,7 +3,11 @@
       <div class="brand">
         <a class="navbar-brand" routerLink="/home">
           <img src="../../../assets/images/brand2.jpg" alt="224-E-SHOP" width="80" height="80" class="d-inline-block align-top brand">
-          <strong>E-224MArketPlace</strong>
+          <span 
+            style="font-family: 'proxima-nova';
+                 font-weight: bold; font-size: 16px;" >
+                 E-PANAFTRADE
+            </span>
         </a>  
       </div>
           
@@ -20,16 +24,21 @@
         </form>
       </div>
       <ul class="navbar-nav mr-auto">
-        <li  *ngIf="isAuthenticated() && isAdmin()">
+        <li  *ngIf="isAuthenticated() && isAdmin() || isSeller()">
           <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
               <ul class="navbar-nav mr-auto">
                 <li  class="nav-item dropdown" ngbDropdown>
-                  <span style="color: white; font-size: large;" class="nav-link dropdown-toggle" ngbDropdownToggle>Admin</span>
+                  <span style="color: white; font-size: large; font-family: 'proxima-nova';" class="nav-link dropdown-toggle" ngbDropdownToggle>Admin</span>
                   <div class="dropdown-menu" aria-labelledby="id01" ngbDropdownMenu>
                     <a class="" routerLink="/adminCategories">
-                      <span style="color: rgb(255, 123, 0)">Gestion des Categories</span></a>
-                    <a routerLink="/adminProducts"> <span style="color: rgb(255, 123, 0)">Gestion des Produits</span></a>
-                    <a routerLink="/adminUsers"> <span style="color: rgb(255, 123, 0)">Gestion des Utilisateur</span></a>
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(255, 123, 0);">Gestion des Categories</span>
+                    </a>
+                    <a routerLink="/adminProducts"> 
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(255, 123, 0)">Gestion des Produits</span>
+                    </a>
+                    <a routerLink="/adminUsers">
+                      &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: rgb(255, 123, 0)">Gestion des Utilisateur</span>
+                    </a>
                   </div>
                 
                 </li>
@@ -42,15 +51,25 @@
         <li class="nav-item">
           <a *ngIf="!currentUser || currentUser.user.role == Role.Customer" class="nav-item nav-link" routerLink="/cart">
             <i class="fa fa-shopping-cart"></i>
-            PANIER
+            <span style="font-size: 12px;
+              font-family: 'proxima-nova';
+              font-weight: bold;
+              ">
+              PANIER
+            </span>
           </a>
-
         </li>
 
         <li class="nav-item">
           <a *ngIf="isAuthenticated() && currentUser.user.role == Role.Customer" class="nav-link" routerLink="/order">
             <i class="fas fa-list-ul"></i>
-          MES COMMANDES
+            <span style="font-size: 12px;
+            font-family: 'proxima-nova';
+            font-weight: bold;
+            ">
+            MES COMMANDES
+          </span>
+          
           </a>
 
         </li>
@@ -61,7 +80,8 @@
         <li routerLinkActive="active">
           <a *ngIf="!isAuthenticated()" routerLink="/login"><span class="glyphicon glyphicon-user"></span><br>se connecter</a>
           <a *ngIf="isAuthenticated()" routerLink="/login" class="btn btn-default btn-sm" (click)="logOut()">
-            <span class="glyphicon glyphicon-user"></span>se deconnecter <br>
+            <span 
+            class="glyphicon glyphicon-user"></span>se déconnecter <br>
             <span>{{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
           </a>
         </li>

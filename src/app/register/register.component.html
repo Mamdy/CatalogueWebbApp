@@ -1,7 +1,10 @@
 <div class="container spacer">
   <div class="row">
     <div class="col-12 col-md-8 offset-md-2">
-      <h1><span style="color: #ee3434; font-weight: bold; font-size: 48px; text-align: center;">Création de compte</span></h1><br><br>
+      <h1 align="center"><span style="color: #ee3434;
+          font-weight: bold;
+          font-size: 48px;
+          font-family: 'proxima-nova';">Création de compte</span></h1><br><br>
       <div class="card">
         <div class="card-body">
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -140,8 +143,8 @@
               </div>
             </div>
             <div class="form-group">
-              <button [disabled]="loading" class="btn">Créer mon compte</button>
-              <span style="font-size: 14px;">Vous possédez déjà un compte ? <a routerLink="/login" class="">Identifiez-vous</a></span>
+              <button [disabled]="loading" class="btn">Créer mon compte</button><br>
+              <h5 align="center"><span style="font-size: 14px; text-align: center;">Vous possédez déjà un compte ? <a routerLink="/login" class="">Identifiez-vous</a></span></h5>
               
             </div>
           </form>

@@ -23,6 +23,9 @@
     text-transform: uppercase;
     text-emphasis: none;
     text-decoration: lightblue;
+    font-family: 'proxima-nova';
+    font-size: 25px;
+
    /* margin-left:3% ;*/
 
 }
