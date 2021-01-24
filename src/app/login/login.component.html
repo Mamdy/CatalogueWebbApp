@@ -2,7 +2,7 @@
   <div class="panel panel-default">
     <div class="panel-heading style">Identifiez-Vous</div>
     <div class="panel-body">
-      <div class="alert alert-danger" *ngIf="isInvalid">
+      <div class="alert alert-danger" *ngIf="isFormValid">
         Votre username ou mot de passe est invalid.
       </div>
       <div class="alert alert-info" *ngIf="isLogout">
@@ -35,7 +35,7 @@
               name="email"
               placeholder="example@mail.com"
               [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-              style="height:50px;"
+              style="height:60px;"
             >
           </div>
           <div  *ngIf="f.email.invalid && (f.email.dirty ||f.email.touched)" >
@@ -67,7 +67,7 @@
                 'is-invalid': submitted && f.password.errors
               }"
               placeholder="Entrez votre mot de passe"
-              style="height:50px;"
+              style="height:60px;"
              />
     
               <div class="input-group-append">

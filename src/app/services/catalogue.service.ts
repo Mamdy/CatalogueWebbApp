@@ -23,7 +23,6 @@ export class CatalogueService {
   }*/
 
   public getAllCategories() {
-    debugger
     return this.http.get(this.prodCatApiUrl + "/categories").toPromise()
       .then((result:any)=>{
         result.__proto__ = AppResponse.prototype;

@@ -53,13 +53,15 @@ export class ShippingAddressComponent implements OnInit {
     id: 1,
     value: 'radioButton1',
     label: 'à domicile',
-    checked: true
+    checked: true,
+    isdisabled: false
   };
   radio2 = {
     id:2,
     value: 'radioButton2',
     label: 'à une autre addresse',
-    checked: true
+    checked: false,
+    isdisabled: false
   };
   submitted: boolean;
   loading: boolean;
@@ -83,18 +85,6 @@ export class ShippingAddressComponent implements OnInit {
     this.fullName = this.currentUser.user.firstName.concat(" ").concat(this.currentUser.user.lastName);
     this.order$ = this.orderService.show(this.route.snapshot.paramMap.get('id'));
     
-    
-
-    this.newAdressForm = this.formBuilder.group({
-      nom: ['', Validators.required],
-      prenom: ['', Validators.required],
-      numero: ['', Validators.required],
-      codepostal: ['', [Validators.required, Validators.minLength(4)]],
-      ville: ['', Validators.required],
-      pays: ['', Validators.required],
-      telephone: ['', Validators.required],
-      
-    });
   }
 
   get f(){
@@ -102,10 +92,9 @@ export class ShippingAddressComponent implements OnInit {
   }
   
   homeAddresSelected() {
-    this.mode = 'à domicile';
-    this.radio1.checked = true;
     this.radio2.checked=false ;
-  
+    this.radio1.checked = true;
+    this.mode = 'à domicile';
   }
 
   
@@ -137,36 +126,11 @@ export class ShippingAddressComponent implements OnInit {
   }
 
   onNewShippingAddress(){
-    this.radio2.checked = true;
     this.radio1.checked = false;
+    this.radio2.checked = true;
+    this.radio1.isdisabled = true;
     this.mode = 'new-shipping-address';
-   // this.openDialog();
-
-
-
+  
   }
-
-  openDialog() {
-debugger
-    //this.dialog.open(ModalDialogComponent, this.config);
-      
-
-  /*  const snack = this.snackBar.open('Snack bar open before dialog');
-
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        snack.dismiss();
-        const a = document.createElement('a');
-        a.click();
-        a.remove();
-        snack.dismiss();
-        this.snackBar.open('Closing snack bar in a few seconds', 'Fechar', {
-          duration: 2000,
-        });
-      }
-    });*/
-  }
-
-
 
 }

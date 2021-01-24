@@ -10,6 +10,8 @@ import { JwtResponse } from 'src/app/model/JwtResponse';
 import { CatalogueService } from 'src/app/services/catalogue.service';
 import { Product } from 'src/app/model/Product';
 import { FormGroup, FormControl } from '@angular/forms';
+import { CartService } from 'src/app/services/cart.service';
+import { ProductInOrder } from 'src/app/model/ProductInOrder';
 
 
 @Component({
@@ -20,12 +22,14 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class HeaderComponent implements OnInit,OnDestroy{
   page: any;
   currentUserSubscription: Subscription;
+  currentCartSubscription: Subscription;
     name$;
     name: string;
     currentUser: JwtResponse;
     root = '/';
     Role = Role;
     searchCriteria: string;
+    nbProductInCart:number
 
     products:Product[]=[]
     
@@ -41,15 +45,25 @@ export class HeaderComponent implements OnInit,OnDestroy{
 
 
   constructor( private authService: AuthenticationService,
-               private router: Router
+               private router: Router,
+               private cartService: CartService
             ) { }
 
     
 
   ngOnInit(){
-    this.name$ = this.authService. name$.subscribe(aName => this.name = aName);
+    this.currentCartSubscription = this.cartService.nbProductInCart.subscribe(res=>{
+      if(res){
+        this.nbProductInCart = res;
+      }
+
+    },error => {
+      console.log(error);
+    })
+
+    console.log('nombre produit dans panier=>', +this.nbProductInCart);
     this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
-      this.currentUser = user;
+    this.currentUser = user;
 
       if(!user || user.user.role == Role.Customer){
         this.root = " ";
@@ -64,16 +78,12 @@ export class HeaderComponent implements OnInit,OnDestroy{
 
   public searchProductByCriteria(event: Event){
     event.preventDefault();
-    
-    
     if(this.searchForm.get('criteria').value === undefined){
      return;
     }else {
     const criteria = this.searchForm.get('criteria').value;
     this.searchCriteria = criteria;
     }
-    //effacer l'input de recherche 
-    //this.searchForm.get('criteria').setValue('');
     this.router.navigate(['/searchCriteriaView'], {state: {criteria: this.searchCriteria}});
 
   }
@@ -124,10 +134,14 @@ get f() {
   }
 
   ngOnDestroy(): void {
-    this.currentUserSubscription.unsubscribe();
-    // this.name$.unsubscribe();
-    // this.name$ = null;
-    // this.currentUserSubscription = null;
+    if(this.currentUserSubscription && this.currentUserSubscription){
+      this.currentUserSubscription.unsubscribe();
+      this.currentCartSubscription.unsubscribe();
+          
+    this.currentCartSubscription = null;
+    this.currentUserSubscription = null;
+    }
+ 
 }
 
 }

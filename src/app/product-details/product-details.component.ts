@@ -32,7 +32,7 @@ export class ProductDetailsComponent implements OnInit {
                 carouselConfig.interval = 0;
                 carouselConfig.keyboard= true;
                 carouselConfig.showNavigationArrows = true
-                carouselConfig.showNavigationIndicators = false;
+                carouselConfig.showNavigationIndicators = true;
   }
 
   ngOnInit() {
@@ -50,16 +50,26 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addCurrentProductToCart(){
-    debugger
     this.cartService.addItem(new ProductInOrder(this.currentProduct,this.count))
                     .subscribe(res => {
-                      
+                      debugger
                           if(!res){
+                            alert('l\'AJout du produit dans le pannier a echoué')
                             console.log('AJout du produit dans le pannier a echoué',+res);
 
                             throw new Error();
                           }
-                    
+
+                          alert('Le produit a bien été ajouté dans votre panier');
+                           this.cartService.getCart().subscribe(res=>{
+                             if(res){
+                              this.cartService.changeNbProductInCart(this.cartService.countProductInCart());
+                             }
+                            
+                           },error => {
+                             console.log(error);
+                           } );
+                          
                           this.router.navigateByUrl('/cart');
                         },
                         _ => console.log('Ajout Panier a echoué')

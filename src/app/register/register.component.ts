@@ -37,13 +37,13 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', Validators.required,Validators.email],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmedPassword: ['', [Validators.required, Validators.minLength(6)]],
       phone: ['', Validators.required],
-      address: ['', Validators.required],
+      address: ['', Validators.required]
     });
     this.fieldTextType = false;
   }
@@ -75,5 +75,10 @@ export class RegisterComponent implements OnInit {
 
   toggleFieldTextType(){
     this.fieldTextType = !this.fieldTextType;
+  }
+
+  onReset(){
+    this.submitted = false;
+    this.registerForm.reset();
   }
 }

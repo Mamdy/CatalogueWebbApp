@@ -10,6 +10,7 @@ import { debounceTime, switchMap } from 'rxjs/operators';
 import { Role } from 'src/app/enum/Role';
 import { JwtResponse } from 'src/app/model/JwtResponse';
 import { Cart } from 'src/app/model/Cart';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-cart',
@@ -17,15 +18,6 @@ import { Cart } from 'src/app/model/Cart';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
-
-
-  constructor(private cartService: CartService,
-              private userService: UserService,
-              private authService: AuthenticationService,
-              private router: Router) {
-
-                this.userSubscription = this.authService.currentUser.subscribe(user=>this.currentUser = user)
-  }
 
   productInOrders = [];
   total = 0;
@@ -36,7 +28,33 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
 
   cartlist: Cart[];
   connectedUserCart: Cart;
+  nbProductInCart = 0;
 
+  constructor(private cartService: CartService,
+              private authService: AuthenticationService,
+              private router: Router) {
+
+                this.userSubscription = this.authService.currentUser.subscribe(user=>this.currentUser = user)
+  }
+
+  ngOnInit() {
+    this.cartService.getCart().subscribe(prods => {
+       this.productInOrders = prods;
+     });
+   //  this.productInOrders = this.cartService.getProductsInOrderFromUserDbCart();
+     
+     this.sub = this.updateTerms.pipe(
+ 
+       // wait 300ms after each keystroke before considering the term
+       debounceTime(300),
+       // switch to new search observable each time the term changes
+       switchMap((productInOrder: ProductInOrder) => this.cartService.update(productInOrder))
+     ).subscribe(prod => {
+       if(prod){throw new Error();}
+     },
+     _ => console.log('Update Item Failed'));
+   }
+ 
   static validateCount(productInOrder){
     const max = productInOrder.productStock;
     if(productInOrder.count > max){
@@ -47,34 +65,19 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
   }
 
 
-  ngOnInit() {
-   this.cartService.getCart().subscribe(prods => {
-      this.productInOrders = prods;
-    });
-    this.productInOrders = this.cartService.getProductsInOrderFromUserDbCart();
-    
-
-
-    this.sub = this.updateTerms.pipe(
-
-      // wait 300ms after each keystroke before considering the term
-      debounceTime(300),
-      // switch to new search observable each time the term changes
-      switchMap((productInOrder: ProductInOrder) => this.cartService.update(productInOrder))
-    ).subscribe(prod => {
-      if(prod){throw new Error();}
-    },
-    _ => console.log('Update Item Failed'));
-  }
-
+ 
   ngOnDestroy() {
     if (!this.currentUser) {
         this.cartService.storeLocalCart();
     }
+    
     if(this.userSubscription && this.sub){
       this.userSubscription.unsubscribe();
-      //this.sub.unsubscribe();
+      this.sub.unsubscribe();
+      this.userSubscription = null;
+      this.sub = null;
     }
+    
     
   }
 
@@ -85,27 +88,75 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
   }
 
   addOne(productInOrder) {
+    debugger
     productInOrder.count++;
     CartComponent.validateCount(productInOrder);
-    if (this.currentUser) { this.updateTerms.next(productInOrder); }
+    if (this.currentUser) { 
+      this.updateTerms.next(productInOrder);
+      this.cartService.changeNbProductInCart(this.cartService.countProductInCart());
+     }
+   
+     this.cartService.update(productInOrder).subscribe(prod=>{
+       if(prod){
+           //notifier le component header du changement du nombre de produits dans le panier 
+          //afin de mettre à jour son affichage de notification
+        this.cartService.changeNbProductInCart(this.cartService.countProductInCart());
+       }
+      
+     },error => {
+       console.log(error);
+     })
+    
   }
 
   minusOne(productInOrder) {
     productInOrder.count--;
     CartComponent.validateCount(productInOrder);
-    if (this.currentUser) { this.updateTerms.next(productInOrder); }
+    if (this.currentUser) { 
+      this.updateTerms.next(productInOrder);
+      this.cartService.changeNbProductInCart(this.cartService.countProductInCart());
+     }
+
+     this.cartService.update(productInOrder).subscribe(prod=>{
+      if(prod){
+          //notifier le component header du changement du nombre de produits dans le panier 
+         //afin de mettre à jour son affichage de notification
+       this.cartService.changeNbProductInCart(this.cartService.countProductInCart());
+      }
+     
+    },error => {
+      console.log(error);
+    })
+
 }
 
 onChange(productInOrder) {
   CartComponent.validateCount(productInOrder);
   if (this.currentUser) { this.updateTerms.next(productInOrder); }
+  this.cartService.update(productInOrder).subscribe(prod=>{
+    if(prod){
+        //notifier le component header du changement du nombre de produits dans le panier 
+       //afin de mettre à jour son affichage de notification
+     this.cartService.changeNbProductInCart(this.cartService.countProductInCart());
+    }
+   
+  },error => {
+    console.log(error);
+  })
 }
 
 remove(productInOrder: ProductInOrder) {
   this.cartService.remove(productInOrder).subscribe(
       success => {
-         this.productInOrders = this.productInOrders.filter(e => e.productId !== productInOrder.productId);
-          console.log('Cart: ' + this.productInOrders);
+        this.ngOnInit();
+        this.productInOrders = this.productInOrders.filter(e => e.productCode !== productInOrder.productCode);
+        const nbProductInCart = this.cartService.countProductInCart();
+        //notifier le component header du changement du nombre de produits dans le panier
+      // afin de mettre à jour son affichage de notifaction
+        this.cartService.changeNbProductInCart(nbProductInCart)
+
+        //   console.log('Cart: ' + this.productInOrders);
+        //   location.reload();
       },
       _ => console.log('Remove Cart Failed'));
 }

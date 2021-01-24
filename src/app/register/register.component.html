@@ -24,7 +24,7 @@
                   style="height:50px;"
                 >
               </div>
-              <div  *ngIf="f.email.invalid && (f.email.dirty ||f.email.touched)" >
+              <div  *ngIf="f.email.invalid && (f.email.dirty ||f.email.touched)" class="invalid-feedback" >
                   <div *ngIf="f.email.errors.required" class="alert alert-danger" >
                       l'adresse mail est obligatoire.
                   </div>
@@ -108,7 +108,7 @@
                 />
                 <div *ngIf="submitted && f.confirmedPassword.errors" class="invalid-feedback">
                   <div *ngIf="f.confirmedPassword.errors.required">La confirmation de votre mot de passe est obligatoire</div>
-                  <div *ngIf="f.confirmedPassword.errors.minlength">Le mot de passe confirmé doit avoir 6 caractères minimum</div>
+                  <div *ngIf="f.confirmedPassword.errors.mustMatch">Les mots de passes doivent correspondre</div>
                 </div>
               </div>
           
@@ -144,6 +144,7 @@
             </div>
             <div class="form-group">
               <button [disabled]="loading" class="btn">Créer mon compte</button><br>
+              <button  class="btn btn-secondary" type="reset" (click)="onReset()">Annuler</button><br>
               <h5 align="center"><span style="font-size: 14px; text-align: center;">Vous possédez déjà un compte ? <a routerLink="/login" class="">Identifiez-vous</a></span></h5>
               
             </div>

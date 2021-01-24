@@ -14,7 +14,7 @@
     padding: 10px 15px;
     border-radius: 25px;
     font-size: large;
-    margin-left: 25%;
+    margin-left: 30.5%;
     background-color:red;
     color: white;
     cursor: pointer;
@@ -23,6 +23,6 @@
 }
 
 .btn:hover {
-    background-color: rgb(31, 133, 218);
+    background-color:rgba(24, 164, 189, 0.979);
     color: rgb(238, 227, 227);
 }

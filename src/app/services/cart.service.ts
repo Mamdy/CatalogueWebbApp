@@ -32,6 +32,10 @@ export class CartService {
   cookieService: any;
   connectedUsername: String;
 
+  public nbProductInCartSubject: BehaviorSubject<number>;
+  public nbProductInCart:Observable<number>;
+  listProducInCart:ProductInOrder[]
+
 
   constructor(private http: HttpClient,
               private authSerice: AuthenticationService,
@@ -43,12 +47,22 @@ export class CartService {
         this.totalSubject = new BehaviorSubject<number>(null);
         this.total = this.totalSubject.asObservable();
         this.authSerice.currentUser.subscribe(user => this.currentUser = user);
+        this.nbProductInCartSubject = new BehaviorSubject<number>(this.countProductInCart())
+        this.nbProductInCart = this.nbProductInCartSubject.asObservable();
+  }                                                                 
+
+  get nbProductInCartValue(){
+      return this.nbProductInCartSubject;
   }
 
+  changeNbProductInCart(nbProductInCart: number){
+      this.nbProductInCartSubject.next(nbProductInCart)
+  }
    private getLocalCart(): ProductInOrder[] {
-        if (localStorage.getItem('cart')) {
+       const itemsInLocalStrorage = localStorage.getItem('cart');
+        if (itemsInLocalStrorage !== "[]" && itemsInLocalStrorage !==null ) {
             this.localMap = JSON.parse(localStorage.getItem('cart'));
-            return Object.values(this.localMap);
+                return Object.values(this.localMap);
         } else {
             this.localMap = {};
             return [];
@@ -75,7 +89,7 @@ export class CartService {
                 const url = `${this.prodCatcartUrl}`;
 
                 return this.http.get<ProductInOrder[]>(url).pipe(
-                    map(products => products),
+                    map(localCartProductsInOrder => localCartProductsInOrder),
                     catchError(_ => of([]))
                 );
             }
@@ -86,7 +100,7 @@ export class CartService {
     }
 
   clearLocalCart() {
-    console.log('clear local cart');
+    console.log('clearing the local fron LocalStorage cart');
     localStorage.removeItem('cart');
     this.localMap = {};
   }
@@ -101,28 +115,24 @@ addItem(productInOrder): Observable<boolean> {
                 this.localMap[productInOrder.productCode] = productInOrder;
 
             } else {
-                console.log("deuxieme Produit=>", productInOrder.productCode)
-                console.log("contenu localMap[productInOrder.productId]=>", this.localMap[productInOrder.productCode]);
+
                 this.localMap[productInOrder.productCode].count += productInOrder.count;
             }
+            this.localMap = JSON.parse(JSON.stringify(this.localMap));
+            console.log('localMap==>',+this.localMap);
+
             localStorage.setItem('cart', JSON.stringify(this.localMap));
             return of(true);
         } else {
-            
            let client = new Client(this.currentUser.user.email, this.currentUser.user.firstName, this.currentUser.user.lastName,this.currentUser.user.email, this.currentUser.user.phone, this.currentUser.user.address, this.currentUser.user.role)
             console.log("Client=>", client);
-
-             const url = this.prodCatcartUrl;
-           
-
-             return this.http.post<boolean>(url+'/add', {
+            const url = this.prodCatcartUrl;
+            return this.http.post<boolean>(url+'/add', {
                 'quantity': productInOrder.count,
                 'productCode': productInOrder.productCode ,
                 'connectedUsername': this.currentUser.user.username,
                 'client': client
             });
-
-
         }
  }
 
@@ -130,12 +140,28 @@ addItem(productInOrder): Observable<boolean> {
       if (this.currentUser) {
           const url = `${this.prodCatcartUrl}/${productInOrder.productId}`;
           return this.http.put<ProductInOrder>(url, productInOrder.count);
+      }else{
+
+        this.localMap = JSON.parse(localStorage.getItem('cart'));
+        this.localMap[productInOrder.productCode].count = productInOrder.count;
+        this.localMap = JSON.parse(JSON.stringify(this.localMap));
+        //mettre à jour le localstorage
+        localStorage.setItem('cart', JSON.stringify(this.localMap));
+        return of(productInOrder);
       }
+         
     }
 
     remove(productInOrder) {
       if (!this.currentUser) {
-          delete this.localMap[productInOrder.productCode];
+          let localStoragePInorders= this.getLocalCart();
+          const pioIndex = localStoragePInorders.findIndex(p => p.productCode === productInOrder.productCode);
+          if(pioIndex > -1){
+            localStoragePInorders.splice(pioIndex,1);
+          }
+
+          this.localMap = JSON.parse(JSON.stringify(localStoragePInorders));
+          localStorage.setItem('cart', JSON.stringify(this.localMap));
           return of(null);
       } else {
           const url = `${this.prodCatcartUrl}/${productInOrder.productCode}`;
@@ -149,7 +175,6 @@ addItem(productInOrder): Observable<boolean> {
   }
 
   storeLocalCart() {
-
     localStorage.setItem('cart', JSON.stringify(this.localMap));
 }
 
@@ -158,6 +183,16 @@ getProductsInOrderFromUserDbCart():ProductInOrder[]{
      this.listProductsInOrder = pio;
  });
  return this.listProductsInOrder;
+}
+
+countProductInCart(){
+    const listProductInOrders = this.getProductsInOrderFromUserDbCart();
+    let count = 0;
+    for (let productInOder of listProductInOrders) {
+        count = count + productInOder.count;
+        
+      }
+      return count;
 }
 
 }

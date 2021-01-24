@@ -40,41 +40,17 @@
                 </div>
                 </ng-template>
             </ngb-carousel>
+
             <div class="card-body">
                 <h4 class="card-title ">
                 <strong>
                 <span style="color: rgb(0, 162, 255); text-align: center;">{{currentProduct?.name}}</span>
                 </strong>
                 </h4>
-                <!-- <form name="form" #form='ngForm' (ngSubmit)="currentProduct?.active == true && addCurrentProductToCart()">
-                <div class="text-left">
-                <input hidden name="id" [value]=currentProduct?.id>
-                <p class="card-text"><strong><span style="font-family: proxima-nova;">{{currentProduct?.description}}</span> </strong></p>
-                <p class="card-text">
-                <strong>Prix: </strong>
-                <label id="price"><span style="color: red;">{{currentProduct?.price | number: '0.2'}}&euro;</span></label>
-                </p>
-                <p class="card-text"><strong>Stock: </strong>{{currentProduct?.productStock}}</p>
-                <label class="card-text">
-                <strong>Quantité: </strong>
-                <input [(ngModel)]=count
-                (change)="validateCount()"
-                type="number"
-                name="count"
-                style="width: 50px;"
-                maxlength="2"
-                required
-                min="1"
-                [max]=currentProduct?.productStock
-                >
-                </label>
-                <p class="card-text"><strong>Subtotal: </strong>
-                <label id="subtotal"><span style="color: red;">{{currentProduct?.price | number: '0.2'}}&euro;</span></label>
-                </p>
             </div>
-            </form> -->
-            </div>
+            
           </div>
+          <br><a routerLink="/home" class="btn-link float-left"> <span style="color: rgb(0, 174, 255); font-size: 14px; font-family: 'proxima-nova';">< RETOUR</span></a>
       </div>
     </div>
 
@@ -116,7 +92,7 @@
               <label id="subtotal"><span style="color: red; font-size: 37px;">{{currentProduct?.price | number: '0.2'}}&euro;</span></label>
               </p>
               </div>
-              <button type="submit" [disabled]="!form.form.valid" *ngIf="currentProduct?.active && currentProduct.productStock >=1 == true; else offBlock"
+              <button type="submit" [disabled]="!form.form.valid" *ngIf="currentProduct?.active && currentProduct.productStock >0 == true; else offBlock"
               class="btn"
               >
               <span class="glyphicon glyphicon-shopping-cart"></span>

@@ -126,13 +126,20 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     let isImage = true;
   
     for (let i = 0; i < files.length; i++) {
+      if(files.length < 4 || files.length > 4){
+        alert('Vous devez enregister 4 photos du produit');
+        break;
+        
+      }
+
       if (files.item(i).type.match('image.*')) {
         continue;
       } else {
         isImage = false;
-        alert('invalid format!');
+        alert('format du fichier invalid! Choississez l"un dess formats suivant \n jpg,png,jpeg');
         break;
       }
+      
     }
     if (isImage) {
       this.selectedFiles = event.target.files;
@@ -176,6 +183,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       
       this.catalogueService.uploadFiles(file).subscribe(
         event => {
+          debugger
           if (event.type === HttpEventType.UploadProgress) {
             this.progressInfos[idx].percentage = Math.round(100 * event.loaded / event.total);
           } else if (event instanceof HttpResponse) {
@@ -242,19 +250,17 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     
 //enregistrement d'un produit
   onSaveProduct() {
-    debugger
     this.submitted = true;
     //on s'arrête ici si le formulaire est invalide
     if(this.registerForm.invalid){
       return;
     }
-
+    this.loading=true;
     //appel de la methode qui permet d'uploader tous les fichiers images
     this.uploadFiles();
-    this.loading=true;
-
+   
+   //on recupere les noms des images deja uploader dans le serveur
     for(let i=0; i<this.progressInfos.length; i++){
-      //on recupere les noms des images deja uploader dans le serveur
       this.fileNames.push(this.progressInfos[i].fileName);
 
     }
@@ -274,9 +280,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
           this.savedProduct = data.body;
           this.toastService.success('', 'Votre produit a été enregistré avec success');
           this.message = 'Votre produit a été enregistré avec succes';
-          //mettre à jour la liste des produits du category auquel le produit p appartient
-         // this.category = this.registerForm.controls.category.value;
-          //si l'ajout du produit se passe bien, on rechargera la liste des produits
+          //on recupèrere la liste des photos du produit qu'on vient d'enregistrer
           this.catalogueService.getProductImages(this.savedProduct.id)
             .then((res)=>{
               debugger

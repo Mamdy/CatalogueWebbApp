@@ -1,6 +1,7 @@
 .cursor {
     cursor: pointer;
-    background-color: rgba(24, 164, 189, 0.979);
+    /* background-color: rgba(24, 164, 189, 0.979); */
+    background-color: rgb(5, 80, 99);
     border-radius: 12px;
     color: white;
     font-size: 16px;
@@ -11,12 +12,12 @@
 }
 
 .spacer {
-    margin-top: 1.3em;
+    margin-top: 0.9em;
 
 }
 
 .border-box{
-    margin-top: 0.8em;
+    margin-top: -0.8em;
     background-color: transparent;
 
     color: rgb(48, 46, 46);
@@ -35,15 +36,19 @@
     text-align: center;
     /*padding: 14px 16px;*/
     text-decoration: rgb(201, 235, 247);
-    font-size: 14px;
-    font-weight: lighter;
-    font-family: "proxima-nova",Helvetica,Arial,'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: "proxima-nova";
+    color: rgba(24, 164, 189, 0.979);
+    /* color: rgb(0, 162, 255); */
+    
 
 }
 
 .border-box a:hover {
-    background-color: rgba(24, 164, 189, 0.979);
-    width: 110px;
+    /* background-color: rgba(24, 164, 189, 0.979); */
+    background-color: rgb(5, 80, 99);
+    width: 120px;
   /*color: rgb(255, 255, 255);*/
    border-radius: 20px;
    color: white;

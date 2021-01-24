@@ -33,8 +33,7 @@ export class OrderService {
   }
 
   modify(id,formdata): Observable<Order> {
-    debugger
-    return this.http.patch<Order>(`${this.orderUrl}/cancel/${id}`,null).pipe(
+    return this.http.patch<Order>(`${this.orderUrl}/update/${id}`,formdata).pipe(
       catchError(_ => of(null))
   );  
  

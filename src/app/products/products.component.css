@@ -12,6 +12,7 @@
 .btn {
   background-color: rgb(2, 48, 59);
   margin-top: 2.2em;
+  margin-left: 11%;
   padding: 30px, 50.5px;
   height: 55px;
   width: 260px;
@@ -20,6 +21,7 @@
   font-family: 'proxima-nova';
   font-weight: lighter;
   color:white
+  
 }
 
 .btn {
@@ -32,4 +34,9 @@
   color:white;
  
 
+}
+
+.style {
+  font-size: 14px;
+  font-family: 'proxima-nova';
 }

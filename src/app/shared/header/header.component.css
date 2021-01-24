@@ -7,14 +7,18 @@
   padding: .1em 0;
 }
 
+.font-style{
+  font-family: 'proxima-nova';
+}
 .brand{
-  margin-top: -0.5em;
-  margin-left: 12%;
+  margin-top: -0.4em;
+  margin-left: 5%;
   padding: 7px;
 }
 .topnav {
-  /*overflow: hidden;*/
+  overflow: hidden;
   background-color:#080808;
+  font-family: 'proxima-nova';
   /*background-color: rgb(5, 80, 99);*/
 }
 
@@ -28,6 +32,7 @@
   font-size: 16px;
   font-weight: bold;
   font-family: "proxima-nova";
+  margin-top: auto;
 }
 
 /* Change the color of links on hover */
@@ -84,7 +89,7 @@
 
 /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1200px) {
   .topnav .search-container {
     float: none;
   }
@@ -102,3 +107,50 @@
 
 }
 
+.spacer {
+  margin-top:1em;
+}
+
+.cart-style {
+  position: relative;
+  border-radius: 50%;
+}
+
+.wrapper {
+  width: 1100px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.wrapper .navbar.middle {
+  margin-left: 150px;
+
+}
+.wrapper .navbar.middle ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+}
+
+/* .wrapper .navbar.middle ul li a.pcount {
+  border-radius: 50px;
+  color: red;
+
+} */
+.pcount {
+  position: relative;
+  color: white;
+  margin-top: -1em;
+  padding: 3px;
+  margin-left: -90px;
+  background-color: red;
+  border-radius: 100%;
+  font-size: 14px;
+  /*display: inline-block;*/
+}
+
+.wrapper .right {
+  margin-left: 20%;
+
+}

@@ -76,34 +76,6 @@ export class PaymentCardFormComponent implements OnInit {
       console.log(error);
 
     });
-
-  //   debugger
-
-  //  this.stripeService.elements(this.elementsOptions)
-  //   .subscribe(elements => {
-  //     this.elements = elements;
-  //     // Only mount the element the first time
-  //     debugger
-  //     if (!this.card) {
-  //       this.card = this.elements.create('card', {
-  //         style: {
-  //           base: {
-  //             iconColor: '#666EE8',
-  //             color: '#31325F',
-  //             fontWeight: 300,
-  //             fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-  //             fontSize: '18px',
-  //             '::placeholder': {
-  //               color: '#CFD7E0'
-  //             }
-  //           }
-  //         }
-  //       });
-  //      // this.card.mount('#card-element');
-  //     }
-  //   });
-  //   this.isLoading = false;
-  //   this.isSubmitted = false;
   }
 
 
@@ -120,7 +92,7 @@ export class PaymentCardFormComponent implements OnInit {
           //declaration d'un objet de paiement
           const paymentIntentDto: PaymentIntentDto = {
             token: result.token.id,
-            amount: this.order.orderAmount,
+            amount: this.order.orderAmount * 100,
             currency: 'eur',
             description: 'test carte reel'
           }
@@ -139,11 +111,12 @@ export class PaymentCardFormComponent implements OnInit {
                       this.isLoading = false;
 
                     this.toastrService.success('Payment accepté:', '\n le paiement de la commande Numéro' +
-                    this.order.numOrder + ' a été validé',{positionClass: 'toast-top-center', timeOut: 3000});
+                    this.order.numOrder + ' a été validé',{positionClass: 'toast-top-center', timeOut: 5000});
 
                     //on rafraichi le formulaire de paiment dans le but desactiver le button submit
-                    this.stripeForm.get('name').setValue('');
-                    this.router.navigateByUrl('/payment');
+                    this.stripeForm.reset();
+                    //this.stripeForm.get('name').setValue('');
+                    this.router.navigateByUrl('/home');
 
                       
                     }

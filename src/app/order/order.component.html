@@ -25,7 +25,7 @@
         <td class="align-middle">{{order?.buyerName}}</td>
         <td class="align-middle">{{order?.buyerEmail}}</td>
         <td class="align-middle">{{order?.buyerPhone}}</td>
-        <td class="align-middle">{{order?.buyerAddress}}</td>
+        <td class="align-middle">{{order?.shippingAddress}}</td>
         <td class="align-middle"><span style="color: red;">{{order?.orderAmount | number: '0.2'}}&euro;</span></td>
         <td class="align-middle">{{order?.createTime | date : 'short'}}</td>
         <td class="align-middle">{{OrderStatus[order?.orderStatus]}}</td>

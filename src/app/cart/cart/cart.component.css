@@ -7,7 +7,7 @@
     cursor: pointer;
     font-size: 16px;
     font-family: 'proxima-nova';
-    font-weight: lighter;
+    font-weight: bold;
     color:white;
 }
 
@@ -19,6 +19,11 @@
 .title {
     color: rgb(54, 171, 207);
     font-size: 38px ;
-    font-family: 'proxima-nova', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'proxima-nova';
     font-weight: bold;
+}
+
+.table-data {
+    font-family: 'proxima-nova';
+    font-size: 16px;
 }
