@@ -1,16 +1,17 @@
-<div class="row style">
+<div class="container style">
   <div  *ngIf="mode=='showAllProducts'">
-    <div class="col-md-13">
+    <div class="col-md-12">
       <div class="row">
-        <div *ngFor="let productInfo of products" class="col-lg-4 col-md-6 mb-4">
+        <div *ngFor="let productInfo of products" class="col-lg-4 col-md-4">
           <div class="card h-100"  >
-            <a href="#"><img class="card-img-top" src="../assets/images/{{productInfo.photoUrl[0]}}.jpg" (click)="detailsProduct(p)" alt="{{productInfo.name}}"></a>
+            <a  style="cursor: pointer;" (click)="detailsProduct(productInfo)"><img class="card-img-top" src="../assets/images/{{productInfo.photoUrl[0]}}.jpg" width="40%" height="40%" alt="{{productInfo.name}}"></a>
             <div class="card-body">
               <h4 class="card-title" align="text-center">
                 <span style="color: rgb(0, 162, 255); font-family: 'proxima-nova';">{{productInfo.name}}<Strong></Strong></span>
               </h4>
                 <span><strong style="font-size: 14px;">Prix: </strong></span>
-                <span style="color: red; font-size: 22px;">{{productInfo.price | number: '0.2'}}&euro;</span>
+                <span style="color: red; font-size: 22px;">{{productInfo.currentPrice | number: '0.2'}}&euro;</span>&nbsp;
+                <span style="font-size: 15px;"><s>{{productInfo.price | number: '0.2'}}</s>&euro;</span>
           
                 <p class="card-textt">Description: <span style="font-size: 14px; font-family: 'proxima-nova';">7
                   {{productInfo.description}}
@@ -50,7 +51,9 @@
  <!--Affichage des details d'un produit p-->
  <div *ngIf="currentProduct && mode ==='detail-Product-P' " >
   <app-product-details [currentProduct]="currentProduct"></app-product-details>
+  <!-- <app-similar-product [similarProducts]="similarProductsList"></app-similar-product> -->
 </div>
+<app-footer></app-footer>
 
 
 

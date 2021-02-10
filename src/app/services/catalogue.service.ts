@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
-import {reject, resolve} from 'q';
 import { AppResponse } from '../model/AppResponse';
 import { prodCatApiUrl } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
@@ -16,12 +15,14 @@ import { Photo } from '../model/Photo';
 export class CatalogueService {
   private searchUrl = `${prodCatApiUrl}/searchKeyWord`;
   private prodCatApiUrl = `${prodCatApiUrl}`;
+  
 
   constructor(private http: HttpClient, private authService:AuthenticationService) { }
- /*public getAllCategories() {
-    return this.http.get(this.prodCatApiUrl + "/categories");
-  }*/
 
+  getSimilarProducts(url) {
+    return this.getRessources(url);
+    
+  }
   public getAllCategories() {
     return this.http.get(this.prodCatApiUrl + "/categories").toPromise()
       .then((result:any)=>{
@@ -29,8 +30,12 @@ export class CatalogueService {
         return result;
       })
   }
-  public  onGetProducts(cat){
-    return null;
+  public  onGetProducts(id){
+    return this.http.get(this.prodCatApiUrl + "categoies/id/products").toPromise()
+    .then((result:any)=>{
+      result.__proto__ = AppResponse.prototype;
+      return result;
+    });
 
   }
 
@@ -98,8 +103,7 @@ postRessource(url, data){
   }
       //Gets called when the user clicks on retieve image button to get the image from back end
   getImageFromBackend(imageName) {
-      //Make a call to Sprinf Boot to get the Image Bytes.
-      debugger
+      //Make a call to Spring Boot to get the Image Bytes.
       return this.http.get(this.prodCatApiUrl+"/image/"+imageName);
             
   }
@@ -152,6 +156,12 @@ postRessource(url, data){
     });
 
     return this.http.request(req);
+  }
+
+  sendResetPassWordLink(email:string):Observable<boolean>{
+    const url = this.prodCatApiUrl+"/resetPassword/"+`${email}`;
+    return this.http.get<boolean>(url);
+
   }
 
   

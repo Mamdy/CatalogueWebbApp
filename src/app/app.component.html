@@ -1,29 +1,16 @@
-
 <div class="container">
-       
-  <section class="header">
-    <div class="wrapper" *ngIf="mode=='home'">
+   <section>
+   
       <app-header></app-header>
-    </div>
-  
-  </section>
-  <section>
-   <div *ngIf="mode=='home'">
-    <!-- <div >
-      <img src="../../assets/images/pre-loader2.gif" alt="Random first slide">
-    </div> -->
+    </section>
+  <!-- <section>
     <app-categories></app-categories>
-    </div>
-  </section>
-  <section class="footer1">
-    <div *ngIf="mode=='home'">
-      <app-footer></app-footer>
-    </div>
-    
-  </section>
-
+  <section> -->
+     
+  
+  <!-- <section> <app-footer></app-footer></section> -->
 </div>
-
+<app-navigation2></app-navigation2>
 <router-outlet></router-outlet>
 
 

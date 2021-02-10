@@ -96,6 +96,18 @@ get(email: string): Observable<User> {
     return this.http.get<User>(url);
 }
 
+passwordReset(id,formData): Observable <Boolean>{
+  const url = this.apiUrl+"/passwordReset/"+`${id}`;
+  return this.http.patch<Boolean>(url,formData).pipe(
+    catchError(_ => of(null))
+  );
+}
+getUserByEmail(email: string): Observable<User> {
+  debugger
+  const url = this.apiUrl+"/getUserByEmail/"+`${email}`;
+  console.log(url);
+    return this.http.get<User>(url);
+}
 
     /**
      * Handle Http operation that failed.

@@ -4,13 +4,14 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { NewAddressComponent } from '../new-address/new-address.component';
 import { DOCUMENT } from '@angular/common';
-import { async, Observable, of } from 'rxjs';
+import { async, Observable, of, Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { Order } from '../model/Order';
 import { OrderService } from '../services/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogueService } from '../services/catalogue.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-shipping-address',
@@ -19,6 +20,7 @@ import { CatalogueService } from '../services/catalogue.service';
 })
 export class ShippingAddressComponent implements OnInit {
   order$: Observable<Order>
+  order:Order;
   mode='à domicile';
   newAdressForm: FormGroup;
   actionsAlignment: string;
@@ -65,12 +67,14 @@ export class ShippingAddressComponent implements OnInit {
   };
   submitted: boolean;
   loading: boolean;
-
+  newOrderToShippingSubscription: Subscription;
+  newOrderIdToShipping:string;
  
   constructor(private authService: AuthenticationService,
     @Inject(DOCUMENT) doc: any,
     private orderService: OrderService,
     private route: ActivatedRoute,
+    private cartSevice: CartService,
     private formBuilder:FormBuilder,
     private catalogueService:CatalogueService
     ) { 
@@ -81,9 +85,13 @@ export class ShippingAddressComponent implements OnInit {
     id:any;
 
   ngOnInit() {
+    debugger
     this.currentUser = this.authService.currentUserValue;
     this.fullName = this.currentUser.user.firstName.concat(" ").concat(this.currentUser.user.lastName);
-    this.order$ = this.orderService.show(this.route.snapshot.paramMap.get('id'));
+       
+    this.newOrderToShippingSubscription = this.cartSevice.neworderId.subscribe(res=>{
+      this.order = res;
+    })
     
   }
 
@@ -107,7 +115,6 @@ export class ShippingAddressComponent implements OnInit {
   
     this.mode = 'new-shipping-address';
     this.submitted = true;
-    console.log("test=>, submit", this.submitted);
     // on s'arrête ici si le formulaire n'est pas valide
     if(this.newAdressForm.invalid){
       return;
@@ -115,10 +122,9 @@ export class ShippingAddressComponent implements OnInit {
 
     this.loading = true;
     const formValue = this.newAdressForm.value;
-    this.order$.subscribe(res =>{
-      console.log("resultat=>",res);
-      this.orderService.modify(res.id, formValue)
-    } );
+
+      this.orderService.modify(this.order.id, formValue)
+
    
   
     console.log('enregistrement dune nouvelle addresse pour la livraison');

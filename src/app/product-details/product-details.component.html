@@ -1,4 +1,5 @@
 <div class="container spacer">
+  <br><a  class="btn-link float-left" (click)="goHome()"> <span style="color: rgb(0, 174, 255); font-size: 14px; font-family: 'proxima-nova';">< RETOUR</span></a>
     <div class="col col-md-2">
       <ul *ngIf="currentProduct.photoUrl">
       <li *ngFor="let photo of currentProduct.photoUrl"
@@ -50,7 +51,7 @@
             </div>
             
           </div>
-          <br><a routerLink="/home" class="btn-link float-left"> <span style="color: rgb(0, 174, 255); font-size: 14px; font-family: 'proxima-nova';">< RETOUR</span></a>
+          
       </div>
     </div>
 
@@ -70,8 +71,10 @@
               <input hidden name="id" [value]=currentProduct?.id>
               <p class="card-text"><strong><span style="font-family: proxima-nova; font-size: 16px;">{{currentProduct?.description}}</span> </strong></p>
               <p class="card-text">
-              <span style="font-size: 16px;"><strong>Prix: </strong></span>
-              <label id="price"><span style="color: red; font-size: 37px;">{{currentProduct?.price | number: '0.2'}}&euro;</span></label>
+              <label id="price">
+                &nbsp;<span style="font-size: 15px;"> <s>{{currentProduct?.price | number: '0.2'}}</s>&euro;</span><br>
+                <span style="color: red; font-size: 37px;">{{currentProduct?.currentPrice | number: '0.2'}}&euro;</span>
+              </label>
               </p>
               <p class="card-text"><strong><span style="color: rgb(78, 247, 78);font-size: 16px;">En stock</span> &nbsp;</strong></p>
               <label class="card-text">
@@ -89,7 +92,9 @@
               </label>
               <p class="card-text"><span style="font-size: 16px;"><strong>Sous-total: </strong></span>
                
-              <label id="subtotal"><span style="color: red; font-size: 37px;">{{currentProduct?.price | number: '0.2'}}&euro;</span></label>
+              <label id="subtotal">
+                <span style="color: red; font-size: 37px;">{{currentProduct?.price | number: '0.2'}}&euro;</span>
+              </label>
               </p>
               </div>
               <button type="submit" [disabled]="!form.form.valid" *ngIf="currentProduct?.active && currentProduct.productStock >0 == true; else offBlock"
@@ -104,4 +109,6 @@
           </div>
         </div>
     </div>
+
+    <app-similar-product [similarProducts]="similarProductsList"></app-similar-product>
 </div>

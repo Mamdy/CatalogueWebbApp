@@ -8,7 +8,7 @@ import { Order } from '../model/Order';
   styleUrls: ['./order-recap.component.css']
 })
 export class OrderRecapComponent implements OnInit {
- @Input() order$: Observable<Order>
+ @Input() order: Order
 
   constructor() { }
 

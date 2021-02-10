@@ -2,16 +2,32 @@
     margin-top: 7em;
 }
 
-.btn {
+.btn-valider {
     padding: 10px 60px;
     border-radius: 25px;
     font-size: 16px;
     font-family: 'proxima-nova';
     font-weight: bold;
-    margin-left: 200px;
-    background-color: rgb(5, 80, 99);
+    margin-left: 100px;
+    background-color: rgb(23, 0, 128);
     color: white;
     cursor: pointer;
 }
 
+.btn-cancel {
+    padding: 10px 60px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-family: 'proxima-nova';
+    font-weight: bold;
+    margin-left: 80px;
+    background-color: orange;
+    color: white;
+    cursor: pointer;
+}
+
+.wrapp-buttons{
+    display: inline-flex;
+    vertical-align: middle;
+}
 

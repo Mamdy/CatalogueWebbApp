@@ -7,14 +7,14 @@
     background-color:transparent;
     font-size: large;
     font-weight: bold;
-    color: white;
+    color: green;
+    text-align: center;
 }
 
 .btn{
     padding: 10px 15px;
     border-radius: 25px;
     font-size: large;
-    margin-left: 30.5%;
     background-color:red;
     color: white;
     cursor: pointer;
@@ -23,6 +23,19 @@
 }
 
 .btn:hover {
-    background-color:rgba(24, 164, 189, 0.979);
+    background-color:rgb(23, 0, 128);
     color: rgb(238, 227, 227);
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 30px;
+    text-align: center;
+}
+
+@media (max-width: 800px){
+    .btn {
+        flex: 100%;
+    }
 }

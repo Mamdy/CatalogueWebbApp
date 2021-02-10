@@ -1,3 +1,4 @@
+import { Category } from "./Category";
 
 export class Product {
   id: String;
@@ -11,8 +12,10 @@ export class Product {
   productStock: number;
 
   price: number;
+  currentPrice:number;
   photoUrl: String[];
   active: boolean;
   views: number;
+  category: Category;
 
 }

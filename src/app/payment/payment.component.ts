@@ -8,8 +8,9 @@ import { PaymentService } from '../services/payment.service';
 import { PaymentIntentDto } from '../model/PaymentIntentDto';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { async } from '@angular/core/testing';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-payment',
@@ -65,7 +66,7 @@ export class PaymentComponent implements OnInit {
     };
 
 
-
+    newOrderToPaySubscription: Subscription;
 
 
   constructor(private orderService: OrderService,
@@ -74,6 +75,7 @@ export class PaymentComponent implements OnInit {
       private toastrService: ToastrService,
       private router: Router,
       private route: ActivatedRoute,
+      private cartSevice: CartService,
       ) { }
 
       public stripeForm = new FormGroup({
@@ -82,7 +84,10 @@ export class PaymentComponent implements OnInit {
       });
 
   ngOnInit() {
-    this.order$ = this.orderService.show(this.route.snapshot.paramMap.get('id'));
+    // this.order$ = this.orderService.show(this.route.snapshot.paramMap.get('id'));
+    this.newOrderToPaySubscription = this.cartSevice.neworderId.subscribe(res=>{
+      this.order = res;
+    })
   }
 
 

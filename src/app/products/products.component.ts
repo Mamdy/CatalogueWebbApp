@@ -7,6 +7,8 @@ import {AppResponse} from '../model/AppResponse';
 import {Product} from '../model/Product';
 import { CartService } from '../services/cart.service';
 import { ProductInOrder } from '../model/ProductInOrder';
+import { Category } from '../model/Category';
+import { error } from 'protractor';
 //import {$} from 'protractor';
 declare var $;
 
@@ -20,6 +22,7 @@ declare var $;
 export class ProductsComponent implements OnInit, OnDestroy {
   mode = 'showAllProducts';
   currentProduct: Product;
+  currentProductCategory: Category;
   //currentProductId: String;
   @ViewChild('dataTable') table: ElementRef;
   products: Product[];
@@ -32,6 +35,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   
   previousUrl: String;
   count: number;
+  similarProductsList: Product[]=[];
+  similarProductsUrl: string;
 
 
   constructor(private catalogueService:CatalogueService,
@@ -107,39 +112,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   detailsProduct(p) {
-
     //Allez(Naviguer) vers la page qui dois afficher dynamiquement notre Produitsp
     this.mode = 'detail-Product-P';
     this.currentProduct = p;
     let url = p._links.self.href;
+    let categoryUrl = p._links.category.href;
+    console.log('categroyUrl=>', categoryUrl);
       this.catalogueService.getRessources(url)
         .subscribe((res:Product)=>{
           this.currentProduct = res;
-          //this.router.navigateByUrl('/products/'+ btoa(url));
-        }),error=>{
-
+         }),error=>{
         console.log(error);
-      }
+      };
   }
 
- /* detailsProduct1() {
-    //ecouter les evenements qui se produisent sur le router sur la navigation
-    this.router.events.subscribe(event=>{
-      if(event instanceof NavigationEnd){
-        //on prend l'url à partir de la route actuelle(activé),
-        let url = atob(this.route.snapshot.params.urlProds)
-        console.log(url);
-        //on fait appel à getProducts et on lui donne l'url
-        this.getProducts(url);
-      }
-    })
-
-  }*/
-
-
-    addProductToCart(p: Product) {
-
-    }
 
     addCurrentProductToCart(){
   

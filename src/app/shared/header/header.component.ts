@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit,OnDestroy{
     root = '/';
     Role = Role;
     searchCriteria: string;
-    nbProductInCart:number
+    nbProductInCart:number=0;
 
     products:Product[]=[]
     
@@ -47,21 +47,27 @@ export class HeaderComponent implements OnInit,OnDestroy{
   constructor( private authService: AuthenticationService,
                private router: Router,
                private cartService: CartService
-            ) { }
+            ) { 
+              this.currentCartSubscription = this.cartService.nbProductInCart.subscribe(res=>{
+                  this.nbProductInCart = res;
+            },error => {
+              console.log(error);
+            });
+        
+
+            }
 
     
 
   ngOnInit(){
-    this.currentCartSubscription = this.cartService.nbProductInCart.subscribe(res=>{
+  
+    this.cartService.getCart().subscribe(res=>{
       if(res){
-        this.nbProductInCart = res;
+        this.nbProductInCart = this.cartService.countProductsInCart(res);
       }
-
-    },error => {
-      console.log(error);
+      
     })
-
-    console.log('nombre produit dans panier=>', +this.nbProductInCart);
+    console.log('nombre produit dans panier from header component=>', +this.nbProductInCart);
     this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
     this.currentUser = user;
 
@@ -76,6 +82,18 @@ export class HeaderComponent implements OnInit,OnDestroy{
 
   }
 
+  ngAfterContentChecked(){
+    // setTimeout(()=>{
+    //   this.currentCartSubscription = this.cartService.nbProductInCart.subscribe(res=>{
+    //     debugger
+    //       this.nbProductInCart = res;
+    // },error => {
+    //   console.log(error);
+    // });
+
+    // })
+  }
+
   public searchProductByCriteria(event: Event){
     event.preventDefault();
     if(this.searchForm.get('criteria').value === undefined){
@@ -83,8 +101,9 @@ export class HeaderComponent implements OnInit,OnDestroy{
     }else {
     const criteria = this.searchForm.get('criteria').value;
     this.searchCriteria = criteria;
+    console.log("searchCriteria ==>", this.searchCriteria.toUpperCase());
     }
-    this.router.navigate(['/searchCriteriaView'], {state: {criteria: this.searchCriteria}});
+    this.router.navigate(['/searchCriteriaView'], {state: {criteria: this.searchCriteria.toUpperCase()}});
 
   }
 

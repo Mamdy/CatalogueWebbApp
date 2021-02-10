@@ -1,0 +1,36 @@
+<div class="container">
+  <hr>
+    <h1 align="center" style="font-size:45px; font-family: 'proxima-nova'; color: green;">Les Produits Similaires appréciés par les clients</h1>
+    
+
+  <owl-carousel-o [options]="customOptions">
+      
+    <ng-template carouselSlide *ngFor="let p of similarProducts" [id]="p.id">
+      <img 
+      width="20px"
+      height="20px"
+      src="../assets/images/A701.png"
+    
+      >
+       <!-- src="../assets/images/{{p.photoUrl[0]}}.jpg" -->
+      <!-- <a style="color: rgb(0, 162, 255); text-align: 'center'; cursor: pointer;font-size: 18px; font-family: 'proxima-nova';"  (click)="detailsProduct(p)">{{p.name}}</a><br><br> -->
+                            <span style="font-size: 13px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                text-decoration: none;
+                                font-family: 'arial-sans serif';
+                                display:  -webkit-box;
+        
+                            ">{{p.name}}{{p.name}}{{p.name}}</span><span>...</span><br><br><br><br>
+                            <span style="color: rgb(253, 60, 60); font-size: 24px; font-weight: bold;">{{p.currentPrice | number: '0.2'}}<sup>&euro;00</sup></span>
+                            &nbsp;<span style="font-size: 15px;"> <s>{{p.price | number: '0.2'}}</s>&euro;</span>
+                           
+    </ng-template>
+    <ng-template carouselSlide *ngFor="let slide of slidesStore" [id]="slide.id">
+      <img [src]="slide.src" [alt]="slide.alt" [title]="slide.title">
+    </ng-template>
+ 
+</owl-carousel-o>
+</div>
+  
+  

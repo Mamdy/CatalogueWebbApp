@@ -1,18 +1,16 @@
-<div >
-  <button class="btn btn-primary" routerLink="/home">
-    <span><i class="fas fa-backward"></i>&nbsp;Retour</span>
-  </button>
-</div><br>
+
 
 <div class="container">
   <div class="row">
-    
+    <button class="btn btn-link" routerLink="/home">
+      <span><i class="fas fa-backward"></i>&nbsp;Retour</span>
+    </button>
     <div class="col-lg-12">
       <div class="row">
         <div *ngIf="mode=='list-Products'">
           <div *ngFor="let p of page?.content" class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="../assets/images/{{p.photoUrl}}.jpg" alt="{{p.photoUrl}}.jpg"></a>
+              <a href="#"><img class="card-img-top" src="../assets/images/{{p.photoUrl[0]}}.jpg" alt="{{p.photoUrl[0]}}"></a>
               <div class="card-body">
                 <h4 class="card-title">
                   <!--<a routerLink="/product-details">{{p.name}}</a>-->

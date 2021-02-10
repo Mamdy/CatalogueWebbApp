@@ -46,7 +46,8 @@ export class OrderComponent implements OnInit, OnDestroy {
       size = +this.route.snapshot.queryParamMap.get('size');
     }*/
 
-    this.orderService.getPage(nextPage, size).subscribe(page => this.page = page, _ => {
+    this.orderService.getPage(nextPage, size).subscribe(
+      page => this.page = page, _ => {
 
     });
   }

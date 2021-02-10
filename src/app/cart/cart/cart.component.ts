@@ -11,6 +11,7 @@ import { Role } from 'src/app/enum/Role';
 import { JwtResponse } from 'src/app/model/JwtResponse';
 import { Cart } from 'src/app/model/Cart';
 import { error } from 'protractor';
+import { Order } from 'src/app/model/Order';
 
 @Component({
   selector: 'app-cart',
@@ -25,24 +26,29 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
   userSubscription: Subscription;
   private updateTerms = new Subject<ProductInOrder>();
   sub: Subscription;
-
+  currentCartSubscription: Subscription;
   cartlist: Cart[];
   connectedUserCart: Cart;
   nbProductInCart = 0;
+  newOrderToShipp:Order;
 
   constructor(private cartService: CartService,
               private authService: AuthenticationService,
-              private router: Router) {
+              private router: Router)
+          {
 
-                this.userSubscription = this.authService.currentUser.subscribe(user=>this.currentUser = user)
+  this.userSubscription = this.authService.currentUser.subscribe( user=>this.currentUser = user);
   }
 
   ngOnInit() {
     this.cartService.getCart().subscribe(prods => {
-       this.productInOrders = prods;
-     });
-   //  this.productInOrders = this.cartService.getProductsInOrderFromUserDbCart();
-     
+        this.productInOrders = prods;
+      
+          this.nbProductInCart =  this.countProductsInCart();
+      },error =>{
+        console.log(error)
+      });
+
      this.sub = this.updateTerms.pipe(
  
        // wait 300ms after each keystroke before considering the term
@@ -71,11 +77,14 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
         this.cartService.storeLocalCart();
     }
     
-    if(this.userSubscription && this.sub){
+    if(this.userSubscription && this.sub, this.currentCartSubscription){
       this.userSubscription.unsubscribe();
       this.sub.unsubscribe();
+      this.currentCartSubscription.unsubscribe();
+
       this.userSubscription = null;
       this.sub = null;
+      this.currentCartSubscription = null;
     }
     
     
@@ -83,24 +92,39 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
 
 
   ngAfterContentChecked() {
-    this.total = this.productInOrders.reduce(
+      this.total = this.productInOrders.reduce(
         (prev, cur) => prev + cur.count * cur.productPrice, 0);
+    console.log("Total=>",this.total);
+
   }
 
+  countProductsInCart(){
+    let count = 0;
+    if(this.productInOrders != null){
+      this.productInOrders.forEach(pio=>{
+        count += pio.count;
+      })
+    }
+ 
+    return count;
+  }
+  
+
   addOne(productInOrder) {
-    debugger
     productInOrder.count++;
     CartComponent.validateCount(productInOrder);
     if (this.currentUser) { 
       this.updateTerms.next(productInOrder);
-      this.cartService.changeNbProductInCart(this.cartService.countProductInCart());
+      this.nbProductInCart = productInOrder.count;
+      this.cartService.changeNbProductInCart(this.nbProductInCart);
      }
    
      this.cartService.update(productInOrder).subscribe(prod=>{
        if(prod){
            //notifier le component header du changement du nombre de produits dans le panier 
           //afin de mettre à jour son affichage de notification
-        this.cartService.changeNbProductInCart(this.cartService.countProductInCart());
+          this.nbProductInCart = prod.count;
+        this.cartService.changeNbProductInCart(this.nbProductInCart);
        }
       
      },error => {
@@ -114,14 +138,16 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
     CartComponent.validateCount(productInOrder);
     if (this.currentUser) { 
       this.updateTerms.next(productInOrder);
-      this.cartService.changeNbProductInCart(this.cartService.countProductInCart());
+      this.nbProductInCart = productInOrder.count;
+      this.cartService.changeNbProductInCart(this.nbProductInCart);
      }
 
      this.cartService.update(productInOrder).subscribe(prod=>{
       if(prod){
+        this.nbProductInCart = prod.count;
           //notifier le component header du changement du nombre de produits dans le panier 
          //afin de mettre à jour son affichage de notification
-       this.cartService.changeNbProductInCart(this.cartService.countProductInCart());
+       this.cartService.changeNbProductInCart(this.nbProductInCart);
       }
      
     },error => {
@@ -133,11 +159,12 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
 onChange(productInOrder) {
   CartComponent.validateCount(productInOrder);
   if (this.currentUser) { this.updateTerms.next(productInOrder); }
-  this.cartService.update(productInOrder).subscribe(prod=>{
+    this.cartService.update(productInOrder).subscribe(prod=>{
     if(prod){
+      this.nbProductInCart = prod.count;
         //notifier le component header du changement du nombre de produits dans le panier 
        //afin de mettre à jour son affichage de notification
-     this.cartService.changeNbProductInCart(this.cartService.countProductInCart());
+     this.cartService.changeNbProductInCart(this.nbProductInCart);
     }
    
   },error => {
@@ -150,10 +177,9 @@ remove(productInOrder: ProductInOrder) {
       success => {
         this.ngOnInit();
         this.productInOrders = this.productInOrders.filter(e => e.productCode !== productInOrder.productCode);
-        const nbProductInCart = this.cartService.countProductInCart();
         //notifier le component header du changement du nombre de produits dans le panier
       // afin de mettre à jour son affichage de notifaction
-        this.cartService.changeNbProductInCart(nbProductInCart)
+        this.cartService.changeNbProductInCart(this.nbProductInCart);
 
         //   console.log('Cart: ' + this.productInOrders);
         //   location.reload();
@@ -167,15 +193,20 @@ checkout() {
   } else if (this.currentUser.user.role !== Role.Customer && this.currentUser.user.role !== Role.Manager) {
       this.router.navigate(['/home']);
   } else {
-      this.cartService.checkout().subscribe(
-          _ => {
-              this.productInOrders = [];
-          },
+      this.cartService.checkout().subscribe(res=> {
+                this.newOrderToShipp = res;
+                //notifier le composant shipping adresse de l'id de la nouvelle commande
+                console.log("orderIdFrom cart Component", this.newOrderToShipp);
+                this.cartService.sendNewOrderId(this.newOrderToShipp);
+                this.productInOrders = [];
+                this.router.navigate(['/shippingAddress']);
+            },
           error1 => {
               console.log('Checkout Cart Failed');
           });
-      this.router.navigate(['/order']);
+
   }
+
 }
 
 

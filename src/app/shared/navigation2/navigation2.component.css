@@ -1,0 +1,24 @@
+.topnav2 {
+    background-color: rgb(3, 17, 26);
+}
+
+.list{
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    font-family: 'proxima-nova';
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 30px;
+    text-align: center;
+}
+
+  /* Responsive layout - makes a one column-layout instead of a two-column layout */
+  @media (max-width: 800px) {
+    .list {
+      flex: 100%;
+    }
+  }

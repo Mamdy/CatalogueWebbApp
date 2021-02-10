@@ -3,43 +3,46 @@
       <span style="font-family: 'proxima-nova';">Mes commandes </span>
     </h3>
 </div>
-
-<table class="table table-striped text-center data">
-    <thead>
-    <tr>
-        <th scope="col">N°cmd #</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Email</th>
-        <th scope="col">Téléphone</th>
-        <th scope="col">Adresse Livraisson</th>
-        <th scope="col">Total</th>
-        <th scope="col">Date Commande</th>
-        <th scope="col">Status Commande</th>
-        <th scope="col">Action</th>
-    </tr>
-    </thead>
-    <tbody>
-
-    <tr *ngFor="let order of page?.content">
-        <td class="align-middle">{{order?.numOrder}}</td>
-        <td class="align-middle">{{order?.buyerName}}</td>
-        <td class="align-middle">{{order?.buyerEmail}}</td>
-        <td class="align-middle">{{order?.buyerPhone}}</td>
-        <td class="align-middle">{{order?.shippingAddress}}</td>
-        <td class="align-middle"><span style="color: red;">{{order?.orderAmount | number: '0.2'}}&euro;</span></td>
-        <td class="align-middle">{{order?.createTime | date : 'short'}}</td>
-        <td class="align-middle">{{OrderStatus[order?.orderStatus]}}</td>
-        <td class="align-middle">
-          <a *ngIf="!(currentUser.role == Role.Customer && currentUser.name == order.buyerEmail)"
-          style="display:
-       block" href="" routerLink="/order/{{order.id}}">
-           Voir <span class="glyphicon glyphicon-eye-open" style="color: rgb(0, 112, 112);width: 25px;"></span></a>
-            <a *ngIf="order.orderStatus == 0" style="display: block" (click)="cancel(order)" routerLink="./">Annuler </a>
-            <a *ngIf="currentUser.role != Role.Customer && order.orderStatus == 0"
-               style="display: block"
-               routerLink="/order/{{order?.id}}/shipping-address">
-                Finaliser</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="container">
+    <table class="table table-striped text-center data">
+        <thead>
+        <tr>
+            <th scope="col">N°cmd #</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Email</th>
+            <th scope="col">Téléphone</th>
+            <th scope="col">Adresse Livraisson</th>
+            <th scope="col">Total</th>
+            <th scope="col">Date Commande</th>
+            <th scope="col">Status Commande</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+    
+        <tr *ngFor="let order of page?.content">
+            <td class="align-middle">{{order?.numOrder}}</td>
+            <td class="align-middle">{{order?.buyerName}}</td>
+            <td class="align-middle">{{order?.buyerEmail}}</td>
+            <td class="align-middle">{{order?.buyerPhone}}</td>
+            <td class="align-middle">{{order?.shippingAddress}}</td>
+            <td class="align-middle"><span style="color: red;">{{order?.orderAmount | number: '0.2'}}&euro;</span></td>
+            <td class="align-middle">{{order?.createTime | date : 'short'}}</td>
+            <td class="align-middle"><span style="font-size: 14px; color: green;">{{OrderStatus[order?.orderStatus]}}</span></td>
+            <td class="align-middle">
+              <a *ngIf="!(currentUser.role == Role.Customer && currentUser.name == order.buyerEmail)"
+              style="display:
+           block" href="" routerLink="/order/{{order.id}}">
+               Voir <span class="glyphicon glyphicon-eye-open" style="color: rgb(0, 112, 112);width: 25px;"></span></a>
+                <a *ngIf="order.orderStatus == 0" style="display: block" (click)="cancel(order)" routerLink="./">Annuler </a>
+                <a *ngIf="currentUser.role != Role.Customer && order.orderStatus == 0"
+                   style="display: block"
+                   routerLink="/order/{{order?.id}}/shipping-address">
+                    Finaliser</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+</div>
+<app-footer></app-footer>

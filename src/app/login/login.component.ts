@@ -11,6 +11,7 @@ import { UserService } from '../services/user.service';
 import { Role } from '../enum/Role';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../services/cart.service';
+import { CatalogueService } from '../services/catalogue.service';
 
 @Component({
   selector: 'app-login',
@@ -26,11 +27,16 @@ export class LoginComponent implements OnInit {
   returnUrl = '/';
   @Input() connectedUser: any;
   productInOrders = [];
+  passwordReset:boolean = false;
+  emailForm:FormGroup;
+  isEmailFormValid = false;
+  isEmailFormLoading = false;
 
   public nameTerms = new Subject<string>();
   public name$ = this.nameTerms.asObservable();
   private currentUserSubject: BehaviorSubject<User>;
   fieldTextType: boolean;
+  isUsernameOrPasswordIncorrect: boolean = false;
 
 
   constructor(
@@ -39,20 +45,23 @@ export class LoginComponent implements OnInit {
               private authService: AuthenticationService,
               private  router: Router,
               private toastService: ToastrService,
-              private cartService: CartService) {
+              private catalogueService: CatalogueService
+              ) {
   }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required,Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: ['', Validators.required],
       remembered: false
     });
+
         let params = this.activatedRoute.snapshot.queryParamMap;
     //this.returnUrl = this.activatedRoute.snapshot.queryParamMap['returnUrl'] || ' ';
     this.isLogout = params.has('logout');
     this.returnUrl = params.get('returnUrl');
     this.isFormValid=false
+    this.passwordReset = false;
     
   }
 
@@ -60,6 +69,7 @@ export class LoginComponent implements OnInit {
   get f() {
     return this.loginForm.controls;
   }
+
 
   onSubmit(){
     this.submitted = true;
@@ -77,7 +87,8 @@ export class LoginComponent implements OnInit {
           if(user.user.role != Role.Customer && user.user.role !=Role.Manager){
               this.returnUrl = '/home';
             }
-            this.toastService.success('Vous êtes connecté avec Success sur notre Site', 'Connexion reussie '+user.user.firstName,{positionClass: 'toast-top-center', timeOut: 3000});
+            this.toastService.success('Vous êtes connecté avec Success sur notre Site', 'Connexion reussie '+user.user.firstName,{positionClass: 'toast-top-center', timeOut: 5000});
+            debugger
             //this.router.navigateByUrl('/home');
             this.router.navigateByUrl(this.returnUrl);
          
@@ -86,7 +97,11 @@ export class LoginComponent implements OnInit {
           this.isFormValid = true;
         }
       },error => {
-        this.toastService.error('utilisateur ou mot de passe incorrect','identifiants Incorrects', {positionClass: 'toast-top-center', timeOut:4000})
+        debugger
+        this.isUsernameOrPasswordIncorrect = true;
+        this.toastService.error('le nom d\'utilisateur ou mot de passe incorrect','identifiants Incorrects', {positionClass: 'toast-top-center', timeOut:5000});
+        this.loginForm.reset();
+        //this.ngOnInit();
         location.reload();
       }
 
@@ -96,4 +111,10 @@ export class LoginComponent implements OnInit {
     toggleFieldTextType(){
       this.fieldTextType = !this.fieldTextType;
     }
+
+    resetPassWord():void{
+      this.passwordReset = true;
+
+    }
+
 }

@@ -1,7 +1,6 @@
   <!--Recap Commande-->
   <div class="right" *ngIf="isFormDisplayed">
           <div class="card mb-13">
-              
             <div class="card-body">
                 <h4 class="card-title ">
                 <strong>
@@ -41,8 +40,8 @@
                         <input 
                           type="text"
                           style="height:50px;"
-                          width="5px"
-                          size="3"
+                          width="7px"
+                          size="5"
                           formControlName="numero"
                           placeholder="NumRue*"
                           [ngClass]="{ 'is-invalid': submitted && f.numero.errors }"
@@ -71,8 +70,8 @@
                         <input 
                           type="text"
                           style="height:50px;"
-                          width="5px"
-                          size="5"
+                          width="15px"
+                          size="10"
                           formControlName="codepostal"
                           placeholder="Code Postale*"
                           [ngClass]="{ 'is-invalid': submitted && f.codepostal.errors }"

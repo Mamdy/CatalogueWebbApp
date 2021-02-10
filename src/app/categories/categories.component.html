@@ -1,22 +1,19 @@
-<hr>
-  <div class="container">
-    <div class="border-box">
-      <hr>
-      <ul class="inline" *ngIf="categories">
-        <li [ngClass]="currentCategory && currentCategory._links.self==c._links.self?'active':''"
-            *ngFor="let c of categories"
-            class="list-group"
-           (click)="onGetProducts(c)">
-           
-          <span style="font-family: 'proxima-nova';"><a>{{c.name}}</a></span>
-        </li>
-      </ul>
+    <div class="flex-container">
+      <div class="border-box">
+        <ul class="inline" *ngIf="categories">
+          <li [ngClass]="currentCategory && currentCategory._links.self==c._links.self?'active':''"
+              *ngFor="let c of categories"
+              class="list-group"
+             (click)="onGetProducts(c)">
+            <span style="font-family: 'proxima-nova';"><a>{{c.name}}</a></span>
+          </li>
+        </ul>
+      </div>
+     
     </div>
-    <hr>
-    <div class="col-md-12">
+    <!-- <div class="col-md-12">
       <router-outlet></router-outlet>
-  </div>
-  </div>
+  </div> -->
   
 
  

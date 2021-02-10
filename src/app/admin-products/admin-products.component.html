@@ -103,7 +103,7 @@
                   </div>
                 </div>
                 <div >
-                  <label><span style="color: red; font-family: 'proxima-nova';"> Selectionnez les 4 photos du produits</span> </label>
+                  <label><span style="color: red; font-family: 'proxima-nova';"> Selectionnez les 4 photos du produit</span> </label>
                   <input type="file"
                   accept="image/*" multiple
                   (change)="selectFiles($event)"
@@ -162,7 +162,9 @@
     <div class="col-md-23">
       <div class="col-lg-22">
         <div class="card">
-          <div class="card-header">Liste des photos</div>
+          <div class="card-header" style="padding: 10px 25px;">
+            <span style="color:rgb(77, 170, 252); font-size: large;">Liste des photos du produit</span> 
+          </div>
           <ul
             class="list-group list-group-flush"
             *ngFor="let retrievedImage of retrievedImages"
@@ -177,10 +179,14 @@
         
     </div>
   </div>
+  <br>
+  <br>
+  <br>
+  <app-all-product></app-all-product>
 </div>
 <!-- <app-upload-photo></app-upload-photo> -->
 <!--<app-categories></app-categories>-->
-<app-all-product></app-all-product>
+
 
 
 

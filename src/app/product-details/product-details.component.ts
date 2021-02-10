@@ -7,6 +7,9 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Location, DOCUMENT } from '@angular/common';
 import { Observable } from 'rxjs';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Category } from '../model/Category';
+import { AppResponse } from '../model/AppResponse';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-product-details',
@@ -15,12 +18,16 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ProductDetailsComponent implements OnInit {
   @Input() currentProduct: Product;
+  similarProductsList: Product[]=[];
   count: number;
   showProductByCategoryComponet: boolean;
   backNavigationUrl: string;
   product: Observable<Product>;
   photoUrls: String[];
+  productCategory: Category;
+  similarProductsUrl: any;
 
+  //similarProductsList: Product[]=[];
   constructor(private cartService: CartService,
                private router: Router,
                private route: ActivatedRoute,
@@ -46,13 +53,35 @@ export class ProductDetailsComponent implements OnInit {
     }else{
       this.currentProduct = this.currentProduct;
     }
+
+    this.getSimilarProducts();
   
+  }
+
+    //methode qui permet de recuperer les produits lié à une categorie (parametre=categorie)
+ 
+
+  getSimilarProducts(): Product[]{
+    let product:any = this.currentProduct;
+    const categoryUrl =  product._links.category.href;
+    this.catalogService.getRessources(categoryUrl)
+    .subscribe((res:any)=>{
+      this.similarProductsUrl=res._links.products.href;
+      this.catalogService.getSimilarProducts(this.similarProductsUrl)
+        .subscribe((res:any)=>{
+          this.similarProductsList = res._embedded.products;
+          console.log('simalar products from ProductComponent', this.similarProductsList);
+        })
+      
+      }, error =>{
+        console.log(error);
+    })
+    return this.similarProductsList;
   }
 
   addCurrentProductToCart(){
     this.cartService.addItem(new ProductInOrder(this.currentProduct,this.count))
                     .subscribe(res => {
-                      debugger
                           if(!res){
                             alert('l\'AJout du produit dans le pannier a echoué')
                             console.log('AJout du produit dans le pannier a echoué',+res);
@@ -61,9 +90,9 @@ export class ProductDetailsComponent implements OnInit {
                           }
 
                           alert('Le produit a bien été ajouté dans votre panier');
-                           this.cartService.getCart().subscribe(res=>{
-                             if(res){
-                              this.cartService.changeNbProductInCart(this.cartService.countProductInCart());
+                           this.cartService.getCart().subscribe(productsInOrders=>{
+                             if(productsInOrders){
+                              this.cartService.changeNbProductInCart(this.cartService.countProductsInCart(productsInOrders));
                              }
                             
                            },error => {
@@ -81,6 +110,10 @@ export class ProductDetailsComponent implements OnInit {
     this.showProductByCategoryComponet=false;
     setTimeout(x=>this.showProductByCategoryComponet = true);
 
+ }
+
+ goHome(){
+   location.reload();
  }
 
 

@@ -1,6 +1,8 @@
 <!---Liste de tous les produits-->
-<div  class="col-xs-12 style">
 
+<div  class="col-xs-12 style">
+  <br>
+  <hr>
   <table  #datatable class="table table-striped table-bordered table-sm row-border hover display"   datatable [dtOptions]="dtOptions" [dtTrigger] = "dtTrigger">
     <thead>
     <tr>
@@ -20,20 +22,20 @@
                  id="image_samsung" alt="telephone_samsung" title="telephone_samsung" class="dataTableImg img img-responsive"></td>
         <td><span style="font-family: 'proxima-nova';">{{p?.name}}</span></td>
         <td><span></span>{{p?.description}}</td>
-        <td>&euro; {{p?.price|number: '0.3'}}</td>
+        <td><span style="color: red;">&euro;{{p?.price|number: '0.3'}}</span></td>
         <td>
             <div *ngIf="p.productStock < 1">
               <h6><span style="color: red" >Article indisponible en Stock!!</span></h6>
             </div>
             <div *ngIf="p.productStock >=1">
 
-              <span style="color: green; font-size: 14px; text-align: center;">{{p?.productStock}}</span>
+              <span style="color: green; font-size: 16px; text-align: center;">{{p?.productStock}}</span>
             </div>
           </td>
         <td >
           <div>
             <button class="btn btn-danger spacer" (click)="detailsProduct(p)"><span class="glyphicon glyphicon-remove"></span></button>&#160;
-            <button class="btn btn-warning" (click)="addProductToCart(p)"><span class="glyphicon glyphicon-edit"></span></button>
+            <button class="btn btn-success" (click)="addProductToCart(p)"><span class="glyphicon glyphicon-edit"></span></button>
           </div>
         </td>
   </tr>

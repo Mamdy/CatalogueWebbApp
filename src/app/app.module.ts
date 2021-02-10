@@ -1,7 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
-
 import { AppRoutingModule,routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -35,6 +33,13 @@ import { CriteriaSearchViewComponent } from './criteria-search-view/criteria-sea
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { UploadPhotoComponent } from './upload-photo/upload-photo.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { PasswordchangeIntermediatescreenComponent } from './passwordchange-intermediatescreen/passwordchange-intermediatescreen.component';
+import { SimilarProductComponent } from './similar-product/similar-product.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { PaiementRecapComponent } from './paiement-recap/paiement-recap.component';
+import { Navigation2Component } from './shared/navigation2/navigation2.component';
+import { StepLineComponent } from './shared/step-line/step-line.component';
 
 
 @NgModule({
@@ -44,6 +49,12 @@ import { UploadPhotoComponent } from './upload-photo/upload-photo.component';
     // MatDialogModule,
     
   ],
+
+  declarations: [PaiementRecapComponent],
+
+
+
+  //declarations: [ChangePasswordComponent, PasswordchangeIntermediatescreenComponent],
 
   
 })
@@ -67,9 +78,12 @@ export class MaterialModule {}
     OrderRecapComponent,
     PaymentCardFormComponent,
     ModalDialogComponent,
-
     ProductDetailsComponent,
     CriteriaSearchViewComponent,
+    PasswordchangeIntermediatescreenComponent,
+    ChangePasswordComponent,
+    SimilarProductComponent,
+    Navigation2Component,StepLineComponent
     
   ],
 
@@ -91,6 +105,7 @@ export class MaterialModule {}
     BrowserAnimationsModule,
     BrowserModule,
     BrowserAnimationsModule,
+    CarouselModule
     // MatFormFieldModule,
     // MatInputModule
     //ReactiveForms

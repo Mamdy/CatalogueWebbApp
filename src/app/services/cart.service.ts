@@ -8,9 +8,9 @@ import { AuthenticationService } from './authentication.service';
 import { ProductInOrder } from '../model/ProductInOrder';
 import { tap, catchError, first, map } from 'rxjs/operators';
 import { Client } from '../model/Client';
-import { CustomerService } from './customer.service';
 import { Cart } from '../model/Cart';
-import { Router } from '@angular/router';
+import { Order } from '../model/Order';
+
 
 @Injectable({
   providedIn: 'root'
@@ -27,28 +27,33 @@ export class CartService {
   private totalSubject: BehaviorSubject<number>;
   public items: Observable<Item[]>;
   public total: Observable<number>;
+  public nbProductInCartSubject: BehaviorSubject<number>;
+  public neworderIdSubject: BehaviorSubject<Order>;
+  public neworderId: Observable<Order>;
+  public nbProductInCart:Observable<number>;
+  listProducInCart:ProductInOrder[] = [];
 
   private currentUser: JwtResponse;
   cookieService: any;
   connectedUsername: String;
 
-  public nbProductInCartSubject: BehaviorSubject<number>;
-  public nbProductInCart:Observable<number>;
-  listProducInCart:ProductInOrder[]
+ 
 
 
   constructor(private http: HttpClient,
               private authSerice: AuthenticationService,
-              private customerService: CustomerService,
-              private router: Router)
+              )
              {
         this.itemsSubject = new BehaviorSubject<Item[]>(null);
         this.items = this.itemsSubject.asObservable();
         this.totalSubject = new BehaviorSubject<number>(null);
         this.total = this.totalSubject.asObservable();
         this.authSerice.currentUser.subscribe(user => this.currentUser = user);
-        this.nbProductInCartSubject = new BehaviorSubject<number>(this.countProductInCart())
+        this.nbProductInCartSubject = new BehaviorSubject<number>(null);
         this.nbProductInCart = this.nbProductInCartSubject.asObservable();
+
+        this.neworderIdSubject = new BehaviorSubject<Order>(null)
+        this.neworderId = this.neworderIdSubject.asObservable();
   }                                                                 
 
   get nbProductInCartValue(){
@@ -58,12 +63,23 @@ export class CartService {
   changeNbProductInCart(nbProductInCart: number){
       this.nbProductInCartSubject.next(nbProductInCart)
   }
+
+  sendNewOrderId(order: Order){
+      debugger
+      this.neworderIdSubject.next(order);
+  }
+
+  get newOrderId() {
+      return this.neworderIdSubject.value;
+  }
+
    private getLocalCart(): ProductInOrder[] {
        const itemsInLocalStrorage = localStorage.getItem('cart');
         if (itemsInLocalStrorage !== "[]" && itemsInLocalStrorage !==null ) {
             this.localMap = JSON.parse(localStorage.getItem('cart'));
                 return Object.values(this.localMap);
         } else {
+            console.log("localMap==>",this.localMap)
             this.localMap = {};
             return [];
         }
@@ -74,22 +90,20 @@ export class CartService {
         if (this.currentUser) {
             let client = new Client(this.currentUser.user.email, this.currentUser.user.firstName, this.currentUser.user.lastName,this.currentUser.user.email, this.currentUser.user.phone, this.currentUser.user.address, this.currentUser.user.role);
             if (localCartProductsInOrder.length > 0) {
-                this.clearLocalCart();
                 return this.http.post<Cart>(this.prodCatcartUrl,{
                     'client':client,
                     'localCartProductsInOrder':localCartProductsInOrder}).pipe(
-                        map(cart => cart.products),
-                        catchError(_ => of([])
-                    
-                        )
-                    
-                    )  
+                        tap(_ => {
+                            this.clearLocalCart();
+                        }),
+                        map((cart:Cart)=> cart.productsInOrder),
+                        catchError(_ => of([])));  
             
             } else {
                 const url = `${this.prodCatcartUrl}`;
 
-                return this.http.get<ProductInOrder[]>(url).pipe(
-                    map(localCartProductsInOrder => localCartProductsInOrder),
+                return this.http.get<Cart>(url).pipe(
+                    map((cart:Cart)=>cart.productsInOrder),
                     catchError(_ => of([]))
                 );
             }
@@ -169,30 +183,29 @@ addItem(productInOrder): Observable<boolean> {
       }
     }
 
-    checkout(): Observable<any> {
+    checkout(): Observable<Order> {
       const url = `${this.prodCatcartUrl}/checkout`;
-      return this.http.post(url, null).pipe();
+      return this.http.post<Order>(url, null).pipe();
   }
 
-  storeLocalCart() {
-    localStorage.setItem('cart', JSON.stringify(this.localMap));
-}
+    storeLocalCart() {
+        localStorage.setItem('cart', JSON.stringify(this.localMap));
+    }
 
-getProductsInOrderFromUserDbCart():ProductInOrder[]{
- this.getCart().subscribe(pio => {
-     this.listProductsInOrder = pio;
- });
- return this.listProductsInOrder;
-}
+    getProductsInOrderFromUserDbCart():ProductInOrder[]{
+        this.getCart().subscribe(pio => {
+            this.listProductsInOrder = pio;
 
-countProductInCart(){
-    const listProductInOrders = this.getProductsInOrderFromUserDbCart();
-    let count = 0;
-    for (let productInOder of listProductInOrders) {
-        count = count + productInOder.count;
-        
-      }
-      return count;
-}
-
+        });
+        return this.listProductsInOrder;
+    }
+    
+    countProductsInCart(productInOrders: ProductInOrder[]){
+ 
+        let count = 0;
+        productInOrders.forEach(pio=>{
+          count += pio.count;
+        })
+        return count;
+    }
 }

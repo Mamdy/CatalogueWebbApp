@@ -1,7 +1,7 @@
  <div class="container">
-  <div *ngIf="isLoading" class="spinner">
-    <img src="../../assets/images/pre-loader.gif" width="30%" height="30%" alt="Random first slide">
-</div>
+      <div *ngIf="isLoading" class="spinner">
+        <img src="../../assets/images/pre-loader.gif" width="30%" height="30%" alt="Random first slide">
+    </div>
     <div class="row">
           <div  *ngIf="mode=='list-Products'">
               <div class="col-md-13">
@@ -44,19 +44,18 @@
                   </ngb-carousel>
 
                 </div>
-        
-
                 <div class="row">
-        
                       <div *ngFor="let p of listProducts" class="col-lg-4 col-md-6 mb-4">
                           <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="../assets/images/{{p.photoUrl[0]}}.jpg" (click)="detailsProduct(p)"  alt="{{p.photoUrl}}.jpg"></a>
+                            <a style="cursor: pointer;" (click)="detailsProduct(p)"><img class="card-img-top" src="../assets/images/A701.png"  alt="{{p.photoUrl[0]}}"></a>
+                            <!-- <img class="card-img-top" src="../assets/images/{{p.photoUrl[0]}}.jpg"  alt="{{p.photoUrl[0]}}"> -->
                             <div class="card-body">
                               <h4 class="card-title" align="center">
                                 <!--<a routerLink="/product-details">{{p.name}}</a>-->
                                 <a style="color: rgb(0, 162, 255); cursor: pointer;font-size: 18px; font-family: 'proxima-nova';"  (click)="detailsProduct(p)">{{p.name}}</a>
                               </h4>
-                              <span style="color: rgb(253, 60, 60); font-size: 22px;">{{p.price | number: '0.2'}}&euro;</span>
+                              <span style="font-size: 17px;"><s>{{p.price | number: '0.2'}}</s>&euro;</span> &nbsp;
+                              <span style="color: rgb(253, 60, 60); font-size: 30px; font-weight: bold;">{{p.currentPrice | number: '0.2'}}&euro;</span>
                               <p class="card-text"><span style="font-size: 14px; font-family: 'proxima-nova';"> {{p.description}}</span></p>
                             </div><br>
                             <div *ngIf="p.productStock < 1">
@@ -87,9 +86,13 @@
 
     <div *ngIf="currentProduct && mode ==='detail-product'" >
       <app-product-details [currentProduct]="currentProduct"></app-product-details>
+      <h1>Nos clients ont achété aussi ces produits</h1>
+      <!-- <app-similar-product [similarProducts]="similarProductsList"></app-similar-product> -->
     </div>
 
+
   </div>
+<app-footer></app-footer>
 
 
 

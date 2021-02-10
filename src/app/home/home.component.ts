@@ -5,7 +5,7 @@ import {AuthenticationService} from '../services/authentication.service';
 import {UserService} from '../services/user.service';
 import {first, timeout} from 'rxjs/operators';
 import {CatalogueService} from '../services/catalogue.service';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {ActivatedRoute,Router} from '@angular/router';
 import {Category} from '../model/Category';
 import {AppResponse} from '../model/AppResponse';
 import { JwtResponse } from '../model/JwtResponse';
@@ -18,7 +18,7 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./home.component.css'],
   providers: [NgbCarouselConfig]
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit{
   currentUser: JwtResponse;
   currentUserSubscription: Subscription;
   users: User[] = [];
@@ -31,6 +31,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentProduct: Product;
   mode='list-Products';
   isLoading:boolean;
+  similarProductsList: Product[]=[];
+  similarProductsUrl: any;
 
   // Array of images
   slides = [
@@ -57,9 +59,6 @@ export class HomeComponent implements OnInit, OnDestroy {
               config: NgbCarouselConfig
 
   ) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user=>{
-      this.currentUser = user;
-    });
     config.interval = 2000;
     config.keyboard = true;
     config.pauseOnHover = true;
@@ -69,34 +68,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    //this.loadAllUsers();
-    this.router.events.subscribe(event=>{
-      if(event instanceof NavigationEnd){
-        //on prend l'url à partir de la route actuelle(activé),
-        let url = event.url;
-      }
-
-    })
-    //on recuperer la liste de tous les produits à vendre
-    this.getAllProducts();
+      this.getAllProducts();
  
   
-  }
-
-  ngOnDestroy(): void {
-   // this.currentUserSubscription.unsubscribe();
-    this.catalogueService.getAllCategories()
-      .then((data:AppResponse)=>{
-        this.categories = data.getData().categories;
-      }, error1 => {
-        console.log(error1);
-      })
-  }
-
-  private loadAllUsers() {
-    this.userService.getAllUsers().pipe(first()).subscribe(users=>{
-      this.users = this.users;
-    });
   }
 
   onGetProducts(category) {
@@ -112,7 +86,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.catalogueService.getProducts()
       .then((result:AppResponse)=>{
         this.listProducts = result.getData().products;
-
         if(this.listProducts){
            //ici on gere le spinner(indicateur de chargement des données) de la base
           setTimeout(() => {
@@ -137,7 +110,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   clickHome(){
-    //this.router.navigateByUrl("/home");
     return  this.userClickHomeTab = true;
   }
 
@@ -148,12 +120,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.catalogueService.getRessources(url)
         .subscribe((res:Product)=>{
           this.currentProduct = res;
-          //this.router.navigateByUrl('/products/'+ btoa(url));
+
         }),error=>{
 
         console.log(error);
       }
-
       return this.currentProduct;
     
   }

@@ -39,6 +39,7 @@
     "hammerjs": "^2.0.8",
     "jquery": "^3.5.1",
     "ngx-image-zoom": "^0.6.0",
+    "ngx-owl-carousel-o": "^4.0.0",
     "ngx-stripe": "^10.1.2",
     "ngx-toastr": "^10.2.0",
     "rxjs": "~6.6.3",

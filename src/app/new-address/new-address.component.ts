@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { OrderService } from '../services/order.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-new-address',
@@ -25,27 +26,29 @@ export class NewAddressComponent implements OnInit {
   isFormDisplayed:boolean;
   isFormValid:boolean;
   
+  
   constructor(
     private authService: AuthenticationService,
     private formBuilder:FormBuilder,
     private orderService: OrderService,
+    private cartService: CartService,
     private activedRoute: ActivatedRoute,
     private router: Router,
     private toastrService: ToastrService){}
 
   
   ngOnInit() {
-    this.order$ = this.orderService.show(this.activedRoute.snapshot.paramMap.get('id'));
+    // this.order$ = this.orderService.show(this.activedRoute.snapshot.paramMap.get('id'));
   
      this.newAdressForm = this.formBuilder.group({
-        nom: ['', Validators.required, Validators.maxLength(20)],
-        prenom: ['', Validators.required,Validators.maxLength(20)],
-        numero: ['', Validators.required,Validators.maxLength(3)],
-        voie: ['', Validators.required,Validators.minLength(5),Validators.maxLength(20)],
+        nom: ['', [Validators.required, Validators.maxLength(20)]],
+        prenom: ['', [Validators.required,Validators.maxLength(20)]],
+        numero: ['',[Validators.required,Validators.maxLength(3)]],
+        voie: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(20)]],
         codepostal: ['', [Validators.required, Validators.minLength(5),Validators.maxLength(5)]],
-        ville: ['', Validators.required,Validators.maxLength(3)],
-        pays: ['', Validators.required,Validators.maxLength(20)],
-        telephone: ['', Validators.required,Validators.maxLength(10)]
+        ville: ['', [Validators.required,Validators.maxLength(20)]],
+        pays: ['', [Validators.required,Validators.maxLength(20)]],
+        telephone: ['', [Validators.required,Validators.maxLength(10)]]
         
       });
       this.returnUrl = this.activedRoute.snapshot.routeConfig.path;
@@ -67,16 +70,20 @@ export class NewAddressComponent implements OnInit {
     this.isFormValid = true;
     this.loading = true;
     const formValue = this.newAdressForm.value;
-    this.order$.subscribe(res =>{
-         this.orderService.modify(res.id, formValue).subscribe((res)=>{
+    debugger
+         this.orderService.modify(this.order.id, formValue).subscribe((res)=>{
             if (res) {
+              this.order = res;
+              debugger
+              this.cartService.sendNewOrderId(this.order);
               this.toastrService.success('l\'adresse de livraison a bien été enregistré','OK',{positionClass: 'toast-top-center', timeOut: 4000})
               this.isFormDisplayed = false;
-              window.location.reload();
+              this.router.navigateByUrl(this.returnUrl);
+             
             }
         
            });
-    });
+    
 
   }
 

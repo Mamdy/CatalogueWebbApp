@@ -1,3 +1,11 @@
+.wrapper {
+    width: 1100px;
+    max-width: 90%;
+    margin: 0 auto;
+    display: block;
+    margin-left: -250px;
+}
+
 .spacer {
     position: relative;
     margin-top:3.8em;
@@ -7,7 +15,6 @@
 }
 
 .dimension {
-    position: relative;
     margin-top:4.3em;
     margin-left: 14%;
     top: 4.5px;
@@ -23,24 +30,93 @@
     font-family: 'proxima-nova';
 }
 
-.btn{
-    padding: 10px 100px;
+.flex-item-center-btn{
+   /* display: inline;
+    position: relative;*/
     border-radius: 25px;
     font-size: small;
     font-family: 'proxima-nova';
-    margin-left: 215px;
+    /*argin-left: 212px;*/
     background-color: red;
     color: white;
     cursor: pointer;
-   
+    /*padding: 10px 40px;*/
+    width: auto;
+    flex: 50%;
 }
 
-.btn:hover {
+.connex-btn {
+    flex: 50%;
     background-color: rgba(24, 164, 189, 0.979);
+    border-radius: 25px;
+    padding: 15px;
+    color: white;
+    font-family: 'proxima-nova';
+    font-size: 14px;
+    cursor: pointer;
+
+    
+}
+
+.flex-item-center {
+    background-color: dodgerblue;
+    padding: 10px;
+    flex: 50%;
+  }
+
+@media screen and (max-width: 800px) {
+    .wrapper .btn {
+      float: none;
+      display: block;
+      width: 10%;
+      margin: 50px;
+      padding: 15px 70px;
+    }
+   
+  
+  }
+
+  /*FLEX-ITEM============================================*/
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .flex-item-left {
+    background-color: #f1f1f1;
+    padding: 10px;
+    flex: 50%;
+  }
+  
+  .flex-item-right {
+    background-color: dodgerblue;
+    padding: 10px;
+    flex: 50%;
+  }
+ 
+  
+  /* Responsive layout - makes a one column-layout instead of a two-column layout */
+  @media (max-width: 800px) {
+    .flex-item-right, .flex-item-left, .btn {
+      flex: 100%;
+    }
+  }
+/*FLEX-ITEM============================================*/
+
+
+.btn:hover {
+    background-color: rgb(23, 0, 128);
     color: rgb(238, 227, 227);
 }
 .reg {
     color: rgb(236, 228, 228);
     font-size: large;
     font-weight: bold;
+}
+
+.send-button {
+    background-color: rgba(1, 54, 66, 0.788);
 }

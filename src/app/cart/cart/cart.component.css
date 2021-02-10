@@ -1,16 +1,25 @@
+  /* Responsive layout - makes a one column-layout instead of a two-column layout */
+  @media (max-width: 800px) {
+    .btn {
+      flex: 100%;
+    }
+  }
+
 .btn {
     /*background-color: rgb(2, 48, 59);*/
     background-color: red;
     padding: 6px 21.5px;
-    height: 55px;
-    width: 260px;
+    height: 45px;
+    width: 230px;
     cursor: pointer;
     font-size: 16px;
     font-family: 'proxima-nova';
     font-weight: bold;
     color:white;
-}
+    margin:auto;
+    flex:50%;
 
+}
 .btn a:hover {
     background-color: rgba(24, 164, 189, 0.979);
     color:rgb(54, 171, 207);
@@ -27,3 +36,10 @@
     font-family: 'proxima-nova';
     font-size: 16px;
 }
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 30px;
+    text-align: center;
+  }

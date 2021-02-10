@@ -99,7 +99,7 @@
               <div class="input-group">
                 
                 <input 
-                  [type]="fieldTextType ? 'text': 'password'"
+                  type="password"
                   formControlName="confirmedPassword"
                   class="form-control"
                   placeholder="Confirmez votre mot de passe"
@@ -143,8 +143,11 @@
               </div>
             </div>
             <div class="form-group">
-              <button [disabled]="loading" class="btn">Créer mon compte</button><br>
-              <button  class="btn btn-secondary" type="reset" (click)="onReset()">Annuler</button><br>
+              <div class="wrapp-buttons">
+                <button [disabled]="loading" class="btn btn-valider">Créer mon compte</button><br>
+                <button  class="btn btn-cancel" type="reset" (click)="onReset()">Annuler</button><br>
+              </div>
+             
               <h5 align="center"><span style="font-size: 14px; text-align: center;">Vous possédez déjà un compte ? <a routerLink="/login" class="">Identifiez-vous</a></span></h5>
               
             </div>
