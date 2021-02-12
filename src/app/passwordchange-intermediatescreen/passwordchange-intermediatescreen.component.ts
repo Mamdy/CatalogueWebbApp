@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CatalogueService } from '../services/catalogue.service';
 
@@ -13,12 +14,14 @@ export class PasswordchangeIntermediatescreenComponent implements OnInit {
   isValid:boolean;
   isLoading:boolean;
   submitted = false;
+  isUsernameUnKnown = false;
 
 
   constructor(
              private formBuilder: FormBuilder,
              private catalogueService: CatalogueService,
-             private toastService: ToastrService
+             private toastService: ToastrService,
+             private router: Router
             ) { }
 
   ngOnInit(): void {
@@ -46,10 +49,18 @@ export class PasswordchangeIntermediatescreenComponent implements OnInit {
     this.catalogueService.sendResetPassWordLink(userEmail)
       .subscribe(res => {
         if(res){
-          this.toastService.success('Votre demande a été effectué', 'Un lien vous permettant de réinitiliser de votre mot de passe vous a été envyé avec success dans à l\'adresse'+this.emailForm.value,{positionClass: 'toast-top-center', timeOut: 5000} );
+          this.toastService.success('Votre demande a été effectué', 'Un lien vous permettant de réinitiliser de votre mot de passe vous a été envoyé dans votre boite e-mail',{positionClass: 'toast-top-center', timeOut: 8000} );
+          this.router.navigateByUrl('/login');
 
         }
-      })
+      },error =>{
+        this.isUsernameUnKnown = true;
+        this.toastService.error('Compte inconnu' ,'Cet Compte n \'existe pas dans notre système', {positionClass: 'toast-top-center', timeOut:7000});
+        setInterval(()=>{
+          location.reload();
+        },3000);
+        
+      });
 
 
   }
