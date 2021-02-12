@@ -11,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { HttpHeaders } from '@angular/common/http';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-payment-card-form',
@@ -59,6 +60,7 @@ export class PaymentCardFormComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private toastrService: ToastrService,
+              private cartService: CartService,
               public modalService: NgbModal){}
 
     public stripeForm = new FormGroup({
@@ -116,6 +118,8 @@ export class PaymentCardFormComponent implements OnInit {
                     //on rafraichi le formulaire de paiment dans le but desactiver le button submit
                     this.stripeForm.reset();
                     //this.stripeForm.get('name').setValue('');
+                    
+                    this.cartService.changeNbProductInCart(0);
                     this.router.navigateByUrl('/home');
 
                       

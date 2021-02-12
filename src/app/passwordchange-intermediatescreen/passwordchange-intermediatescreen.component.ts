@@ -12,7 +12,7 @@ export class PasswordchangeIntermediatescreenComponent implements OnInit {
   emailForm: FormGroup;
   isValid:boolean;
   isLoading:boolean;
-  isSubmit=false;
+  submitted = false;
 
 
   constructor(
@@ -36,7 +36,7 @@ export class PasswordchangeIntermediatescreenComponent implements OnInit {
 
   sendResetPassWordLink(){
     debugger
-    this.isSubmit = true;
+    this.submitted = true;
     this.isLoading = true;
     if(this.emailForm.invalid){
       this.isValid = false;

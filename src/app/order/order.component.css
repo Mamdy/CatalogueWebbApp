@@ -1,12 +1,12 @@
 .border-box{
-    width: 750px;
-    height: 40px;
+    /* width: 1150px;
+    height: 40px; */
     border: 1px;
     box-sizing: border-box;
     background-color: rgb(5, 80, 99);
     color: white;
-    display: block;
-    margin-left:15% ;
+    /* display: block; */
+    /* margin-left:15% ; */
     margin-bottom: 1em;
 
 }
@@ -15,3 +15,24 @@
     font-family: 'proxima-nova';
     font-size: 14px;
 }
+
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  
+  .flex-item-title {
+    color: white;
+    padding: 10px;
+    flex: 100%;
+    
+  }
+@media screen and (max-width: 800px) {
+    .flex-item-title  {
+    flex: 100%;
+    }
+   
+  
+  }
