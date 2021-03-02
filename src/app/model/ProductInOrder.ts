@@ -16,7 +16,7 @@ export class ProductInOrder {
         this.productId = productInfo.id;
         this.productCode = productInfo.code
         this.productName = productInfo.name;
-        this.productPrice = productInfo.price;
+        this.productPrice = productInfo.currentPrice;
         this.productStock = productInfo.productStock;
         this.productDescription = productInfo.description;;
         this.productIcon = productInfo.photoUrl[0];

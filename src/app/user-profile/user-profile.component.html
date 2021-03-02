@@ -1,0 +1,245 @@
+<h1 align="center" class="display-4 mb-5">
+    <span style="color: green;
+    padding: 10px 55px;
+    font-size: 60px;
+    "
+    >
+        Mon Profile
+    </span> </h1>
+<div class="container">
+    <div class="col-md-4 my-profile-data">
+        <div class="panel panel-default">
+            <div class="panel panel-heading style">
+                Mon compte
+            </div>
+            <div class="panel-body ">
+              <label><b>Civilité:</b></label> <span>{{user?.civilite}}</span><br>
+              <label><b>Nom et Pénom:</b></label> <span>{{user?.lastName}}</span> <span>{{user?.firstName}}</span> <br>
+              <label><b>E-mail:</b></label> <span>{{user?.email}}</span><br>
+              <label><b>Adresse:</b></label><span>{{user?.address}}</span>,<span>{{user?.codePostal}}</span>, <span>{{user?.ville}}</span><br>
+              <span>{{user?.pays}}</span>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel panel-heading style"> 
+                  Mes Informations Personnelles
+            </div>
+            <div class="panel-body">
+                <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                    <label><b>Civilité:<span class="required">&nbsp;*</span></b></label>
+                    <div class=" col form-group">
+                        <div class="col-md-14">
+                            <select  class="form-control ng-touched ng-pristine ng-valid opt-style" formControlName="civilite" id="civilite" autofocus>
+                                    <option selected="selected">{{user?.civilite}}</option>
+                                    <option>Monsieur</option>
+                                    <option>Madame</option>
+                            </select>
+                          
+                            <div *ngIf="submitted && f.civilite.errors" class="invalid-feedback">
+                                <div *ngIf="f.civilite.errors.required">La civilité est obligatoire</div>
+                            </div>
+                        </div>
+                      
+                    </div><br>
+                    
+                    <label><b>E-mail :<span class="required">&nbsp;*</span></b></label>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                        <input 
+                        [(ngModel)]="user.email"
+                        type="email"
+                          formControlName="email"
+                          class="form-control form-control-lg"
+                          placeholder="example@mail.com"
+                          [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                          style="height:50px;"
+                          
+                        >
+                      </div>
+                      <div  *ngIf="f.email.invalid && (f.email.dirty ||f.email.touched)" class="invalid-feedback" >
+                          <div *ngIf="f.email.errors.required" class="alert alert-danger" >
+                              l'adresse mail est obligatoire.
+                          </div>
+                          <div *ngIf="f.email.errors.email" class="alert alert-danger">
+                              l'adresse mail est invalide.
+                          </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nom :<span class="required">&nbsp;*</span></label> 
+                        <input 
+                          [(ngModel)]="user.lastName" 
+                          type="text"
+                          formControlName="lastName"
+                          class="form-control" 
+                          placeholder="Entrer votre nom"
+                          [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+                          style="height:50px;"
+                          autofocus
+                        />
+                        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                          <div *ngIf="f.lastName.errors.required">Le nom est obligatoire</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Prénom :<span class="required">&nbsp;*</span></label>
+                      <input 
+                        [(ngModel)]="user.firstName"
+                        type="text"
+                        formControlName="firstName"
+                        class="form-control"
+                        placeholder="Entrer votre prénom"
+                        [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+                        style="height:50px;"
+                        autofocus
+                      />
+                      <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.firstName.errors.required">Le prénom est obligatoire</div>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Mot de passe :<span class="required">&nbsp;*</span></label>
+                        <div class="input-group">
+                          <input 
+                            [type]="fieldTextType ? 'text': 'password'"
+                            class="form-control"
+                            formControlName="password"
+                            
+                            [ngClass]="{ 
+                              'is-invalid': submitted && f.password.errors
+                            }"
+                            placeholder="Entrez votre mot de passe"
+                            style="height:50px;"
+                          />
+                    
+                         <div class="input-group-append">
+                            <span class="input-group-text">
+                              <i 
+                                class="fa"
+                                [ngClass]="{
+                                'fa-eye-slash':!fieldTextType,
+                                'fa-eye':fieldTextType
+                                }"
+                              (click)="toggleFieldTextType()"
+                              ></i>
+                            </span>
+                         </div>
+                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                          <div *ngIf="f.password.errors.required">Le mot de passe est obligatoire</div>
+                          <div *ngIf="f.password.errors.minlength">Le mot de passe doit avoir 6 caractères minimum</div>
+                        </div>
+                        </div>
+                      </div>
+                    <div class="form-group">
+                      <label>Téléphone Portable :<span class="required">&nbsp;*</span></label>
+                      <input 
+                      
+                        [(ngModel)]="user.phone"
+                        type="text"
+                        formControlName="phone"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
+                        style="height:50px;"
+                        placeholder="Entrez votre numéro de téléphone"
+                      />
+                      <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                        <div *ngIf="f.phone.errors.required">Le téléphone est obligatoire</div>
+                      
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        
+                        <label>Numéro et nom de rue<span class="required">&nbsp;*</span></label>
+                      <div class="input-group">
+                        <input 
+                        [(ngModel)]="user.address"
+                          type="text"
+                          style="height:50px;"
+                          formControlName="address"
+                          placeholder="Numéro et Nom de la voie*"
+                          [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+                          class="form-control"
+                        />
+                        <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                          <div *ngIf="f.address.errors.required">Le nom de la voie/rue est obligatoire</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Code Postal:<span class="required">&nbsp;*</span></label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>Ville<span class="required">&nbsp;*</span></label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <input 
+                          [(ngModel)]="user.codePostal"
+                            type="text"
+                            style="height:50px;"
+                            width="15px"
+                            size="10"
+                            formControlName="codePostal"
+                            placeholder="Code Postale*"
+                            [ngClass]="{ 'is-invalid': submitted && f.codePostal.errors }"
+                            class="form-control"
+                          />
+                          <div *ngIf="submitted && f.codePostal.errors" class="invalid-feedback">
+                            <div *ngIf="f.codePostal.errors.required">Le code Postal est obligatoire</div>
+                          </div>
+                        </div>&nbsp;
+                        <input 
+                        [(ngModel)]="user.ville"
+                          type="text"
+                          style="height:50px;"
+                          formControlName="ville"
+                          placeholder="Ville*"
+                          [ngClass]="{ 'is-invalid': submitted && f.ville.errors }"
+                          class="form-control"
+                        />
+                        <div *ngIf="submitted && f.ville.errors" class="invalid-feedback">
+                          <div *ngIf="f.ville.errors.required">La ville est obligatoire</div>
+                        </div>
+                      </div>
+                    </div>
+        
+                    <div class="form-group">
+                        <label>Pays/Region<span class="required">&nbsp;*</span></label>
+                      <input 
+                      [(ngModel)]="user.pays"
+                          type="text"
+                          style="height:50px;"
+                          formControlName="pays"
+                          placeholder="Pays/Region*" 
+                          [ngClass]="{ 'is-invalid': submitted && f.pays.errors }"
+                          class="form-control"
+                      />
+                      <div *ngIf="submitted && f.pays.errors" class="invalid-feedback">
+                        <div *ngIf="f.pays.errors.required">Le pays ou la région est obligatoire</div>
+                      </div>
+  
+                    </div>
+                                       
+                    <div class="form-group">
+                      <div class="wrapp-buttons">
+                        <button [disabled]="loading || f.valid" class="btn btn-valider">Mettre à jour</button><br>
+                        <button  class="btn btn-cancel" type="reset" (click)="onReset()">Annuler</button><br>
+                      </div>        
+            
+                    </div>
+                  </form>
+              </div>
+
+          </div>
+      
+      </div>
+</div>
+       
+

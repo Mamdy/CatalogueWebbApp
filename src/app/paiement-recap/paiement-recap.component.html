@@ -1,1 +1,26 @@
-<p>paiement-recap works!</p>
+<div class="container data">
+    <div class="panel panel-primary">
+        <div class="panel-heading style">
+           Récapitulatif du paiement
+        </div>
+        <div class="panel panel-body">
+             <h2>Bonjour <span>{{order?.buyerName}}</span>,</h2>
+             <h3>votre paiement a été effectué avec succès sur notre site,</h3>
+             <h3>vous recevrez un mail de confirmation à l'adresse  <span><b>{{order?.buyerEmail}}</b> avec plus d'informations.</span></h3><br>
+             <h3>Merci de votre confiance et à bientot.</h3><br><br><br>
+            <hr>
+            <h2><b>Voici les détails de votre réglement:</b></h2><br>
+            <p>Paiement reglé par carte bancaire</p>
+            <h5><strong>Date de la commande:</strong> <span>{{order?.createTime}}</span> </h5><br>
+            <h5><strong>N° de la commande:</strong> <span>{{order?.numOrder}}</span> </h5><br>
+            <h5><strong>Adresse de facturation:</strong><br>{{order?.buyerAddress}}</h5>
+            <h5><strong>Adresse de Livraisson:</strong><br>{{order?.shippingAddress}}</h5>
+            <hr>
+            <h5><strong>Montant Total de la commande: </strong> <span style="color: red; font-size: large; font-weight: bold;">{{order?.orderAmount| number: '0.2'}}&euro;</span></h5>
+        </div>
+        <a routerLink="/home" class="btn-link float-left"> <span style="color: rgb(0, 174, 255);">< CONTINUER MES ACHATS</span></a>
+    </div>
+    
+
+
+</div>

@@ -40,6 +40,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { PaiementRecapComponent } from './paiement-recap/paiement-recap.component';
 import { Navigation2Component } from './shared/navigation2/navigation2.component';
 import { StepLineComponent } from './shared/step-line/step-line.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import { StepLineComponent } from './shared/step-line/step-line.component';
     
   ],
 
-  declarations: [PaiementRecapComponent],
+  
 
 
 
@@ -83,7 +84,9 @@ export class MaterialModule {}
     PasswordchangeIntermediatescreenComponent,
     ChangePasswordComponent,
     SimilarProductComponent,
-    Navigation2Component,StepLineComponent
+    Navigation2Component,StepLineComponent,
+    UserProfileComponent,
+    PaiementRecapComponent
     
   ],
 

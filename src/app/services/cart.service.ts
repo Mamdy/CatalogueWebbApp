@@ -65,7 +65,6 @@ export class CartService {
   }
 
   sendNewOrderId(order: Order){
-      debugger
       this.neworderIdSubject.next(order);
   }
 
@@ -86,9 +85,21 @@ export class CartService {
     }
 
   getCart(): Observable<ProductInOrder[]> {
+      debugger
         const localCartProductsInOrder = this.getLocalCart();
         if (this.currentUser) {
-            let client = new Client(this.currentUser.user.email, this.currentUser.user.firstName, this.currentUser.user.lastName,this.currentUser.user.email, this.currentUser.user.phone, this.currentUser.user.address, this.currentUser.user.role);
+            let client = new Client(
+                this.currentUser.user.civilite,
+                this.currentUser.user.email,
+                this.currentUser.user.firstName,
+                this.currentUser.user.lastName,
+                this.currentUser.user.phone, 
+                this.currentUser.user.address,
+                this.currentUser.user.codePostal,
+                this.currentUser.user.ville,
+                this.currentUser.user.pays,
+                this.currentUser.user.role,
+                );
             if (localCartProductsInOrder.length > 0) {
                 return this.http.post<Cart>(this.prodCatcartUrl,{
                     'client':client,
@@ -121,6 +132,7 @@ export class CartService {
 
 
 addItem(productInOrder): Observable<boolean> {
+    debugger
         if (!this.currentUser) {
             if (localStorage.getItem('cart')) {
                 this.localMap = JSON.parse(localStorage.getItem('cart'));
@@ -129,7 +141,7 @@ addItem(productInOrder): Observable<boolean> {
                 this.localMap[productInOrder.productCode] = productInOrder;
 
             } else {
-
+                debugger
                 this.localMap[productInOrder.productCode].count += productInOrder.count;
             }
             this.localMap = JSON.parse(JSON.stringify(this.localMap));
@@ -138,8 +150,19 @@ addItem(productInOrder): Observable<boolean> {
             localStorage.setItem('cart', JSON.stringify(this.localMap));
             return of(true);
         } else {
-           let client = new Client(this.currentUser.user.email, this.currentUser.user.firstName, this.currentUser.user.lastName,this.currentUser.user.email, this.currentUser.user.phone, this.currentUser.user.address, this.currentUser.user.role)
-            console.log("Client=>", client);
+            debugger
+           let client = new Client(
+               this.currentUser.user.civilite,
+               this.currentUser.user.email,
+               this.currentUser.user.firstName,
+               this.currentUser.user.lastName,  
+               this.currentUser.user.phone,
+               this.currentUser.user.address,
+               this.currentUser.user.codePostal,
+               this.currentUser.user.ville,
+               this.currentUser.user.pays,
+               this.currentUser.user.role
+               )
             const url = this.prodCatcartUrl;
             return this.http.post<boolean>(url+'/add', {
                 'quantity': productInOrder.count,
@@ -184,6 +207,7 @@ addItem(productInOrder): Observable<boolean> {
     }
 
     checkout(): Observable<Order> {
+        debugger
       const url = `${this.prodCatcartUrl}/checkout`;
       return this.http.post<Order>(url, null).pipe();
   }

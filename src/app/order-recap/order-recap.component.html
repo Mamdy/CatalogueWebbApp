@@ -1,18 +1,17 @@
  <!--Recap Commande-->
  <div class="row">
-  <div class="col-md-11">
-    <div class="panel panel-default">
-      <div class="panel-heading style">Récapitulatif</div>
-      <div class="panel-body">
-        <h5><strong>Prix:</strong> <span style="color: red;">{{order?.orderAmount| number: '0.2'}}&euro;</span> </h5><br>
-        <h5><strong>Adresse de facturation:</strong><br>{{order?.buyerAddress}}</h5>
-        <h5><strong>Adresse de Livraisson:</strong><br>{{order?.shippingAddress}}</h5>
-        <hr>
-        <h5><strong>Total: </strong> <span style="color: red; font-size: large; font-weight: bold;">{{order?.orderAmount| number: '0.2'}}&euro;</span></h5><br>
+    <div class="col-md-11">
+      <div class="panel panel-default">
+        <div class="panel-heading style">Récapitulatif</div>
+        <div class="panel-body">
+          <h5><strong>Prix:</strong> <span style="color: red;">{{order?.orderAmount| number: '0.2'}}&euro;</span> </h5><br>
+          <h5><strong>Adresse de facturation:</strong><br>{{order?.buyerAddress}}</h5>
+          <h5><strong>Adresse de Livraisson:</strong><br>{{order?.shippingAddress}}</h5>
+          <hr>
+          <h5><strong>Total: </strong> <span style="color: red; font-size: large; font-weight: bold;">{{order?.orderAmount| number: '0.2'}}&euro;</span></h5><br>
+        </div>
       </div>
-  </div>
-  <!-- <button (click)="checkout()" class="btn btn">FINALISER MA COMMANDE</button><br> -->
-</div>
-
+    <!-- <button (click)="checkout()" class="btn btn">FINALISER MA COMMANDE</button><br> -->
+    </div>
  </div>
 

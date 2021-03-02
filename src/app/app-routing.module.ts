@@ -19,7 +19,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { CriteriaSearchViewComponent } from './criteria-search-view/criteria-search-view.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { PasswordchangeIntermediatescreenComponent } from './passwordchange-intermediatescreen/passwordchange-intermediatescreen.component';
-import { AppComponent } from './app.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { PaiementRecapComponent } from './paiement-recap/paiement-recap.component';
 
 const routes: Routes = [
   {path:"home" , component:HomeComponent},
@@ -33,7 +34,7 @@ const routes: Routes = [
   {path:"searchCriteriaView", component:CriteriaSearchViewComponent},
   {path:"changePassword", component:ChangePasswordComponent},
   {path:"sendResetPasswordLink", component:PasswordchangeIntermediatescreenComponent},
-
+  {path:"followOrder", component:OrderComponent},
   {path:"product-details", component:ProductDetailsComponent},
   {path:"product-details/:id", component:ProductDetailsComponent},
   {path:"products/:urlProds", component:ProductsComponent},
@@ -46,16 +47,13 @@ const routes: Routes = [
   {path:"order/:id/shipping-address/payment", component:PaymentComponent, canActivate: [AuthGuardService]},
   {path:"order/:id/payment", component:PaymentComponent, canActivate: [AuthGuardService]},
   {path:"order/:id/new-shipping-address", component:ShippingAddressComponent, canActivate: [AuthGuardService]},
+  {path:"profile", component:UserProfileComponent, canActivate: [AuthGuardService]},
+  {path:"payementRecap", component:PaiementRecapComponent, canActivate: [AuthGuardService]},
   
-
-
-  //{path: '**', redirectTo: 'login', pathMatch: 'full'},
-
   //sinon redirige vers le home(l'acceuil)
   {path: "", redirectTo: "home", pathMatch:'full'}
 ];
 
-//export const routing = RouterModule.forRoot(routes);
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

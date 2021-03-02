@@ -49,12 +49,11 @@
     flex: 50%;
     background-color: rgba(24, 164, 189, 0.979);
     border-radius: 25px;
-    padding: 15px;
+    padding: 10px;
     color: white;
     font-family: 'proxima-nova';
-    font-size: 14px;
-    cursor: pointer;
 
+    cursor: pointer;
     
 }
 
@@ -120,3 +119,17 @@
 .send-button {
     background-color: rgba(1, 54, 66, 0.788);
 }
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+} 

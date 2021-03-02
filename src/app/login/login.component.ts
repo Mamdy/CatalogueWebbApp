@@ -45,7 +45,8 @@ export class LoginComponent implements OnInit {
               private authService: AuthenticationService,
               private  router: Router,
               private toastService: ToastrService,
-              private catalogueService: CatalogueService
+              private catalogueService: CatalogueService,
+              private cartService: CartService
               ) {
   }
 
@@ -87,6 +88,19 @@ export class LoginComponent implements OnInit {
           if(user.user.role != Role.Customer && user.user.role !=Role.Manager){
               this.returnUrl = '/home';
             }
+            //notification nombre de produit dans le panier
+            // this.cartService.getCart().subscribe(res=>{
+            //   debugger
+            //   if(res){
+            //     let nbProductInCart = this.cartService.countProductsInCart(res);
+            //     console.log("nbproductin cart after logged In:",nbProductInCart)
+            //     this.cartService.changeNbProductInCart(nbProductInCart);
+                
+            //   }
+              
+            // })
+        
+
             this.toastService.success('Vous êtes connecté avec Success sur notre Site', 'Connexion reussie '+user.user.firstName,{positionClass: 'toast-top-center', timeOut: 5000});
             debugger
             //this.router.navigateByUrl('/home');

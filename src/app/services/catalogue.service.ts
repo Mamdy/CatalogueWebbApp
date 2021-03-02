@@ -3,7 +3,7 @@ import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/h
 import {AuthenticationService} from './authentication.service';
 import { AppResponse } from '../model/AppResponse';
 import { prodCatApiUrl } from 'src/environments/environment';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Product } from '../model/Product';
 import { catchError } from 'rxjs/operators';
 import { Photo } from '../model/Photo';
@@ -14,14 +14,30 @@ import { Photo } from '../model/Photo';
 })
 export class CatalogueService {
   private searchUrl = `${prodCatApiUrl}/searchKeyWord`;
+  private searchByCategory = `${prodCatApiUrl}/searchByCategory`;
+  
   private prodCatApiUrl = `${prodCatApiUrl}`;
+  url:string;
+
+  public currentProductSubject: BehaviorSubject<Product>;
+  public currentProduct: Observable<Product>;
   
 
-  constructor(private http: HttpClient, private authService:AuthenticationService) { }
+  constructor(private http: HttpClient, private authService:AuthenticationService) {
+    this.currentProductSubject = new BehaviorSubject<Product>(null)
+        this.currentProduct = this.currentProductSubject.asObservable();
+   }
+
+   get currentProductValue(){
+    return this.currentProductSubject.value;
+   }
+
+   changeCurrentProduct(currentProduct: Product){
+     this.currentProductSubject.next(currentProduct);
+   }
 
   getSimilarProducts(url) {
     return this.getRessources(url);
-    
   }
   public getAllCategories() {
     return this.http.get(this.prodCatApiUrl + "/categories").toPromise()
@@ -47,10 +63,19 @@ export class CatalogueService {
       });
   }
 
-  getProductsByKeword(keyword,page=1,size = 10):Observable<any>{
-    
-    return this.http.get(`${this.searchUrl}?keyword=${keyword}&size=${size}&page=${page}`).pipe();
-     
+  getProductsByKeyWord(categoies,keyword,page=1,size = 10):Observable<any>{
+        if(categoies.some(categorie=>categorie.name.includes(keyword.toLowerCase()))){
+          this.url = `${this.searchByCategory}?categoryName=${keyword}&size=${size}&page=${page}`;
+          return this.http.get(this.url).pipe(
+            catchError(_ => of(null))
+          );
+
+        }else{
+          this.url = `${this.searchUrl}?keyword=${keyword}&size=${size}&page=${page}`;
+          return this.http.get(this.url).pipe(
+            catchError(_ => of(null))
+          );
+        }
   }
   public getRessources(url){
     return this.http.get(url);

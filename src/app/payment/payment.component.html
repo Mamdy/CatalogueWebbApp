@@ -2,8 +2,9 @@
   <div class="col-md-9">
     <span style="color: green; font-family: 'proxima-nova';
       font-size: 35px;">
-      Paiement sécurisé de votre commande
+      Paiement sécurisé de votre commande.
     </span><br><br>
+    <h4>L'adresse de ce site préfixée avec https indique que vous êtes sur un site securisé, et que vous pouvez reglé votre achat en toute tranquilité.</h4>
     <div class="panel panel-primary">
       <div class="panel-heading style">Choix du mode paiement</div>
       <div class="panel-body">
@@ -17,27 +18,27 @@
               
           </div>
           <div class="paypal-border-box">
-            <input type="radio" id="{{paymentModes.paypal.id}}" [(ngModel)]="paymentModes.paypal.checked" value ="{{paymentModes.paypal.value}}" (click)="isPaypalOptionSelected()">&nbsp;
+            <input disabled="true" type="radio" id="{{paymentModes.paypal.id}}" [(ngModel)]="paymentModes.paypal.checked" value ="{{paymentModes.paypal.value}}" (click)="isPaypalOptionSelected()">&nbsp;
             <span><img src="../assets/images/paypal-logo.svg"></span>&nbsp;
             <span><strong></strong> Paypal</span><br><br>
             <p>&nbsp;En choisissant ce mode de paiement, vous allez être redirigé vers le serveur sécurisé de Paypal et accéder à votre compte Paypal. Votre commande sera enregistrée lorsque vous aurez validé votre paiement sur le site Paypal.</p><br><br>
 
-            <button type="submit" class="btn btn-outline-success">
+            <button disabled="true" type="submit" class="btn btn-outline-success">
               Effectuer votre paiement avec PayPal
             </button>
           </div> <br>
           <div class="border-box">
-            <input type="radio" id="{{paymentModes.orangeMoney.id}}" [(ngModel)]="paymentModes.orangeMoney.checked" value ="{{paymentModes.orangeMoney.value}}" (click)="isOrangeMoneyOptionSelected()">
+            <input disabled="true"  type="radio" id="{{paymentModes.orangeMoney.id}}" [(ngModel)]="paymentModes.orangeMoney.checked" value ="{{paymentModes.orangeMoney.value}}" (click)="isOrangeMoneyOptionSelected()">
             <span><img src="../assets/images/orange-money-logo.svg"></span>&nbsp;
             <span><strong>Par Orange Money</strong></span> &nbsp;
           </div> <br>
           <div class="border-box">
-            <input type="radio" id="{{paymentModes.cash.id}}" [(ngModel)]="paymentModes.cash.checked" value ="{{paymentModes.cash.value}}" (click)="isCashMoneyOptionSelected()">&nbsp;
+            <input disabled="true"  type="radio" id="{{paymentModes.cash.id}}" [(ngModel)]="paymentModes.cash.checked" value ="{{paymentModes.cash.value}}" (click)="isCashMoneyOptionSelected()">&nbsp;
             <span><strong>Par Espèces</strong></span> &nbsp;
           </div> <br>
 
       </div><br><br>
-      <br><a routerLink="/home" class="btn-link float-left"> <span style="color: rgb(0, 174, 255);">< CONTINUER MES ACHATS</span></a>
+      
     </div>
 
   </div>

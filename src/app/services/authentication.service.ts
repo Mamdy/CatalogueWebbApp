@@ -10,6 +10,7 @@ import { JwtResponse } from '../model/JwtResponse';
 import { prodCatApiUrl } from 'src/environments/environment';
 import { userApiUrl } from 'src/environments/environment';
 import { Client } from '../model/Client';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,8 @@ export class AuthenticationService {
 
 
   constructor(private http:HttpClient,
-    private  router:Router) {
+    private  router:Router)
+    {
     const memo = localStorage.getItem("currentUser");
    this.currentUserSubject = new BehaviorSubject<JwtResponse>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -43,14 +45,14 @@ export class AuthenticationService {
   }
   //return this.http.post(this.host2+"/login", data, {observe:'response'})
   login(formData): Observable<JwtResponse>{
-    debugger
     return this.http.post<JwtResponse>(this.userApiUrl+"/login", formData).pipe(
       tap(user => {
        // const token = response.headers.get('Authorization');
         if(user && user.token){
           localStorage.setItem("currentUser", JSON.stringify(user));
           this.saveToken(user.token);
-          this.nameTerms.next();
+          this.nameTerms.next(user.user.firstName);
+          debugger
           this.currentUserSubject.next(user);
           return user;
         }
@@ -58,6 +60,10 @@ export class AuthenticationService {
 
     );
 
+  }
+
+  changeConnectedUserAfterUpdate(fullName){
+    this.nameTerms.next(fullName)
   }
 
   loadToken() {
@@ -117,7 +123,16 @@ getCurrentUser():any {
     this.currentUserSubject.next(null)
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
+    //mise à jour automatique du nombre de produit dans le panier
+    // this.cartService.getCart().subscribe(res=>{
+    //   if(res){
+    //     let nbProductInCart = this.cartService.countProductsInCart(res);
+    //     this.cartService.changeNbProductInCart(nbProductInCart);
+    //   }
+      
+    // })
     this.initParamsCredantials();
+
 
     //Naviguer vers le composant de login
     //this.router.navigate(['/login']);

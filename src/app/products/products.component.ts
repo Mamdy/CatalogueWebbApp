@@ -121,6 +121,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.catalogueService.getRessources(url)
         .subscribe((res:Product)=>{
           this.currentProduct = res;
+             //notifier le composant productDetails
+             this.catalogueService.changeCurrentProduct(this.currentProduct);
+             this.router.navigateByUrl('/product-details')
          }),error=>{
         console.log(error);
       };

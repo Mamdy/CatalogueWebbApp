@@ -7,6 +7,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { User } from '../model/User';
 import { prodCatApiUrl } from 'src/environments/environment';
 import { userApiUrl } from 'src/environments/environment';
+import { Client } from '../model/Client';
 
 @Injectable({
   providedIn: 'root'
@@ -87,12 +88,13 @@ export class UserService {
     return this.http.post<User>(url, user);
 }
 
-update(user: User): Observable<User> {
-  const url = this.apiUrl+"/profile";
-    return this.http.put<User>(url, user);    }
+update(id, formData): Observable<User> {
+  const url = this.apiUrl+"/profile/"+`${id}`;
+  debugger
+    return this.http.put<User>(url, formData);    }
 
 get(email: string): Observable<User> {
-  const url = this.apiUrl+"/profile/${email}";
+  const url = this.apiUrl+"/profile/"+`${email}`;
     return this.http.get<User>(url);
 }
 
@@ -103,7 +105,6 @@ passwordReset(id,formData): Observable <Boolean>{
   );
 }
 getUserByEmail(email: string): Observable<User> {
-  debugger
   const url = this.apiUrl+"/getUserByEmail/"+`${email}`;
   console.log(url);
     return this.http.get<User>(url);

@@ -6,4 +6,19 @@ Payment Finish recape
 https://springboot-angular-shop.herokuapp.com/login
 getNbProductInDBUser() à revoir
 
-https://stackoverflow.com/questions/39787038/how-to-manage-angular2-expression-has-changed-after-it-was-checked-exception-w
+site inspiration:
+https://www.matelma.com/fr-fr/shop/produit/15172/sacs-pour-conserver-les-oignons?gsh=1&gsk=1&gclid=Cj0KCQiA1KiBBhCcARIsAPWqoSpQjW3KjQh4JTXLvrtQSjhv9eu0h90MaKVh3TFfbvTtSddP-dU5agcaAhexEALw_wcB#
+https://bring4you.com/
+https://www.cocolis.fr/
+https://www.eurosender.com/
+https://www.sendcloud.fr/ (site de prepration, d'emballage et d'expedition  de colis)
+
+style="font-size: 12px;
+                         text-decoration: none;
+                         overflow: hidden;
+                         font-family: 'Arial, sans-serif';
+carte Test:
+4000 0027 6000 3184 -> visa controle 3D secure
+4242 4242 4242 4242 -> sans controle 3D secure
+4000056655665556 Visa (debit)
+5555555555554444 MasterCard Any 3 digits	Any future date

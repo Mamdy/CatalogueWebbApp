@@ -60,24 +60,28 @@ export class HeaderComponent implements OnInit,OnDestroy{
     
 
   ngOnInit(){
+    this.name$ = this.authService.name$.subscribe(authUserName => this.name = authUserName
+     );
   
     this.cartService.getCart().subscribe(res=>{
       if(res){
         this.nbProductInCart = this.cartService.countProductsInCart(res);
+        console.log("nbProduct in Panier=>", this.nbProductInCart);
       }
       
     })
-    console.log('nombre produit dans panier from header component=>', +this.nbProductInCart);
     this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
     this.currentUser = user;
-
-      if(!user || user.user.role == Role.Customer){
+    if(this.currentUser){
+      this.name = this.currentUser.user.firstName;
+    }
+    if(!user || user.user.role == Role.Customer){
         this.root = " ";
       }else {
         this.root = "/home";
 
       }
-      this.state = window.history.state.criteria;
+      //this.state = window.history.state.criteria;
     })
 
   }
@@ -141,8 +145,13 @@ get f() {
 
   logOut(){
     this.authService.logOut();
-    //localStorage.clear();
-    this.router.navigate(['/login']);
+    this.cartService.getCart().subscribe(res=>{
+      if(res){
+        this.nbProductInCart = this.cartService.countProductsInCart(res);
+        
+      }
+      this.router.navigate(['/login']);
+    })
 
   }
 

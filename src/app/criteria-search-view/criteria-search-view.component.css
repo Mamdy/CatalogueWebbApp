@@ -1,0 +1,11 @@
+.backward-btn {
+    background-color: rgba(173, 5, 173, 0.945);
+    border-radius: 25px;
+    padding: 7px;
+    width: 115px;
+    color: white;
+    font-family: 'proxima-nova';
+    font-size: 20px;
+    cursor: pointer;
+    margin-bottom: 0.5em;
+}

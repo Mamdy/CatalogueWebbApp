@@ -56,19 +56,12 @@
                               </h4>
                               <span style="font-size: 17px;"><s>{{p.price | number: '0.2'}}</s>&euro;</span> &nbsp;
                               <span style="color: rgb(253, 60, 60); font-size: 30px; font-weight: bold;">{{p.currentPrice | number: '0.2'}}&euro;</span>
-                              <p class="card-text"><span style="font-size: 14px; font-family: 'proxima-nova';"> {{p.description}}</span></p>
+                              <p class="card-text"><span style="font-size: 15.5px; font-family: 'proxima-nova';"> {{p.description}}</span></p>
                             </div><br>
                             <div *ngIf="p.productStock < 1">
                               <h6><span style="color: red" >Article indisponible en Stock!!</span></h6>
-                          </div>
-                          <div class="text-left" *ngIf="p.productStock >=1">
-                            <p class="card-text"><strong><span style="color: rgb(78, 247, 78);font-size: 14px;">En stock: </span> &nbsp;</strong>
-                              <span style="font-size: 14px;;"><strong>{{p?.productStock}}</strong></span>
-                            
-                            </p>
-                          </div>
-
-        
+                            </div>
+                                 
                           <!--<button class="btn btn-primary spacer" (click)="detailsProduct(productInfo)"><span class="glyphicon glyphicon-eye-open">&nbsp;<strong>Voir les Details</strong></span></button>&#160;-->
                             <div class="card-footer">
                               <!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
@@ -83,13 +76,9 @@
           </div>
     </div>
 
-
-    <div *ngIf="currentProduct && mode ==='detail-product'" >
+    <!-- <div *ngIf="currentProduct && mode ==='detail-product'" >
       <app-product-details [currentProduct]="currentProduct"></app-product-details>
-      <h1>Nos clients ont achété aussi ces produits</h1>
-      <!-- <app-similar-product [similarProducts]="similarProductsList"></app-similar-product> -->
-    </div>
-
+    </div> -->
 
   </div>
 <app-footer></app-footer>

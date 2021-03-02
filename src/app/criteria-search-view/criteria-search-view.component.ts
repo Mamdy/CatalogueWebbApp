@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CatalogueService } from '../services/catalogue.service';
 import { Product } from '../model/Product';
+import { AppResponse } from '../model/AppResponse';
+import { Category } from '../model/Category';
 
 @Component({
   selector: 'app-criteria-search-view',
@@ -9,10 +11,11 @@ import { Product } from '../model/Product';
 })
 export class CriteriaSearchViewComponent implements OnInit {
 public state = '';
-mode:string
+  mode:string
   page: any;
   currentProduct: Product;
-
+  categories:Category[]=[];
+  
   constructor(private cataService: CatalogueService) { }
 
   ngOnInit() {
@@ -23,10 +26,18 @@ mode:string
   }
 
   getProductByCriteria(){
- 
-    this.cataService.getProductsByKeword(this.state, 1,10).subscribe(result=>{
-      this.page = result;
-    })
+
+ this.cataService.getAllCategories()
+      .then((result:AppResponse)=>{
+        debugger
+        this.categories=result.getData().categories;
+        this.cataService.getProductsByKeyWord(this.categories,this.state, 1,10).subscribe(result=>{
+          this.page = result;
+        })
+        
+      });
+        
+   
   }
 
   detailsProduct(p){

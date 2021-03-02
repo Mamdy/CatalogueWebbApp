@@ -8,7 +8,24 @@
       <div class="card">
         <div class="card-body">
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <label><b>E-mail</b></label>
+            <label><b>Civilité:<span class="required">&nbsp;*</span></b></label>
+            <div class=" col form-group">
+                <div class="col-md-14">
+                    <select  class="form-control ng-touched ng-pristine ng-valid opt-style" formControlName="civilite" id="civilite" autofocus>
+                        
+                            <option selected="selected" value="Monsieur">Monsieur</option>
+                            <option value="Madame">Madame</option>
+                        
+                        
+                    </select>
+                  
+                    <div *ngIf="submitted && f.civilite.errors" class="invalid-feedback">
+                        <div *ngIf="f.civilite.errors.required">La civilité est obligatoire</div>
+                    </div>
+                </div>
+              
+            </div><br>
+            <label><b>E-mail:<span class="required">&nbsp;*</span></b></label>
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -34,20 +51,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label>Prénom</label>
-              <input type="text"
-                formControlName="firstName"
-                class="form-control"
-                placeholder="Entrer votre prénom"
-                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
-                style="height:50px;"
-              />
-              <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                <div *ngIf="f.firstName.errors.required">Le prénom est obligatoire</div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Nom de naissance</label>
+              <label><b>Nom:<span class="required">&nbsp;*</span></b></label>
               <input type="text"
                 formControlName="lastName"
                 class="form-control" 
@@ -60,7 +64,20 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="password">Mot de passe</label>
+              <label><b>Prénom:<span class="required">&nbsp;*</span></b></label>
+              <input type="text"
+                formControlName="firstName"
+                class="form-control"
+                placeholder="Entrer votre prénom"
+                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+                style="height:50px;"
+              />
+              <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                <div *ngIf="f.firstName.errors.required">Le prénom est obligatoire</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label><b>Mot de passe:<span class="required">&nbsp;*</span></b></label>
               <div class="input-group">
                 <input 
                   [type]="fieldTextType ? 'text': 'password'"
@@ -95,7 +112,7 @@
             
             </div>
             <div class="form-group">
-              <label for="password">Confirmer votre mot de passe</label>
+              <label for="password"><b>Confirmation mot de passe:<span class="required">&nbsp;*</span></b></label>
               <div class="input-group">
                 
                 <input 
@@ -114,7 +131,7 @@
           
             </div>
             <div class="form-group">
-              <label>Téléphone Portable</label>
+              <label><b>Téléphone Portable:<span class="required">&nbsp;*</span></b></label>
               <input type="text"
                 formControlName="phone"
                 class="form-control"
@@ -127,8 +144,9 @@
               
               </div>
             </div>
+
             <div class="form-group">
-              <label>Adresse</label>
+              <label><b>Adresse:<span class="required">&nbsp;*</span></b></label>
               <input type="text"
                 formControlName="address"
                 class="form-control"
@@ -142,6 +160,58 @@
               
               </div>
             </div>
+            <div class="form-group">
+              <label>Code Postal:<span class="required">&nbsp;*</span></label>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Ville<span class="required">&nbsp;*</span></label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <input 
+                  type="text"
+                  style="height:50px;"
+                  width="15px"
+                  
+                  formControlName="codePostal"
+                  placeholder="Code Postale*"
+                  [ngClass]="{ 'is-invalid': submitted && f.codePostal.errors }"
+                  class="form-control"
+                />
+                <div *ngIf="submitted && f.codePostal.errors" class="invalid-feedback">
+                  <div *ngIf="f.codePostal.errors.required">Le code Postal est obligatoire</div>
+                </div>
+              </div>&nbsp;
+              <input 
+                type="text"
+                style="height:50px;"
+                formControlName="ville"
+                placeholder="Ville*"
+                [ngClass]="{ 'is-invalid': submitted && f.ville.errors }"
+                class="form-control"
+              />
+              <div *ngIf="submitted && f.ville.errors" class="invalid-feedback">
+                <div *ngIf="f.ville.errors.required">La ville est obligatoire</div>
+              </div>
+            </div>
+           
+           
+         
+          </div>
+
+          <div class="form-group">
+              <label>Pays/Region<span class="required">&nbsp;*</span></label>
+            <input 
+                type="text"
+                style="height:50px;"
+                formControlName="pays"
+                placeholder="Pays/Region*" 
+                [ngClass]="{ 'is-invalid': submitted && f.pays.errors }"
+                class="form-control"
+            />
+            <div *ngIf="submitted && f.pays.errors" class="invalid-feedback">
+              <div *ngIf="f.pays.errors.required">Le pays ou la région est obligatoire</div>
+            </div>
+
+          </div>
             <div class="form-group">
               <div class="wrapp-buttons">
                 <button [disabled]="loading" class="btn btn-valider">Créer mon compte</button><br>

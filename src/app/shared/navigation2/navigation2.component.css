@@ -1,12 +1,12 @@
 .topnav2 {
-    background-color: rgb(3, 17, 26);
+    background-color: rgba(1, 17, 31, 0.877);
 }
 
 .list{
     color: white;
-    font-size: large;
+    font-size: 14px;
     font-weight: bold;
-    font-family: 'proxima-nova';
+    font-family: 'arial, sans-serif';
 }
 
 .flex-container {

@@ -1,114 +1,150 @@
-<div class="container spacer">
-  <br><a  class="btn-link float-left" (click)="goHome()"> <span style="color: rgb(0, 174, 255); font-size: 14px; font-family: 'proxima-nova';">< RETOUR</span></a>
-    <div class="col col-md-2">
-      <ul *ngIf="currentProduct.photoUrl">
-      <li *ngFor="let photo of currentProduct.photoUrl"
-      class="list-group"
-      >
-      <img height="3%" class="card-img-top" src="../assets/images/{{photo}}.jpg" alt="alt-img"><br><br>
-      </li>
-      </ul>
-    
-    </div>
 
-    <div class="col col-md-7">
-        <div class="col-lg-11">
-          <h1 align="center" class="display-4 mb-3">
-          <strong>
-          <span style="color: rgb(0, 162, 255);">{{currentProduct?.name}}</span>
-          </strong>
-          </h1>
-          <div class="card mb-4">
-            <ngb-carousel *ngIf="currentProduct.photoUrl">
-                <ng-template ngbSlide>
-                <div class="style">
-                <img src="../assets/images/{{currentProduct.photoUrl[0]}}.jpg" class="card-img-top" height="100%" alt="Random first slide">
-                </div>
-                </ng-template>
-                <ng-template ngbSlide>
-                <div>
-                <img src="../assets/images/{{currentProduct.photoUrl[1]}}.jpg" class="card-img-top" height="100%" alt="Random first slide">
-                </div>
-                </ng-template>
-                <ng-template ngbSlide>
-                <div >
-                <img src="../assets/images/{{currentProduct.photoUrl[2]}}.jpg" class="card-img-top" height="100%" alt="Random third slide">
-                </div>
-                </ng-template>
-                <ng-template ngbSlide>
-                <div >
-                <img src="../assets/images/{{currentProduct.photoUrl[3]}}.jpg" class="card-img-top" height="100%" alt="Random fourth lide">
-                </div>
-                </ng-template>
-            </ngb-carousel>
 
-            <div class="card-body">
-                <h4 class="card-title ">
-                <strong>
-                <span style="color: rgb(0, 162, 255); text-align: center;">{{currentProduct?.name}}</span>
-                </strong>
-                </h4>
-            </div>
-            
+  <div class="spacer">
+    <ul class="col col-md-1" *ngIf="currentProduct.photoUrl">
+      <br>
+      <a  class="btn btn-link float-left goback" routerLink="/home">
+        <span style="
+          color: white; font-size: 14px;
+          font-family: 'proxima-nova';
+          font-weight: bold;"
+          
+          >
+         < RETOUR
+       </span>
+      </a><br><br>
+
+    <li *ngFor="let photo of currentProduct.photoUrl"
+    class="list-group"
+    >
+    <img height="3%" class="card-img-top" src="../assets/images/{{photo}}.jpg" alt="alt-img"><br><br>
+    </li>
+    </ul>
+  
+  
+
+  <div class="col col-md-6">
+      <div class="col-lg-10">
+        <h1 align="center" class="display-4 mb-3">
+        <strong>
+        <span style="color: rgb(0, 162, 255);">{{currentProduct?.name}}</span>
+        </strong>
+        </h1>
+        <div class="card mb-4">
+          <ngb-carousel *ngIf="currentProduct.photoUrl">
+              <ng-template ngbSlide>
+              <div class="style">
+              <img src="../assets/images/{{currentProduct.photoUrl[0]}}.jpg" class="card-img-top" height="100%" alt="Random first slide">
+              </div>
+              </ng-template>
+              <ng-template ngbSlide>
+              <div>
+              <img src="../assets/images/{{currentProduct.photoUrl[1]}}.jpg" class="card-img-top" height="100%" alt="Random first slide">
+              </div>
+              </ng-template>
+              <ng-template ngbSlide>
+              <div >
+              <img src="../assets/images/{{currentProduct.photoUrl[2]}}.jpg" class="card-img-top" height="100%" alt="Random third slide">
+              </div>
+              </ng-template>
+              <ng-template ngbSlide>
+              <div >
+              <img src="../assets/images/{{currentProduct.photoUrl[3]}}.jpg" class="card-img-top" height="100%" alt="Random fourth lide">
+              </div>
+              </ng-template>
+          </ngb-carousel>
+
+          <div class="card-body">
+              <h4 class="card-title ">
+              <strong>
+              <span style="color: rgb(0, 162, 255); text-align: center;">{{currentProduct?.name}}</span>
+              </strong>
+              </h4>
           </div>
           
-      </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-23">
-          <div class="col-lg-22">
-              <br><br><br><br>
-              <h1 align="center" class="display-4 mb-3">
-                <strong>
-                <span style="color: rgb(0, 162, 255);">{{currentProduct?.name}}</span>
-                </strong>
-              </h1>
-              <h1 align="center">DESCRIPTION</h1>
-              <p>Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée. Généralement, on utilise un texte en faux latin, le Lorem ipsum ou Lipsum.</p>
-              <form name="form" #form='ngForm' (ngSubmit)="currentProduct?.active == true && addCurrentProductToCart()">
-              <div class="text-left">
-              <input hidden name="id" [value]=currentProduct?.id>
-              <p class="card-text"><strong><span style="font-family: proxima-nova; font-size: 16px;">{{currentProduct?.description}}</span> </strong></p>
-              <p class="card-text">
-              <label id="price">
-                &nbsp;<span style="font-size: 15px;"> <s>{{currentProduct?.price | number: '0.2'}}</s>&euro;</span><br>
-                <span style="color: red; font-size: 37px;">{{currentProduct?.currentPrice | number: '0.2'}}&euro;</span>
-              </label>
-              </p>
-              <p class="card-text"><strong><span style="color: rgb(78, 247, 78);font-size: 16px;">En stock</span> &nbsp;</strong></p>
-              <label class="card-text">
-              <strong>Quantité: </strong>
-              <input [(ngModel)]=count
-              (change)="validateCount()"
-              type="number"
-              name="count"
-              style="width: 50px;"
-              maxlength="2"
-              required
-              min="1"
-              [max]=currentProduct?.productStock
-              >
-              </label>
-              <p class="card-text"><span style="font-size: 16px;"><strong>Sous-total: </strong></span>
-               
-              <label id="subtotal">
-                <span style="color: red; font-size: 37px;">{{currentProduct?.price | number: '0.2'}}&euro;</span>
-              </label>
-              </p>
-              </div>
-              <button type="submit" [disabled]="!form.form.valid" *ngIf="currentProduct?.active && currentProduct.productStock >0 == true; else offBlock"
-              class="btn"
-              >
-              <span class="glyphicon glyphicon-shopping-cart"></span>
-              AJOUTER AU PANIER
-              </button>
-              <img src="../assets/images/cards.png">
-              <ng-template #offBlock><a class="btn btn-secondary btn-lg disabled">Unavailable</a></ng-template>
-              </form>
-          </div>
         </div>
+        
     </div>
+  </div>
 
+  <div class="row">
+      <div class="col-md-20">
+        <div class="col-lg-19">
+            <br><br>
+              <strong>
+              <span style="color: rgb(0, 162, 255); font-size: 22px;">{{currentProduct?.name}}</span>
+              </strong>
+            
+            <span style="font-size: 14px;"><p>Dell XPS 13-7390 Ordinateur Portable Slim Ultra Leger 13,3" Full HD Silver (Intel Core i5, 8Go de RAM, SSD 256Go, Intel UHD Graphics, Windows 10 Home) Clavier AZERTY Français</p></span>
+            <form name="form" #form='ngForm' (ngSubmit)="currentProduct?.active == true && addCurrentProductToCart()">
+            <div class="text-left">
+            <input hidden name="id" [value]=currentProduct?.id>
+            <!-- <p class="card-text"><strong><span style="font-family: proxima-nova; font-size: 16px;">{{currentProduct?.description}}</span> </strong></p> -->
+            <p class="card-text">
+            <label id="price">
+              &nbsp;<span style="font-size: 15px;"> <s>{{currentProduct?.price | number: '0.2'}}</s>&euro;</span><br>
+              <span style="color: red; font-size: 37px;">{{currentProduct?.currentPrice | number: '0.2'}}&euro;</span>
+            </label>
+            </p>
+            <p class="card-text"><strong><span style="color: rgb(4, 139, 4);font-size: 20px;">En stock</span> &nbsp;</strong></p>
+
+            <label class="card-text">
+              Quantité:
+              <div class="qte">
+                <span style="margin-top: 3em;">
+                  <input [(ngModel)]=count
+                  (change)="validateCount()"
+                  type="number"
+                  name="count"
+                  style="width: 50px; height: 30px;"
+                  maxlength="2"
+                  required
+                  min="1"
+                  [max]=currentProduct?.productStock
+                  >
+                </span> 
+              
+              </div>
+          
+            </label>
+            <p class="card-text"><span style="font-size: 16px;"><strong>Sous-total: </strong></span>
+             
+            <label id="subtotal">
+              <span style="color: red; font-size: 37px;">{{currentProduct?.currentPrice | number: '0.2'}}&euro;</span>
+            </label>
+            </p>
+            </div>
+            <button type="submit" [disabled]="!form.form.valid" *ngIf="currentProduct?.active && currentProduct.productStock >0 == true; else offBlock"
+            class="btn"
+            >
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            AJOUTER AU PANIER
+            </button><br>
+            <span style="font-size: 14px; font-weight: bold;">Cartes acceptées:</span><br>
+            <img src="../assets/images/cards.png" width="280px" height="180px"><br><br>
+            <span style="font-size: 14px;">Vendu par</span> <span style="color: red; font-size: 20px;"> SodenKamin</span>
+            <div class="div">
+              <a class="btn-link" (click)="detailProduct()"><span class="txt" style="font-size: 14px; color: rgb(8, 162, 209);">Descrpitif détaillé du produit</span> </a>
+            </div>
+            <ng-template #offBlock><a class="btn btn-secondary btn-lg disabled">Unavailable</a></ng-template>
+            </form>
+        </div>
+        <div *ngIf="currentProduct && mode ==='detail-product'" >
+          <ul class="text-ul">
+           <li>Valise rigide à roulettes pivotantes de 55 cm dimension extérieure, 51 cm dimension intérieure pour partir en week-end ou comme bagage à main lorsque vous prenez l’avion.</li>
+           <li>Coque rigide de protection avec finition anti-rayures; fabriquée en ABS extra-épais (plus épais que celui de nos concurrents) pour une solidité renforcée.</li>
+           <li>Intérieur entièrement doublé doté d'un séparateur; rangement intérieur en polyester 150D avec 3 compartiments à fermeture Éclair pour ranger de manière pratique des objets plus petits.</li>
+           <li>Extensible pour ajouter jusqu'à 15 % de capacité de rangement supplémentaire; fermetures Éclair solides; poignée télescopique pour la manœuvrer de manière confortable; poignée courte montée de manière sûre.</li>
+           <li>4 roues doubles pivotantes pour une mobilité fluide dans toutes les directions</li>
+          </ul>
+        </div>
+      </div>
+  </div>
+   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <div class="similar-product">
     <app-similar-product [similarProducts]="similarProductsList"></app-similar-product>
+  </div> 
+  
 </div>
+
+

@@ -1,4 +1,5 @@
 import { Client } from './Client';
+import { User } from './User';
 
 export class JwtResponse {
     token: string;
@@ -6,5 +7,5 @@ export class JwtResponse {
    /* account: string;
     name: string;
     role: string;*/
-    user: Client;
+    user: User;
 }

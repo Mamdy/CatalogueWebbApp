@@ -1,8 +1,8 @@
 .btn {
     margin-top: 1.5em;
-    padding: 55px, 62.5px;
+    padding: 55px, 90px;
     height: 55px;
-    width: 260px;
+    width: 275px;
     /*border-radius: 25px;*/
     cursor: pointer;
     font-size: 16px;
@@ -26,4 +26,34 @@
 .spacer {
     margin-top: 3.4em;
     margin-bottom: 5em;
+}
+
+.qte {
+    margin-top: -1.6em;
+    margin-left: 4.7em;
+}
+
+.similar-product {
+    position: relative;
+    margin-top: 12em;
+}
+
+.goback {
+    border-radius: 25px;
+    padding: 1px 80px;
+    padding-left: 5%;
+    width: 7px;
+    height: 30px;
+    margin-top: -2em;
+    background-color: purple;
+    color: white;
+    
+}
+
+.txt:hover {
+    text-decoration: underline;
+}
+
+.text-ul{
+    font-size: 15px;
 }

@@ -120,7 +120,7 @@ export class PaymentCardFormComponent implements OnInit {
                     //this.stripeForm.get('name').setValue('');
                     
                     this.cartService.changeNbProductInCart(0);
-                    this.router.navigateByUrl('/home');
+                    this.router.navigateByUrl('/payementRecap');
 
                       
                     }

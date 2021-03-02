@@ -31,3 +31,15 @@
     vertical-align: middle;
 }
 
+.required {
+    color: red;
+}
+
+.opt-style {
+    font-size: 14px;
+    padding: 10px;
+    overflow: hidden;
+    height: 50px;
+    text-indent: 10px;
+    
+}

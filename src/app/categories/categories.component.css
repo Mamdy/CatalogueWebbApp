@@ -43,17 +43,11 @@
     cursor: pointer;
     float: left;
     text-align: center;
-    /*padding: 14px 16px;*/
-    text-decoration: rgb(201, 235, 247);
     font-size: 16px;
-    font-weight: bold;
-    font-family: "proxima-nova";
-    /*color: rgba(24, 164, 189, 0.979);*/
+    /*font-family: Arial,Verdana, Helvetica, sans-serif;*/
     color:white;
-    /*padding: 7px;*/
     border-radius: 25px;
-   /* background-color: rgb(23, 0, 128);*/
-    /*background-color: rgb(4, 142, 177);*/
+
     
 
 }
@@ -62,7 +56,7 @@
     /* background-color: rgba(24, 164, 189, 0.979); */
     /*background-color: rgb(5, 80, 99);*/
     background-color: rgb(23, 0, 128);
-    width: 120px;
+    /* width: 120px; */
   /*color: rgb(255, 255, 255);*/
    border-radius: 20px;
    color: white;

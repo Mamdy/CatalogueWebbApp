@@ -1,0 +1,13 @@
+.data {
+    font-family: Arial, Verdana,Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+.style {
+    background-color: rgb(5, 80, 99);
+    font-size: 20px;
+    font-family: 'proxima-nova';
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}

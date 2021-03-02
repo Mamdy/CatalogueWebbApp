@@ -1,139 +1,140 @@
-<div class="flex-container">
-  <div class="container">
-    <div *ngIf="!passwordReset" class="col-md-9 dimension">
-      <div class="panel panel-default">
-        <div *ngIf="isUsernameOrPasswordIncorrect" class="alert alert-danger">
-          <span>nom d'utilisateur ou mot de passe incorrecte</span>
-        </div>
-        <div class="panel-heading style">Identifiez-Vous</div>
-        
-        <div class="panel-body">
-          
-          
-          <form [formGroup]='loginForm' (ngSubmit)="onSubmit()"> 
-            <div class="float-left">
-              <label>E-mail</label>
-            </div>
-            <div class="form-group">
-                 <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                  </span>
-                </div>
-                <input type="email"
-                  formControlName="email"
-                  class="form-control form-control-lg"
-                  id="email"
-                  name="email"
-                  placeholder="example@mail.com"
-                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-                  style="height:60px;"
-                >
+  <div class="flex-container">
+      <div class="container">
+          <div *ngIf="!passwordReset" class="col-md-8 dimension">
+            <div class="panel panel-default">
+              <div *ngIf="isUsernameOrPasswordIncorrect" class="alert alert-danger">
+                <span>nom d'utilisateur ou mot de passe incorrecte</span>
               </div>
-              <div  *ngIf="f.email.invalid && (f.email.dirty ||f.email.touched)" >
-                  <div *ngIf="f.email.errors.required" class="alert alert-danger" >
-                      l'adresse mail est obligatoire.
+              <div class="panel-heading style">Identifiez-Vous</div>
+              
+              <div class="panel-body">
+                
+                
+                <form [formGroup]='loginForm' (ngSubmit)="onSubmit()"> 
+                  <div class="float-left">
+                    <label>E-mail</label>
                   </div>
-                  <div *ngIf="f.email.errors.email" class="alert alert-danger">
-                      l'adresse mail est invalide.
-                  </div> 
-                  
-              </div>
-    
-            </div>
-            <div class="float-left">
-              <label>Mot de passe</label>
-            </div>
-          <div class="form-group">
-                 <div class="input-group">
-                            
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="fas fa-lock"></i>
-                    </span>
+                  <div class="form-group">
+                       <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                      <input type="email"
+                        formControlName="email"
+                        class="form-control form-control-lg"
+                        id="email"
+                        name="email"
+                        placeholder="example@mail.com"
+                        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                        style="height:60px;"
+                      >
+                    </div>
+                    <div  *ngIf="f.email.invalid && (f.email.dirty ||f.email.touched)" >
+                        <div *ngIf="f.email.errors.required" class="alert alert-danger" >
+                            l'adresse mail est obligatoire.
+                        </div>
+                        <div *ngIf="f.email.errors.email" class="alert alert-danger">
+                            l'adresse mail est invalide.
+                        </div> 
+                        
+                    </div>
+          
                   </div>
-                  <input 
-                  [type]="fieldTextType ? 'text': 'password'"
-                  class="form-control"
-                  formControlName="password"
-                  
-                  [ngClass]="{ 
-                    'is-invalid': submitted && f.password.errors
-                  }"
-                  placeholder="Entrez votre mot de passe"
-                  style="height:60px;"
-                 />
-        
-                  <div class="input-group-append">
-                    <span class="input-group-text">
-                      <i 
-                        class="fa"
-                        [ngClass]="{
-                        'fa-eye-slash':!fieldTextType,
-                        'fa-eye':fieldTextType
+                  <div class="float-left">
+                    <label>Mot de passe</label>
+                  </div>
+                <div class="form-group">
+                       <div class="input-group">
+                                  
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fas fa-lock"></i>
+                          </span>
+                        </div>
+                        <input 
+                        [type]="fieldTextType ? 'text': 'password'"
+                        class="form-control"
+                        formControlName="password"
+                        
+                        [ngClass]="{ 
+                          'is-invalid': submitted && f.password.errors
                         }"
-                      (click)="toggleFieldTextType()"
-                      ></i>
-                    </span>
+                        placeholder="Entrez votre mot de passe"
+                        style="height:60px;"
+                       />
+              
+                        <div class="input-group-append">
+                          <span class="input-group-text">
+                            <i 
+                              class="fa"
+                              [ngClass]="{
+                              'fa-eye-slash':!fieldTextType,
+                              'fa-eye':fieldTextType
+                              }"
+                            (click)="toggleFieldTextType()"
+                            ></i>
+                          </span>
+                        </div>
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                          <div *ngIf="f.password.errors.required">Le mot de passe est obligatoire</div>
+                        </div>
+                    </div>
+                </div>
+          
+                <div class="form-group">
+                       <a class="float-right" routerLink="/sendResetPasswordLink"><span style="font-size: 16px;">Mot de passe oublié ?</span></a>
+                  
+                </div>
+                <br><br>
+                  <div class="form-group">
+                    <!-- <button [disabled]="loading" class="btn flex-item-center-btn"><strong>je me connecte</strong> -->
+                      <button [disabled]="loading" class="btn btn-block connex-btn">
+                        <span 
+                            style="font-size: 22px;
+                            font-family: 'proxima-nova';
+                            
+                            "
+                            
+                            
+                            >Connexion</span>
+                      
+                      
+                        <div *ngIf="submitted && loading" >
+                          <div class="d-flex justify-content-center"> 
+                            <div class="spinner-border" role="status"> 
+                                <span class="sr-only" id="loading"></span> 
+                            </div> 
+                            <div class="spinner-grow text-primary" role="status">
+                              <span class="sr-only" >Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-secondary" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-success" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-danger" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-warning" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                          </div> 
+                                     
+                        </div>
+                    </button><br>
+                    <!--<img *ngIf="loading" src="data:image/gif;base64," />-->
+                    <span style="font-size: 17px;">Vous êtes un nouveau client ?</span>
+                    <a routerLink="/register" class="btn-link"><span style="font-size: 16px;"> Créer mon compte</span></a>
                   </div>
-                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Le mot de passe est obligatoire</div>
-                  </div>
+                </form>
               </div>
-          </div>
-    
-          <div class="form-group">
-                 <a class="float-right" routerLink="/sendResetPasswordLink"><span style="font-size: 16px;">Mot de passe oublié ?</span></a>
-            
-          </div>
-          <br><br>
-            <div class="form-group">
-              <!-- <button [disabled]="loading" class="btn flex-item-center-btn"><strong>je me connecte</strong> -->
-                <button [disabled]="loading" class="btn btn-block connex-btn">
-                  <span 
-                      style="font-size: 20px;
-                      font-family: 'proxima-nova';
-                      font-weight: bold;
-                      "
-                      
-                      
-                      >Connexion</span>
-                
-                
-                  <div *ngIf="submitted && loading" >
-                    <div class="d-flex justify-content-center"> 
-                      <div class="spinner-border" role="status"> 
-                          <span class="sr-only" id="loading"></span> 
-                      </div> 
-                      <div class="spinner-grow text-primary" role="status">
-                        <span class="sr-only" >Loading...</span>
-                      </div>
-                      <div class="spinner-grow text-secondary" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                      <div class="spinner-grow text-success" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                      <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                      <div class="spinner-grow text-warning" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                    </div> 
-                               
-                  </div>
-              </button><br>
-              <!--<img *ngIf="loading" src="data:image/gif;base64," />-->
-              <span style="font-size: 17px;">Vous êtes un nouveau client ?</span>
-              <a routerLink="/register" class="btn-link"><span style="font-size: 16px;"> Créer mon compte</span></a>
             </div>
-          </form>
-        </div>
+          </div>
+       
+          
       </div>
-    </div>
-      
   </div>
 
-</div>

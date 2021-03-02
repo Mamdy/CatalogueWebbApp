@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, OnDestroy } from '@angular/core';
 import { Product } from '../model/Product';
 import { CatalogueService } from '../services/catalogue.service';
 import { CartService } from '../services/cart.service';
 import { ProductInOrder } from '../model/ProductInOrder';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Location, DOCUMENT } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Category } from '../model/Category';
 import { AppResponse } from '../model/AppResponse';
@@ -16,7 +16,7 @@ import { error } from 'protractor';
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit,OnDestroy {
   @Input() currentProduct: Product;
   similarProductsList: Product[]=[];
   count: number;
@@ -26,6 +26,8 @@ export class ProductDetailsComponent implements OnInit {
   photoUrls: String[];
   productCategory: Category;
   similarProductsUrl: any;
+  currentProductSubscription: Subscription;
+  mode: string;
 
   //similarProductsList: Product[]=[];
   constructor(private cartService: CartService,
@@ -40,9 +42,19 @@ export class ProductDetailsComponent implements OnInit {
                 carouselConfig.keyboard= true;
                 carouselConfig.showNavigationArrows = true
                 carouselConfig.showNavigationIndicators = true;
+             
   }
 
   ngOnInit() {
+    debugger
+    this.currentProductSubscription = this.catalogService.currentProduct
+    .subscribe(currentProduct=>{
+      debugger
+      this.currentProduct = currentProduct
+      console.log("productFrom detail", this.currentProduct)
+    });
+
+
     this.count = 1;
     const productId = this.route.snapshot.paramMap.get('id');
     if(productId){
@@ -80,13 +92,12 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addCurrentProductToCart(){
+    debugger
     this.cartService.addItem(new ProductInOrder(this.currentProduct,this.count))
                     .subscribe(res => {
                           if(!res){
                             alert('l\'AJout du produit dans le pannier a echoué')
-                            console.log('AJout du produit dans le pannier a echoué',+res);
-
-                            throw new Error();
+                              throw new Error();
                           }
 
                           alert('Le produit a bien été ajouté dans votre panier');
@@ -106,17 +117,6 @@ export class ProductDetailsComponent implements OnInit {
     
   }
 
-  goBack() {
-    this.showProductByCategoryComponet=false;
-    setTimeout(x=>this.showProductByCategoryComponet = true);
-
- }
-
- goHome(){
-   location.reload();
- }
-
-
   validateCount(){
     console.log('Validation du champs quantité');
     const maxStock = this.currentProduct.productStock;
@@ -126,6 +126,16 @@ export class ProductDetailsComponent implements OnInit {
       this.count = 1;
     }
 
+  }
+  detailProduct(){
+    this.mode='detail-product';
+  }
+
+  ngOnDestroy(){
+    if(this.currentProductSubscription){
+      this.currentProductSubscription.unsubscribe();
+      this.currentProductSubscription = null;
+    }
   }
 
 }

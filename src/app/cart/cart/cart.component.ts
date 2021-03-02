@@ -188,6 +188,7 @@ remove(productInOrder: ProductInOrder) {
 }
 
 checkout() {
+  debugger
   if (!this.currentUser) {
       this.router.navigate(['/login'], {queryParams: {returnUrl: this.router.url}});
   } else if (this.currentUser.user.role !== Role.Customer && this.currentUser.user.role !== Role.Manager) {
@@ -200,9 +201,8 @@ checkout() {
                 this.cartService.sendNewOrderId(this.newOrderToShipp);
                 this.productInOrders = [];
                 this.router.navigate(['/shippingAddress']);
-            },
-          error1 => {
-              console.log('Checkout Cart Failed');
+            },error1 => {
+              console.log('Checkout Cart Failed',error1);
           });
 
   }
