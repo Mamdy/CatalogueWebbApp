@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Role } from '../enum/Role';
 import { Client } from '../model/Client';
@@ -22,7 +23,8 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService: UserService,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private router: Router) {
+    private router: Router,
+    private toastService: ToastrService) {
 }
 
 user:User;
@@ -66,6 +68,7 @@ ngOnInit() {
        this.loading = true;
        const dataForm = this.profileForm.value;
        this.userService.update(id, dataForm).subscribe(u => {
+        this.toastService.success('Votre compte a été mise à jour avec succès', 'Compte mise à jour ',{positionClass: 'toast-top-center', timeOut: 7000});
         this.authService.nameTerms.next(u.firstName)
          let url = '/profile';
          if (this.user.role != Role.Customer) {
@@ -75,11 +78,10 @@ ngOnInit() {
          }, _ => {});
        });
 
-       console.log("id==>", id);
+   }
 
-  
-
-
+   updateCancelled(){
+     location.reload();
    }
 
 

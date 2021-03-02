@@ -45,8 +45,6 @@ export class LoginComponent implements OnInit {
               private authService: AuthenticationService,
               private  router: Router,
               private toastService: ToastrService,
-              private catalogueService: CatalogueService,
-              private cartService: CartService
               ) {
   }
 
@@ -83,27 +81,12 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authService.login(this.loginForm.value)
       .subscribe(user=>{
-        debugger
         if(user){
           if(user.user.role != Role.Customer && user.user.role !=Role.Manager){
               this.returnUrl = '/home';
             }
-            //notification nombre de produit dans le panier
-            // this.cartService.getCart().subscribe(res=>{
-            //   debugger
-            //   if(res){
-            //     let nbProductInCart = this.cartService.countProductsInCart(res);
-            //     console.log("nbproductin cart after logged In:",nbProductInCart)
-            //     this.cartService.changeNbProductInCart(nbProductInCart);
-                
-            //   }
-              
-            // })
-        
 
             this.toastService.success('Vous êtes connecté avec Success sur notre Site', 'Connexion reussie '+user.user.firstName,{positionClass: 'toast-top-center', timeOut: 5000});
-            debugger
-            //this.router.navigateByUrl('/home');
             this.router.navigateByUrl(this.returnUrl);
          
         }else{
@@ -111,7 +94,6 @@ export class LoginComponent implements OnInit {
           this.isFormValid = true;
         }
       },error => {
-        debugger
         this.isUsernameOrPasswordIncorrect = true;
         this.toastService.error('le nom d\'utilisateur ou mot de passe incorrect','identifiants Incorrects', {positionClass: 'toast-top-center', timeOut:5000});
         this.loginForm.reset();
