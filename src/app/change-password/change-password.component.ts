@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { error } from 'protractor';
+import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { User } from '../model/User';
 import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
 
@@ -12,18 +14,17 @@ import { UserService } from '../services/user.service';
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.css']
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit{
   fieldTextType: boolean;
   loading = false;
   submitted = false;
   passwordForm: FormGroup;
   isFormValid: boolean = false;
-  
-
   constructor( private formBuilder: FormBuilder,
     private router: Router,
-    private userService: UserService, 
+    private userService: UserService,
     private toastService: ToastrService) { }
+ 
 
   ngOnInit(): void {
     this.passwordForm = this.formBuilder.group({
@@ -39,7 +40,6 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit(){
-    debugger
     this.submitted = true;
 
     if(this.passwordForm.invalid){
@@ -54,7 +54,6 @@ export class ChangePasswordComponent implements OnInit {
     const formValue = this.passwordForm.value;
     this.userService.getUserByEmail(userEmail)
       .subscribe(user => {
-        debugger
         if(user){
           this.userService.passwordReset(user.id,formValue)
           .pipe(first())
@@ -83,4 +82,5 @@ export class ChangePasswordComponent implements OnInit {
     this.submitted = false;
     this.passwordForm.reset();
   }
+
 }

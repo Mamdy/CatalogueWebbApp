@@ -18,6 +18,7 @@ import { UserService } from '../services/user.service';
 export class UserProfileComponent implements OnInit {
   submitted: boolean;
   loading: boolean;
+  fieldTextType: boolean;
   
 
   constructor(private userService: UserService,
@@ -48,6 +49,7 @@ ngOnInit() {
     });
 
       this.user = this.authService.currentUserValue.user;
+      this.fieldTextType = false;
   
   }
 
@@ -78,6 +80,10 @@ ngOnInit() {
          }, _ => {});
        });
 
+   }
+
+   toggleFieldTextType(){
+    this.fieldTextType = !this.fieldTextType;
    }
 
    updateCancelled(){

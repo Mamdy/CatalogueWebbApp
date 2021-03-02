@@ -1,16 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {parseHttpResponse} from 'selenium-webdriver/http';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {User} from '../model/User';
-import {map, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import { JwtResponse } from '../model/JwtResponse';
 import { prodCatApiUrl } from 'src/environments/environment';
 import { userApiUrl } from 'src/environments/environment';
-import { Client } from '../model/Client';
-import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +36,7 @@ export class AuthenticationService {
 
   }
 
+
   get currentUserValue(){
     return this.currentUserSubject.value;
   }
@@ -52,7 +49,6 @@ export class AuthenticationService {
           localStorage.setItem("currentUser", JSON.stringify(user));
           this.saveToken(user.token);
           this.nameTerms.next(user.user.firstName);
-          debugger
           this.currentUserSubject.next(user);
           return user;
         }

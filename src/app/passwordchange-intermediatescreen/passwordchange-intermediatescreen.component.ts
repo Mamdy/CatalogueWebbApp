@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from '../services/authentication.service';
 import { CatalogueService } from '../services/catalogue.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class PasswordchangeIntermediatescreenComponent implements OnInit {
              private formBuilder: FormBuilder,
              private catalogueService: CatalogueService,
              private toastService: ToastrService,
-             private router: Router
+             private router: Router,
+             private authSerice: AuthenticationService
             ) { }
 
   ngOnInit(): void {
@@ -49,7 +51,8 @@ export class PasswordchangeIntermediatescreenComponent implements OnInit {
     this.catalogueService.sendResetPassWordLink(userEmail)
       .subscribe(res => {
         if(res){
-          this.toastService.success('Votre demande a été effectué', 'Un lien vous permettant de réinitiliser de votre mot de passe vous a été envoyé dans votre boite e-mail',{positionClass: 'toast-top-center', timeOut: 8000} );
+          
+          this.toastService.success('Votre demande a été effectué', 'Un lien vous permettant de réinitiliser de votre mot de passe vous a été envoyé à l\'adresse ' +userEmail ,{positionClass: 'toast-top-center', timeOut: 8000} );
           this.router.navigateByUrl('/login');
 
         }
