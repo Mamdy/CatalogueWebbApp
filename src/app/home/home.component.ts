@@ -1,4 +1,5 @@
-import {Component, OnDestroy, OnInit, Input} from '@angular/core';
+import {Component, OnDestroy, OnInit, Input, Inject} from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {User} from '../model/User';
 import {Subscription} from 'rxjs';
 import {AuthenticationService} from '../services/authentication.service';
@@ -56,7 +57,8 @@ export class HomeComponent implements OnInit{
               private catalogueService: CatalogueService,
               private route:ActivatedRoute,
               private router: Router,
-              config: NgbCarouselConfig
+              config: NgbCarouselConfig,
+              public dialog: MatDialog
 
   ) {
     config.interval = 2000;
@@ -69,8 +71,6 @@ export class HomeComponent implements OnInit{
 
   ngOnInit() {
       this.getAllProducts();
- 
-  
   }
 
   onGetProducts(category) {
@@ -132,3 +132,4 @@ export class HomeComponent implements OnInit{
     
   }
 }
+

@@ -53,13 +53,12 @@
 }
 
 .border-box a:hover {
-    /* background-color: rgba(24, 164, 189, 0.979); */
-    /*background-color: rgb(5, 80, 99);*/
-    background-color: rgb(23, 0, 128);
-    /* width: 120px; */
-  /*color: rgb(255, 255, 255);*/
-   border-radius: 20px;
-   color: white;
+  
+    background-color: purple;
+    padding: 3px;
+    border-radius: 20px;
+    color: white;
+    text-decoration: underline;
 
 }
 

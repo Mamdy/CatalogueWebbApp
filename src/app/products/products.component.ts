@@ -113,7 +113,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   detailsProduct(p) {
     //Allez(Naviguer) vers la page qui dois afficher dynamiquement notre Produitsp
-    this.mode = 'detail-Product-P';
+    //this.mode = 'detail-Product-P';
     this.currentProduct = p;
     let url = p._links.self.href;
     let categoryUrl = p._links.category.href;

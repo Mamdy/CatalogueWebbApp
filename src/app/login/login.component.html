@@ -1,15 +1,13 @@
   <div class="flex-container">
       <div class="container">
-          <div *ngIf="!passwordReset" class="col-md-8 dimension">
+           <div *ngIf="!passwordReset" class="col-md-8 dimension">
             <div class="panel panel-default">
               <div *ngIf="isUsernameOrPasswordIncorrect" class="alert alert-danger">
                 <span>nom d'utilisateur ou mot de passe incorrecte</span>
               </div>
-              <div class="panel-heading style">Identifiez-Vous</div>
-              
-              <div class="panel-body">
-                
-                
+             
+              <mat-card>
+                <h1 align="center"><span style="font-size: 32px; color: red;font-weight: bold;">Identifiez-Vous</span></h1> 
                 <form [formGroup]='loginForm' (ngSubmit)="onSubmit()"> 
                   <div class="float-left">
                     <label>E-mail</label>
@@ -17,8 +15,8 @@
                   <div class="form-group">
                        <div class="input-group">
                       <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <span style="color: rgb(0, 183, 255);" class="input-group-text">
+                           <i class="fa fa-envelope" aria-hidden="true"></i>
                         </span>
                       </div>
                       <input type="email"
@@ -33,7 +31,7 @@
                     </div>
                     <div  *ngIf="f.email.invalid && (f.email.dirty ||f.email.touched)" >
                         <div *ngIf="f.email.errors.required" class="alert alert-danger" >
-                            l'adresse mail est obligatoire.
+                            <span style="font-size: 15px;">l'adresse mail est obligatoire.</span> 
                         </div>
                         <div *ngIf="f.email.errors.email" class="alert alert-danger">
                             l'adresse mail est invalide.
@@ -49,7 +47,7 @@
                        <div class="input-group">
                                   
                         <div class="input-group-prepend">
-                          <span class="input-group-text">
+                          <span style="color: rgb(0, 183, 255);" class="input-group-text">
                             <i class="fas fa-lock"></i>
                           </span>
                         </div>
@@ -78,7 +76,9 @@
                           </span>
                         </div>
                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                          <div *ngIf="f.password.errors.required">Le mot de passe est obligatoire</div>
+                          <div *ngIf="f.password.errors.required" class="alert alert-danger" >
+                               <span style="font-size: 15px;">Le mot de passe est obligatoire.</span> 
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -87,20 +87,16 @@
                        <a class="float-right" routerLink="/sendResetPasswordLink"><span style="font-size: 16px;">Mot de passe oublié ?</span></a>
                   
                 </div>
-                <br><br>
+                <br> <br>
                   <div class="form-group">
                     <!-- <button [disabled]="loading" class="btn flex-item-center-btn"><strong>je me connecte</strong> -->
                       <button [disabled]="loading" class="btn btn-block connex-btn">
                         <span 
                             style="font-size: 22px;
-                            font-family: 'proxima-nova';
-                            
+                            font-family: 'Raleway';
                             "
-                            
-                            
-                            >Connexion</span>
-                      
-                      
+                            >Connexion
+                          </span>
                         <div *ngIf="submitted && loading" >
                           <div class="d-flex justify-content-center"> 
                             <div class="spinner-border" role="status"> 
@@ -124,13 +120,12 @@
                           </div> 
                                      
                         </div>
-                    </button><br>
-                    <!--<img *ngIf="loading" src="data:image/gif;base64," />-->
+                    </button>
                     <span style="font-size: 17px;">Vous êtes un nouveau client ?</span>
                     <a routerLink="/register" class="btn-link"><span style="font-size: 16px;"> Créer mon compte</span></a>
                   </div>
                 </form>
-              </div>
+              </mat-card>
             </div>
           </div>
        

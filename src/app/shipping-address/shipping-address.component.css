@@ -26,7 +26,7 @@ label {
     flex: 50%;
 }
   /* Responsive layout - makes a one column-layout instead of a two-column layout */
-  @media (max-width: 800px) {
+  @media (min-width: 600px) {
     .border-box, .flex-item-left {
         float: 100%;
         
@@ -58,5 +58,9 @@ label {
     flex-wrap: wrap;
     font-size: 30px;
     text-align: center;
+  }
+
+  .shipping-adress {
+      margin-left: 10%;
   }
   

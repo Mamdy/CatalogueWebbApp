@@ -34,8 +34,16 @@
           </td>
         <td >
           <div>
-            <button class="btn btn-danger spacer" (click)="detailsProduct(p)"><span class="glyphicon glyphicon-remove"></span></button>&#160;
-            <button class="btn btn-success" (click)="addProductToCart(p)"><span class="glyphicon glyphicon-edit"></span></button>
+            <button class="btn btn-danger spacer" (click)="detailsProduct(p)">
+              <span>
+                <!-- <i class="fa fa-trash" aria-hidden="true"></i> -->
+                <i class="fas fa-trash-alt"></i>
+              </span>
+            </button>&#160;
+            <button class="btn btn-primary" (click)="addProductToCart(p)">
+              <span>
+                <i class="fas fa-edit"></i>
+              </span></button>
           </div>
         </td>
   </tr>

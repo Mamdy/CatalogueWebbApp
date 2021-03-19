@@ -47,11 +47,11 @@
 
 .connex-btn {
     flex: 50%;
-    background-color: rgba(24, 164, 189, 0.979);
+    background-color: rgb(2, 48, 59);
     border-radius: 25px;
-    padding: 10px;
+    padding: 12px;
     color: white;
-    font-family: 'proxima-nova';
+    font-family: 'Raleway';
 
     cursor: pointer;
     
@@ -82,6 +82,7 @@
     flex-wrap: wrap;
     font-size: 30px;
     text-align: center;
+    margin-top:-2.9em;
   }
   
   .flex-item-left {

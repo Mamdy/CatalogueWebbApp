@@ -1,13 +1,19 @@
 .mycpt{
   position: absolute;
-  margin-top: -1.5em;
+  margin-top: 0.7em;
   border-radius: 100%;
   
 }
 
-a.monCpte:hover {
+a.monCpte:hover{
   background-color: rgb(0, 255, 234);
+  padding: 1px;
+  
  
+} 
+
+.admin {
+  color: black;
 }
 
 .navbar-content {
@@ -34,6 +40,7 @@ a.monCpte:hover {
   white-space: nowrap;
   background-color: transparent;
   border: 0;
+  color: black;
 }
 
 .dropdown-item a:hover {
@@ -51,10 +58,10 @@ a.monCpte:hover {
   font-family: 'proxima-nova';
 }
 .brand{
-  margin-top: -0.9em;
-  margin-left: 2%;
-  padding: 4px;
-  float: left;
+  margin-top: -2em;
+  margin-left: 70%;
+  padding: 8px;
+  /* float: left; */
 }
 .topnav {
   overflow:visible;
@@ -80,14 +87,15 @@ a.monCpte:hover {
 }
 
 .search-container {
-  margin-left: 1%;
-  padding: 5px 25px;
+  position: relative;
+  margin-left: 5%;
+  padding: 7px 120px;
 }
 .topnav .search-container button{
   /*float: left;*/
   padding:0.3em;
   /*position: relative;*/
-  margin-top: 1.3em;
+  margin-top: 1.7em;
   margin-left: -54px;
   /*padding-left: -50px;*/
   background:transparent;
@@ -176,5 +184,11 @@ a.monCpte:hover {
   border-radius: 100%;
   border: 1px solid white;
   
-  
+}
+
+.move-right-cart {
+  margin-left: 10%;
+}
+.move-right-compte {
+  margin-left: 2px;
 }

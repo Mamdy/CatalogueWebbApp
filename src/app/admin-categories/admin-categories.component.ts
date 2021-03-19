@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { prodCatApiUrl } from 'src/environments/environment';
 import {AppResponse} from '../model/AppResponse';
 import {Category} from '../model/Category';
@@ -17,7 +18,8 @@ mode='list';
 currentCategory;
 
 
-  constructor(private catalogueService: CatalogueService) { }
+  constructor(private catalogueService: CatalogueService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.onGetAllCategories();
@@ -34,18 +36,34 @@ currentCategory;
       })
   }
   onDeleteCategory(cat) {
-    let c=confirm("Etes vous sûre?");
-    if(!c)return;
-    this.catalogueService.deleteRessource(cat._links.self.href)
-      .subscribe(data=>{
-        this.mode='list';
-        //on recharge et reactualise les donnée de la page
-      this.onGetAllCategories();
+    // let c=confirm("Etes vous sûre?");
+    const dialogRef = this.dialog.open(DialogCategoryDeleteConfirm, {
+      width: '700px',
+      height: '200px',
+      data: cat,
+     
+    });
+    // if(!c)return;
 
-      }, error1 => {
-        console.log(error1)
-      })
+    dialogRef.afterClosed().subscribe(result => {
+      debugger
+      console.log('The dialog was closed');
+      console.log(result);
+      if(result){
+        this.catalogueService.deleteRessource(cat._links.self.href)
+        .subscribe(data=>{
+          this.mode='list';
+          //on recharge et reactualise les donnée de la page
+        this.onGetAllCategories();
+  
+        }, error1 => {
+          console.log(error1)
+        });
+      }
+  
     
+    });
+  
   }
 
   onNewCategory() {
@@ -93,4 +111,19 @@ currentCategory;
     console.log(data);
   }
 
+}
+
+@Component({
+  selector: 'dialog-category-delete-confirm',
+  templateUrl: 'dialog-category-delete-confirm.html',
+})
+export class DialogCategoryDeleteConfirm {
+  constructor(
+    public dialogRef: MatDialogRef<DialogCategoryDeleteConfirm>,
+    @Inject(MAT_DIALOG_DATA) public data: Category) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  
 }

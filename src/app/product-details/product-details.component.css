@@ -13,6 +13,21 @@
 
 }
 
+.btn-continueAchat {
+    margin-top: 1.5em;
+    padding: 25px, 45px;
+    height: 20px;
+    width: 170px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'proxima-nova';
+    font-weight: lighter;
+    color:white;
+    background-color: rgb(2, 48, 59);
+
+}
+
 .btn:hover {
     padding: 10px, 30px;
     /*border-radius: 20px;*/

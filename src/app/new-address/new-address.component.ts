@@ -1,30 +1,32 @@
-import { Component, OnInit, Inject, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Order } from '../model/Order';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { OrderService } from '../services/order.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-new-address',
   templateUrl: './new-address.component.html',
   styleUrls: ['./new-address.component.css']
 })
-export class NewAddressComponent implements OnInit {
+export class NewAddressComponent implements OnInit,OnDestroy {
 
   @Input() order$: Observable<Order>
-  @Input() order: Order;
+  order: Order;
 
 
   newAdressForm: FormGroup;
   submitted: boolean;
   loading: boolean;
-  returnUrl = '/';
+  returnUrl = '/shippingAddress';
   isFormDisplayed:boolean;
   isFormValid:boolean;
+  orderSubscription: Subscription;
   
   
   constructor(
@@ -34,12 +36,17 @@ export class NewAddressComponent implements OnInit {
     private cartService: CartService,
     private activedRoute: ActivatedRoute,
     private router: Router,
-    private toastrService: ToastrService){}
+    private toastrService: ToastrService,
+    public dialogRef: MatDialogRef<NewAddressComponent>
+    ){
+      this.orderSubscription = this.cartService.neworderId.subscribe(res=>{
+        this.order = res;
+      });
 
+    }
   
   ngOnInit() {
     // this.order$ = this.orderService.show(this.activedRoute.snapshot.paramMap.get('id'));
-  
      this.newAdressForm = this.formBuilder.group({
         nom: ['', [Validators.required, Validators.maxLength(20)]],
         prenom: ['', [Validators.required,Validators.maxLength(20)]],
@@ -51,9 +58,18 @@ export class NewAddressComponent implements OnInit {
         telephone: ['', [Validators.required,Validators.maxLength(10)]]
         
       });
-      this.returnUrl = this.activedRoute.snapshot.routeConfig.path;
+      
       this.isFormDisplayed = true;
       this.isFormValid = false;
+  }
+
+  ngOnDestroy(): void {
+    if(this.orderSubscription){
+      this.orderSubscription.unsubscribe();
+      this.orderSubscription = null;
+    
+    }
+  
   }
 
   get f(){
@@ -70,7 +86,6 @@ export class NewAddressComponent implements OnInit {
     this.isFormValid = true;
     this.loading = true;
     const formValue = this.newAdressForm.value;
-    debugger
          this.orderService.modify(this.order.id, formValue).subscribe((res)=>{
             if (res) {
               this.order = res;
@@ -78,6 +93,7 @@ export class NewAddressComponent implements OnInit {
               this.cartService.sendNewOrderId(this.order);
               this.toastrService.success('l\'adresse de livraison a bien été enregistré','OK',{positionClass: 'toast-top-center', timeOut: 4000})
               this.isFormDisplayed = false;
+              this.dialogRef.close();
               this.router.navigateByUrl(this.returnUrl);
              
             }
@@ -90,6 +106,10 @@ export class NewAddressComponent implements OnInit {
   onFormFieldRest(){
     this.submitted = false;
     this.newAdressForm.reset();
+  }
+
+  onCloseBtnClick(){
+    this.dialogRef.close();
   }
 
 }

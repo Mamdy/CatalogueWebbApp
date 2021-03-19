@@ -1,6 +1,6 @@
           <header>
             <nav class="navbar navbar-expand-md navbar-dark topnav fixed-top">
-              <div class="brand">
+              
                 <a class="navbar-brand" routerLink="/home">
                   <img src="../../../assets/images/logo.png" alt="224-E-SHOP" class="d-inline-block align-top brand">
                   <!-- <span 
@@ -10,7 +10,7 @@
                   </span> -->
            
                 </a>    
-              </div>
+              
             
               <div class="search-container">
                 <form  [formGroup]="searchForm" (ngSubmit)="searchProductByCriteria($event)" #f="ngForm">
@@ -20,7 +20,7 @@
                           formControlName="criteria"
                           placeholder="Rechercher un produit..."
                           size="10"
-                          style="width:650px; height: 40px;"
+                          style="width:980px; height: 50px;"
                                                
                           >
                       <button type="submit" class="btn btn-warm">
@@ -32,109 +32,121 @@
               </div> 
               <!--Admin Menu-->
               
-                <ul class="nav navbar-nav">
+                <ul class="move-right nav navbar-nav">
                     
-                      <li *ngIf= "isAuthenticated() && isAdmin() || isSeller()" class="nav-item">
-                        <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
-                            <ul class="navbar-nav mr-auto">
-                              <li  class="nav-item dropdown" ngbDropdown>
-                                <span
-                                    style="color: white; 
-                                    font-size: 20px; font-family: 'proxima-nova';
-                                      font-weight: bold;
-                                    "
-    
-                                    class="nav-link dropdown-toggle" ngbDropdownToggle>
-                                    Admin
-                                </span><br>
-                                <span>
-                                  {{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}
-                                </span>
-                                <div class="dropdown-menu items" aria-labelledby="navbarDropdown" ngbDropdownMenu>
-                                  
-                                    <span style="font-size: 16px; font-family: Arial, Helvetica, sans-serif;">
-                                      Bonjour {{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
-                                    <a class="dropdown-item" routerLink="/adminCategories">
-                                      <img src="../../../assets/images/list-solid.svg" alt="list-order" width="20px" height="20px">&nbsp;
-                                   
-                                      <span  style=" font-size: 16px;  color: rgb(24, 23, 23);"> Gestion des categories</span>
-                                    </a>
-                                    <a class="dropdown-item"  routerLink="/adminProducts"> 
-                                      <img src="../../../assets/images/list-solid.svg" alt="list-order" width="20px" height="20px">&nbsp;
-                                      <span style=" font-size: 16px;  color: rgb(24, 23, 23);"> Gestion des produits</span>
-                                    </a>
-                                    <a class="dropdown-item"  routerLink="/adminUsers">
-                                      <img src="../../../assets/images/list-solid.svg" alt="list-order" width="20px" height="20px">&nbsp;
-                                      <span style=" font-size: 16px;  color: rgb(24, 23, 23);"> Gestion des utilisateurs</span>
-                                    </a>
-                                </div>
-                              
-                              </li>
-                              
-                            </ul>
-                        </div>
-                      
-                      </li>
-                      <li *ngIf="isAuthenticated() && isAdmin() || isSeller()"  class="nav-item">
-                        <div   [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
-                          <ul  class="navbar-nav mr-auto">
-                            <li  *ngIf="isAuthenticated()" class="nav-item dropdown" ngbDropdown>
-                              <span
-                                  style="color: white; font-size: 20px;
-                                  font-family: 'proxima-nova';
-                                    font-weight: bold;
-                                  "
-    
+                  <li *ngIf= "isAuthenticated() && isAdmin() || isSeller()" class="nav-item">
+                    <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
+                        <ul class="navbar-nav mr-auto">
+                          <li  class="nav-item dropdown" ngbDropdown>
+                            <span
+                                style="color: white; 
+                                font-size: 20px; font-family: 'proxima-nova';
+                                  font-weight: bold;
+                                "
+
                                 class="nav-link dropdown-toggle" ngbDropdownToggle>
-                                Mon compte
-                              </span><br>
-                              <span>
-                                {{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}
-                              </span>
-                              <div class="dropdown-menu items" aria-labelledby="navbarDropdown" ngbDropdownMenu>
-                                
-                                  <span style="font-size: 16px; font-family: Arial, Helvetica, sans-serif;">
-                                    Bonjour {{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
-                                  <a class="dropdown-item"  routerLink="/order"> 
-                                    
-                                    <img src="../../../assets/images/list-solid.svg" alt="list-order" width="20px" height="20px">&nbsp;
-                                    <span style=" font-size: 16px;  color: rgb(24, 23, 23);"> Mes commandes</span>
-                                  </a>
-                                  <a class="dropdown-item" routerLink="/login" (click)="logOut()">
-                                    <img src="../../../assets/images/sign-out-alt-solid.svg" alt="signout" width="20px" height="20px">&nbsp;
-                                    <span  id="ADMIN_C" style="font-size: 16px; color: rgb(24, 23, 23);"> Se déconnecter</span>
-                                  </a>
-                                                              
-                            
-                              </div>
-                            
-                            </li>
-                            
-                          </ul>
-                      </div>
-                      </li>
-              
-                    <li class="nav-item">
-                      <a *ngIf="!currentUser || currentUser.user.role == Role.Customer" class="nav-item nav-link" routerLink="/cart">
-                        <i class="fa fa-shopping-cart">
-                          <span *ngIf="nbProductInCart > 0" class="pcount">
-                            {{nbProductInCart}}
-                          </span>
+                                Admin
+                            </span><br>
+                           
+                            <div class="dropdown-menu items" aria-labelledby="navbarDropdown" ngbDropdownMenu>
+                              
+                                <span style="font-size: 16px; font-family: Arial, Helvetica, sans-serif;">
+                                  Bonjour {{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
+                                <a class="dropdown-item" routerLink="/adminCategories">
+                                  <img src="../../../assets/images/list-solid.svg" alt="list-order" width="15px" height="15px">&nbsp;
+                               
+                                  <span  style=" font-size: 16px;  color: rgb(24, 23, 23);"> Gestion des categories</span><br>
+                                </a>
+                                <a class="dropdown-item"  routerLink="/adminProducts"> 
+                                  <img src="../../../assets/images/list-solid.svg" alt="list-order" width="15px" height="15px">&nbsp;
+                                  <span style=" font-size: 16px;  color: rgb(24, 23, 23);"> Gestion des produits</span><br>
+                                </a>
+                                <a class="dropdown-item"  routerLink="/adminUsers">
+                                  <img src="../../../assets/images/list-solid.svg" alt="list-order" width="15px" height="15px">&nbsp;
+                                  <span style=" font-size: 16px;  color: rgb(24, 23, 23);"> Gestion des utilisateurs</span>
+                                </a>
+                            </div>
                           
-                        </i>
-                            <span style="color: white; font-family: 'Raleway'
-                              ; font-size: 17px;">
-                            Panier
-                            </span>&nbsp;
-                                       
-                      </a>
-                      
-                    </li>
-                    
-                </ul>
+                          </li>
+                          
+                        </ul>
+                    </div>
+                  
+                  </li>
+                  <li *ngIf="isAuthenticated() && isAdmin() || isSeller()"  class="nav-item">
+                    <div   [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
+                      <ul  class="navbar-nav mr-auto">
+                        <li  *ngIf="isAuthenticated()" class="nav-item dropdown" ngbDropdown>
+                          <span
+                              style="color: white; font-size: 20px;
+                              font-family: 'proxima-nova';
+                                font-weight: bold;
+                              "
+
+                            class="nav-link dropdown-toggle" ngbDropdownToggle>
+                            Mon compte
+                          </span><br>
+                          <div class="dropdown-menu items" aria-labelledby="navbarDropdown" ngbDropdownMenu>
+                            
+                              <span style="font-size: 16px; font-family: Arial, Helvetica, sans-serif;">
+                                Bonjour {{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
+                              <a class="dropdown-item"  routerLink="/order"> 
+                                
+                                <img src="../../../assets/images/list-solid.svg" alt="list-order" width="20px" height="20px">&nbsp;
+                                <span style=" font-size: 16px;  color: rgb(24, 23, 23);"> Mes commandes</span>
+                              </a>
+                              <a class="dropdown-item" routerLink="/login" (click)="logOut()">
+                                <img src="../../../assets/images/sign-out-alt-solid.svg" alt="signout" width="20px" height="20px">&nbsp;
+                                <span  id="ADMIN_C" style="font-size: 16px; color: rgb(24, 23, 23);"> Se déconnecter</span>
+                              </a>
+                                                          
+                        
+                          </div>
+                        
+                        </li>
+                        
+                      </ul>
+                    </div>
+                  </li>
           
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item">
+                  <!-- <li class="nav-item">
+                    <a *ngIf="!currentUser || currentUser.user.role == Role.Customer" class="nav-item nav-link" routerLink="/cart">
+                      <i class="fa fa-shopping-cart">
+                        <span *ngIf="nbProductInCart > 0" class="pcount">
+                          {{nbProductInCart}}
+                        </span>
+                        
+                      </i>
+                          <span style="color: white; font-family: 'Raleway'
+                            ; font-size: 17px;">
+                          Panier
+                          </span>&nbsp;
+                                    
+                    </a>
+                    
+                  </li> -->
+                
+                </ul>
+      
+                <ul class="move-right-compte float-right nav navbar-nav navbar-right">
+                  <li class="nav-item">
+                    <a *ngIf="!currentUser || currentUser.user.role == Role.Customer" class="nav-item nav-link" routerLink="/cart">
+                      <i class="fa fa-shopping-cart">
+                        <span *ngIf="nbProductInCart > 0" class="pcount">
+                          {{nbProductInCart}}
+                        </span>
+                        
+                      </i>
+                          <span style="color: white;
+                          font-family: 'Raleway'
+                            ; font-size: 19px;">
+                          Panier
+                          </span>&nbsp;
+                                    
+                    </a>
+                    
+                  </li>
+                  <li class="nav-item">
                       <a *ngIf="!isAuthenticated()" routerLink="/login">
             
                           <i class="fa fa-user" aria-hidden="false"></i>
@@ -147,29 +159,25 @@
                       <div *ngIf="isAuthenticated() && !isAdmin()"  [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse mycpt" id="navbarsDefault">
                         <ul class="navbar-nav mr-auto">
                           <li  class="nav-item dropdown" ngbDropdown>
-                            
                               <span
-                              style="color: white; font-size: 17px;
-                              font-family: 'Raleway';
-                                font-weight: bold;
-                              "
-                            class="nav-link dropdown-toggle" ngbDropdownToggle>
-                            {{name}}
-                            </span><br>
-                            
-                          
-                            <span>
-                              
-                            </span>
+                                  style="color: white; font-size: 19px;
+                                  font-family: 'Raleway';
+                                    font-weight: bold;
+                                  "
+                                class="nav-link dropdown-toggle" ngbDropdownToggle
+                              >
+                                  {{name}}
+                              </span><br>
                             <div class="dropdown-menu items" aria-labelledby="navbarDropdown" ngbDropdownMenu>
                               
                                 <span  style="font-size: 16px;
-                                font-family: 'Raleway';
-                
-                                ">
-                                  Bonjour {{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}</span>
+                                  font-family: 'Raleway';
+                                  "
+                                >
+                                  Bonjour {{currentUser.user.firstName}}&nbsp;{{currentUser.user.lastName}}
+                                </span>
                                 
-                                  <a class="dropdown-item monCpte"  routerLink="/profile"> 
+                                <a class="dropdown-item monCpte"  routerLink="/profile"> 
                                   
                                     <img src="../../../assets/images/user-solid.svg" alt="list-order" width="20px" height="20px">&nbsp;
                                     <span  style="font-size: 17px;
@@ -178,7 +186,7 @@
                     
                                     "> Mes Informations</span>
                                     <hr>
-                                  </a>
+                                </a>
                                   
                                 <a class="dropdown-item monCpte"  routerLink="/order"> 
                                   
@@ -187,7 +195,10 @@
                                   font-family: 'Raleway';
                                   color:black;
                   
-                                  "> Mes commandes</span>
+                                  ">
+                                  
+                                  Mes commandes
+                                </span>
                                   <hr>
                                 </a>
                 
@@ -200,17 +211,14 @@
                                   "> Se déconnecter</span>
                                   <hr>
                                 </a>
-                               
-                                                            
-                          
-                              </div>
+                         
+                            </div>
 
                           </li>
                         </ul>
                       </div>
-                    </li>
+                  </li>
                 </ul>
-
               <hr>
             </nav> 
           </header>

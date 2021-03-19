@@ -1,43 +1,36 @@
   <!--Recap Commande-->
   <div class="flex-container">
     <div class="container">
-      <div class="panel panel-default">
-        <div class="panel-heading style">Information de la carte Bancaire</div>
-        <div class="panel-body">
-            <form novalidate (ngSubmit)="buy()" [formGroup]="stripeForm" #f="ngForm">
-              <input class="form-control" type="text" formControlName="name" placeholder="nom titulaire carte">
-               <!-- <div id="card-element" class="field"></div> -->
-               <ngx-stripe-card
-               [options]="cardOptions"
-               [elementsOptions]="elementsOptions"
-             ></ngx-stripe-card>
-              <div *ngIf="error" class="alert alert-danger">
-                  {{error}}
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title class="style">Information de la carte Bancaire</mat-card-title>
+        </mat-card-header>
+        <hr><br>
+       
+        <mat-card-content>
+          <form novalidate (ngSubmit)="buy()" [formGroup]="stripeForm" #f="ngForm">
+            <input class="form-control" type="text" formControlName="name" placeholder="nom titulaire carte">
+             <!-- <div id="card-element" class="field"></div> -->
+             <ngx-stripe-card
+             [options]="cardOptions"
+             [elementsOptions]="elementsOptions"
+           ></ngx-stripe-card>
+            <div *ngIf="error" class="alert alert-danger">
+                {{error}}
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-lg" [disabled]="!f.valid">
+              Payer la commande: <span>{{order?.orderAmount | number: '0.2'}}&euro;</span>
+              <div *ngIf="isSubmitted && isLoading" class="spinner">
+                  <img src="../../assets/images/pre-loader2.gif" width="15%" height="15%" alt="Random first slide">
+            
               </div>
-              <br><br>
-              <button type="submit" class="btn btn-lg" [disabled]="!f.valid">
-                Payer la commande: <span>{{order?.orderAmount | number: '0.2'}}&euro;</span>
-                <div *ngIf="isSubmitted && isLoading" class="spinner">
-                    <img src="../../assets/images/pre-loader2.gif" width="15%" height="15%" alt="Random first slide">
-              
-                  <!-- <div class="d-flex justify-content-center"> 
-                    <div class="spinner-grow text-success" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-warning" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </div> 
-                              -->
-                </div>
-              </button>
-            </form>
-        </div>
-    </div>
-  
+            </button>
+          </form>
+        </mat-card-content>
+       
+      </mat-card>
+ 
     </div>
   </div>
  

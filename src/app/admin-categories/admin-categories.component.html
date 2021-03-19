@@ -29,7 +29,7 @@
                    [(ngModel)]="currentCategory.name">
           </div>
           <!-- Buton d'ajout d'une nouvelle category-->
-          <button class="btn btn-success" type="submit">Update</button>
+          <button class="btn btn-success" type="submit">Enregistrer</button>
         </form>
       </div>
       <!--  On affiche ce div(bloc/partie) la que si mode = liste-->
@@ -39,18 +39,23 @@
             <th>Name</th>
           </tr>
           <tr *ngFor="let c of categories">
-            <td><span style="font-family: 'proxima-nova'; font-size: 14px;">{{c.name}}</span></td>
+            <td><span style="font-family: 'Raleway'; font-size: 18px;">{{c.name}}</span></td>
             <!-- Button de supression d'une category-->
             <td>
               <button class="btn btn-danger" (click)="onDeleteCategory(c)">
-            <span class="glyphicon glyphicon-remove">
+                
+            <span >
+              
+              <!-- <i class="fa fa-trash" aria-hidden="true"></i> -->
+              <i class="fas fa-trash-alt"></i>
               </span>
               </button>
             </td>
             <!--Button d'edition -->
             <td>
-              <button class="btn btn-danger" (click)="onEditCategory(c)">
-            <span class="glyphicon glyphicon-edit">
+              <button class="btn btn-primary" (click)="onEditCategory(c)">
+            <span>
+              <i class="fas fa-edit"></i>
               </span>
               </button>
             </td>

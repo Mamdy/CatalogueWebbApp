@@ -1,68 +1,89 @@
-<div class="container">
+
     <h1 align="center" class="display-4 mb-5 title"><strong>MON PANIER</strong></h1>
-    <div class="flex-container">
+    
         <!--Tableau de Detail du panier-->
-        <table class="table table-striped text-center table-data">
-            <thead>
-            <tr *ngIf="productInOrders?.length > 0;" >
-                <th scope="col">Photo</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Prix</th>
-                <th scope="col">Quantité</th>
-                <th scope="col">Sous-Total</th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let productInOrder of productInOrders">
-                <th class="align-middle" scope="row">
-                    <a routerLink="/product/{{productInOrder?.productId}}"><img height="70" width="70"
-                    
-                                                                            src="../assets/images/{{productInOrder.productIcon}}.jpg"
-                                                                            alt="{{productInOrder.productName}}"></a>
-                </th>
-                <td class="align-middle"><a
+        <div class="container">
+
+        </div>
+        <div class="flex-container">
+            <mat-card>
+                <table class="table table-striped text-center table-data">
+                    <thead>
+                    <tr *ngIf="productInOrders?.length > 0;" >
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Sous-Total</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let productInOrder of productInOrders">
+                        <th class="align-middle" scope="row">
+                                <a (click)="detailsProduct(productInOrder)">
+                                <img height="90" width="90"
+                                 src="../assets/images/{{productInOrder.productIcon}}.jpg"
+                                 alt="{{productInOrder.productName}}">
+                            </a>
+                        </th>
+                        <td class="align-middle">
+                            <a 
+                             style="color: rgb(0, 195, 255); cursor: pointer;"
+                              (click)="detailsProduct(productInOrder)"
+                            >
+                              {{productInOrder?.productName}}
+                            </a><br>
+                            <span 
+                               style="color: green;
+                                 font-size: 13px;
+                                 font-family: 'Raleway';">En stock</span>
+                        </td>
+                        <td class="align-middle">{{productInOrder?.productPrice | number :'0.2'}}&euro;</td>
+        
+                        <td class="align-middle">
+                            <a (click)="minusOne(productInOrder)"><i class="fa fa-minus"></i></a>
+                            <input min="1" id="{{productInOrder.productCode}}"
+                                [max]=productInOrder.productStock
+                                [(ngModel)]="productInOrder.count"
+                                (change)="onChange(productInOrder)"
+                                style="width: 50px;"
+                                maxlength="2"
+                                type="number"
+                                required
+                                name='count'>
+                            <a (click)="addOne(productInOrder)"> <i class="fa fa-plus"></i></a>
+                        </td>
+        
+                        <td class="align-middle">{{productInOrder?.productPrice * productInOrder?.count|number :'0.2'}}&euro;</td>
+                        <td class="align-middle">
+                            <a (click)="remove(productInOrder)" routerLink="./"><strong><span style="color: red;"><i class="fas fa-trash-alt"></i></span></strong></a>
+                        </td>
+                    </tr>
+        
+                    </tbody>
+                </table>
+        
+            </mat-card>
+        
+      
+    
+            <ng-template #empty>
+                <h4 class="text-muted text-center alert alert-info">Votre panier est vide ! rajoutez-y des produits :)</h4>
+            </ng-template>
+        
+        <div *ngIf="productInOrders?.length > 0; else empty">
                 
-                        routerLink="/product">{{productInOrder?.productName}}</a></td>
-                <td class="align-middle">{{productInOrder?.productPrice | number :'0.2'}}&euro;</td>
-
-                <td class="align-middle">
-                    <a (click)="minusOne(productInOrder)"><i class="fa fa-minus"></i></a>
-                    <input min="1" id="{{productInOrder.productCode}}"
-                        [max]=productInOrder.productStock
-                        [(ngModel)]="productInOrder.count"
-                        (change)="onChange(productInOrder)"
-                        style="width: 50px;"
-                        maxlength="2"
-                        type="number"
-                        required
-                        name='count'>
-                    <a (click)="addOne(productInOrder)"> <i class="fa fa-plus"></i></a>
-                </td>
-
-                <td class="align-middle">{{productInOrder?.productPrice * productInOrder?.count|number :'0.2'}}&euro;</td>
-                <td class="align-middle">
-                    <a (click)="remove(productInOrder)" routerLink="./"><strong>Supprimer</strong></a>
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
-
-  
-
-        <ng-template #empty>
-            <h4 class="text-muted text-center alert alert-info">Votre panier est vide ! rajoutez-y des produits :)</h4>
-        </ng-template>
-    </div>
-    <div *ngIf="productInOrders?.length > 0; else empty">
+                    <h5 style="display: inline;"><strong>TOTAL: <span style="color: red; font-size: 16px;">{{total | number : '0.2'}}&euro;</span></strong> </h5>
+                    <button (click)="checkout()" class="btn  float-right">VALIDER MON PANIER</button><br>
+                
             
-        <h5 style="display: inline;"><strong>TOTAL: <span style="color: red; font-size: 16px;">{{total | number : '0.2'}}&euro;</span></strong> </h5>
-        <button (click)="checkout()" class="btn float-right">VALIDER MON PANIER</button><br>
-        <!-- btn btn-lg btn-block connex-btn -->
-        <br><a routerLink="/home" class="btn-link float-left"> <span style="color: rgb(0, 174, 255); font-size: 14px;">< CONTINUER MES ACHATS</span></a>
-    </div>
-</div>
+            <!-- btn btn-lg btn-block connex-btn -->
+            <br><a routerLink="/home" class="btn-link float-left"> <span style="color: rgb(0, 174, 255); font-size: 14px;">< CONTINUER MES ACHATS</span></a>
+        </div>
+
+        </div>
+       
 <app-footer></app-footer>
 
 

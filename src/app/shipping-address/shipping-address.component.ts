@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogueService } from '../services/catalogue.service';
 import { CartService } from '../services/cart.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-shipping-address',
@@ -50,21 +51,22 @@ export class ShippingAddressComponent implements OnInit {
   fullName: string;
 
   GroupName = 'ACCESS_GROUP';
+  labelPosition: 'à une nouvelle adresse' | 'à domicile' = 'à domicile';
 
-  radio1 = {
-    id: 1,
-    value: 'radioButton1',
-    label: 'à domicile',
-    checked: true,
-    isdisabled: false
-  };
-  radio2 = {
-    id:2,
-    value: 'radioButton2',
-    label: 'à une autre addresse',
-    checked: false,
-    isdisabled: false
-  };
+  // radio1 = {
+  //   id: 1,
+  //   value: 'radioButton1',
+  //   label: 'à domicile',
+  //   checked: true,
+  //   isdisabled: false
+  // };
+  // radio2 = {
+  //   id:2,
+  //   value: 'radioButton2',
+  //   label: 'à une autre addresse',
+  //   checked: false,
+  //   isdisabled: false
+  // };
   submitted: boolean;
   loading: boolean;
   newOrderToShippingSubscription: Subscription;
@@ -76,7 +78,8 @@ export class ShippingAddressComponent implements OnInit {
     private route: ActivatedRoute,
     private cartSevice: CartService,
     private formBuilder:FormBuilder,
-    private catalogueService:CatalogueService
+    private catalogueService:CatalogueService,
+    public dialog: MatDialog
     ) { 
       
 
@@ -85,13 +88,12 @@ export class ShippingAddressComponent implements OnInit {
     id:any;
 
   ngOnInit() {
-    debugger
     this.currentUser = this.authService.currentUserValue;
     this.fullName = this.currentUser.user.firstName.concat(" ").concat(this.currentUser.user.lastName);
        
     this.newOrderToShippingSubscription = this.cartSevice.neworderId.subscribe(res=>{
       this.order = res;
-    })
+    });
     
   }
 
@@ -100,8 +102,8 @@ export class ShippingAddressComponent implements OnInit {
   }
   
   homeAddresSelected() {
-    this.radio2.checked=false ;
-    this.radio1.checked = true;
+    // this.radio2.checked=false ;
+    // this.radio1.checked = true;
     this.mode = 'à domicile';
   }
 
@@ -112,8 +114,8 @@ export class ShippingAddressComponent implements OnInit {
 
 
   onSaveNewAddress(){
-  
     this.mode = 'new-shipping-address';
+    
     this.submitted = true;
     // on s'arrête ici si le formulaire n'est pas valide
     if(this.newAdressForm.invalid){
@@ -132,10 +134,15 @@ export class ShippingAddressComponent implements OnInit {
   }
 
   onNewShippingAddress(){
-    this.radio1.checked = false;
-    this.radio2.checked = true;
-    this.radio1.isdisabled = true;
     this.mode = 'new-shipping-address';
+    this.cartSevice.sendNewOrderId(this.order);
+    const dialogRef = this.dialog.open(NewAddressComponent, {
+      width: '900px',
+      height: '500px'
+    });
+    dialogRef.afterClosed().subscribe(res=>{
+      
+    })
   
   }
 

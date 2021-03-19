@@ -1,9 +1,64 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ngx-toastr/toastr.css';
 @import "~bootstrap/dist/css/bootstrap.css"; 
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 /*@import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';*/
 
 .bdy {
     font-family: "proxima-nova", Helvetica, sans-serif; 
+}
+
+.btn-continueAchat {
+    padding: 40px, 75px;
+    height: 45px;
+    width: 180px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Raleway';
+    font-weight: bold;
+    color:white;
+    background-color: rgb(2, 48, 59);
+
+}
+
+.matButonVoirPanier {
+    padding: 40px, 75px;
+    height: 45px;
+    width: 180px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Raleway';
+    font-weight: bold;
+    color:white;
+    background-color: rgb(2, 48, 59);
+    margin-left: 44%;
+
+}
+
+.btn-non {
+    padding: 40px, 75px;
+    height: 45px;
+    width: 180px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Raleway';
+    font-weight: bold;
+    color:white;
+    background-color: rgb(2, 48, 59);
+
+}
+
+.mat-ok {
+    padding: 40px, 75px;
+    height: 45px;
+    width: 180px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Raleway';
+    font-weight: bold;
+    color:white;
+    background-color: red;
+    margin-left: 44%;
+
 }

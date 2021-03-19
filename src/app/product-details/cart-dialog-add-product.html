@@ -1,0 +1,28 @@
+<button type="button" class="close" aria-label="Close"
+(click)="onCloseBtnClick()"
+
+>
+  <span aria-hidden="true">&times;</span>
+</button>
+<h1 align="center" mat-dialog-title>
+  
+  <img height="0.01%" width="4%" src="../assets/images/{{data.photoUrl[0]}}.jpg" alt="alt-img"><br>
+  
+</h1>
+
+<div mat-dialog-content>
+  
+  <h4 align="center">
+    <span style="font-size: 15px; font-weight: bold;">{{data.name}}</span><br>
+    <strong><span style="color: green;"><i class="fas fa-check"></i></span></strong> Produit ajouté au panier</h4>
+</div><br><br><br><br>
+<hr>
+<div mat-dialog-actions>
+  <hr>
+  <button mat-button (click)="onNoClick()"
+   class="btn-continueAchat">Continuer mes achats</button>
+  <button mat-button 
+    class="matButonVoirPanier float-right"
+    [mat-dialog-close]="true" 
+    cdkFocusInitial>voir mon panier</button>
+</div>

@@ -87,6 +87,11 @@ export class CatalogueService {
     );
   }
 
+  showProductByCode(code): Observable<Product> {
+    return this.http.get<Product>(this.prodCatApiUrl + "/searchByCode/"+code).pipe(
+        catchError(_ => of(null))
+    );
+  }
 //Methode qui permet de recuperer les données renvoyé par le serveur() ici la liste des produits
   getServiceData(url){
     return this.http.get(url).toPromise()

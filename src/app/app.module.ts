@@ -19,8 +19,13 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { PaymentComponent } from './payment/payment.component';
 //import { CookieService } from 'ngx-cookie-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ToastrModule } from 'ngx-toastr';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+import {ToastrModule } from 'ngx-toastr';
 import {NgxStripeModule} from 'ngx-stripe';
 import {NgbModalModule, NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
@@ -28,7 +33,7 @@ import { ShippingAddressComponent } from './shipping-address/shipping-address.co
 import { NewAddressComponent } from './new-address/new-address.component';
 import { OrderRecapComponent } from './order-recap/order-recap.component';
 import { PaymentCardFormComponent } from './payment-card-form/payment-card-form.component';
-import { ProductDetailsComponent } from './product-details/product-details.component';
+import { CartDialogAddProduct, ProductDetailsComponent } from './product-details/product-details.component';
 import { CriteriaSearchViewComponent } from './criteria-search-view/criteria-search-view.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
@@ -41,21 +46,20 @@ import { PaiementRecapComponent } from './paiement-recap/paiement-recap.componen
 import { Navigation2Component } from './shared/navigation2/navigation2.component';
 import { StepLineComponent } from './shared/step-line/step-line.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-
+import { CgvComponent } from './cgv/cgv.component';
+import { ConfidentialiteComponent } from './confidentialite/confidentialite.component';
+import { DialogCategoryDeleteConfirm } from './admin-categories/admin-categories.component';
 
 @NgModule({
 
   exports: [
     // MatSnackBarModule,
-    // MatDialogModule,
+    MatDialogModule,
+    MatDividerModule
+
     
   ],
 
-  
-
-
-
-  //declarations: [ChangePasswordComponent, PasswordchangeIntermediatescreenComponent],
 
   
 })
@@ -86,7 +90,11 @@ export class MaterialModule {}
     SimilarProductComponent,
     Navigation2Component,StepLineComponent,
     UserProfileComponent,
-    PaiementRecapComponent
+    PaiementRecapComponent,
+    CgvComponent,
+    ConfidentialiteComponent,
+    DialogCategoryDeleteConfirm,
+    CartDialogAddProduct
     
   ],
 
@@ -108,13 +116,15 @@ export class MaterialModule {}
     BrowserAnimationsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    CarouselModule
-    // MatFormFieldModule,
-    // MatInputModule
+    CarouselModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    MatCardModule,
     //ReactiveForms
   ],
 
-  entryComponents: [NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,ProductDetailsComponent,CriteriaSearchViewComponent],
+  entryComponents: [NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,ProductDetailsComponent,CriteriaSearchViewComponent,DialogCategoryDeleteConfirm,CartDialogAddProduct],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

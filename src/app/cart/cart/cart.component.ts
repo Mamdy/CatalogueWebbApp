@@ -12,6 +12,9 @@ import { JwtResponse } from 'src/app/model/JwtResponse';
 import { Cart } from 'src/app/model/Cart';
 import { error } from 'protractor';
 import { Order } from 'src/app/model/Order';
+import { CatalogueService } from 'src/app/services/catalogue.service';
+import { Product } from 'src/app/model/Product';
+import { CONNREFUSED } from 'dns';
 
 @Component({
   selector: 'app-cart',
@@ -31,10 +34,12 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
   connectedUserCart: Cart;
   nbProductInCart = 0;
   newOrderToShipp:Order;
+  currentProduct: Product;
 
   constructor(private cartService: CartService,
               private authService: AuthenticationService,
-              private router: Router)
+              private router: Router,
+              private catalogueService: CatalogueService)
           {
 
   this.userSubscription = this.authService.currentUser.subscribe( user=>this.currentUser = user);
@@ -208,6 +213,27 @@ checkout() {
   }
 
 }
+
+
+detailsProduct(productInOrder:ProductInOrder) {
+  debugger
+  const id = productInOrder.productId;
+  console.log("id=>",id);
+  this.catalogueService.showProductByCode(productInOrder.productCode)
+     .subscribe(product => {
+       debugger
+       if(product){
+        this.currentProduct = product;
+           //notifier le composant productDetails
+           this.catalogueService.changeCurrentProduct(this.currentProduct);
+           this.router.navigateByUrl('/product-details');
+       }
+     },error=> {
+       console.log(error);
+     });
+
+}
+
 
 
 

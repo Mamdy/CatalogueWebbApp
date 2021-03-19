@@ -21,8 +21,12 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { PasswordchangeIntermediatescreenComponent } from './passwordchange-intermediatescreen/passwordchange-intermediatescreen.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { PaiementRecapComponent } from './paiement-recap/paiement-recap.component';
+import { CgvComponent } from './cgv/cgv.component';
+import { ConfidentialiteComponent } from './confidentialite/confidentialite.component';
 
 const routes: Routes = [
+  {path:"confidentialités" , component:ConfidentialiteComponent},
+  {path:"cgv" , component:CgvComponent},
   {path:"home" , component:HomeComponent},
   {path:"login", component:LoginComponent},
   {path:"register", component:RegisterComponent},
