@@ -2,16 +2,17 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import {AuthenticationService} from '../../services/authentication.service';
 import {Router} from '@angular/router';
 
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { Role } from 'src/app/enum/Role';
-import { DOCUMENT } from '@angular/common';
 import { JwtResponse } from 'src/app/model/JwtResponse';
-import { CatalogueService } from 'src/app/services/catalogue.service';
 import { Product } from 'src/app/model/Product';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CartService } from 'src/app/services/cart.service';
-import { ProductInOrder } from 'src/app/model/ProductInOrder';
+import { map, startWith } from 'rxjs/operators';
+import { CatalogueService } from 'src/app/services/catalogue.service';
+import { AppResponse } from 'src/app/model/AppResponse';
+import { Category } from 'src/app/model/Category';
 
 
 @Component({
@@ -20,33 +21,35 @@ import { ProductInOrder } from 'src/app/model/ProductInOrder';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit,OnDestroy{
+  myControl = new FormControl();
+  criteria = new FormControl();
+  options: string[] = ['One', 'Two', 'Three','Samsung','Asus', 'Dell','ALIMENTATION'];
+  filteredOptions: Observable<string[]>;
+  categories:Category[]=[];
+  products:Product[]=[]
   page: any;
   currentUserSubscription: Subscription;
   currentCartSubscription: Subscription;
-    name$;
-    name: string;
-    currentUser: JwtResponse;
-    root = '/';
-    Role = Role;
-    searchCriteria: string;
-    nbProductInCart:number=0;
+  name$;
+  name: string;
+  currentUser: JwtResponse;
+  root = '/';
+  Role = Role;
+  searchCriteria: string;
+  nbProductInCart:number=0;
+  isSubmited = false;
+  loading: boolean;
 
-    products:Product[]=[]
-    
-
-    isSubmited = false;
-    loading: boolean;
-
-    criteriaSearch:boolean;
-    public state = '';
-    public searchForm = new FormGroup({
+  criteriaSearch:boolean;
+  public state = '';
+  /*public searchForm = new FormGroup({
       criteria: new FormControl(''),
-     });
-
+ });*/
 
   constructor( private authService: AuthenticationService,
                private router: Router,
-               private cartService: CartService
+               private cartService: CartService,
+               private catalogueService: CatalogueService
             ) { 
               this.currentCartSubscription = this.cartService.nbProductInCart.subscribe(res=>{
                   this.nbProductInCart = res;
@@ -60,6 +63,36 @@ export class HeaderComponent implements OnInit,OnDestroy{
     
 
   ngOnInit(){
+    this.catalogueService.getAllCategories()
+      .then((result:AppResponse)=>{
+        this.categories=result.getData().categories;
+        if(this.categories){
+          this.categories.forEach(category=>{
+            this.options.push(category.name);
+
+          });
+            
+        }
+        this.catalogueService.getProducts()
+        .then((result: AppResponse)=>{
+          this.products= result.getData().products;
+          if(this.products){
+            this.products.forEach(product => {
+              this.options.push(product.name);
+            });
+          }
+          this.filteredOptions = this.criteria.valueChanges.pipe(
+            startWith(''),
+            map(value => this._filter(value))
+          );
+        
+        });
+     
+       
+      });
+
+   
+   
     this.name$ = this.authService.name$.subscribe(authUserName => this.name = authUserName
      );
   
@@ -85,7 +118,10 @@ export class HeaderComponent implements OnInit,OnDestroy{
     })
 
   }
-
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
   ngAfterContentChecked(){
     // setTimeout(()=>{
     //   this.currentCartSubscription = this.cartService.nbProductInCart.subscribe(res=>{
@@ -100,10 +136,10 @@ export class HeaderComponent implements OnInit,OnDestroy{
 
   public searchProductByCriteria(event: Event){
     event.preventDefault();
-    if(this.searchForm.get('criteria').value === undefined){
+    if(this.criteria.value === undefined){
      return;
     }else {
-    const criteria = this.searchForm.get('criteria').value;
+    const criteria = this.criteria.value;
     this.searchCriteria = criteria;
     console.log("searchCriteria ==>", this.searchCriteria.toUpperCase());
     }
@@ -114,7 +150,7 @@ export class HeaderComponent implements OnInit,OnDestroy{
 
 
 get f() {
-  return this.searchForm.controls;
+  return this.criteria;
 }
 
 

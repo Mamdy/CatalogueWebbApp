@@ -4,11 +4,26 @@
       <div class="panel panel-default">
         <div class="panel-heading style">Récapitulatif</div>
         <div class="panel-body">
-          <h5><strong>Prix:</strong> <span style="color: red;">{{order?.orderAmount| number: '0.2'}}&euro;</span> </h5><br>
+          <h4><strong>Articles:</strong></h4>
+          
+          <div *ngIf="order?.products.length >1; else oneproduct">
+            <div *ngFor="let product of order?.products">
+              <span style="font-size: 13px; font-family: Arial, Helvetica, sans-serif;">{{product.productName}}...</span>&nbsp;
+              <span class="float-right" style="font-size: 13px;">{{product.productPrice| number: '0.2'}} &euro;</span>
+            </div>
+          </div>
+          <ng-template #oneproduct>
+            <span style="font-size: 13px; font-family: Arial, Helvetica, sans-serif;">{{order?.products[0].productName}}...</span>&nbsp;
+            <span  class="float-right" style="font-size: 13px;">{{order?.products[0].productPrice| number: '0.2'}} &euro;</span>
+          </ng-template><br>
+          <h5><strong>Livraisson:</strong><span class="float-right">5.95 &euro;</span> </h5> <br>
+          <!-- <h5><strong>Prix:</strong> <span style="color: red;">{{order?.orderAmount| number: '0.2'}}&euro;</span> </h5><br> -->
           <h5><strong>Adresse de facturation:</strong><br>{{order?.buyerAddress}}</h5>
           <h5><strong>Adresse de Livraisson:</strong><br>{{order?.shippingAddress}}</h5>
+          
+
           <hr>
-          <h5><strong>Total: </strong> <span style="color: red; font-size: large; font-weight: bold;">{{order?.orderAmount| number: '0.2'}}&euro;</span></h5><br>
+          <h4><strong>Montant total: </strong> <span class="float-right" style="color: red; font-size: 20px; font-weight: bold;">{{totalAmount| number: '0.2'}} &euro;</span></h4><br>
         </div>
       </div>
     <!-- <button (click)="checkout()" class="btn btn">FINALISER MA COMMANDE</button><br> -->

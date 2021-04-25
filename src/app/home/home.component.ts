@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit{
   isLoading:boolean;
   similarProductsList: Product[]=[];
   similarProductsUrl: any;
-
   // Array of images
   slides = [
       '../../assets/images/banner1.jpg',

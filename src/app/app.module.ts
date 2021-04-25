@@ -25,6 +25,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {ToastrModule } from 'ngx-toastr';
 import {NgxStripeModule} from 'ngx-stripe';
 import {NgbModalModule, NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -32,7 +33,7 @@ import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
 import { NewAddressComponent } from './new-address/new-address.component';
 import { OrderRecapComponent } from './order-recap/order-recap.component';
-import { PaymentCardFormComponent } from './payment-card-form/payment-card-form.component';
+import { PaiementConfirmDialog, PaymentCardFormComponent } from './payment-card-form/payment-card-form.component';
 import { CartDialogAddProduct, ProductDetailsComponent } from './product-details/product-details.component';
 import { CriteriaSearchViewComponent } from './criteria-search-view/criteria-search-view.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
@@ -49,19 +50,23 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CgvComponent } from './cgv/cgv.component';
 import { ConfidentialiteComponent } from './confidentialite/confidentialite.component';
 import { DialogCategoryDeleteConfirm } from './admin-categories/admin-categories.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
 
   exports: [
     // MatSnackBarModule,
     MatDialogModule,
-    MatDividerModule
+    MatDividerModule,
+    MatMenuModule
+    
 
     
   ],
 
-
-  
+   
 })
 export class MaterialModule {}
 
@@ -94,7 +99,9 @@ export class MaterialModule {}
     CgvComponent,
     ConfidentialiteComponent,
     DialogCategoryDeleteConfirm,
-    CartDialogAddProduct
+    CartDialogAddProduct,
+    PaginationComponent,
+    PaiementConfirmDialog
     
   ],
 
@@ -121,10 +128,12 @@ export class MaterialModule {}
     MatInputModule,
     MatRadioModule,
     MatCardModule,
+    MatAutocompleteModule,
+    IvyCarouselModule
     //ReactiveForms
   ],
 
-  entryComponents: [NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,ProductDetailsComponent,CriteriaSearchViewComponent,DialogCategoryDeleteConfirm,CartDialogAddProduct],
+  entryComponents: [NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,ProductDetailsComponent,CriteriaSearchViewComponent,DialogCategoryDeleteConfirm,CartDialogAddProduct,PaiementConfirmDialog],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

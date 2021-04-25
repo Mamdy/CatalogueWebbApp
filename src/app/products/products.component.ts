@@ -37,6 +37,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   count: number;
   similarProductsList: Product[]=[];
   similarProductsUrl: string;
+  productsCategoryName: string;
 
 
   constructor(private catalogueService:CatalogueService,
@@ -86,8 +87,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
         console.log('liste des produits------>',result.getData().products);
         this.dataTableListeProducts$ = result.getData().products;
         this.products = result.getData().products;
-        console.log("datatable_Content===>",this.dataTableListeProducts$);
-        this.dtTrigger.next();
       },error1 => {
         console.log(error1)
       })
@@ -99,6 +98,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .then((res : AppResponse)=>{
         this.dataTableListeProducts$ = res.getData().products;
         this.products = res.getData().products;
+
+         //recuperer la category des produits
+         let product:any = this.products[0];
+         const categoryUrl = product._links.category.href;
+         this.catalogueService.getRessources(categoryUrl)
+           .subscribe((res:any)=>{
+             this.currentProductCategory = res;
+          
+             this.productsCategoryName= this.currentProductCategory.name.charAt(0).toUpperCase() + this.currentProductCategory.name.slice(1);
+             console.log("categoryNameCapitlise=>", this.productsCategoryName);
+
+           },error=>{
+             console.log(error);
+           })
 
         this.dtTrigger.next();
       }, error1 => {

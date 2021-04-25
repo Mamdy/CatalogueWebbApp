@@ -1,19 +1,19 @@
 import { Category } from "./Category";
 
 export class Product {
-  id: String;
-  code: String;
-  name: String;
-  brand: String;
+  id: string;
+  code: string;
+  name: string;
+  brand: string;
   supplierId: number;
   purchases: number;
-  description: String;
+  description: string;
   quantity: number;
   productStock: number;
 
   price: number;
   currentPrice:number;
-  photoUrl: String[];
+  photoUrl: string[];
   active: boolean;
   views: number;
   category: Category;

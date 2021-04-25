@@ -24,6 +24,11 @@
     flex:50%;
 
 }
+.goback2 {
+  margin:0;
+  text-align: justify;
+}
+
 .btn a:hover {
     background-color: rgba(24, 164, 189, 0.979);
     color:rgb(54, 171, 207);
@@ -32,22 +37,108 @@
 .title {
     color: rgb(54, 171, 207);
     font-size: 38px ;
-    font-family: 'proxima-nova';
+    font-family: 'Raleway';
     font-weight: bold;
 }
 
 .table-data {
-    font-family: 'proxima-nova';
+    font-family: 'Raleway';
     font-size: 20px;
 }
 
 .flex-container {
   margin-left: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 30px;
+  text-align: center;
+   max-width: 82.3%;
+    
+}
+
+.goback{
+  border-radius: 25px;
+  padding: 1px 80px;
+  padding-left: 5%;
+  width: 7px;
+  height: 30px;
+  margin-top: -2em;
+  background-color: purple;
+  color: white;
+  display: none;
+} 
+
+@media screen and (max-width:600px) {
+  .flex-container {
+    float: none;
     display: flex;
-    flex-wrap: wrap;
-    font-size: 30px;
-    text-align: center;
-    max-width: 82.3%;
+    flex-direction: column;
+  }
+  .flex-container .mat-card {
+    float: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     
   }
 
+  .flex-container .total-price{
+    float: none;
+    margin: 0;
+  }
+
+  .flex-container .total-price h5{
+    float: none;
+    margin: 0;
+    flex-direction: column;
+    margin-top: 2em;
+  }
+
+  .flex-container .total-price button{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    
+  } 
+
+  .flex-container .total-price a{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    margin-left:118px
+    
+  } 
+  .flex-container .total-price .goback {
+    position: relative;
+    border-radius: 50px;
+    padding: 10px 180px;
+    padding-left: 180px;
+    width: 6px;
+    height: 50px;
+    margin-top: 2em;
+    background-color: purple;
+    color: white;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    
+
+ }
+
+
+ .flex-container .total-price .goback span{
+    margin-top: -1em;
+    margin-left: -110px;
+    display: inline;
+    text-align: center;
+    text-transform: lowercase;
+    padding: 20px;
+    width: 100%;
+}
+ .flex-container .total-price .goback2 {
+   float: none;
+   display: none;
+ }
+
+  
+}

@@ -98,8 +98,10 @@ currentCategory;
   }
 
   onUpdateCat(data) {
+    debugger
     this.catalogueService.putRessource(this.currentCategory._links.self.href,data)
       .subscribe(data=>{
+        debugger
         this.mode='list';
         //si le post se passe bien, on recharge la page des données
         this.onGetAllCategories();

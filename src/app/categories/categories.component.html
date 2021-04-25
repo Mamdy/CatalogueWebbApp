@@ -1,20 +1,23 @@
-    <div class="flex-container">
-      <div class="border-box">
-        <ul class="inline" *ngIf="categories">
-          <li [ngClass]="currentCategory && currentCategory._links.self==c._links.self?'active':''"
-              *ngFor="let c of categories"
-              class="list-group"
-             (click)="onGetProducts(c)">
-          <a> <span  style="font-size: 16.5px;
-          font-family: 'Raleway';
-          color:white;
-          "> {{c.name}}</span>
-         </a>  
-          </li>
-        </ul>
-      </div>
-     
-    </div>
+          <div class="border-box">
+            <ul class="inline" *ngIf="categories">
+              <li 
+                [ngClass]="currentCategory &&
+                 currentCategory._links.self==c._links.self?'active':''"
+                  *ngFor="let c of categories"
+                  class="list-group"
+                >
+              <a
+              
+              (click)="onGetProducts(c)">
+                <span  style="font-size: 16.5px;
+              font-family: 'Raleway';
+              color:white;
+              font-weight: bold;
+              "> {{c.name}}</span>
+            </a>  
+              </li>
+            </ul>
+        </div>
     <!-- <div class="col-md-12">
       <router-outlet></router-outlet>
   </div> -->

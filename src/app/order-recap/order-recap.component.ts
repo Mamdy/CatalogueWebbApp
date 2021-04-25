@@ -9,10 +9,12 @@ import { Order } from '../model/Order';
 })
 export class OrderRecapComponent implements OnInit {
  @Input() order: Order
+ totalAmount:number;
 
   constructor() { }
 
   ngOnInit() {
+    this.totalAmount = this.order.orderAmount + 5.95;
   }
 
 }

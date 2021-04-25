@@ -6,44 +6,12 @@
   
           <div  *ngIf="mode=='list-Products'">
               <div class="col-md-13">
-
                 <div class="slider">
                   <ngb-carousel *ngIf="slides">
-                    <ng-template ngbSlide>
-                      <div>
-                        <img [src]="slides[0]" width="100%" height="100%" alt="Random first slide">
-                      </div>
-                    </ng-template>
-                    <ng-template ngbSlide>
-                      <div>
-                        <img [src]="slides[1]" width="100%" height="100%" alt="Random second slide">
-                      </div>
-                    </ng-template>
-                    <ng-template ngbSlide>
-                      <div >
-                        <img [src]="slides[3]" width="100%" height="100%" alt="Random fourth lide">
-                      </div>
-                    </ng-template>
-                    <ng-template ngbSlide>
-                      <div >
-                        <img [src]="slides[4]" width="100%" height="100%" alt="Random fifth slide">
-                      </div>
-                    
-                    </ng-template>
-                    <ng-template ngbSlide>
-                      <div >
-                        <img [src]="slides[5]" width="100%" height="100%"  alt="Random sixth slide">
-                      </div>
-                  
-                    </ng-template>
-                    <ng-template ngbSlide>
-                      <div >
-                        <img [src]="slides[6]" width="100%" height="100%"  alt="Random sixth slide">
-                      </div>
-                  
+                    <ng-template ngbSlide *ngFor="let slide of slides; let i = index">
+                        <img [src]="slide" width="100%" height="100%" alt="Random first slide">
                     </ng-template>
                   </ngb-carousel>
-
                 </div>
                 <div class="row">
                       <div *ngFor="let p of listProducts" class="col-lg-4 col-md-6 mb-4">
@@ -53,17 +21,16 @@
                             <div class="card-body">
                               <h4 class="card-title" align="center">
                                 
-                                <a style="color: rgb(0, 162, 255); cursor: pointer;font-size: 18px; font-family: 'proxima-nova';"  (click)="detailsProduct(p)">{{p.name}}</a>
+                                <a style="color: rgb(0, 162, 255); cursor: pointer;font-size: 18px; font-family: 'Raleway';"  (click)="detailsProduct(p)">{{p.name}}</a>
                               </h4>
                               <span style="font-size: 17px;"><s>{{p.price | number: '0.2'}}</s>&euro;</span> &nbsp;
                               <span style="color: rgb(253, 60, 60); font-size: 30px; font-weight: bold;">{{p.currentPrice | number: '0.2'}}&euro;</span>
-                              <p class="card-text"><span style="font-size: 15.5px; font-family: 'proxima-nova';"> {{p.description}}</span></p>
+                              <p class="card-text"><span style="font-size: 15.5px; font-family: 'Raleway';"> {{p.description}}</span></p>
                             </div><br>
                             <div *ngIf="p.productStock < 1">
                               <h6><span style="color: red" >Article indisponible en Stock!!</span></h6>
                             </div>
-                                 
-                         
+                                                         
                             <div class="card-footer">
                               
                             </div>

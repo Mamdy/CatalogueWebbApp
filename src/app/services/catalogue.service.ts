@@ -156,6 +156,7 @@ postRessource(url, data){
   }
 
   putRessource(url, data) {
+    debugger
     let headers=new HttpHeaders({'Authorization':'Bearer '+this.authService.jwt});
     //return this.http.patch(url,data,{headers:headers});
    return this.http.put(this.prodCatApiUrl+url,data,{headers:headers});

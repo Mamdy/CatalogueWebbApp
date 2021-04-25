@@ -1,3 +1,7 @@
+.spacer {
+    margin-top: 1.3em;
+}
+
 label {
     display: block;
     font: 1rem 'Fira Sans', sans-serif;
@@ -23,12 +27,13 @@ label {
 }
 
 .flex-item-left {
-    flex: 50%;
+    flex: 100%;
 }
   /* Responsive layout - makes a one column-layout instead of a two-column layout */
-  @media (min-width: 600px) {
-    .border-box, .flex-item-left {
-        float: 100%;
+  @media screen and (max-width:600px) {
+    .shipping-adress .border-box{
+        float: none;
+        width:100%;
         
         
     }
@@ -61,6 +66,17 @@ label {
   }
 
   .shipping-adress {
-      margin-left: 10%;
+      margin-left: 1%;
   }
   
+  .continueBtn {
+    border-radius: 25px;
+    padding: 7px 20px;
+
+    margin-top: -1em;
+    background-color: purple;
+    color: white;
+    
+}
+
+

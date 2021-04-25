@@ -1,6 +1,6 @@
 
   <!--Adresse de Livraison-->
-  <div class="container-fluid">
+  <div class="container-fluid spacer">
     <div class="shipping-adress  col-md-6">
 
       <div class="panel panel-primary">
@@ -38,7 +38,14 @@
               <app-new-address [order]="order"></app-new-address>
           </div><br> -->
   
-          <a routerLink="/order/{{order?.id}}/payment" class="btn-link float-right"> <span style="color: rgb(0, 174, 255); font-size: 15px; font-family: 'proxima-nova';">CONTINUER-></span></a>
+          <a routerLink="/order/{{order?.id}}/payment"
+          class="btn btn-link
+          continueBtn
+          float-right
+          ">
+            <span 
+              style="font-size: 18px; color: white;">
+              continuer-></span> </a>
   
         </div>
         
@@ -49,11 +56,5 @@
 <!--Recap commande Compoent-->
     <app-order-recap [order]="order"></app-order-recap>
     </div>
-  
-      
-  
   </div>
-
-  
-
 <app-footer></app-footer>

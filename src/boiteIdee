@@ -4,6 +4,9 @@ Remplir diffrent lien pied de page
 Gestion des photos(back)
 Payment Finish recape
 https://springboot-angular-shop.herokuapp.com/login
+site pour verifier que site est responsive
+http://mattkersley.com/responsive/
+
 getNbProductInDBUser() à revoir
 
 site inspiration:
@@ -12,6 +15,8 @@ https://bring4you.com/
 https://www.cocolis.fr/
 https://www.eurosender.com/
 https://www.sendcloud.fr/ (site de prepration, d'emballage et d'expedition  de colis)
+https://fr.shopping.rakuten.com/cart(à s'inspirer)
+
 
 style="font-size: 12px;
                          text-decoration: none;

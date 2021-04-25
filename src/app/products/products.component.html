@@ -1,8 +1,20 @@
 <div class="container style">
   <div  *ngIf="mode=='showAllProducts'">
     <div class="col-md-12">
+      <div>
+        <ul class="inline container">
+          <li> <a class="btn-link" routerLink="/home"><span  class="txt" style="color: red; font-size: 18px;">Acceuil&nbsp;&nbsp; ></span></a> 
+            </li>
+            
+          <li> <a ><span style="color: red; font-size: 18px;">{{productsCategoryName}}</span></a></li>
+        </ul>
+        <span style="font-size: 40px; font-family: 'Raleway'; font-weight: bold;">Les {{productsCategoryName}} </span>
+      </div>
       <div class="row">
+        
+
         <div *ngFor="let productInfo of products" class="col-lg-4 col-md-4">
+         
           <div class="card h-100"  >
             <a  style="cursor: pointer;" (click)="detailsProduct(productInfo)"><img class="card-img-top" src="../assets/images/{{productInfo.photoUrl[0]}}.jpg" width="40%" height="40%" alt="{{productInfo.name}}"></a>
             <div class="card-body">

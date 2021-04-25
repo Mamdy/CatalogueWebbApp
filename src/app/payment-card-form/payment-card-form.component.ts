@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,6 +12,8 @@ import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { HttpHeaders } from '@angular/common/http';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 import { CartService } from '../services/cart.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Product } from '../model/Product';
 
 @Component({
   selector: 'app-payment-card-form',
@@ -26,6 +28,7 @@ export class PaymentCardFormComponent implements OnInit {
 
   isSubmitted:boolean;
   isLoading;
+  totalAmount:number;
 
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
   @Input() price;
@@ -61,7 +64,8 @@ export class PaymentCardFormComponent implements OnInit {
               private router: Router,
               private toastrService: ToastrService,
               private cartService: CartService,
-              public modalService: NgbModal){}
+              public modalService: NgbModal,
+              public dialog:MatDialog){}
 
     public stripeForm = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -71,6 +75,7 @@ export class PaymentCardFormComponent implements OnInit {
     this.orderService.show(this.route.snapshot.paramMap.get('id')).subscribe(data=> {
       if(data){
         this.order = data;
+        this.totalAmount = this.order.orderAmount + 5.95;
       }else{
         console.log("No Order for that id");
       }
@@ -78,6 +83,8 @@ export class PaymentCardFormComponent implements OnInit {
       console.log(error);
 
     });
+ 
+
   }
 
 
@@ -98,8 +105,6 @@ export class PaymentCardFormComponent implements OnInit {
             currency: 'eur',
             description: 'test carte reel'
           }
-
-
           this.paymentData = paymentIntentDto;
           this.paymentService.pay(paymentIntentDto).subscribe(
             data => {
@@ -117,12 +122,22 @@ export class PaymentCardFormComponent implements OnInit {
 
                     //on rafraichi le formulaire de paiment dans le but desactiver le button submit
                     this.stripeForm.reset();
-                    //this.stripeForm.get('name').setValue('');
-                    
-                    this.cartService.changeNbProductInCart(0);
-                    this.router.navigateByUrl('/payementRecap');
+                    const dialogRef = this.dialog.open(PaiementConfirmDialog,{
+                      width:'620px',
+                      height: '240px',
 
-                      
+                    });
+                    dialogRef.afterClosed().subscribe(result=>{
+                      if(result){
+  
+                        this.router.navigateByUrl('/payementRecap');
+                      }else {
+                        this.router.navigateByUrl('/payementRecap');
+                      }
+                     
+                    })
+                    //this.stripeForm.get('name').setValue('');
+                    this.cartService.changeNbProductInCart(0);
                     }
               
                     
@@ -139,4 +154,15 @@ export class PaymentCardFormComponent implements OnInit {
 
   }
 
+}
+
+@Component({
+  selector: 'paiement-confirm-dialog',
+  templateUrl: 'paiement-confirm-dialog.html',
+})
+export class PaiementConfirmDialog {
+  constructor(
+    public dialogRef: MatDialogRef<PaiementConfirmDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: Product,
+    private router: Router) {}
 }

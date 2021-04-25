@@ -193,7 +193,6 @@ remove(productInOrder: ProductInOrder) {
 }
 
 checkout() {
-  debugger
   if (!this.currentUser) {
       this.router.navigate(['/login'], {queryParams: {returnUrl: this.router.url}});
   } else if (this.currentUser.user.role !== Role.Customer && this.currentUser.user.role !== Role.Manager) {
@@ -202,7 +201,7 @@ checkout() {
       this.cartService.checkout().subscribe(res=> {
                 this.newOrderToShipp = res;
                 //notifier le composant shipping adresse de l'id de la nouvelle commande
-                console.log("orderIdFrom cart Component", this.newOrderToShipp);
+                console.log("order=>", this.newOrderToShipp);
                 this.cartService.sendNewOrderId(this.newOrderToShipp);
                 this.productInOrders = [];
                 this.router.navigate(['/shippingAddress']);

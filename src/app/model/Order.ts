@@ -1,6 +1,9 @@
+import { ProductInOrder } from "./ProductInOrder";
+
 export class Order {
     id: string;
-    numOrder: string
+    numOrder: string;
+    products: Set<ProductInOrder>;
     buyerEmail: string;
     buyerName: string;
     buyerPhone: string;

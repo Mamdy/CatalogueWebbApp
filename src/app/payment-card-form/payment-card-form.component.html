@@ -19,8 +19,8 @@
                 {{error}}
             </div>
             <br><br>
-            <button type="submit" class="btn btn-lg" [disabled]="!f.valid">
-              Payer la commande: <span>{{order?.orderAmount | number: '0.2'}}&euro;</span>
+            <button type="submit" class="btn btn-link continueBtn" [disabled]="!f.valid">
+              Payer la commande: <span>{{totalAmount | number: '0.2'}}&euro;</span>
               <div *ngIf="isSubmitted && isLoading" class="spinner">
                   <img src="../../assets/images/pre-loader2.gif" width="15%" height="15%" alt="Random first slide">
             

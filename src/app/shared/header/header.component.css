@@ -1,6 +1,32 @@
+.automatic-saisie{
+  margin-top: -3em;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 1200px;
+  width: 100%;
+  
+}
+.example-full-width {
+    width: 80%;
+}
+
+.container-menu {
+  margin-top: 2em;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.profile {
+  margin-top: 2em;
+  padding-top: 50px;
+}
+.admin-Menu {
+  margin-top: auto;
+}
 .mycpt{
-  position: absolute;
-  margin-top: 0.7em;
+  position: relative;
+  margin-top: .2em;
   border-radius: 100%;
   
 }
@@ -14,13 +40,19 @@ a.monCpte:hover{
 
 .admin {
   color: black;
+  margin-top: 1em;
 }
-
+.myNormal-compte {
+  margin-top: -0.4em;
+}
+.myNormalcpte-btnlink{
+  margin-top: 0.1em;
+}
 .navbar-content {
   margin:20px;
 }
 .dropdown-menu {
-  min-width: 230px;
+  min-width: 250px;
   margin-top: 6em;
 
 }
@@ -51,6 +83,7 @@ a.monCpte:hover{
 .header {
   margin-top: -7em;
   padding: .1em 0;
+  
 }
 
 
@@ -58,16 +91,15 @@ a.monCpte:hover{
   font-family: 'proxima-nova';
 }
 .brand{
-  margin-top: -2em;
-  margin-left: 70%;
-  padding: 8px;
+  margin-top: -1.8em;
+  margin-left: 25%;
+  padding: 10px;
   /* float: left; */
 }
 .topnav {
   overflow:visible;
   background-color: rgb(2, 48, 59);
-
-
+  padding: 1.3em;
 }
 
 /* Style the links inside the navigation bar */
@@ -87,10 +119,12 @@ a.monCpte:hover{
 }
 
 .search-container {
-  position: relative;
-  margin-left: 5%;
-  padding: 7px 120px;
+  margin-top: 2.8em;
+  position: absolute;
+  margin-left: 20%;
+  
 }
+
 .topnav .search-container button{
   /*float: left;*/
   padding:0.3em;
@@ -113,36 +147,135 @@ a.monCpte:hover{
 
 /* Style the search box inside the navigation bar */
 .topnav input[type=text] {
-  width:500px; 
-  height:38px;
-  border-radius:15px;
+  width:1200px; 
+  height:50px;
+  border-radius:5px;
   float: left;
-  padding: 6px;
+  padding: 7px;
   border: none;
-  margin-top: 8px;
+  margin-top: 0.1em;
+  margin-bottom: -2.4em;
   margin-right: 20px;
-  margin-left: 5px;
-  
+  margin-left: 3px;
   font-size: 17px;
 }
+
 
 /* When the screen width is less than 600px wide, stack the links and the search field vertically instead of horizontally */
 
 @media screen and (max-width: 600px) {
+  .topnav {
+    background-color: red;
+    width: 100%;
+    float: none;
+  }
+  .topnav .navbar-brand {
+    float: none;
+    margin-top: -1em;
+    
+  }
+  .topnav a > img {
+    width:550px;
+    height: 50px;
+    
+  }
+  .topnav .navbar-brand .brand {
+    position: absolute;
+    margin-left:-320px;
+    margin-top: 0.01em;
+    /* float: none; */
+    width: 40%;
+    padding-left: 30px;
+  }
   .topnav .search-container {
     float: none;
+    /* margin-top: 0.1em; */
+    margin-top: 7.5em;
+    width: 100%;
   }
-  .topnav a, .topnav input[type=text], .topnav .search-container button {
+
+    /* .topnav .float-right {
     float: none;
+    margin-top: 3em;
+
+  } */
+
+  .topnav .move-right-compte {
+    float: none;
+    margin-top: -5.3em;
+    margin-right: 27%;
     display: block;
-    text-align: left; 
-    width: 15%;
+  }
+
+  .topnav .move-right-compte .admin {
+    float: none;
+  }
+  .topnav .move-right-compte .admin span{
+    float: none;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .topnav .move-right-compte .normal-compte {
+    float: none;
+    margin-top: 3em;
+  }
+  .topnav .move-right-compte .normal-compte .myNormal-compte {
+    float: none;
+    display: inline-block;
+    
+  }
+  .topnav .move-right-compte .normal-compte .myNormal-compte .myNormalcpte-btnlink{
+    position: relative;
+    margin-left: -45px;
+    margin-top: -1em;
+  }
+
+
+  .topnav .float-right li{
+    float: none;
+    display: inline;
+  }
+  .topnav .float-right li a{
+    float: none;
+    display: inline-flex;
+    padding: 5px 28px;
+    width: 50%;
+  }
+  .topnav .float-right li a span{
+   visibility:visible;
+  }
+
+  .topnav .float-right li .mycpt span{
+    /* margin-top: 2em; */
+
+  }
+
+  .topnav .search-container input {
+    float: none;
+    width: 50%;
+    height: auto;
     margin: 0;
-    padding: 5px;
+    padding: 2px;
+    margin-left: 31px;
+    border-radius: 25px;
   }
-  .topnav input[type=text] {
-    border: 1px solid #ccc;  
+  .topnav .search-container button {
+    margin-left: -8%;
+    margin-top: auto;
+    
   }
+
+  .topnav .example-full-width {
+    float: none;
+    width: 80%;
+    padding: 1px;
+  }
+   .topnav a, .topnav input[type=text], .topnav .search-container button {
+    text-align: left; 
+    width: 23%;
+    height: 40px;
+    padding: 3px;
+  } 
 
 }
 
@@ -190,5 +323,5 @@ a.monCpte:hover{
   margin-left: 10%;
 }
 .move-right-compte {
-  margin-left: 2px;
+  margin-left: 60%;
 }

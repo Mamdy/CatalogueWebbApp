@@ -11,3 +11,12 @@
     color: white;
     text-align: center;
 }
+
+.btn-show-order{
+    border-radius: 25px;
+    padding: 7px 20px;
+
+    margin-top: -1em;
+    background-color: purple;
+    color: white;
+}

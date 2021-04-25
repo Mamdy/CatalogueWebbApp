@@ -38,11 +38,22 @@
     margin-left: 1%;
 }
 
+.style span{
+    margin-top: -150px;
+    background-color: blue;
+    
+}
+.test{
+    margin-top: -19em;
+
+}
 .spacer {
     margin-top: 3.4em;
     margin-bottom: 5em;
 }
-
+.route-link {
+    margin: 0.5em;
+}
 .qte {
     margin-top: -1.6em;
     margin-left: 4.7em;
@@ -71,4 +82,29 @@
 
 .text-ul{
     font-size: 15px;
+}
+
+.first-colonne{
+   margin: 0;
+}
+@media screen and (max-width:600px) {
+    .spacer {
+        float: none;
+    }
+    .spacer .first-colonne{
+        margin: 0;
+        display: none;
+    }
+    .spacer .route-link{
+        margin-top: -3em;
+    }
+
+    .spacer .row{
+        margin-left: 15px;
+        float: none;
+        width: 100%;
+        text-justify: auto;
+        line-height: normal;
+        text-align: center;
+    }
 }

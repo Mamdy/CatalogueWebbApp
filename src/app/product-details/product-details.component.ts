@@ -28,6 +28,7 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
   similarProductsUrl: any;
   currentProductSubscription: Subscription;
   mode: string;
+  currentProductCategory: Category;
 
   //similarProductsList: Product[]=[];
   constructor(private cartService: CartService,
@@ -41,8 +42,8 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
               ) { 
                 carouselConfig.interval = 0;
                 carouselConfig.keyboard= true;
-                carouselConfig.showNavigationArrows = true
-                carouselConfig.showNavigationIndicators = true;
+                carouselConfig.showNavigationArrows = true;
+                carouselConfig.showNavigationIndicators = false;
              
   }
 
@@ -70,12 +71,26 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
 
     //methode qui permet de recuperer les produits lié à une categorie (parametre=categorie)
  
+  getCurrentProductCategory(): Category {
 
+    let product:any = this.currentProduct;
+    const categoryUrl =  product._links.category.href;
+
+    return  null; 
+  }
+
+  displayCategoryProducts(category):void{
+    let url = category._links.products.href;
+    this.router.navigateByUrl("/products/"+btoa(url));
+
+  }
   getSimilarProducts(): Product[]{
     let product:any = this.currentProduct;
     const categoryUrl =  product._links.category.href;
     this.catalogService.getRessources(categoryUrl)
     .subscribe((res:any)=>{
+      this.currentProductCategory = res;
+      console.log("currentProductCategory=>", this.currentProductCategory)
       this.similarProductsUrl=res._links.products.href;
       this.catalogService.getSimilarProducts(this.similarProductsUrl)
         .subscribe((res:any)=>{
@@ -90,7 +105,6 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
   }
 
   addCurrentProductToCart(){
-    debugger
     this.cartService.addItem(new ProductInOrder(this.currentProduct,this.count))
                     .subscribe(res => {
                           if(!res){
@@ -106,7 +120,6 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
                           });
 
                           dialogRef.afterClosed().subscribe(result =>{
-                            debugger
                             if(result){
                               this.router.navigateByUrl('/cart');
                             }else{

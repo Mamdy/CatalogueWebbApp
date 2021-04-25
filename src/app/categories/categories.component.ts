@@ -28,10 +28,9 @@ export class CategoriesComponent implements OnInit {
       })
   }
   //methode qui permet de recuperer les produits lié à une categorie (parametre=categorie)
-  onGetProducts(cat){
-
-    this.currentCategory=cat;
-    let url=cat._links.products.href;
+  onGetProducts(c){
+    this.currentCategory=c;
+    let url=c._links.products.href;
     this.router.navigateByUrl("/products/"+btoa(url));
 
   }

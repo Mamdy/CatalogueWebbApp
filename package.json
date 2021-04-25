@@ -31,6 +31,7 @@
     "@types/datatables.net": "^1.10.19",
     "@types/jquery": "^3.3.38",
     "angular-datatables": "^7.0.0",
+    "angular-responsive-carousel": "^2.0.2",
     "bootstrap": "^3.4.1",
     "core-js": "^2.6.11",
     "datatables.net": "^1.10.21",
@@ -70,8 +71,6 @@
   },
   "engines": {
     "node": "12.14.1",
-    "npm":"7.0.5"
-
+    "npm": "7.0.5"
   }
-
 }

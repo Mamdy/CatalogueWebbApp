@@ -1,7 +1,7 @@
 export class Category {
-  id: String;
-  name: String;
-  description: String;
+  id: string;
+  name: string;
+  description: string;
   active: boolean;
 
   urlPhoto: string;

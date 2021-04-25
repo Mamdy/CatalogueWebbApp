@@ -27,7 +27,7 @@ public state = '';
 
   getProductByCriteria(){
 
- this.cataService.getAllCategories()
+      this.cataService.getAllCategories()
       .then((result:AppResponse)=>{
         debugger
         this.categories=result.getData().categories;
