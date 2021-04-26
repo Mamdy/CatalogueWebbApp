@@ -20,3 +20,33 @@
     background-color: purple;
     color: white;
 }
+.achat-continuLink {
+    margin: 0;
+    margin-left: 10px;
+}
+
+@media screen and (max-width:600px) {
+    .container {
+        float: none;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .container .achat-continuLink {
+        display: block;
+        margin-left: 16%;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    .container .btn-show-order {
+        float: none;
+        position: relative;
+        margin:0;
+        margin-left: 130px;
+        margin-right: 70px;
+        margin-bottom: 30px;
+        margin-top: 2em;
+        border-radius: 50px;
+        width: 60%;
+    }
+}

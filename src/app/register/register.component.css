@@ -43,3 +43,34 @@
     text-indent: 10px;
     
 }
+
+@media screen and (max-width:600px) {
+    .container {
+        float: none;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    h1 {
+        display: none
+    }
+
+    .container .wrapp-buttons{
+        float: none;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+       
+        
+    }
+    .container .wrapp-buttons .btn-valider,.btn-cancel {
+        margin: 0;
+        margin-left: 10px;
+        
+    }
+    .container .wrapp-buttons .btn-valider,.btn-cancel span{
+        float: none;
+        margin-left: 20px;
+
+    }
+}

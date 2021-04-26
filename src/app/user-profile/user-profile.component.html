@@ -230,7 +230,17 @@
                     <div class="form-group">
                       <div class="wrapp-buttons">
                         <button [disabled]="loading || f.valid" class="btn btn-valider">Mettre à jour</button><br>
-                        <button  class="btn btn-cancel" (click)="updateCancelled()">Annuler</button><br>
+                        <a  class="btn btn-link float-left btn-cancel" routerLink="/home">
+                          <span style="
+                            color: white; font-size: 14px;
+                            font-family: 'proxima-nova';
+                            font-weight: bold;"
+                            
+                            >
+                            Annuler
+                          </span>
+                        </a><br><br>
+                       
                       </div>        
             
                     </div>

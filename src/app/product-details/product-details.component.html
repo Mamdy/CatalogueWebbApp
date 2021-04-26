@@ -15,16 +15,6 @@
     <div class="first-colonne">
       <ul class="col col-md-1" *ngIf="currentProduct.photoUrl">
         <br>
-        <!-- <a  class="btn btn-link float-left goback" routerLink="/home">
-          <span style="
-            color: white; font-size: 14px;
-            font-family: 'proxima-nova';
-            font-weight: bold;"
-            
-            >
-           < RETOUR
-         </span>
-        </a><br><br> -->
       <li *ngFor="let photo of currentProduct.photoUrl"
       class="list-group"
       >
@@ -78,7 +68,6 @@
               <form name="form" #form='ngForm' (ngSubmit)="currentProduct?.active == true && addCurrentProductToCart()">
               <div class="text-left">
               <input hidden name="id" [value]=currentProduct?.id>
-              <!-- <p class="card-text"><strong><span style="font-family: proxima-nova; font-size: 16px;">{{currentProduct?.description}}</span> </strong></p> -->
               <p class="card-text">
               <label id="price">
                 &nbsp;<span style="font-size: 15px;"> <s>{{currentProduct?.price | number: '0.2'}}</s>&euro;</span><br>

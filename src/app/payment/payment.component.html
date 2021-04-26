@@ -13,7 +13,11 @@
       </div>
       <div class="card-body">
         <mat-card>
-          <input type="radio" id="{{paymentModes.bankCard.id}}" [(ngModel)]="paymentModes.bankCard.checked" value ="{{paymentModes.bankCard.value}}" (click)="isBankCardOptionSelected()">&nbsp;
+          <mat-radio-button
+            value="by bankCard"
+          (click)="isBankCardOptionSelected()">
+            
+          </mat-radio-button>
           <span><img src="../assets/images/all-cards.svg"></span> &nbsp;
           <span style="font-size: 14px;"><strong>Par Carte Bancaire</strong></span>
         </mat-card> <br>
@@ -22,7 +26,12 @@
               
           </div><br><br>
           <mat-card>
-            <input disabled="true" type="radio" id="{{paymentModes.paypal.id}}" [(ngModel)]="paymentModes.paypal.checked" value ="{{paymentModes.paypal.value}}" (click)="isPaypalOptionSelected()">&nbsp;
+            <mat-radio-button
+            disabled="true"
+            value="by paypal"
+          (click)="isPaypalOptionSelected()()">
+            
+          </mat-radio-button>
             <span><img src="../assets/images/paypal-logo.svg"></span>&nbsp;
             <span style="font-size: 14px;"><strong>Paypal</strong></span><br><br>
             <p style="font-size: 13px;">&nbsp;En choisissant ce mode de paiement, vous allez être redirigé vers le serveur sécurisé de Paypal et accéder à votre compte Paypal. Votre commande sera enregistrée lorsque vous aurez validé votre paiement sur le site Paypal.</p><br><br>
@@ -32,12 +41,21 @@
             </button>
           </mat-card><br>
           <mat-card>
-            <input disabled="true"  type="radio" id="{{paymentModes.orangeMoney.id}}" [(ngModel)]="paymentModes.orangeMoney.checked" value ="{{paymentModes.orangeMoney.value}}" (click)="isOrangeMoneyOptionSelected()">
+            <mat-radio-button
+            disabled="true"
+            value="by orangeMoney"
+            (click)="isOrangeMoneyOptionSelected()">
+            
+          </mat-radio-button>
             <span><img src="../assets/images/orange-money-logo.svg"></span>&nbsp;
             <span style="font-size: 14px;"><strong>Par Orange Money</strong></span> &nbsp;
           </mat-card><br>
           <mat-card>
-            <input disabled="true"  type="radio" id="{{paymentModes.cash.id}}" [(ngModel)]="paymentModes.cash.checked" value ="{{paymentModes.cash.value}}" (click)="isCashMoneyOptionSelected()">&nbsp;
+            <mat-radio-button
+            disabled="true"
+            value="by cashMoney"
+            (click)="iscashMoneyOptionSelected()">
+          </mat-radio-button>
             <span style="font-size: 14px;"><strong>Par Espèces</strong></span> &nbsp;
           </mat-card>
       </div>

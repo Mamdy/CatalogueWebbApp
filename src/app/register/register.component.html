@@ -215,7 +215,17 @@
             <div class="form-group">
               <div class="wrapp-buttons">
                 <button [disabled]="loading" class="btn btn-valider">Créer mon compte</button><br>
-                <button  class="btn btn-cancel" type="reset" (click)="onReset()">Annuler</button><br>
+                <a  class="btn btn-link float-left btn-cancel" routerLink="/home">
+                  <span style="
+                    color: white; font-size: 14px;
+                    font-family: 'proxima-nova';
+                    font-weight: bold;"
+                    
+                    >
+                    Annuler
+                  </span>
+                </a><br><br>
+                <!-- <button  class="btn btn-cancel" type="reset" (click)="onReset()">Annuler</button><br> -->
               </div>
              
               <h5 align="center"><span style="font-size: 14px; text-align: center;">Vous possédez déjà un compte ? <a routerLink="/login" class="">Identifiez-vous</a></span></h5>

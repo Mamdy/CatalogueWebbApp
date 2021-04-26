@@ -33,6 +33,21 @@
     .flex-item-title  {
     flex: 100%;
     }
-   
+    .container {
+      float: none;
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+    }
+
+    /* .container .border-box {
+      display: none;
+    } */
+    .container .table-striped {
+      margin: 0;
+      display: grid;
+     
+      
+    } 
   
   }

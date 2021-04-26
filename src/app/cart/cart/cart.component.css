@@ -1,5 +1,11 @@
 .mat-card{
-  width: 100%;
+  width: 95%;
+}
+/** No CSS for this example */
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,1), 
+              0 1px 1px 0 rgba(0,0,0,1), 
+              0 1px 3px 0 rgba(0,0,0,1);
 }
   /* Responsive layout - makes a one column-layout instead of a two-column layout */
   @media (max-width: 800px) {

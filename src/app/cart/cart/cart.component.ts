@@ -22,6 +22,7 @@ import { CONNREFUSED } from 'dns';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
+  isActive = false;
 
   productInOrders = [];
   total = 0;
