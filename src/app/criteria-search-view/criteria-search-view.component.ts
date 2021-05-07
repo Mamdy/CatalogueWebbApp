@@ -32,7 +32,9 @@ public state = '';
         debugger
         this.categories=result.getData().categories;
         this.cataService.getProductsByKeyWord(this.categories,this.state, 1,10).subscribe(result=>{
+          debugger
           this.page = result;
+          
         })
         
       });

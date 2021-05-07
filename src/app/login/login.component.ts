@@ -19,6 +19,7 @@ import { CatalogueService } from '../services/catalogue.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  isActive = true;
   loginForm:FormGroup;
   loading = false;
   isLogout: boolean;

@@ -2,12 +2,14 @@
 
 <div class="container">
   <div class="row">
-    <button class="btn btn-link backward-btn" routerLink="/home">
-      <span>< Retour</span>
-    </button><br>
+    <a class="btn btn-link backward-btn" routerLink="/home">
+      <span style="font-weight: bold; font-size: 22px;">< Acceuil</span>
+    </a><br><br>
+    
     <div class="col-lg-12">
+      <span style="font-size: 30px; font-weight: bold;">Vous Recherchez</span>
       <div class="row">
-        <div *ngIf="mode=='list-Products'">
+        <div *ngIf="page?.empty=='false'; else empty">
           <div *ngFor="let p of page?.content" class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
               <a href="#"><img class="card-img-top" src="../assets/images/{{p.photoUrl[0]}}.jpg" alt="{{p.photoUrl[0]}}"></a>
@@ -30,9 +32,12 @@
 
         </div>
         </div>
+          <ng-template #empty>
+  
+            <br><h1 class="text-muted text-center alert alert-info">
+              <span style="color: black;">Aucun résultat trouvé pour votre recherche  avec le mot clé "{{this.state}}"!</span> </h1>
+        </ng-template>
 
-         
-            
       </div>
     </div>
   

@@ -12,7 +12,7 @@ import {JwtInterceptor} from './_helpers/JwtInterceptor';
 import { HeaderComponent } from './shared/header/header.component';
 import {DataTablesModule} from 'angular-datatables';
 import { FooterComponent } from './shared/footer/footer.component';
-import { AllProductComponent } from './all-product/all-product.component';
+import { AllProductComponent, DialogProductDeleteConfirm } from './all-product/all-product.component';
 import { CartComponent } from './cart/cart/cart.component';
 import { OrderComponent } from './order/order.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
@@ -53,6 +53,7 @@ import { DialogCategoryDeleteConfirm } from './admin-categories/admin-categories
 import { PaginationComponent } from './pagination/pagination.component';
 import {IvyCarouselModule} from 'angular-responsive-carousel';
 import {MatMenuModule} from '@angular/material/menu';
+import { UpdateProductScreenComponent } from './update-product-screen/update-product-screen.component';
 
 @NgModule({
 
@@ -65,7 +66,6 @@ import {MatMenuModule} from '@angular/material/menu';
 
     
   ],
-
    
 })
 export class MaterialModule {}
@@ -101,7 +101,9 @@ export class MaterialModule {}
     DialogCategoryDeleteConfirm,
     CartDialogAddProduct,
     PaginationComponent,
-    PaiementConfirmDialog
+    PaiementConfirmDialog,
+    DialogProductDeleteConfirm,
+    UpdateProductScreenComponent
     
   ],
 
@@ -133,7 +135,7 @@ export class MaterialModule {}
     //ReactiveForms
   ],
 
-  entryComponents: [NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,ProductDetailsComponent,CriteriaSearchViewComponent,DialogCategoryDeleteConfirm,CartDialogAddProduct,PaiementConfirmDialog],
+  entryComponents: [NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,ProductDetailsComponent,CriteriaSearchViewComponent,DialogCategoryDeleteConfirm,CartDialogAddProduct,PaiementConfirmDialog,DialogProductDeleteConfirm,UpdateProductScreenComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

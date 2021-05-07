@@ -54,6 +54,12 @@
 .route-link {
     margin: 0.5em;
 }
+
+.router-link  .li{
+    font-size: 20px;
+    font-display: none;
+}
+
 .qte {
     margin-top: -1.6em;
     margin-left: 4.7em;
@@ -77,7 +83,8 @@
 }
 
 .txt:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    color: red;
 }
 
 .text-ul{

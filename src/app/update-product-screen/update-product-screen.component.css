@@ -1,0 +1,53 @@
+.help-block {
+    color: #ff0000;
+  }
+  
+  .style {
+    background-color:  rgb(23, 0, 128);
+    font-size: 26px;
+    font-family: 'Raleway';
+    font-weight: bold;
+    color: white;
+    text-align: center;
+  
+  }
+  
+  .btn {
+    padding: 10px 60px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-family: 'Raleway';
+    font-weight: bold;
+    background-color: purple;
+    color: white;
+    cursor: pointer;
+    
+  }
+  
+  .butn-left {
+    margin-left: 5em;
+  }
+  
+  .butn-right {
+    margin-left: 5em;
+    padding: 10px 60px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-family: 'Raleway';
+    background-color: green;
+    color: white;
+    cursor: pointer;
+  }
+  .btnCancel-link {
+    padding: 10px 60px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-family: 'Raleway';
+    font-weight: bold;
+    margin-left: 47%px;
+    margin-right: 20px;
+    background-color: rgb(0, 128, 111);
+    color: white;
+    cursor: pointer;
+    
+  }

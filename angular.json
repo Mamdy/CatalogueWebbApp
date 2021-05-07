@@ -37,7 +37,6 @@
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/datatables.net-dt/js/dataTables.dataTables.js"
             ]
-           
           },
           "configurations": {
             "production": {

@@ -1,10 +1,9 @@
-import {Component, OnDestroy, OnInit, Input, Inject} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Component, OnInit, Input} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {User} from '../model/User';
 import {Subscription} from 'rxjs';
 import {AuthenticationService} from '../services/authentication.service';
 import {UserService} from '../services/user.service';
-import {first, timeout} from 'rxjs/operators';
 import {CatalogueService} from '../services/catalogue.service';
 import {ActivatedRoute,Router} from '@angular/router';
 import {Category} from '../model/Category';
@@ -12,6 +11,8 @@ import {AppResponse} from '../model/AppResponse';
 import { JwtResponse } from '../model/JwtResponse';
 import { Product } from '../model/Product';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Photo } from '../model/Photo';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit{
   isLoading:boolean;
   similarProductsList: Product[]=[];
   similarProductsUrl: any;
+  productPhotos: Photo[];
   // Array of images
   slides = [
       '../../assets/images/banner1.jpg',
@@ -50,6 +52,9 @@ export class HomeComponent implements OnInit{
 
 
   @Input()page: any;
+  retrievedImages = [];
+  retrievedImagesPhoto:Photo[]=[];
+  finalProductList:Product[]=[];
   constructor(
               private authenticationService:AuthenticationService,
               private userService: UserService,
@@ -57,7 +62,8 @@ export class HomeComponent implements OnInit{
               private route:ActivatedRoute,
               private router: Router,
               config: NgbCarouselConfig,
-              public dialog: MatDialog
+              public dialog: MatDialog,
+              private sanitizer: DomSanitizer
 
   ) {
     config.interval = 2000;
@@ -78,9 +84,14 @@ export class HomeComponent implements OnInit{
     this.router.navigateByUrl("/products/"+btoa(url));
 
   }
-  getAllProducts():Product[] {
+  getAllProducts() {
     this.isLoading = true;
     this.mode = 'list-Products';
+        //ici on gere le spinner(indicateur de chargement des données) de la base
+         setTimeout(() => {
+         this.isLoading = false;
+          }, 3000);
+
 
     this.catalogueService.getProducts()
       .then((result:AppResponse)=>{
@@ -89,44 +100,25 @@ export class HomeComponent implements OnInit{
            //ici on gere le spinner(indicateur de chargement des données) de la base
           setTimeout(() => {
             this.isLoading = false;
-          }, 3000);
+          }, 2000);
+          //recuperations des photos decompressées de chaque produit on les netoies puis associe au produits
+          this.listProducts = this.catalogueService.addAndSanitizePhotosToListProduct(this.listProducts);
+          console.log("listProducts", this.listProducts);
+
         }
      
       },error1 => {
         console.log(error1)
       });
-    return this.listProducts;
-
-  }
- 
-
-  onUploadPhoto(p) {
-
-  }
-
-  onSelectedFile() {
-
-  }
-
-  clickHome(){
-    return  this.userClickHomeTab = true;
+  
   }
 
   detailsProduct(p):Product{
     this.mode='detail-product';
     this.currentProduct = p;
-    let url = p._links.self.href;
-      this.catalogueService.getRessources(url)
-        .subscribe((res:Product)=>{
-          this.currentProduct = res;
-          //notifier le composant productDetails
-          this.catalogueService.changeCurrentProduct(this.currentProduct);
-          this.router.navigateByUrl('/product-details')
-
-        }),error=>{
-
-        console.log(error);
-      }
+     //notifier le composant productDetails
+     this.catalogueService.changeCurrentProduct(this.currentProduct);
+     this.router.navigateByUrl('/product-details')
       return this.currentProduct;
     
   }

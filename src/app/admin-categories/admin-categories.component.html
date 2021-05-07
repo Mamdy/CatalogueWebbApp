@@ -3,8 +3,9 @@
     <div class="panel-heading style">Gestion des Catégories</div>
     <div class="panel-body">
       <div>
-        <button class="btn btn-success" (click)="onNewCategory()">
-        <span class="glyphicon glyphicon-plus">AJOUTER UNE CATEGORY
+        <button class="btn new-categoryBtn" (click)="onNewCategory()">
+        <span  style="font-size: 16px; font-weight: bold; font-family: 'Raleway';" class="glyphicon glyphicon-plus">
+          AJOUTER UNE NOUVELLE CATEGORIE
         </span>
         </button>
       </div>
@@ -17,7 +18,7 @@
             <input type="text" name="name" ngModel class="form-control">
           </div>
           <!-- Buton d'ajout d'une nouvelle category-->
-          <button class="btn btn-success" type="submit">Save</button>
+          <button class="btn btn-success" type="submit">Enregistrer</button>
         </form>
       </div>
       <!-- cas d'une edition(modification/Update d'une)category deja existante en base-->
@@ -25,11 +26,18 @@
         <form #f="ngForm" (ngSubmit)="onUpdateCat(f.value)">
           <div class="form-group">
             <label class="control-label">Name</label>
-            <input type="text" name="name" ngModel class="form-control"
-                   [(ngModel)]="currentCategory.name">
+            <input 
+              type="text"
+              name="name"
+              ngModel
+              class="form-control"
+              [(ngModel)]="currentCategory.name">
           </div>
           <!-- Buton d'ajout d'une nouvelle category-->
-          <button class="btn btn-success" type="submit">Enregistrer</button>
+          <button class="btn btn-primary update-btn" type="submit">
+            <span style="font-family: 'Raleway';
+                        font-weight: bold;
+                        font-size: 16px;">Modifier</span> </button>
         </form>
       </div>
       <!--  On affiche ce div(bloc/partie) la que si mode = liste-->

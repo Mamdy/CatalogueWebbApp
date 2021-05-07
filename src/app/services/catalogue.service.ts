@@ -7,6 +7,9 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Product } from '../model/Product';
 import { catchError } from 'rxjs/operators';
 import { Photo } from '../model/Photo';
+import { Category } from '../model/Category';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ProductInOrder } from '../model/ProductInOrder';
 
 
 @Injectable({
@@ -21,9 +24,13 @@ export class CatalogueService {
 
   public currentProductSubject: BehaviorSubject<Product>;
   public currentProduct: Observable<Product>;
+  productListWithPhotos : Product[]=[];
+ 
   
 
-  constructor(private http: HttpClient, private authService:AuthenticationService) {
+  constructor(private http: HttpClient, 
+              private authService:AuthenticationService,
+              private sanitizer: DomSanitizer) {
     this.currentProductSubject = new BehaviorSubject<Product>(null)
         this.currentProduct = this.currentProductSubject.asObservable();
    }
@@ -63,6 +70,13 @@ export class CatalogueService {
       });
   }
 
+  public  getAllProducts(){
+    return this.http.get(this.prodCatApiUrl + "/allProducts").toPromise()
+      .then((result:any)=>{
+        result.__proto__ = AppResponse.prototype;
+        return result;
+      });
+  }
   getProductsByKeyWord(categoies,keyword,page=1,size = 10):Observable<any>{
         if(categoies.some(categorie=>categorie.name.includes(keyword.toLowerCase()))){
           this.url = `${this.searchByCategory}?categoryName=${keyword}&size=${size}&page=${page}`;
@@ -147,13 +161,41 @@ postRessource(url, data){
       })
   }
 
-  getProductImages(id){
+  getDecompresssedProductImages(id){
     return this.http.get( this.prodCatApiUrl+"/photos/"+id).toPromise()
       .then((res:any)=>{
         res.__proto__ = Photo;
         return res;
       })
   }
+
+  updateCategory(id, formData): Observable<Category> {
+    const url = this.prodCatApiUrl+"/category/"+`${id}`;
+      return this.http.put<Category>(url, formData);    }
+  
+  
+  updateCategoryName(id,updatedName): Observable <Boolean>{
+    const url = this.prodCatApiUrl+"/categoryName/"+`${id}`;
+    return this.http.patch<Boolean>(url,updatedName).pipe(
+      catchError(_ => of(null))
+    );
+  }
+
+  updateProduct(id, formData): Observable<Product> {
+    const url = this.prodCatApiUrl+"/updateProduct/"+`${id}`;
+      return this.http.patch<Product>(url, formData).pipe(
+        catchError(_=>of(null))
+      );
+  }
+  
+  
+  updateProductName(id,newName): Observable <Boolean>{
+    const url = this.prodCatApiUrl+"/productName/"+`${id}`;
+    return this.http.patch<Boolean>(url,newName).pipe(
+      catchError(_ => of(null))
+    );
+  }
+
 
   putRessource(url, data) {
     debugger
@@ -194,6 +236,89 @@ postRessource(url, data){
     return this.http.get<boolean>(url);
 
   }
+  getAllProductWithPhotos():Observable<Product[]>{
+    let productListWithoutPhotos:Product[]=[];
+    let products:Product[]=[];
+    
+ 
+    this.getProducts()
+      .then((result:AppResponse)=>{
+        debugger
+        productListWithoutPhotos = result.getData().products;
+       this.productListWithPhotos=this.addAndSanitizePhotosToListProduct(productListWithoutPhotos);
+       products = this.productListWithPhotos;
+       
+      },error1 => {
+        console.log(error1)
+      });
+      return of(products);
+  }
+    
 
+  addAndSanitizePhotosToListProduct(productsList:Product[]):Product[] {
+    let productPhotos: Photo[];
+    if(productsList.length!=0){
+      //recuperations des photos decompressées de chaque produit
+      productsList.map(product => {
+          this.getDecompresssedProductImages(product.id)
+            .then((res)=>{
+              productPhotos = res;
+              if(productPhotos.length !=0){
+                //on netoie les données(byte[]) des  photos
+                productPhotos  = this.getSanitizedPhoto(productPhotos);
+                debugger
+                product.photos = productPhotos;
+                   
+
+              }
+            });
+
+      });
+      
+      
+      
+
+    }
+    return productsList;
+  
+  }
+
+  decompressAndSanitizeOfListProductInOrdr(productsIOList:ProductInOrder[]):ProductInOrder[] {
+    let pioPhotos: Photo[];
+    if(productsIOList.length!=0){
+      //recuperations des photos decompressées de chaque produit
+      productsIOList.map(pio => {
+          this.getDecompresssedProductImages(pio.productId)
+            .then((res)=>{
+              pioPhotos = res;
+              if(pioPhotos.length !=0){
+                //on netoie les données(byte[]) des  photos
+                pioPhotos  = this.getSanitizedPhoto(pioPhotos);
+                debugger
+                pio.photos = pioPhotos;
+                   debugger
+
+              }
+            });
+
+      });
+      
+      
+      
+
+    }
+    return productsIOList;
+  
+  }
+
+  getSanitizedPhoto(productPhotos: Photo[]): Photo[] {
+    for(let i=0; i<productPhotos.length; i++){
+      productPhotos[i].img = 'data:image/jpeg;base64,'+productPhotos[i].img;
+      let objectURL = this.sanitizer.bypassSecurityTrustUrl(productPhotos[i].img);
+      productPhotos[i].img  = objectURL;
+
+    }
+  return productPhotos;
+  }
   
 }

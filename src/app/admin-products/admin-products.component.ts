@@ -136,7 +136,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
         continue;
       } else {
         isImage = false;
-        alert('format du fichier invalid! Choississez l"un dess formats suivant \n jpg,png,jpeg');
+        alert('format du fichier est invalid! Choisissez l"un dess formats suivant \n jpg,png,jpeg');
         break;
       }
       
@@ -152,7 +152,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
     //Gets called when the user clicks on submit to upload the image
     onUpload() {
-      debugger
       console.log(this.selectedFile);
       
       //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
@@ -163,7 +162,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       //Make a call to the Spring Boot Application to save the image
       this.catalogueService.uploadFile(uploadImageData)
         .subscribe((response) => {
-          debugger
           if(response.status === 200){
             this.message = 'Image a été chargé avec success';
             this.toastService.success(this.message);
@@ -222,8 +220,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
           if(response.status === 200){
             this.message = 'Image a été chargé avec success';
             this.toastService.success(this.message);
-            this.alertService.success(this.message,true
-              );
           }else {
             this.message = 'Image non chargé avec success';
           }
@@ -281,7 +277,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
           this.toastService.success('', 'Votre produit a été enregistré avec success');
           this.message = 'Votre produit a été enregistré avec succes';
           //on recupèrere la liste des photos du produit qu'on vient d'enregistrer
-          this.catalogueService.getProductImages(this.savedProduct.id)
+          this.catalogueService.getDecompresssedProductImages(this.savedProduct.id)
             .then((res)=>{
               debugger
               this.photos = res;
@@ -369,6 +365,15 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     //console.log(data);
   }
  
+  deleteProduct(p:Product) {
+    console.log("delete product");
+
+  }
+
+  updateProduct(){
+    console.log("update product");
+
+  }
 }
 
 

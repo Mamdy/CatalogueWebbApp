@@ -1,4 +1,5 @@
 import { Category } from "./Category";
+import { Photo } from "./Photo";
 
 export class Product {
   id: string;
@@ -14,6 +15,7 @@ export class Product {
   price: number;
   currentPrice:number;
   photoUrl: string[];
+  photos: Photo[];
   active: boolean;
   views: number;
   category: Category;

@@ -1,4 +1,5 @@
 
+import { Photo } from './Photo';
 import { Product } from './Product';
 
 export class ProductInOrder {
@@ -10,6 +11,7 @@ export class ProductInOrder {
     productDescription: String;
     productIcon: String;
     categoryType: number;
+    photos: Photo[];
     count: number;
 
     constructor(productInfo:Product, quantity = 1){
@@ -21,6 +23,7 @@ export class ProductInOrder {
         this.productDescription = productInfo.description;;
         this.productIcon = productInfo.photoUrl[0];
         //this.categoryType = productInfo.category;
+        this.photos = productInfo.photos;
         this.count = quantity;
     }
 }

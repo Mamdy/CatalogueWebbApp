@@ -3,8 +3,8 @@
     
         <!--Tableau de Detail du panier-->
            
-        <div class="flex-container">
-            <mat-card>
+        <div  *ngIf="productInOrders?.length > 0; else empty" class="flex-container">
+            <mat-card >
                 <table class="table table-striped text-center table-data">
                     <thead>
                     <tr *ngIf="productInOrders?.length > 0;" >
@@ -18,13 +18,15 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let productInOrder of productInOrders">
-                        <th class="align-middle" scope="row">
-                                <a (click)="detailsProduct(productInOrder)">
-                                <img height="90" width="90"
-                                 src="../assets/images/{{productInOrder.productIcon}}.jpg"
-                                 alt="{{productInOrder.productName}}">
-                            </a>
-                        </th>
+                       
+                        <td class="align-midle">
+                            <img width="90" height="90"
+                            [src]="productInOrder?.photos[0].img.changingThisBreaksApplicationSecurity"
+
+                            alt="{{productInOrder?.photos[0].name}}"
+                            >
+
+                        </td>
                         <td class="align-middle">
                             <a 
                              style="color: rgb(0, 195, 255); cursor: pointer;"
@@ -63,17 +65,15 @@
                 </table>
         
             </mat-card>
-            <ng-template #empty>
-                <h4 class="text-muted text-center alert alert-info">Votre panier est vide ! rajoutez-y des produits :)</h4>
-            </ng-template>
+           
         
-            <div *ngIf="productInOrders?.length > 0; else empty" class="total-price">
+            <div *ngIf="productInOrders?.length > 0;" class="total-price">
                 
                     <h5 style="display: inline;"><strong>TOTAL: <span style="color: red; font-size: 16px;">{{total | number : '0.2'}}&euro;</span></strong> </h5>
                     <button (click)="checkout()" class="btn  float-right">VALIDER MON PANIER</button><br>
 
             <!-- btn btn-lg btn-block connex-btn -->
-            <a  class="btn btn-link goback" routerLink="/home">
+                 <a  class="btn btn-link goback" routerLink="/home">
                 <span style="
                   color: white; font-size: 18px;
                   font-family: 'Raleway';
@@ -82,16 +82,27 @@
                   >
                  < CONTINUER MES ACHATS
                </span>
-              </a><br><br>
+                </a><br><br>
             <br><a routerLink="/home" class="btn-link float-left goback2">
                     <span id="" style="color: rgb(0, 174, 255); font-size: 14px;">
                         < CONTINUER MES ACHATS
                     </span>
                 </a>
             </div>
+            <div class="align-middle">
+                
+            </div>
+            
+            
 
         </div>
-       
+        <ng-template #empty>
+            <h1 class="text-muted text-center alert alert-info">
+                Votre panier est vide ! rajoutez-y des produits :)
+            </h1>
+    </ng-template>
+      
+      
 <app-footer></app-footer>
 
 

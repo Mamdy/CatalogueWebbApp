@@ -10,6 +10,7 @@ import { tap, catchError, first, map } from 'rxjs/operators';
 import { Client } from '../model/Client';
 import { Cart } from '../model/Cart';
 import { Order } from '../model/Order';
+import { CatalogueService } from './catalogue.service';
 
 
 @Injectable({
@@ -42,6 +43,7 @@ export class CartService {
 
   constructor(private http: HttpClient,
               private authSerice: AuthenticationService,
+              private catalogueService: CatalogueService
               )
              {
         this.itemsSubject = new BehaviorSubject<Item[]>(null);
@@ -85,7 +87,7 @@ export class CartService {
     }
 
   getCart(): Observable<ProductInOrder[]> {
-      
+        let listProductInOrder:ProductInOrder[];
         const localCartProductsInOrder = this.getLocalCart();
         if (this.currentUser) {
             let client = new Client(
@@ -101,20 +103,22 @@ export class CartService {
                 this.currentUser.user.role,
                 );
             if (localCartProductsInOrder.length > 0) {
+                debugger
+                listProductInOrder = this.parsePhotosInProductisInOrders(localCartProductsInOrder)
                 return this.http.post<Cart>(this.prodCatcartUrl,{
                     'client':client,
-                    'localCartProductsInOrder':localCartProductsInOrder}).pipe(
+                    'localCartProductsInOrder':listProductInOrder}).pipe(
                         tap(_ => {
                             this.clearLocalCart();
                         }),
-                        map((cart:Cart)=> cart.productsInOrder),
+                        map((cart:Cart)=> this.catalogueService.decompressAndSanitizeOfListProductInOrdr(cart.productsInOrder)),
                         catchError(_ => of([])));  
             
             } else {
                 const url = `${this.prodCatcartUrl}`;
 
                 return this.http.get<Cart>(url).pipe(
-                    map((cart:Cart)=>cart.productsInOrder),
+                    map((cart:Cart)=>this.catalogueService.decompressAndSanitizeOfListProductInOrdr(cart.productsInOrder)),
                     catchError(_ => of([]))
                 );
             }
@@ -122,6 +126,18 @@ export class CartService {
             return of(localCartProductsInOrder);
         }
                
+    }
+
+    parsePhotosInProductisInOrders(listProductInOrder:ProductInOrder[]): ProductInOrder[]{
+        listProductInOrder.map(productInOrder=>{
+            this.catalogueService.getDecompresssedProductImages(productInOrder.productId)
+                .then((res)=>{
+                    productInOrder.photos = res;
+                })
+
+        })
+        return listProductInOrder;
+
     }
 
   clearLocalCart() {

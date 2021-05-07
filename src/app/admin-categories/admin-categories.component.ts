@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { prodCatApiUrl } from 'src/environments/environment';
 import {AppResponse} from '../model/AppResponse';
 import {Category} from '../model/Category';
@@ -12,13 +13,15 @@ import { CatalogueService } from '../services/catalogue.service';
 })
 export class AdminCategoriesComponent implements OnInit {
   prodCatApiUrl = `${prodCatApiUrl}`;
-categories:Category[]=[];
-//par defaut mode='list'
-mode='list';
-currentCategory;
+  categories:Category[]=[];
+  //par defaut mode='list'
+  mode='list';
+  currentCategory:Category;
+ 
 
 
   constructor(private catalogueService: CatalogueService,
+    private toastService: ToastrService,
     public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -54,6 +57,8 @@ currentCategory;
         .subscribe(data=>{
           this.mode='list';
           //on recharge et reactualise les donnée de la page
+          this.toastService.success('Categorie supprimé avec Success:', '\n la suppression de la categorie' +
+          cat.name + ' est éffectuée avec success',{positionClass: 'toast-top-center', timeOut: 5000});
         this.onGetAllCategories();
   
         }, error1 => {
@@ -86,22 +91,14 @@ currentCategory;
   }
 
   onEditCategory(cat) {
-    this.catalogueService.getRessources(cat._links.self.href)
-      .subscribe(data=>{
-        this.currentCategory = data;
-        this.mode='edit-category';
-        
-      },error1 => {
-        
-      })
-    
+    this.mode='edit-category';
+    this.currentCategory = cat;
+  
   }
 
-  onUpdateCat(data) {
-    debugger
-    this.catalogueService.putRessource(this.currentCategory._links.self.href,data)
-      .subscribe(data=>{
-        debugger
+  onUpdateCat(formData) {
+    this.catalogueService.updateCategoryName(this.currentCategory.id,formData)
+      .subscribe(res=>{
         this.mode='list';
         //si le post se passe bien, on recharge la page des données
         this.onGetAllCategories();
@@ -110,7 +107,6 @@ currentCategory;
         //si non
         console.log(error1)
       })
-    console.log(data);
   }
 
 }

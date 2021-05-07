@@ -16,12 +16,17 @@
                 <div class="row">
                       <div *ngFor="let p of listProducts" class="col-lg-4 col-md-6 mb-4">
                           <div class="card h-100">
-                            <a style="cursor: pointer;" (click)="detailsProduct(p)"><img class="card-img-top" src="../assets/images/A701.png"  alt="{{p.photoUrl[0]}}"></a>
-                            
+                            <a style="cursor: pointer;" (click)="detailsProduct(p)">
+                              <!-- <img class="card-img-top" src="../assets/images/A701.png"  alt="{{p.photoUrl[0]}}">-->
+                              <img  class="card-img-top" 
+                                  [src]="p?.photos[0].img" alt="photoUrl"
+                              >
+                            </a> 
                             <div class="card-body">
                               <h4 class="card-title" align="center">
                                 
-                                <a style="color: rgb(0, 162, 255); cursor: pointer;font-size: 18px; font-family: 'Raleway';"  (click)="detailsProduct(p)">{{p.name}}</a>
+                                <a style="color: rgb(0, 162, 255); cursor: pointer;font-size: 18px; font-family: 'Raleway';"
+                                 (click)="detailsProduct(p)">{{p.name}}</a>
                               </h4>
                               <span style="font-size: 17px;"><s>{{p.price | number: '0.2'}}</s>&euro;</span> &nbsp;
                               <span style="color: rgb(253, 60, 60); font-size: 30px; font-weight: bold;">{{p.currentPrice | number: '0.2'}}&euro;</span>

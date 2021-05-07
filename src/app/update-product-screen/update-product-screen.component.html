@@ -1,0 +1,207 @@
+      <div class="container">
+        <div class="col col-md-12">
+            <div class="panel panel-primary">
+      
+              <div class="panel-heading style">Mise à jour du produit</div>
+              <div class="panel-body">
+      
+                <form  [formGroup]="updateProductForm" (ngSubmit)="updateProduct()" class="form-horizontal">
+                  <div class="form-group">
+                    <label class="control-label col-md-4" >Name</label>
+                    <div class="col-md-8">
+                      <input type="text"
+                        formControlName="name" 
+                        [(ngModel)]="data.name"
+                        class="form-control"
+                        [ngClass]=" {'is-invalid':submitted && f.name.errors}"
+                        placeholder="Nom du Produit"
+                        style="height: 50px;"
+                        ngModel>
+                      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                        <div *ngIf="f.name.errors.required">Le Nom du produit est obligatoire</div>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <div class="form-group">
+                    <label class="control-label col-md-4" >Marque</label>
+                    <div class="col-md-8">
+                      <input type="text"
+                            [(ngModel)]="data.brand"
+                            formControlName="brand"
+                             class="form-control" [ngClass]=" {'is-invalid':submitted && f.brand.errors}"
+                             placeholder="Marque du produit"
+                             style="height: 50px;"
+                             ngModel>
+                      <div *ngIf="submitted && f.brand.errors" class="invalid-feedback">
+                        <div *ngIf="f.brand.errors.required">La marque du produit est obligatoire</div>
+                      </div>
+                   </div>
+                  </div>
+      
+                  <div class="form-group">
+                  <label class="control-label col-md-4" >Description</label>
+                  <div class="col-md-8">
+                    <textarea 
+                        class="form-control"
+                        [(ngModel)]="data.description"
+                        formControlName="description"
+                        [ngClass]=" {'is-invalid':submitted && f.description.errors}" rows="4" ngModel>
+                      </textarea>
+                    <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                      <div *ngIf="f.description.errors.required">La description du produit est obligatoire</div>
+                    </div>
+      
+                  </div>
+      
+                </div>
+      
+                  <div class="form-group">
+                    <label class="control-label col-md-4" >Prix Unitaire</label>
+                    <div class="col-md-8">
+                      <input type="number" 
+                          formControlName="price" 
+                          [(ngModel)]="data.price"
+                          class="form-control"
+                          [ngClass]=" {'is-invalid':submitted && f.price.errors}"
+                          placeholder="Prix"
+                          min="1"
+                          style="width: 90px; height: 30px;"
+                          maxlength="5"
+                          ngModel
+                      >
+      
+                      <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                        <div *ngIf="f.price.errors.required">La champ prix est obligatoire</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-md-4" >stock</label>
+                    <div class="col-md-8">
+                      <input type="number"
+                        min="1"
+                        formControlName="stock" 
+                        [(ngModel)]="data.productStock"
+                        class="form-control"
+                        [ngClass]=" {'is-invalid':submitted && f.quantity.errors}"
+                        placeholder="stock"
+                        style="width: 70px; height: 30px;"
+                        maxlength="2"
+                        ngModel
+      
+                      >
+      
+                      <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+                        <div *ngIf="f.quantity.errors.required">La champ quantite est obligatoire</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-6">
+                      <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+                        <span>{{ progressInfo.fileName }}</span>
+                        <div class="progress">
+                          <div
+                            class="progress-bar progress-bar-info progress-bar-striped"
+                            role="progressbar"
+                            attr.aria-valuenow="{{ progressInfo.percentage }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            [ngStyle]="{ width: progressInfo.percentage + '%' }"
+                          >
+                            {{ progressInfo.percentage }}%
+                          </div>
+                        </div>
+                      </div>
+                      <div >
+                        <label><span style="color: red; font-family: 'proxima-nova';"> Selectionnez les 4 photos du produit</span> </label>
+                        <input type="file"
+                          accept="image/*" multiple
+                          (change)="selectFiles($event)"
+                          formControlName="photo" 
+                          class="form-control"
+                          [ngClass]=" {'is-invalid':submitted && f.photo.errors}"
+                          ngModel
+                          >
+                      </div>
+                      
+                      <div>
+                        <div class="alert alert-light" role="alert">{{ message }}</div>
+                      </div>
+                     <div *ngIf="submitted && f.photo.errors" class="invalid-feedback">
+                        <div *ngIf="f.photo.errors.required">La champ quantite est obligatoire</div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label class="control-label col-md-4" >Category </label>
+                    <div class="col-md-8">
+                      <select class="form-control"
+                       formControlName="category" [ngClass]=" {'is-invalid':submitted && f.category.errors}" ngModel>
+                        <option id="category" 
+                        [ngValue]="category.name"
+                         *ngFor="let category of categories">{{category.name}}
+                        </option>
+                      </select>
+      
+                      <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                        <div *ngIf="f.category.errors.required">La champ category est obligatoire</div>
+                      </div>
+                    </div>
+      
+                  </div>
+      
+                  <div class="form-group">
+      
+                        <button class="btn butn-left">
+                          <span style="color: white;font-weight: bold;
+                           font-size: 18px;
+                           font-family: 'Raleway';">Mettre à jour</span></button>
+                         <a (click)="cancel()"
+                        class="btn-link float-right btnCancel-link">
+                         <span style="color: white;font-weight: bold; font-family: 'Raleway'; font-size: 18px;">Annuler</span>
+                        </a> 
+                        <!-- <button [disabled]="loading" class="btn btnCancel-link" (click)="cancel()">Annuler</button> -->
+                    
+                      <!--Champ Cachés HIDDEN-fields for product-->
+                      <!--<input type="hidden" name="id" value="{{currentProduct.id}}"/> {{currentProduct.id}}-->
+                      <!--<input name="code" type="hidden" value="{{currentProduct.code}}"/> {{currentProduct.code}}
+                      <input type="hidden" name="supplierId" value="{{currentProduct.supplierId}}"/> {{currentProduct.supplierId}}
+      
+                      <input type="hidden" name="purchases" value="{{currentProduct.purchases}}"/> {{currentProduct.purchases}}
+                      <input type="hidden" name="views" value="{{currentProduct.views}}"/> {{currentProduct.views}}-->
+                  </div>
+                  
+                </form>
+          </div>
+        </div>
+        </div>
+        <!-- <div class="row">
+          <div class="col-md-23">
+            <div class="col-lg-22">
+              <div class="card">
+                <div class="card-header" style="padding: 10px 25px;">
+                  <span style="color:rgb(77, 170, 252); font-size: large;">Liste des photos du produit</span> 
+                </div>
+                <ul
+                  class="list-group list-group-flush"
+                  *ngFor="let retrievedImage of retrievedImages"
+                >
+                  <li class="list-group-item">
+                    
+                    <img [src]="retrievedImage" alt="photo">
+                  </li>
+                </ul>
+              </div>
+            </div>
+              
+          </div>
+        </div> -->
+        <br>
+        <br>
+        <br>
+      </div>
+  
+  

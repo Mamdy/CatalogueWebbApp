@@ -90,7 +90,6 @@ export class UserService {
 
 update(id, formData): Observable<User> {
   const url = this.apiUrl+"/profile/"+`${id}`;
-  debugger
     return this.http.put<User>(url, formData);    }
 
 get(email: string): Observable<User> {

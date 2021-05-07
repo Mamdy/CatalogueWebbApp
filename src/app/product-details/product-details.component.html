@@ -3,22 +3,22 @@
 <div class="spacer">
     <div class="route-link">
       <ul class="inline container">
-        <li> <a class="btn-link" routerLink="/home"><span  class="txt" style="color: red; font-size: 18px;">Acceuil&nbsp;&nbsp; ></span></a> 
+        <li> <a class="btn-link" routerLink="/home"><span  class="txt" style="color: black; font-size: 18px; text-decoration: none;">Acceuil&nbsp;&nbsp; ></span></a> 
           </li>
         <li>
           <a class="btn-link"
           (click)="displayCategoryProducts(currentProductCategory)">
-          <span class="txt" style="color: red; font-size: 18px;">{{currentProductCategory?.name}}&nbsp;&nbsp; ></span></a></li>
-        <li> <a ><span style="color: red; font-size: 18px;">{{currentProduct?.name}}</span></a></li>
+          <span class="txt" style="color: black; font-size: 18px;">{{currentProductCategory?.name}}&nbsp;&nbsp; ></span></a></li>
+        <li> <a ><span style="color:black; font-size: 18px;">{{currentProduct?.name}}</span></a></li>
       </ul>
     </div>
     <div class="first-colonne">
       <ul class="col col-md-1" *ngIf="currentProduct.photoUrl">
         <br>
-      <li *ngFor="let photo of currentProduct.photoUrl"
+      <li *ngFor="let photo of currentProduct.photos"
       class="list-group"
       >
-      <img height="3%" class="card-img-top" src="../assets/images/{{photo}}.jpg" alt="alt-img"><br><br>
+      <img height="3%" class="card-img-top" [src]="photo.img" alt="alt-img"><br><br>
       </li>
       </ul>
     </div>
@@ -35,10 +35,10 @@
           </strong>
           </h1>
           <div class="card mb-4">
-            <ngb-carousel *ngIf="currentProduct.photoUrl">
-                <ng-template ngbSlide *ngFor="let photo of currentProduct.photoUrl; let i = index ">
+            <ngb-carousel *ngIf="currentProduct.photos">
+                <ng-template ngbSlide *ngFor="let photo of currentProduct.photos; let i = index ">
                 <div class="style">
-                  <img src="../assets/images/{{photo}}.jpg" class="card-img-top" height="50%" alt="Random first slide">
+                  <img [src]="photo.img" class="card-img-top" height="50%" alt="Random first slide">
                 </div>
                 </ng-template>
             </ngb-carousel>

@@ -52,13 +52,16 @@
             <div class="form-group">
               <label class="control-label col-md-4" >Prix Unitaire</label>
               <div class="col-md-8">
-                <input type="number" formControlName="price"  class="form-control"
+                <input type="number" 
+                    formControlName="price" 
+                    class="form-control"
                        [ngClass]=" {'is-invalid':submitted && f.price.errors}"
                        placeholder="Prix"
                        min="1"
                        style="width: 90px; height: 30px;"
                        maxlength="5"
-                       ngModel>
+                       ngModel
+                >
 
                 <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
                   <div *ngIf="f.price.errors.required">La champ prix est obligatoire</div>
@@ -69,7 +72,7 @@
               <label class="control-label col-md-4" >stock</label>
               <div class="col-md-8">
                 <input type="number"
-                min="1"
+                  min="1"
                   formControlName="quantity" 
                   class="form-control"
                   [ngClass]=" {'is-invalid':submitted && f.quantity.errors}"
@@ -105,22 +108,20 @@
                 <div >
                   <label><span style="color: red; font-family: 'proxima-nova';"> Selectionnez les 4 photos du produit</span> </label>
                   <input type="file"
-                  accept="image/*" multiple
-                  (change)="selectFiles($event)"
-                  formControlName="photo" 
-
-                  class="form-control"
-                  [ngClass]=" {'is-invalid':submitted && f.quantity.errors}"
-                  ngModel
-
+                    accept="image/*" multiple
+                    (change)="selectFiles($event)"
+                    formControlName="photo" 
+                    class="form-control"
+                    [ngClass]=" {'is-invalid':submitted && f.photo.errors}"
+                    ngModel
                   >
                 </div>
                 
                 <div>
                   <div class="alert alert-light" role="alert">{{ message }}</div>
                 </div>
-               <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
-                  <div *ngIf="f.quantity.errors.required">La champ quantite est obligatoire</div>
+               <div *ngIf="submitted && f.photo.errors" class="invalid-feedback">
+                  <div *ngIf="f.photo.errors.required">La champ quantite est obligatoire</div>
                 </div>
               </div>
             </div>
@@ -129,7 +130,7 @@
               <label class="control-label col-md-4" >Category </label>
               <div class="col-md-8">
                 <select class="form-control" formControlName="category" [ngClass]=" {'is-invalid':submitted && f.category.errors}" ngModel>
-                  <option id="category" [ngValue]="category.name" *ngFor="let category of categories">{{category.name}}
+                  <option id="category" [ngValue]="category.name" *ngFor="let category of categories"><span style="font-size: 50px;">{{category.name}}</span>
                   </option>
                 </select>
 
@@ -171,7 +172,8 @@
           >
             <li class="list-group-item">
               
-              <img [src]="retrievedImage" alt="photo">
+              <img  height="5%" 
+              [src]="retrievedImage" alt="photo">
             </li>
           </ul>
         </div>

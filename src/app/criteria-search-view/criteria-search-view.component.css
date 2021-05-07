@@ -9,3 +9,6 @@
     cursor: pointer;
     margin-bottom: 0.5em;
 }
+.alert {
+    width: 100%;
+}

@@ -1,12 +1,19 @@
 <div class="container style">
-  <div  *ngIf="mode=='showAllProducts'">
+  <div  *ngIf="products?.length >0; else empty">
     <div class="col-md-12">
       <div>
         <ul class="inline container">
-          <li> <a class="btn-link" routerLink="/home"><span  class="txt" style="color: red; font-size: 18px;">Acceuil&nbsp;&nbsp; ></span></a> 
+          <li> <a class="btn-link" routerLink="/home">
+            <span 
+                class="txt"
+                style="font-size: 18px;">
+              Acceuil&nbsp;&nbsp; >
+            </span></a> 
             </li>
             
-          <li> <a ><span style="color: red; font-size: 18px;">{{productsCategoryName}}</span></a></li>
+          <li> <a >
+            <span style="font-size: 18px;">
+              {{productsCategoryName}}</span></a></li>
         </ul>
         <span style="font-size: 40px; font-family: 'Raleway'; font-weight: bold;">Les {{productsCategoryName}} </span>
       </div>
@@ -16,7 +23,13 @@
         <div *ngFor="let productInfo of products" class="col-lg-4 col-md-4">
          
           <div class="card h-100"  >
-            <a  style="cursor: pointer;" (click)="detailsProduct(productInfo)"><img class="card-img-top" src="../assets/images/{{productInfo.photoUrl[0]}}.jpg" width="40%" height="40%" alt="{{productInfo.name}}"></a>
+            <a  style="cursor: pointer;" (click)="detailsProduct(productInfo)">
+              <!-- src="../assets/images/{{productInfo.photoUrl[0]}}.jpg" -->
+              <img class="card-img-top"
+              
+              [src]="productInfo.photos[0].img"
+              width="40%" height="40%"
+               alt="{{productInfo.name}}"></a>
             <div class="card-body">
               <h4 class="card-title" align="text-center">
                 <span style="color: rgb(0, 162, 255); font-family: 'proxima-nova';">{{productInfo.name}}<Strong></Strong></span>
@@ -57,6 +70,10 @@
     
 
   </div>
+  <ng-template #empty>
+    <h1 class="text-muted text-center alert alert-info">
+      <span style="color: black;">Aucun de produit trouvé pour cette categrie ! </span> </h1>
+</ng-template>
 
 </div>
 

@@ -105,6 +105,7 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
   }
 
   addCurrentProductToCart(){
+    debugger
     this.cartService.addItem(new ProductInOrder(this.currentProduct,this.count))
                     .subscribe(res => {
                           if(!res){

@@ -43,13 +43,15 @@ export class CartComponent implements OnInit,OnDestroy, AfterContentChecked {
               private catalogueService: CatalogueService)
           {
 
-  this.userSubscription = this.authService.currentUser.subscribe( user=>this.currentUser = user);
+  this.userSubscription = this.authService.currentUser.subscribe
+  ( user=>this.currentUser = user);
   }
 
   ngOnInit() {
     this.cartService.getCart().subscribe(prods => {
+      debugger
         this.productInOrders = prods;
-      
+        // this.catalogueService.de
           this.nbProductInCart =  this.countProductsInCart();
       },error =>{
         console.log(error)

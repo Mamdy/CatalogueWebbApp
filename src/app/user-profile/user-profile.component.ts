@@ -32,6 +32,7 @@ user:User;
 currentUser: JwtResponse;
 currentUserSubscription: Subscription;
 profileForm: FormGroup;
+isActive = true;
 
 
 ngOnInit() {

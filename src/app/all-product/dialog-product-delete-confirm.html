@@ -1,0 +1,20 @@
+<button type="button" class="close" aria-label="Close"
+(click)="onNoClick()"
+
+>
+  <span aria-hidden="true">&times;</span>
+</button>
+
+<h1 mat-dialog-title>Bonjour Alpha Mamoudou,</h1>
+<div mat-dialog-content>
+  <h4>Voulez-vous vraiment supprimer le produit <span style="font-weight: bold; font-size: 16px;">{{data.name}} </span> ?</h4><br>
+</div>
+<hr>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()"
+  class="btn-non">Annuler</button>
+  <button mat-button
+  class=" btn btn-danger mat-ok float-right"
+  [mat-dialog-close]="true" 
+  cdkFocusInitial>Oui</button>
+</div>

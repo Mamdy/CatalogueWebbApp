@@ -70,13 +70,13 @@
                    <button mat-menu-item><a class="dropdown-item"  routerLink="/order"> 
                        
                      <img src="../../../assets/images/list-solid.svg" alt="list-order" width="20px" height="20px">&nbsp;
-                     <span style=" font-size: 16px;  color: rgb(24, 23, 23);  font-family: 'Raleway';"> Mes commandes</span>
+                     <span style=" font-size: 16px;  color: rgb(24, 23, 23);  font-family: 'Raleway';"> Liste des commandes</span>
                    </a></button>
                   
                    <button mat-menu-item> 
                      <a class="dropdown-item" routerLink="/login" (click)="logOut()">
                        <img src="../../../assets/images/sign-out-alt-solid.svg" alt="signout" width="20px" height="20px">&nbsp;
-                       <span  id="ADMIN_C" style="font-size: 16px; color: rgb(24, 23, 23);"> Se déconnecter</span>
+                       <span  id="ADMIN_C" style="font-size: 16px; color: rgb(24, 23, 23);"> Me déconnecter</span>
                      </a></button>
                  </mat-menu>
                 </div>
@@ -98,7 +98,7 @@
                      <div *ngIf="isAuthenticated() && !isAdmin()" class="myNormal-compte">
                       <button mat-button [matMenuTriggerFor]="menu"
                         class="btn btn-link myNormalcpte-btnlink"
-                      ><span  style="color: white; font-size: 18px;
+                      ><span  style="color: white; font-size: 20px;
                           font-family: 'Raleway'; font-weight: bold;">
                           {{name}}
                         </span>
@@ -109,7 +109,7 @@
                         <button mat-menu-item>   <a class="dropdown-item monCpte"  routerLink="/profile"> 
                                   
                           <img src="../../../assets/images/user-solid.svg" alt="list-order" width="20px" height="20px">&nbsp;
-                          <span  style="font-size: 17px;
+                          <span  style="font-size: 20px;
                           font-family: 'Raleway';
                           color:black;
           
@@ -119,7 +119,7 @@
                         <button mat-menu-item> <a class="dropdown-item monCpte"  routerLink="/order"> 
                                   
                           <img src="../../../assets/images/list-solid.svg" alt="list-order" width="20px" height="20px">&nbsp;
-                          <span  style="font-size: 17px;
+                          <span  style="font-size: 20px;
                           font-family: 'Raleway';
                           color:black;
           
@@ -132,10 +132,10 @@
                         <button mat-menu-item> 
                           <a class="dropdown-item monCpte" routerLink="/login" (click)="logOut()">
                           <img src="../../../assets/images/sign-out-alt-solid.svg" alt="signout" width="20px" height="20px">&nbsp;
-                          <span  style="font-size: 17px;
+                          <span  style="font-size: 20px;
                           font-family: 'Raleway';
                           color:black;
-                          "> Se déconnecter</span>
+                          "> Me déconnecter</span>
                           <hr>
                         </a></button>
                       </mat-menu>
