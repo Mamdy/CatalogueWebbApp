@@ -54,6 +54,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import {IvyCarouselModule} from 'angular-responsive-carousel';
 import {MatMenuModule} from '@angular/material/menu';
 import { UpdateProductScreenComponent } from './update-product-screen/update-product-screen.component';
+import { SaveProductDialog } from './admin-products/admin-products.component';
 
 @NgModule({
 
@@ -99,6 +100,7 @@ export class MaterialModule {}
     CgvComponent,
     ConfidentialiteComponent,
     DialogCategoryDeleteConfirm,
+    SaveProductDialog,
     CartDialogAddProduct,
     PaginationComponent,
     PaiementConfirmDialog,
@@ -135,7 +137,7 @@ export class MaterialModule {}
     //ReactiveForms
   ],
 
-  entryComponents: [NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,ProductDetailsComponent,CriteriaSearchViewComponent,DialogCategoryDeleteConfirm,CartDialogAddProduct,PaiementConfirmDialog,DialogProductDeleteConfirm,UpdateProductScreenComponent],
+  entryComponents: [NewAddressComponent,ShippingAddressComponent,OrderRecapComponent,ProductDetailsComponent,CriteriaSearchViewComponent,DialogCategoryDeleteConfirm,CartDialogAddProduct,PaiementConfirmDialog,SaveProductDialog,DialogProductDeleteConfirm,UpdateProductScreenComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

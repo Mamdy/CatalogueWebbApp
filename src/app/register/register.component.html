@@ -1,4 +1,6 @@
-<div class="container spacer">
+<div class="container spacer"
+  [class.mat-elevation-z8]="isActive"
+>
   <div class="row">
     <div class="col-12 col-md-8 offset-md-2">
       <h1 align="center"><span style="color: purple;
@@ -163,14 +165,15 @@
             <div class="form-group">
               <label>Code Postal:<span class="required">&nbsp;*</span></label>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;<label>Ville<span class="required">&nbsp;*</span></label>
+              <label>Ville<span class="required">&nbsp;*</span></label>
+              
             <div class="input-group">
               <div class="input-group-prepend">
                 <input 
                   type="text"
                   style="height:50px;"
                   width="15px"
-                  
+                  size="10"
                   formControlName="codePostal"
                   placeholder="Code Postale*"
                   [ngClass]="{ 'is-invalid': submitted && f.codePostal.errors }"

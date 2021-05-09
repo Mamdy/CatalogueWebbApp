@@ -2,12 +2,11 @@
       <div class="container"
           [class.mat-elevation-z8]="isActive">
            <div *ngIf="!passwordReset" class="col-md-8 dimension">
-            <div class="panel panel-default">
               <div *ngIf="isUsernameOrPasswordIncorrect" class="alert alert-danger">
                 <span>nom d'utilisateur ou mot de passe incorrecte</span>
               </div>
-             
-              
+              <div class="card">
+
                 <h1 align="center"><span style="font-size: 32px; color: purple;font-weight: bold;">Identifiez-Vous</span></h1> 
                 <form [formGroup]='loginForm' (ngSubmit)="onSubmit()"> 
                   <div class="float-left">
@@ -22,12 +21,12 @@
                       </div>
                       <input type="email"
                         formControlName="email"
-                        class="form-control form-control-lg"
+                        class="form-control"
                         id="email"
                         name="email"
                         placeholder="example@mail.com"
                         [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-                        style="height:60px;"
+                        style="height:55px;"
                       >
                     </div>
                     <div  *ngIf="f.email.invalid && (f.email.dirty ||f.email.touched)" >
@@ -61,7 +60,7 @@
                           'is-invalid': submitted && f.password.errors
                         }"
                         placeholder="Entrez votre mot de passe"
-                        style="height:60px;"
+                        style="height:55px;"
                        />
               
                         <div class="input-group-append">
@@ -126,8 +125,9 @@
                     <a routerLink="/register" class="btn-link"><span style="font-size: 16px;"> Créer mon compte</span></a>
                   </div>
                 </form>
+              </div>
+              
              
-            </div>
           </div>
        
           

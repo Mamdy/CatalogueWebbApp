@@ -9,12 +9,12 @@
           <div *ngIf="order?.products.length >1; else oneproduct">
             <div *ngFor="let product of order?.products">
               <span style="font-size: 13px; font-family: Arial, Helvetica, sans-serif;">{{product.productName}}...</span>&nbsp;
-              <span class="float-right" style="font-size: 13px;">{{product.productPrice| number: '0.2'}} &euro;</span>
+              <span  class="float-right" style="font-size: 13px;"><strong>{{product.count}} x</strong> &nbsp; {{product.productPrice| number: '0.2'}} &euro;</span>
             </div>
           </div>
           <ng-template #oneproduct>
             <span style="font-size: 13px; font-family: Arial, Helvetica, sans-serif;">{{order?.products[0].productName}}...</span>&nbsp;
-            <span  class="float-right" style="font-size: 13px;">{{order?.products[0].productPrice| number: '0.2'}} &euro;</span>
+            <span  class="float-right" style="font-size: 13px;"><strong>{{order?.products[0].count}} x</strong> &nbsp; {{order?.products[0].productPrice| number: '0.2'}} &euro;</span>
           </ng-template><br>
           <h5><strong>Livraisson:</strong><span class="float-right">5.95 &euro;</span> </h5> <br>
           <!-- <h5><strong>Prix:</strong> <span style="color: red;">{{order?.orderAmount| number: '0.2'}}&euro;</span> </h5><br> -->

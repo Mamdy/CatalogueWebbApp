@@ -11,6 +11,7 @@ import { Client } from '../model/Client';
 import { Cart } from '../model/Cart';
 import { Order } from '../model/Order';
 import { CatalogueService } from './catalogue.service';
+import { Photo } from '../model/Photo';
 
 
 @Injectable({
@@ -103,7 +104,7 @@ export class CartService {
                 this.currentUser.user.role,
                 );
             if (localCartProductsInOrder.length > 0) {
-                debugger
+
                 listProductInOrder = this.parsePhotosInProductisInOrders(localCartProductsInOrder)
                 return this.http.post<Cart>(this.prodCatcartUrl,{
                     'client':client,
@@ -130,14 +131,22 @@ export class CartService {
 
     parsePhotosInProductisInOrders(listProductInOrder:ProductInOrder[]): ProductInOrder[]{
         listProductInOrder.map(productInOrder=>{
-            this.catalogueService.getDecompresssedProductImages(productInOrder.productId)
-                .then((res)=>{
-                    productInOrder.photos = res;
-                })
-
+            productInOrder.photos = this.parsePhotos(productInOrder.photos)
+            
+            
         })
         return listProductInOrder;
 
+    }
+
+    private parsePhotos(photos:Photo[]){
+        let temp:string='';
+        photos.forEach(photo=>{
+            temp = photo.img.changingThisBreaksApplicationSecurity;
+            const img = temp.substring(23);
+            photo.img = img;
+        })
+        return photos;
     }
 
   clearLocalCart() {
@@ -159,8 +168,6 @@ addItem(productInOrder): Observable<boolean> {
                 this.localMap[productInOrder.productCode].count += productInOrder.count;
             }
             this.localMap = JSON.parse(JSON.stringify(this.localMap));
-            console.log('localMap==>',+this.localMap);
-
             localStorage.setItem('cart', JSON.stringify(this.localMap));
             return of(true);
         } else {

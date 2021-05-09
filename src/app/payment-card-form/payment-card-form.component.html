@@ -20,7 +20,7 @@
             </div>
             <br><br>
             <button type="submit" class="btn btn-link continueBtn" [disabled]="!f.valid">
-              Payer la commande: <span>{{totalAmount | number: '0.2'}}&euro;</span>
+              <span style="font-size: 15px; font-weight: bold;">Payer la commande: {{totalAmount | number: '0.2'}}&euro;</span> 
               <div *ngIf="isSubmitted && isLoading" class="spinner">
                   <img src="../../assets/images/pre-loader2.gif" width="15%" height="15%" alt="Random first slide">
             

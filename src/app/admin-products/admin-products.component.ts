@@ -13,6 +13,7 @@ import { prodCatApiUrl } from 'src/environments/environment';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Photo } from '../model/Photo';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 declare var $;
 
 @Component({
@@ -58,6 +59,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
        private formBuilder: FormBuilder,
        private catalogueService:CatalogueService,
        private route:ActivatedRoute,
+       public dialog:MatDialog,
        private router: Router,
        private alertService: AlertService,
        private toastService:ToastrService) {
@@ -272,10 +274,9 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe(
         data=> {
-          debugger
+          
           this.savedProduct = data.body;
           this.toastService.success('', 'Votre produit a été enregistré avec success');
-          this.message = 'Votre produit a été enregistré avec succes';
           //on recupèrere la liste des photos du produit qu'on vient d'enregistrer
           this.catalogueService.getDecompresssedProductImages(this.savedProduct.id)
             .then((res)=>{
@@ -283,8 +284,21 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
               this.photos = res;
               this.getRealPhoto(this.photos);
             })
-       
-          this.router.navigate(['/adminProducts']);
+            const dialogRef = this.dialog.open(SaveProductDialog, {
+              width:'620px',
+              height: '240px',
+            });
+            dialogRef.afterClosed().subscribe(result=>{
+              if(result){
+                location.reload();
+                
+              }else {
+                this.router.navigateByUrl('/adminProducts');
+              }
+             
+            })
+
+         
         },error2 => {
           this.toastService.error('Erreur d"enregistrement', error2);
         this.loading = false;
@@ -347,23 +361,24 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
   }
 
-  onSaveProd(data) {
-    let url = this.prodCatApiUrl +"/products";
-    this.catalogueService.postRessource(url,data)
-      .subscribe(data=>{
-        this.mode='list';
-        //si le post se passe bien, on recharge la page des données
-        this.alertService.success('le Produit est enregistrer avec succes', true);
-        this.getProducts(url);
-        //on navigue vers la liste des produits
-        this.router.navigate(['/products']);
+  // onSaveProd(data) {
+  //   let url = this.prodCatApiUrl +"/products";
+  //   this.catalogueService.postRessource(url,data)
+  //     .subscribe(data=>{
+  //       this.mode='list';
+  //       //si le post se passe bien, on recharge la page des données
+  //       this.alertService.success('le Produit est enregistrer avec succes', true);
+  //       this.getProducts(url);
+        
+  //       //on navigue vers la liste des produits
+  //       this.router.navigate(['/products']);
 
-      },error1 => {
-        //si non
-        console.log(error1)
-      })
-    //console.log(data);
-  }
+  //     },error1 => {
+  //       //si non
+  //       console.log(error1)
+  //     })
+  //   //console.log(data);
+  // }
  
   deleteProduct(p:Product) {
     console.log("delete product");
@@ -376,4 +391,16 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   }
 }
 
+@Component({
+  selector: 'save-product-dialog',
+  templateUrl: 'save-product-dialog.html',
+})
+export class SaveProductDialog {
 
+  constructor(
+    public dialogRef: MatDialogRef<SaveProductDialog>,
+    private router: Router
+    ){
+  }
+
+}

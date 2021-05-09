@@ -266,7 +266,6 @@ postRessource(url, data){
               if(productPhotos.length !=0){
                 //on netoie les données(byte[]) des  photos
                 productPhotos  = this.getSanitizedPhoto(productPhotos);
-                debugger
                 product.photos = productPhotos;
                    
 
@@ -294,9 +293,8 @@ postRessource(url, data){
               if(pioPhotos.length !=0){
                 //on netoie les données(byte[]) des  photos
                 pioPhotos  = this.getSanitizedPhoto(pioPhotos);
-                debugger
                 pio.photos = pioPhotos;
-                   debugger
+                
 
               }
             });

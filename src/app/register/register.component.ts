@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   loading = false;
   submitted = false;
   fieldTextType: boolean;
+  isActive = true;
 
 
   constructor(

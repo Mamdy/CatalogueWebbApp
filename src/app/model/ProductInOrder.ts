@@ -18,6 +18,7 @@ export class ProductInOrder {
         this.productId = productInfo.id;
         this.productCode = productInfo.code
         this.productName = productInfo.name;
+        debugger
         this.productPrice = productInfo.currentPrice;
         this.productStock = productInfo.productStock;
         this.productDescription = productInfo.description;;
