@@ -1,3 +1,66 @@
-<p>
-  admin-users works!
-</p>
+<!---Liste de tous les produits-->
+<div class="container">
+  <div  class="col-xs-12 style">
+    <br>
+    <hr>
+    <table  class="row-border hover display" datatable [dtOptions]="dtOptions" [dtTrigger] = "dtTrigger">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>Adresse</th>
+        <th></th>
+        </tr>
+      </thead>
+      <tbody>
+  
+      <ng-container *ngFor="let p of dataTableListeProducts$; let index = index">
+        <tr *ngIf="dataTableListeProducts$">
+          <td><img [src]="p.photos[0].img"
+                   id="image_samsung" alt="telephone_samsung" title="telephone_samsung" class="dataTableImg img img-responsive"></td>
+          <td><span style="font-family: 'proxima-nova';">{{p?.name}}</span></td>
+          <td><span></span>{{p?.description}}</td>
+          <td><span style="color: red;">&euro;{{p?.price|number: '0.3'}}</span></td>
+          <td>
+              <div *ngIf="p.productStock < 1">
+                <h6><span style="color: red" >Article indisponible en Stock!!</span></h6>
+              </div>
+              <div *ngIf="p.productStock >=1">
+  
+                <span style="color: green; font-size: 16px; text-align: center;">{{p?.productStock}}</span>
+              </div>
+            </td>
+          <td >
+            <div>
+              <button class="btn btn-danger spacer" (click)="deleteProduct(p)">
+                <span>
+                  <i class="fas fa-trash-alt"></i>
+                </span>
+              </button>&#160;
+              <button class="btn btn-primary" (click)="updateProduct(p)">
+                <span>
+                  <i class="fas fa-edit"></i>
+                </span></button>
+            </div>
+          </td>
+    </tr>
+      </ng-container>
+  
+  
+      </tbody>
+      <tfoot>
+      <tr>
+        <th></th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Adresse</th>
+        <th></th>
+      </tr>
+      </tfoot>
+  
+    </table>
+  
+  </div>
+  
+</div>
