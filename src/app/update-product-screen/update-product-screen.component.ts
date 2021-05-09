@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AppResponse } from '../model/AppResponse';
 import { Category } from '../model/Category';
 import { Product } from '../model/Product';
@@ -22,6 +22,18 @@ export class UpdateProductScreenComponent implements OnInit {
   categories: Category[]=[];
   loading: boolean;
   updatedProduct: Product;
+
+   //On files
+  selectedFile: File;
+  message: string;
+  imageName: any;
+  
+  //Multiple files select
+  selectedFiles: FileList;
+  progressInfos = [];
+  fileInfos: Observable<any>;
+  fileNames = [];
+  
 
   constructor(
         @Inject(MAT_DIALOG_DATA
@@ -116,6 +128,60 @@ export class UpdateProductScreenComponent implements OnInit {
     this.router.navigate(['/adminProducts']);
   }
 
+  //seconde test
+  selectFiles(event): void {
+    this.progressInfos = [];
+  
+    const files = event.target.files;
+    let isImage = true;
+  
+    for (let i = 0; i < files.length; i++) {
+      if(files.length < 4 || files.length > 4){
+        alert('Vous devez enregister 4 photos du produit');
+        break;
+        
+      }
+
+      if (files.item(i).type.match('image.*')) {
+        continue;
+      } else {
+        isImage = false;
+        alert('format du fichier est invalid! Choisissez l"un dess formats suivant \n jpg,png,jpeg');
+        break;
+      }
+      
+    }
+    if (isImage) {
+      this.selectedFiles = event.target.files;
+    } else {
+      this.selectedFiles = undefined;
+      event.srcElement.percentage = null;
+    }
+  }
+
+   //Gets called when the user clicks on submit to upload the image
+   onUpload() {
+   
+    //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
+    const uploadImageData = new FormData();
+    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+    this.imageName = this.selectedFile.name;
+  
+    //Make a call to the Spring Boot Application to save the image
+    this.catalogueService.uploadFile(uploadImageData)
+      .subscribe((response) => {
+        if(response.status === 200){
+          this.message = 'Image a été chargé avec success';
+          this.toastService.success(this.message);
+    
+        }else {
+          this.message = 'Image non chargé avec success';
+        }
+      });
+    
+
+
+  }
 }
 
 
