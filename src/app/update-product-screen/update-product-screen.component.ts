@@ -67,6 +67,11 @@ export class UpdateProductScreenComponent implements OnInit {
     return this.categories;
   }
 
+  get f() {
+    return this.updateProductForm.controls;
+  }
+  
+
   updateProduct(){
     debugger
     console.log('updateProduct==>',this.updateProductForm.value);
